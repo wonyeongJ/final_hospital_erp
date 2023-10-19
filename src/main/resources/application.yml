@@ -1,0 +1,10 @@
+# spring:
+#   config:
+#     import: 
+#       - application-db.yml
+#       - application-dev.yml
+spring:
+  profiles:
+    include:
+      - db
+      - dev

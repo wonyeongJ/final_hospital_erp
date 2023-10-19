@@ -1,0 +1,66 @@
+spring:
+# 언어별(lang) 메세지 설정
+  messages:
+    cache-duration: '600'
+    encoding: UTF-8
+    basename: messages/message
+    use-code-as-default-message: 'true'
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
+    
+# view 파일(jsp) 관련 설정
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+    log-request-details: 'true'
+# multipart(file) 관련 설정
+  servlet:
+    multipart:
+      enabled: 'true'
+      max-file-size: 10MB
+      max-request-size: 50MB
+      
+# file 저장 경로 관련 설정
+app:
+  upload:
+    nodeValue: C:/GDJ68/upload/
+    mapping: file:///C:/GDJ68/upload/
+  board:
+    qna: qna
+    notice: notice
+  url:
+    path: /files/**
+    
+# log 관련 설정
+log4jdbc:
+  dump:
+    sql:
+      maxlinelength: '0'
+  spylogdelegator:
+    name: net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
+
+logging:
+  level:
+    jdbc:
+      audit: 'OFF             '
+      connection: 'OFF       '
+      resultset: 'OFF      '
+      resultsettable: 'INFO  '
+      sqlonly: 'OFF           '
+      nodeValue: 'OFF'
+      sqltiming: 'DEBUG      '
+    root: info
+    org:
+      springframework:
+        web: trace
+    com:
+      zaxxer:
+        hikari: 'OFF'
+    javax:
+      sql:
+        DataSource: INFO
+        
+# server 관련 설정
+server:
+  port: '82'
