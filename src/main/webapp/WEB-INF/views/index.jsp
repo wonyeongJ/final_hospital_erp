@@ -10,6 +10,8 @@
 
 </head>
 <body>
+<!-- topbar -->
+<c:import url="/WEB-INF/views/layout/preloader.jsp"></c:import>
 	<!-- Page Wrapper -->
     <div id="wrapper">
     
