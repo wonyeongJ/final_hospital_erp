@@ -2,6 +2,7 @@ package com.hospital.erp.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,5 +21,16 @@ public class MemberController {
 		  MemberVO mem = memberService.memberList(memberVO); 
 		  return mem; 
 		  }
+	  
+	  
+	  /*
+	   * From 서동휘
+	   * 멤버 로그인 메서드
+	   */
+	  @GetMapping("login")
+	  public void memberLogin(MemberVO memberVO) throws Exception{
+		  
+		  
+	  }
 	 
 }
