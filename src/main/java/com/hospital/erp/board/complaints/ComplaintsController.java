@@ -1,10 +1,10 @@
-package com.hospital.erp.club;
+package com.hospital.erp.board.complaints;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/club/*")
-public class ClubController {
+@RequestMapping("board/complaints/*")
+public class ComplaintsController {
 	
 }

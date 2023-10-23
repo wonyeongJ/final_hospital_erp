@@ -4,8 +4,8 @@
 <div class="left-side-bar">
 		<div class="brand-logo">
 			<a href="/">
-				<img src="vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
-				<img src="vendors/images/deskapp-logo-white.svg" alt="" class="light-logo">
+				<img src="/vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
+				<img src="/vendors/images/deskapp-logo-white.svg" alt="" class="light-logo">
 			</a>
 			<div class="close-sidebar" data-toggle="left-sidebar-close">
 				<i class="ion-close-round"></i>
@@ -71,7 +71,7 @@
 							<span class="micon dw dw-library"></span><span class="mtext">게시판</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="#">공지사항</a></li>
+							<li><a href="../notice/list">공지사항</a></li>
 							<li><a href="#">민원게시판</a></li>
 							<li><a href="#">사내동호회</a></li>
 						</ul>
