@@ -1,9 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%><%@ taglib prefix="c"
+	uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<!-- Basic Page Info -->
 	<meta charset="utf-8">
-	<title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
+	<title>MYPAGE</title>
 
 	<!-- Site favicon -->
 	<link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
@@ -34,7 +37,7 @@
 </head>
 <body>
 	<div>
-		<h1>MYPAGE</h5>
+		<h1>MYPAGE</h1>
 		<div style="display: flex; justify-content: flex-end; margin-right: 1%;">
 			<button type="button" class="btn btn-danger col-sm-1 col-md-1 mb-20">출근</button>
 		</div>
@@ -79,6 +82,49 @@
 			<button type="button" class="btn btn-primary ms-30" >비밀번호 변경</button>
 		</div>
 	</div>
+	<br>
+
+	<div class="row clearfix">
+		<div class="col-lg-6 col-md-12 col-sm-12 mb-30">
+			<div class="pd-20 card-box">
+				<h5 class="h4 text-blue mb-20" style="display: flex; float: left;">연차사용내역</h5>
+				<h5 class="h4 text-blue mb-20" style="display: flex; justify-content: flex-end;">남은연차 : 15</h5>
+				
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">사용날짜</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<th scope="row">1</th>
+						<td scope="row">2023-08-05</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-lg-6 col-md-12 col-sm-12 mb-30">
+			<div class="pd-20 card-box">
+				<h5 class="h4 text-blue mb-20" style="display: flex;">비품사용내역</h5>
+				
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<th scope="col">#</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<th scope="row">1</th>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 	
 	
 	<!-- js -->
@@ -94,27 +140,7 @@
 			var canvasData;
 			var cropper;
 
-			$('#modal').on('shown.bs.modal', function () {
-				cropper = new Cropper(image, {
-					autoCropArea: 0.5,
-					dragMode: 'move',
-					aspectRatio: 3 / 3,
-					restore: false,
-					guides: false,
-					center: false,
-					highlight: false,
-					cropBoxMovable: false,
-					cropBoxResizable: false,
-					toggleDragModeOnDblclick: false,
-					ready: function () {
-						cropper.setCropBoxData(cropBoxData).setCanvasData(canvasData);
-					}
-				});
-			}).on('hidden.bs.modal', function () {
-				cropBoxData = cropper.getCropBoxData();
-				canvasData = cropper.getCanvasData();
-				cropper.destroy();
-			});
+			
 		});
 	</script>
 </body>

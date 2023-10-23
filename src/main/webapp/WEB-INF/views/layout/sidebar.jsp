@@ -30,8 +30,8 @@
 							<span class="micon dw fi-torsos-all"></span><span class="mtext">직원관리</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="#">직원조회</a></li>
-							<li><a href="#">직원등록</a></li>
+							<li><a href="/member/list">직원조회</a></li>
+							<li><a href="/member/insert">직원등록</a></li>
 							<li><a href="#">퇴사자조회</a></li>
 						</ul>
 					</li>
