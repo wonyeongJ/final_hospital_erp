@@ -39,7 +39,7 @@
 			<button type="button" class="btn btn-danger col-sm-1 col-md-1 mb-20">출근</button>
 		</div>
 	</div>
-	<div class="col-lg-3 col-md-6 col-sm-12 mb-30" style="float:left;">
+	<div class="col-lg-2 col-md-6 col-sm-12 mb-30" style="float:left;">
 		<div class="da-card">
 			<div class="da-card-photo">
 				<img src="/vendors/images/photo1.jpg" alt="">
