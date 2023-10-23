@@ -72,7 +72,7 @@
 						</a>
 						<ul class="submenu">
 							<li><a href="/board/notice/list">공지사항</a></li>
-							<li><a href="#">민원게시판</a></li>
+							<li><a href="/board/complaints/list">민원게시판</a></li>
 							<li><a href="#">사내동호회</a></li>
 						</ul>
 					</li>

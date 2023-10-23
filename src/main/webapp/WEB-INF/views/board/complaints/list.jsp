@@ -7,7 +7,7 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix mb-20">
 							<div class="pull-left">
-								<h2 class="text-black h2 text-center">공지사항</h2>	
+								<h2 class="text-black h2 text-center">민원게시판</h2>	
 							</div>
 					</div>
 					<div>
@@ -40,102 +40,36 @@
 									<thead>
 										<tr>
 											<th scope="col">NO</th>
+											<th scope="col">민원종류</th>
 											<th scope="col">제목</th>
 											<th scope="col">작성자</th>
 											<th scope="col">작성날짜</th>
-											<th scope="col">조회수</th>
+											<th scope="col">조치여부</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<th scope="row">1</th>
-											<td>Mark</td>
-											<td>Otto</td>
-											<td>@mdo</td>
-											<td>0</td>
-										</tr>
-										<tr>
-											<th scope="row">2</th>
-											<td>Jacob</td>
-											<td>Thornton</td>
-											<td>@fat</td>
-											<td>0</td>
-										</tr>
-										<tr>
-											<th scope="row">3</th>
-											<td>Larry</td>
-											<td>the Bird</td>
-											<td>@twitter</td>
-											<td>0</td>
-										</tr>
-										<tr>
-											<th scope="row">1</th>
-											<td>Mark</td>
-											<td>Otto</td>
-											<td>@mdo</td>
-											<td>0</td>
-										</tr>
-										<tr>
-											<th scope="row">2</th>
-											<td>Jacob</td>
-											<td>Thornton</td>
-											<td>@fat</td>
-											<td>0</td>
-										</tr>
-										<tr>
-											<th scope="row">3</th>
-											<td>Larry</td>
-											<td>the Bird</td>
-											<td>@twitter</td>
-											<td>0</td>
-										</tr>
-										<tr>
-											<th scope="row">1</th>
-											<td>Mark</td>
-											<td>Otto</td>
-											<td>@mdo</td>
-											<td>0</td>
-										</tr>
-										<tr>
-											<th scope="row">2</th>
-											<td>Jacob</td>
-											<td>Thornton</td>
-											<td>@fat</td>
-											<td>0</td>
-										</tr>
-										<tr>
-											<th scope="row">3</th>
-											<td>Larry</td>
-											<td>the Bird</td>
-											<td>@twitter</td>
-											<td>0</td>
-										</tr>
-										<tr>
-											<th scope="row">1</th>
-											<td>Mark</td>
-											<td>Otto</td>
-											<td>@mdo</td>
-											<td>0</td>
-										</tr>
-										<tr>
-											<th scope="row">2</th>
-											<td>Jacob</td>
-											<td>Thornton</td>
-											<td>@fat</td>
-											<td>0</td>
-										</tr>
-										<tr>
-											<th scope="row">3</th>
-											<td>Larry</td>
-											<td>the Bird</td>
-											<td>@twitter</td>
-											<td>0</td>
+											<td>사내민원</td>
+											<td>너무힘들어요</td>
+											<td>김아무개</td>
+											<td>2023년3월2일</td>
+										 	<!--
+										  	From : 최경묵
+										 	SelectBox 인사과만 보여주게 바꿀예정 -->
+											<td> 
+												<select class="actionStatusSelect" data-notice-id="${notice.CODE_CD_ACTION}">
+									                <option value="0" ${notice.CODE_CD_ACTION == 0 ? 'selected' : ''}>미조치</option>
+									                <option value="1" ${notice.CODE_CD_ACTION == 1 ? 'selected' : ''}>조치중</option>
+									                <option value="2" ${notice.CODE_CD_ACTION == 2 ? 'selected' : ''}>조치완료</option>
+								            	</select>
+								            </td>
 										</tr>
 									</tbody>
 								</table>
 								
 								
-									  <!-- ... (페이징 및 검색 부분) ... -->
+									   <!-- ... (페이징 및 검색 부분) ... -->
 										  
 									  <nav aria-label="Page navigation example" class="text-center"> <!-- Add 'text-center' class here -->
 										<ul class="pagination justify-content-center"> <!-- Add 'justify-content-center' class here -->
