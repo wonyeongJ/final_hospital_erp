@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
     <div class="pre-loader">
 		<div class="pre-loader-box">
 			<div class="loader-logo"><img src="/vendors/images/deskapp-logo.svg" alt=""></div>

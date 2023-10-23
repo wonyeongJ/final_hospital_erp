@@ -16,7 +16,7 @@ public class IndexController {
 	public String getIndex(HttpSession session)throws Exception{
 
 		
-		return "/index";
+		return "index";
 	}
 	
 	
@@ -24,6 +24,6 @@ public class IndexController {
 	public String getTest()throws Exception{
 
 		
-		return "/layout/template";
+		return "notice/noticeIndexTest";
 	}
 }
