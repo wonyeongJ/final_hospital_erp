@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<div class="left-side-bar">
+    <!-- sidebar -->
+	<div class="left-side-bar">
 		<div class="brand-logo">
 			<a href="/">
 				<img src="vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
