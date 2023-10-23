@@ -28,8 +28,8 @@
     		<!-- topbar -->
     		<tiles:insertAttribute name="topbar"/>
     		
-    		<!-- rSidebar -->
-			<tiles:insertAttribute name="rSidebar"/>
+    		<%-- <!-- rSidebar -->
+			<tiles:insertAttribute name="rSidebar"/> --%>
 			
 			<!-- Begin Page Content -->
 	        	<div class="main-container">
