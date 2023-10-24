@@ -1,17 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!--<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.hospital.erp.member.MemberDAO">
-	<!-- 로그인 조회 쿼리문 -->
-	<select id="memberLogin" parameterType="MemberVO" resultType="MemberVO">
+	<select id="memberList" parameterType="MemberVO" resultType="MemberVO">
   		SELECT
   			*
   		FROM
   			MEMBER
-  		WHERE
-  			ID = #{memCd} AND
-  			PASSWORD = #{memPw}
   	</select>
-  	
-  	
-</mapper>
+</mapper>-->
