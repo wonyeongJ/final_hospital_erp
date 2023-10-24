@@ -10,23 +10,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ComplaintsController {
 	
 	@GetMapping("list")
-	public String complanintsList(Model model)throws Exception{
+	public String complaintsList(Model model)throws Exception{
 	return "board/complaints/list";
 	}
 	
 	@GetMapping("insert")
-	public String complaninstInsert(){
+	public String complainstInsert(){
 		return "board/complaints/insert";
 	}
 	
-	@GetMapping("detail")
-	public String complaninstDetail() {
-		return "board/complaninst/detail";
+	@GetMapping("data")
+	public String complainstData() {
+		return "board/complaints/data";
 
 	}
 	@GetMapping("update")
-	public String complaninstUpdate() {
-		return "board/complaninst/update";
+	public String complainstUpdate() {
+		return "board/complaints/update";
 
 	}
 }

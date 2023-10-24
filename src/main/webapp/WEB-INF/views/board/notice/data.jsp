@@ -8,14 +8,13 @@
 	<div class="container-fluid">
 	
 		<div class="row justify-content-center my-4">
-			<h1 class="col-md-7 text-center">공지사항 수정</h1>
+			<h1 class="col-md-7 text-center">공지사항 상세</h1>
 		</div>
 		
 		<div class="row justify-content-center my-4">
-			<form class="col-md-7" action="./update" method="post" id="frm" enctype="multipart/form-data">
+			<form class="col-md-7" action="./add" method="post" id="frm" enctype="multipart/form-data">
 			
-				
-				
+                
 	                
 	                <div class="form-check form-check-inline mb-3">
 					  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
@@ -49,7 +48,10 @@
 					<div id="fileList" class="my-5"></div>
 							
 					<div class="mb-3">
-						<button class="my btn btn-primary" type="submit" id="btn-update">수정완료</button>
+						<button class="my btn btn-primary" type="button"><a href="./update">글수정</a></button>
+					</div>
+					<div class="mb-3">
+						<button class="my btn btn-primary" type="submit" id="btn-delete">글삭제</button>
 					</div>
 			
 			</form>

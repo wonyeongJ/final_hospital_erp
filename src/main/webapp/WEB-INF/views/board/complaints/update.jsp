@@ -8,7 +8,7 @@
 	<div class="container-fluid">
 	
 		<div class="row justify-content-center my-4">
-			<h1 class="col-md-7 text-center">공지사항 수정</h1>
+			<h1 class="col-md-7 text-center">민원게시판 수정</h1>
 		</div>
 		
 		<div class="row justify-content-center my-4">
@@ -19,12 +19,23 @@
 	                
 	                <div class="form-check form-check-inline mb-3">
 					  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-					  <label class="form-check-label" for="inlineCheckbox1">중요공지여부</label>
+					  <label class="form-check-label" for="inlineCheckbox1">비밀글여부</label>
 					 </div>
 					  <div class="pull-right">
 							<span class="input-group-text">인사과: ${member.mem_name}</span>					  
 					  </div>
-					
+					  
+					  <!-- 해당 글의 민원종류로 Selected -->
+					 <div>
+					 	 <div>
+		                  <label for="code_cd">민원종류 선택 :</label>
+						    <select id="code_cd" name="code_cd">
+						        <option value="1001">환자민원</option>
+						        <option value="1002">시설민원</option>
+						        <option value="1003">사내민원</option>
+						    </select>
+						</div>
+					 </div>
                 
 					
 					<div class="mb-3">

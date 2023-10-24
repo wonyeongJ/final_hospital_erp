@@ -21,9 +21,9 @@ public class NoticeController {
 
 	}
 	
-	@GetMapping("detail")
-	public String noticeDetail() {
-		return "board/notice/detail";
+	@GetMapping("data")
+	public String noticeData() {
+		return "board/notice/data";
 
 	}
 	@GetMapping("update")

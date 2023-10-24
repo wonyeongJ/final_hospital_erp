@@ -4,24 +4,27 @@
 <link href="path_to_summernote/summernote.css" rel="stylesheet">
 <script src="path_to_summernote/summernote.js"></script>
 
-
 	<div class="container-fluid">
 	
 		<div class="row justify-content-center my-4">
-			<h1 class="col-md-7 text-center">공지사항 상세</h1>
+			<h1 class="col-md-7 text-center">민원게시판 상세</h1>
 		</div>
 		
 		<div class="row justify-content-center my-4">
-			<form class="col-md-7" action="./add" method="post" id="frm" enctype="multipart/form-data">
-			
-                
-	                
+				
+				<div class="container-fluid">	  
 	                <div class="form-check form-check-inline mb-3">
-					  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-					  <label class="form-check-label" for="inlineCheckbox1">중요공지여부</label>
+						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+						<label class="form-check-label" for="inlineCheckbox1">비밀글</label>
+					 </div>
+					 <div>
+					 	 <div>
+		                  <label for="code_cd">민원종류  : ${list.code_cd}</label>
+						  
+						</div>
 					 </div>
 					  <div class="pull-right">
-							<span class="input-group-text">인사과: ${member.mem_name}</span>					  
+							<span class="input-group-text">작성자 : ${member.mem_name}</span>					  
 					  </div>
 					
                 
@@ -48,16 +51,14 @@
 					<div id="fileList" class="my-5"></div>
 							
 					<div class="mb-3">
-						<button class="my btn btn-danger" type="button"><a href="./update">글수정</a></button>
+						<button class="my btn btn-primary" type="button"><a href="./update" style="color: white;">글수정</a></button>
 					</div>
 					<div class="mb-3">
-						<button class="my btn btn-danger" type="submit" id="btn-delete">글삭제</button>
+						<button class="my btn btn-primary" type="submit" id="btn-delete">글삭제</button>
 					</div>
-			
-			</form>
 		</div>
 	</div>
 
-
+</div>
 
 	
