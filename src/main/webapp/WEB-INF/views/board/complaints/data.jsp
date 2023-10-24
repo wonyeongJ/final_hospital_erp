@@ -49,7 +49,8 @@
 					
                
 					<div id="fileList" class="my-5"></div>
-							
+					
+					<!-- 글수정,삭제는 해당글을 작성한사람과 인사과만 버튼이 보여진다 -->	
 					<div class="mb-3">
 						<button class="my btn btn-primary" type="button"><a href="./update" style="color: white;">글수정</a></button>
 					</div>

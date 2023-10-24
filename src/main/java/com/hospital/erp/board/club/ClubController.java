@@ -21,7 +21,7 @@ public class ClubController {
 	
 	@GetMapping("data")
 	public String clubData() {
-		return "board/complaints/data";
+		return "board/club/data";
 
 	}
 	@GetMapping("update")
