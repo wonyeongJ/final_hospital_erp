@@ -1,10 +1,10 @@
-package com.hospital.erp.reservation;
+package com.hospital.erp.notice;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/reservation/*")
-public class ReservationController {
+@RequestMapping("/notice/*")
+public class NoticeController {
 	
 }
