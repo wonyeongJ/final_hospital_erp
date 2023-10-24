@@ -14,17 +14,6 @@
 		<div class="menu-block customscroll">
 			<div class="sidebar-menu icon-style-1 icon-list-style-6"">
 				<ul id="accordion-menu">
-				
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="#">Dashboard style 1</a></li>
-							<li><a href="#">Dashboard style 2</a></li>
-						</ul>
-					</li>
-					
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw fi-torsos-all"></span><span class="mtext">직원관리</span>
@@ -92,8 +81,8 @@
 							<span class="micon dw fi-page-export"></span><span class="mtext">전자결재</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="#">결재함</a></li>
-							<li><a href="#">전체결재문서</a></li>
+							<li><a href="/payment/list">내결재함</a></li>
+							<li><a href="/payment/allList">전체결재문서</a></li>
 						</ul>
 					</li>
 					
