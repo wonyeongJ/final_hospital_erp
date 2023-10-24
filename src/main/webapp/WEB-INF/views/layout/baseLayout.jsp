@@ -14,8 +14,8 @@
 </head>
 
 <body>
-	<!-- preloader -->
-	<tiles:insertAttribute name="preloader"/>
+	<%-- <!-- preloader -->
+	<tiles:insertAttribute name="preloader"/> --%>
 	
 	<!-- Page Wrapper -->
     <div id="wrapper">
@@ -28,8 +28,8 @@
     		<!-- topbar -->
     		<tiles:insertAttribute name="topbar"/>
     		
-    		<!-- rSidebar -->
-			<tiles:insertAttribute name="rSidebar"/>
+    		<%-- <!-- rSidebar -->
+			<tiles:insertAttribute name="rSidebar"/> --%>
 			
 			<!-- Begin Page Content -->
 	        	<div class="main-container">

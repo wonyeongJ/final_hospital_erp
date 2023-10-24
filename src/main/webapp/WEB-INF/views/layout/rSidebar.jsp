@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <!-- rSidebar -->
-	<div class="right-sidebar right-sidebar-visible">
+	<div class="right-sidebar right-sidebar">
 		<div class="sidebar-title">
 			<h3 class="weight-600 font-16 text-blue">
 				Layout Settings

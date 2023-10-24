@@ -2,6 +2,7 @@ package com.hospital.erp.board.notice;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -9,8 +10,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/board/notice/*")
 public class NoticeController {
 	
-	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public String getList(Model model)throws Exception{
+	@GetMapping("list")
+	public String noticeList(Model model)throws Exception{
 	return "board/notice/list";
 	}
+	
+	@GetMapping("insert")
+	public String noticeInsert() {
+		return "board/notice/insert";
+
+	}
+	
+	@GetMapping("data")
+	public String noticeData() {
+		return "board/notice/data";
+
+	}
+	@GetMapping("update")
+	public String noticeUpdate() {
+		return "board/notice/update";
+
+	}
+	
 }
