@@ -8,8 +8,7 @@
 </head>
 <body>
 	<h1>접수관리</h1>
-	<h3> 환자상세</h3>
-
+	<br>
 		<div class="pd-ltr-20 xs-pd-20-10">
 			<div class="min-height-200px">
 				<div class="pd-20 card-box mb-30">
@@ -22,7 +21,7 @@
 						<div class="form-group row ">
 							<label class="col-sm-12 col-md-2 col-form-label">이름</label>
 							<div class="col-sm-12 col-md-10">
-								<input class="form-control" type="text" placeholder="홍길동" >
+								<input class="form-control" type="text" placeholder="홍길동">
 							</div>
 						</div>
 						<div class="form-group row">

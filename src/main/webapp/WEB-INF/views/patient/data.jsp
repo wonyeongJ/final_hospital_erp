@@ -8,8 +8,7 @@
 </head>
 <body>
 	<h1>접수관리</h1>
-	<h3> 환자상세</h3>
-
+	<br>
 		<div class="pd-ltr-20 xs-pd-20-10">
 			<div class="min-height-200px">
 				<div class="pd-20 card-box mb-30">
@@ -21,25 +20,25 @@
 					<div class="form-group row ">
 						<label class="col-sm-12 col-md-2 col-form-label">이름</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" type="text" placeholder="홍길동" >
+							<input class="form-control" type="text" placeholder="홍길동" readonly>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 col-form-label">주민등록번호</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" type="text" placeholder="940908-1234567">
+							<input class="form-control" type="text" placeholder="940908-1234567" readonly>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 col-form-label">연락처</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" type="text" placeholder="010-1234-5678">
+							<input class="form-control" type="text" placeholder="010-1234-5678" readonly>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 col-form-label">성별</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" type="text" placeholder="남">
+							<input class="form-control" type="text" placeholder="남" readonly>
 						</div>
 					</div>
 				</div>			

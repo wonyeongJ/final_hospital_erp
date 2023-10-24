@@ -39,8 +39,13 @@ public class PatientController {
 	
 	//환자 정보 수정 폼 요청 메서드
 	@GetMapping("update")
-	public String patientUpdate(PatientVO patientVO) throws Exception {
+	public String patientUpdate() throws Exception {
 		return "patient/update";
+	}
+	
+	@PostMapping("update")
+	public String patientUpdate(PatientVO patientVO) throws Exception {
+		return "patinet/update";
 	}
 	
 	
