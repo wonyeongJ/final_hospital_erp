@@ -26,13 +26,7 @@ public class MemberController {
 	
 	  @Autowired private MemberService memberService;
 	    
-	
-//	  // 로그인 Form 요청 메서드
-//	  @GetMapping("login")
-//	  public String memberLogin() throws Exception {
-//		  
-//		  return "root.index";
-//	  }
+
 
 	  // 마이페이지 요청 메서드
 	  @GetMapping("mypage")
@@ -57,6 +51,12 @@ public class MemberController {
 	  @PostMapping("insert")
 	  public String memberInsert(MemberVO memberVO) throws Exception {
 		  return "member/insert";
+	  }
+	  
+	  // 직원 상세 detail 요청 메서드
+	  @GetMapping("data")
+	  public String memberData(MemberVO memberVO) throws Exception {
+		  return "member/data";
 	  }
 	 
 	 

@@ -36,15 +36,15 @@
 </head>
 <body>
 	<h1>직원관리</h1>
-	<h3>직원조회</h3>
-	<div class="main-container">
+	<h3>  직원조회</h3>
+
 		<div class="pd-ltr-20 xs-pd-20-10">
 			<div class="min-height-200px">
 	
 				<!-- Export Datatable start -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
-						<h4 class="text-blue h4">Data Table with Export Buttons</h4>
+						<h4 class="text-blue h4">직원목록(재직자)</h4>
 					</div>
 					<div class="pb-20">
 						<table class="table hover multiple-select-row data-table-export nowrap">
@@ -162,7 +162,7 @@
 				<!-- Export Datatable End -->
 			</div>
 		</div>
-	</div>
+	
 	<!-- js -->
 	<script src="vendors/scripts/core.js"></script>
 	<script src="vendors/scripts/script.min.js"></script>
