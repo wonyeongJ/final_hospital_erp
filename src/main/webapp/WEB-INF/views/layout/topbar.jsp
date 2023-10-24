@@ -19,7 +19,7 @@
 				<div class="dropdown">
 					<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img src="vendors/images/photo1.jpg" alt="">
+							<img src="/vendors/images/photo1.jpg" alt="">
 						</span>
 						<span class="user-name">직원이름</span>
 					</a>
@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<div class="github-link">
-				<a href="https://github.com/BottleBear-github/final_hospital_erp" target="_blank"><img src="vendors/images/github.svg" alt=""></a>
+				<a href="https://github.com/BottleBear-github/final_hospital_erp" target="_blank"><img src="/vendors/images/github.svg" alt=""></a>
 			</div>
 		</div>
 	</div>
