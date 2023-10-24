@@ -1,0 +1,12 @@
+
+# file 저장 경로 관련 설정
+app:
+  upload:
+    nodeValue: /Users/mook/Desktop/upload/
+    mapping: file:///Users/mook/Desktop/upload/
+  board:
+    qna: qna
+    notice: notice
+  url:
+    path: /files/**
+    
