@@ -1,0 +1,31 @@
+table, tr, th{
+	border: 2px solid #bcbcbc;
+	width: 720px;
+	height: 30px;
+}
+
+.t{
+	background-color: chartreuse;
+}
+
+.f{
+	background-color: red;
+}
+
+.time-table-1{
+	position: relative; 
+	left: 3%;
+	width: 100;
+}
+
+label{
+	font-size: large;
+}
+
+.green-dot{
+	color: chartreuse;
+}
+
+.red-dot{
+	color: red;
+}
