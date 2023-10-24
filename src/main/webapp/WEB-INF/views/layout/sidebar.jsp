@@ -71,9 +71,9 @@
 							<span class="micon dw dw-library"></span><span class="mtext">게시판</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="../notice/list">공지사항</a></li>
-							<li><a href="#">민원게시판</a></li>
-							<li><a href="#">사내동호회</a></li>
+							<li><a href="/board/notice/list">공지사항</a></li>
+							<li><a href="/board/complaints/list">민원게시판</a></li>
+							<li><a href="/board/club/list">사내동호회</a></li>
 						</ul>
 					</li>
 					
