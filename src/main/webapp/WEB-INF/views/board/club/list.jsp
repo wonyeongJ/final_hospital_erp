@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%><%@ taglib prefix="c"
 	uri="http://java.sun.com/jsp/jstl/core" %>
+	
 
 
 				<!-- Bordered table  start -->
@@ -32,6 +33,14 @@
 										</table>
 									</form>
 								</div>
+								 <!-- 토글 스위치로 모집중인 글만 보기 -->
+							    <div class="mb-3 square-content">
+							        <div class="form-check form-switch">
+							            <input class="form-check-input" type="checkbox" id="showRecruitingOnly">
+							            <label class="form-check-label" for="showRecruitingOnly">모집중인 글만 보기</label>
+							        </div>
+							    </div>
+
 							</div>
 						</div>
 						

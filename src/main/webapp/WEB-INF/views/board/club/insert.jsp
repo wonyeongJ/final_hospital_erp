@@ -33,22 +33,25 @@
 					</div>
 
 
-					<!-- 내용 필수 조건 -->
-					<div class="mb-3">
-						<label for="not_contents" class="form-label">내용 (필수)</label>
-						<textarea name="proContents" class="form-control" id="not_contents" placeholder="내용 입력" rows="7"></textarea>
-					</div>
-	 				
+					<!-- 썸머노트 에디터를 사용할 textarea -->
+		            <div class="mb-3">
+		                <label for="not_contents" class="form-label">내용 (필수)</label>
+		                <div class="input-group">
+		                    <textarea name="not_contents" class="summernote"></textarea>
+		                </div>
+		            </div>
 					
                
-               		 <div class="mb-3">
-			            <label for="maxParticipants" class="form-label">최대 모집 인원:</label>
-			            <div class="input-group">
-			                <input type="number" class="form-control" id="maxParticipants" name="maxParticipants" min="2" value="2">
-			                <button class="btn btn-outline-secondary" type="button" id="decrease">-</button>
-			                <button class="btn btn-outline-secondary" type="button" id="increase">+</button>
-			            </div>
-			        </div>
+               		<div class="mb-3">
+					    <label for="maxParticipants" class="form-label">최대 모집 인원:</label>
+					    <div class="d-flex align-items-center">
+					        <button class="btn btn-outline-secondary" type="button" id="decrease">-</button>
+					        <input type="number" class="form-control" id="maxParticipants" name="maxParticipants" min="2" value="2" style="width: 70px">
+					        <button class="btn btn-outline-secondary" type="button" id="increase">+</button>
+					    </div>
+					</div>
+
+
 							
 					<div class="mb-3">
 						<button class="my btn btn-primary" type="submit" id="btn">글쓰기</button>
@@ -75,4 +78,9 @@
 		    });
 		</script>
 
-	
+		<script>
+	    // 썸머노트 초기화
+	    $('.summernote').summernote({
+	        height: 150
+	    });
+		</script>

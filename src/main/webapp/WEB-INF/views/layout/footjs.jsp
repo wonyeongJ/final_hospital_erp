@@ -26,5 +26,7 @@
 	<!-- Datatable Setting js -->
 	<script src="/vendors/scripts/datatable-setting.js"></script></body>
 	
-	<!-- Summernote -->
-	<script src="vendors/scripts/summernote.js"></script>
+	
+	
+	
+	

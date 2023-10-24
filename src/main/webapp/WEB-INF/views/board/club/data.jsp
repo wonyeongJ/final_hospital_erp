@@ -10,7 +10,7 @@
         <div class="col-md-7 pull-left">
             <div class="mb-3">
                 <h3>동호회 정보</h3>
-                <span class="input-group-text">작성자: ${member.mem_name}</span>
+                <span class="input-group-text">작성자: ${member.memName}</span>
             </div>
             <div class="mb-3">
                 <label for="not_title" class="form-label">제목 (필수)</label>
@@ -51,7 +51,7 @@
                 <button class="btn btn-primary pull-right square-button" type="button">참가하기</button>
             </div>
         </div>
-        <!-- 글수정,삭제는 해당글을 작성한사람과 인사과만 버튼이 보여진다 -->	
+        			<!-- 글수정,삭제는 해당글을 작성한사람과 인사과만 버튼이 보여진다 -->	
 					<div class="mb-3">
 						<button class="my btn btn-primary" type="button"><a href="./update" style="color: white;">글수정</a></button>
 					</div>

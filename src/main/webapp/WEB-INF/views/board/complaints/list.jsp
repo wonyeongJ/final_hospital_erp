@@ -93,7 +93,7 @@
 									 </ul>
 								 </nav>
 								 		<div>
-								 		 		<button type="button" class="btn btn-primary"><a href="./insert">글쓰기</a></button>
+								 		 		<button type="button" class="btn btn-primary"><a href="./insert" style="color: white;">글쓰기</a></button>
 								 		</div>
 							</div>
 							<!-- Bordered table End -->
