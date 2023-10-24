@@ -1,0 +1,25 @@
+#a1:link {
+  color : blue;
+}
+#a1:visited {
+  color : blue;
+}
+#a1:hover {
+  color : gray;
+}
+#a1:active {
+  color : gray;
+}
+
+#a2:link {
+  color : white;
+}
+#a2:visited {
+  color : white;
+}
+#a2:hover {
+  color : gray;
+}
+#a2:active {
+  color : gray;
+}
