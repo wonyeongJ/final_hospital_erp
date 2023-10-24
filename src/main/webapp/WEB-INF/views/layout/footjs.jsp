@@ -11,7 +11,9 @@
 	<script src="/src/plugins/datatables/js/dataTables.responsive.min.js"></script>
 	<script src="/src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
 	<script src="/vendors/scripts/dashboard.js"></script>
-	
+	<script src="/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+	<script src="/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+	<script src="/vendors/scripts/advanced-components.js"></script>
 	<!-- buttons for Export datatable -->
 	<script src="/src/plugins/datatables/js/dataTables.buttons.min.js"></script>
 	<script src="/src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
@@ -22,3 +24,6 @@
 	<script src="/src/plugins/datatables/js/vfs_fonts.js"></script>
 	<!-- Datatable Setting js -->
 	<script src="/vendors/scripts/datatable-setting.js"></script>
+	
+	<!-- 토글 가져오는 js -->
+	<script src="/src/plugins/switchery/switchery.min.js"></script>
