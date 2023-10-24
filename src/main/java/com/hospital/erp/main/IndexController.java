@@ -19,11 +19,4 @@ public class IndexController {
 		return "index";
 	}
 	
-	
-	@GetMapping("/test")
-	public String getTest()throws Exception{
-
-		
-		return "notice/noticeIndexTest";
-	}
 }
