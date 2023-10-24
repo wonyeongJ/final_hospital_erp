@@ -26,6 +26,12 @@ public class equipmentController {
 		return "equipment/equipment_detail"; 
 	}
 	
+	@GetMapping("list") 
+	public String equipmentList() throws Exception{ 
+		   
+		return "equipment/equipment_list"; 
+	}
+	
 	@GetMapping("reservation") 
 	public String equipmentReservation() throws Exception{ 
 		   

@@ -28,7 +28,7 @@
         <div class="form-group row">
             <label for="example-datetime-local-input" class="col-sm-12 col-md-2 col-form-label">구매날짜</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control datetimepicker" placeholder="Choose Date anf time" type="text">
+                <input class="form-control datetimepicker" placeholder="Choose Date and time" type="text">
             </div>
         </div>
     </form>

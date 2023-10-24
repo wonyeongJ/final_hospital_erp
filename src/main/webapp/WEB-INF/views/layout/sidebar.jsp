@@ -52,7 +52,7 @@
 						</a>
 						<ul class="submenu">
 							<li><a href="/surgery/list">수술실예약</a></li>
-							<li><a href="/equipment/reservation">비품예약</a></li>
+							<li><a href="/equipment/list">비품예약</a></li>
 						</ul>
 					</li>
 					
@@ -82,8 +82,8 @@
 							<span class="micon dw dw-calendar1"></span><span class="mtext">일정관리</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="schedule/team">과일정</a></li>
-							<li><a href="schedule/personal">개인일정</a></li>
+							<li><a href="/schedule/team">과일정</a></li>
+							<li><a href="/schedule/personal">개인일정</a></li>
 						</ul>
 					</li>
 					

@@ -4,10 +4,10 @@
 
 <h1>수술실/비품관리</h1>
 	<br>
-<h2>비품상세</h2>
+<h2>비품 상세</h2>
 	<br><br>
 
-<table border="1" bordercolor="gray" width ="500" align="center">
+<table class="table table-bordered">
     <thead>
         <tr id="table-top">
             <th scope="col">물품 구매일</th>
@@ -24,7 +24,7 @@
     </tbody>
 </table>
     <br>
-<table border="1" bordercolor="gray" width ="800" align="center">
+<table class="table table-bordered">
     <thead>
         <tr id="table-top">
             <th scope="col">대여자</th>
@@ -35,8 +35,8 @@
     <tbody>
         <tr>
             <th scope="row">박병웅</th>
-            <td>2023.09.04</td>
-            <td>2023.11.04</td>
+            <td>2023.08.23</td>
+            <td>2023.09.01</td>
         </tr>
         <tr>
             <th scope="row">최경묵</th>

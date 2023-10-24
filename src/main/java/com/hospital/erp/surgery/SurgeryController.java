@@ -14,10 +14,10 @@ public class SurgeryController {
 		return "surgery/surgery_list"; 
 	}
 	
-	@GetMapping("addRoom") 
+	@GetMapping("detail") 
 	public String surgeryAddRoom() throws Exception{ 
 		   
-		return "surgery/surgery_addRoom"; 
+		return "surgery/surgery_detail"; 
 	}
 	
 	@GetMapping("reservation") 
@@ -32,4 +32,9 @@ public class SurgeryController {
 		return "surgery/surgery_roomList"; 
 	}
 	
+	@GetMapping("myReservation") 
+	public String surgerymyReservation() throws Exception{ 
+		   
+		return "surgery/surgery_myReservation"; 
+	}
 }
