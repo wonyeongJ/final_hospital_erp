@@ -8,9 +8,19 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix mb-20">
 							<div class="pull-left">
-								<h2 class="text-black h2 text-center">사내동호회</h2>	
+								<h2 class="text-black h2 text-center">사내동호회</h2>
+								<span>
+									<label for="pageSizeSelect">표시 개수 : </label>
+						            <select id="pageSizeSelect">
+						                <option value="10">10개씩 보기</option>
+						                <option value="25">25개씩 보기</option>
+						                <option value="50">50개씩 보기</option>
+						                <option value="all">전체 보기</option>
+						            </select>
+								</span>	
 							</div>
 					</div>
+					
 					<div>
 							<div class="pull-right">
 							<!-- 검색 부분 -->

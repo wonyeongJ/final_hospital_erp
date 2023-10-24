@@ -22,7 +22,7 @@
 					  <label class="form-check-label" for="inlineCheckbox1">중요공지여부</label>
 					 </div>
 					  <div class="pull-right">
-							<span class="input-group-text">인사과: ${member.mem_name}</span>					  
+							<span class="input-group-text">인사과: 홍길동${member.mem_name}</span>					  
 					  </div>
 					
                 
