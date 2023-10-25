@@ -24,10 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 
 	
-	  @Autowired private MemberService memberService;
+	  @Autowired 
+	  private MemberService memberService;
 	    
-
-
 	  // 마이페이지 요청 메서드
 	  @GetMapping("mypage")
 	  public String memberData() throws Exception {
@@ -50,6 +49,7 @@ public class MemberController {
 	  // 직원 등록 요청 메서드
 	  @PostMapping("insert")
 	  public String memberInsert(MemberVO memberVO) throws Exception {
+		  int result = memberService.memberInsert(memberVO);
 		  return "member/insert";
 	  }
 	  
