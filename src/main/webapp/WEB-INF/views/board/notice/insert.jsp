@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<c:import url="/WEB-INF/views/layout/summernote.jsp"></c:import>
 
 
 <div class="container-fluid">
@@ -40,7 +42,7 @@
             </div>
             <div id="fileList" class="my-5"></div>
             <div class="mb-3">
-                <button class="my btn btn-danger" type="submit" id="btn">글쓰기</button>
+                <button class="my btn btn-primary" type="submit" id="btn">글쓰기</button>
             </div>
         </form>
     </div>

@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%><%@ taglib prefix="c"
 	uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="path_to_summernote/summernote.css" rel="stylesheet">
-<script src="path_to_summernote/summernote.js"></script>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-
+<c:import url="/WEB-INF/views/layout/summernote.jsp"></c:import>
 	<div class="container-fluid">
 	
 		<div class="row justify-content-center my-4">
@@ -30,7 +29,7 @@
 					<div class="mb-3">
 					    <label for="not_title" class="form-label">제목 (필수)</label>
 					    <div class="input-group">
-					        <input type="text" name="not_title" class="form-control" id="not_title" placeholder="제목 입력">
+					        <input type="text" name="not_title" class="form-control" id="not_title" placeholder="@@@@@@@@제목입니당@@@@">
 					    </div>
 					</div>
 
