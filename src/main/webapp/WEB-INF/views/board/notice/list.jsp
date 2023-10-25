@@ -3,6 +3,10 @@
 	uri="http://java.sun.com/jsp/jstl/core" %>
 
 
+
+		
+				
+
 				<!-- Bordered table  start -->
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix mb-20">
@@ -37,7 +41,7 @@
 												<td><button type="submit" class="search-btn">검색</button></td>
 				                                 <!-- 선택된 condition을 hidden input으로 추가 -->
 				                             <input type="hidden" name="condition" value="${param.condition}">
-				                            <%--  <input type="hidden" name="catNo" value="${param.catNo}"> --%>
+				                             <input type="hidden" name="catNo" value="${param.catNo}">
 											</tr>
 										</table>
 									</form>
@@ -58,21 +62,21 @@
 									</thead>
 									<tbody>
 										<tr>
-											<th scope="row">1</th>
+											<th scope="row">중요</th>
 											<td>Mark</td>
 											<td>Otto</td>
 											<td>@mdo</td>
 											<td>0</td>
 										</tr>
 										<tr>
-											<th scope="row">2</th>
+											<th scope="row">중요</th>
 											<td>Jacob</td>
 											<td>Thornton</td>
 											<td>@fat</td>
 											<td>0</td>
 										</tr>
 										<tr>
-											<th scope="row">3</th>
+											<th scope="row">중요</th>
 											<td>Larry</td>
 											<td>the Bird</td>
 											<td>@twitter</td>
