@@ -9,13 +9,13 @@
 			<div class="col-md-6 col-sm-12">
 				<div class="form-group">
 					<label>제목</label>
-					<input class="form-control" type="text">
+					<input class="form-control" type="text" disabled="">
 				</div>
 			</div>
 			<div class="col-md-2 col-sm-12">
 				<div class="form-group">
 					<label>문서양식</label>
-					<input class="form-control" type="text">
+					<input class="form-control" type="text" >
 				</div>
 			</div>
 		</div>
@@ -23,43 +23,34 @@
 			<div class="col-md-2 col-sm-12">
 				<div class="form-group">
 					<label>사번</label>
-					<input class="form-control" type="text">
+					<input class="form-control" type="text" disabled="">
 				</div>
 			</div>
 			<div class="col-md-2 col-sm-12">
 				<div class="form-group">
 					<label>이름</label>
-					<input class="form-control" type="text">
+					<input class="form-control" type="text" disabled="">
 				</div>
 			</div>
 			<div class="col-md-2 col-sm-12">
 				<div class="form-group">
 					<label>소속(과)</label>
-					<input class="form-control" type="text">
+					<input class="form-control" type="text" disabled="">
 				</div>
 			</div>
 			<div class="col-md-2 col-sm-12">
 				<div class="form-group">
 					<label>직무</label>
-					<input class="form-control" type="text">
+					<input class="form-control" type="text" disabled="">
 				</div>
 			</div>
 		</div>
 		
-		<div class="col-md-3 col-sm-12">
-			<div class="form-group">
-				<label>총금액</label>
-				<div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-					<span class="input-group-btn input-group-prepend">
-						<button class="btn btn-primary bootstrap-touchspin-down" type="button">-</button>
-					</span>
-					<span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend">
-						<span class="input-group-text">₩</span>
-					</span>
-					<input id="demo2" type="text" value="0" name="demo2" class="form-control">
-					<span class="input-group-btn input-group-append">
-						<button class="btn btn-primary bootstrap-touchspin-up" type="button">+</button>
-					</span>
+		<div class="row">
+			<div class="col-md-3 col-sm-12">
+				<div class="form-group">
+					<label>총금액</label>
+					<input class="form-control" type="text">
 				</div>
 			</div>
 		</div>
@@ -81,15 +72,15 @@
 						<label class="custom-control-label" for="customRadio6">특별</label>
 					</div>
 				</div>
-				<div class="col-md-7 col-sm-12">
-					<div class="form-group">
-						<label>시작날짜</label>
-						<input class="form-control date-picker" placeholder="날짜를 선택하세요" type="text">
-					</div>
-					<div class="form-group">
-						<label>종료날짜</label>
-						<input class="form-control date-picker" placeholder="날짜를 선택하세요" type="text">
-					</div>
+			</div>
+			<div class="col-md-7 col-sm-12">
+				<div class="form-group">
+					<label>시작날짜</label>
+					<input class="form-control date-picker" placeholder="날짜를 선택하세요" type="text">
+				</div>
+				<div class="form-group">
+					<label>종료날짜</label>
+					<input class="form-control date-picker" placeholder="날짜를 선택하세요" type="text">
 				</div>
 			</div>
 		</div>

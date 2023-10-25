@@ -3,8 +3,36 @@
 <h1>전자결재</h1>
 <h2>내결재함</h2>
 
+
+<div class="col-md-2 col-sm-12 mb-30">
+	<div class="pd-20 card-box height-100-p">
+							
+		<a href="#" class="btn-block" data-toggle="modal" data-target="#Medium-modal" type="button">
+			<h5 class="h4" alt="modal">결재문서작성</h5>
+		</a>
+		<div class="modal fade" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myLargeModalLabel">문서리스트</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					</div>
+					<div class="modal-body">
+							<a type="button" class="btn btn-secondary" href="/payment/insert">휴가신청</a>
+							<a type="button" class="btn btn-secondary" href="/payment/insert">지출결의서</a>
+							<a type="button" class="btn btn-success" href="/payment/formInsert">문서양식추가</a>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div>
-	<a type="button" class="btn btn-success" href="/payment/insert">결재문서작성</a>
+	<a type="button" class="btn btn-success" href="/payment/formList">결재문서작성</a>
 </div>
 
 <div>
