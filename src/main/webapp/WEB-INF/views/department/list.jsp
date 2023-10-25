@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>부서관리</title>
-</head>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <body>
 	<h1>부서관리</h1>
 	<h3></h3>
@@ -24,19 +20,23 @@
 							<tr>
 								<th scope="col">부서코드</th>
 								<th scope="col">부서이름</th>
-								<th scope="col">부서생성일</th>
+								<th scope="col">내선번호</th>
 								<th scope="col">상태</th>
+								<th scope="col">부서생성일</th>
 								<th scope="col">Tag</th>
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach items="${departmentList}" var="departmentVO"> 
 							<tr>
-								<th scope="row">1</th>
-								<td>인사과</td>
-								<td>2018-01-01</td>
-								<td>운영</td>
+								<th scope="row">${departmentVO.depCd}</th>
+								<td>${departmentVO.depName}</td>
+								<td>${departmentVO.depTnum}</td>
+								<td>${departmentVO.depDelete}</td>
+								<td>${departmentVO.depRdate}</td>
 								<td><button type="button" class="btn btn-success">수정</button></td>
 							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				<div style="display: flex; justify-content: flex-end;">
@@ -49,4 +49,3 @@
 		</div>
 	
 </body>
-</html>

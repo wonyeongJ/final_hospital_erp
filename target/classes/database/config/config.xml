@@ -5,6 +5,10 @@
 
 <configuration>
 	<typeAliases>
+		<typeAlias type="java.util.List" alias="List"/>
 		<typeAlias type="com.hospital.erp.member.MemberVO" alias="MemberVO"/>
+		<typeAlias type="com.hospital.erp.department.DepartmentVO" alias="DepartmentVO"/>
+		<typeAlias type="com.hospital.erp.patient.PatientVO" alias="PatientVO"/>
+		<typeAlias type="com.hospital.erp.reservation.ReservationVO" alias="ReservationVO"/>
 	</typeAliases>
 </configuration>	  
