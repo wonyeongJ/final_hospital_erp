@@ -17,12 +17,16 @@
   	<!-- Member 테이블 Insert 전 사번 입력을위해 가장 마지막 사번 조회해오는 쿼리문 -->
   	<select id="memberDataMaxMemCd" resultType="MemberVO" parameterType="MemberVO">
   		SELECT 
-  			MAX(MEM_CD)
+  			MAX(MEM_CD) AS MEM_CD,
+  			MEM_HDATE
 		FROM 
 			MEMBER
 		GROUP BY 
 			JOB_CD
-		HAVING JOB_CD = #{jobCd}
+		HAVING 
+			JOB_CD = #{jobCd} AND
+			MEM_HDATE > #{memRdate}
+			   
   	</select>
   	
   	<!-- MEMBER 테이블 INSERT 쿼리 -->
@@ -32,8 +36,9 @@
   		VALUES
   			(
   			#{memCd},
-  			6,
+  			#{jobCd},
   			0,
+  			3,
   			#{codeCd},
   			#{memName},
   			#{memRnum},
