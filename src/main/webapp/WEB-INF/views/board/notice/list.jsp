@@ -19,7 +19,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+            	 <c:forEach items="${noticeList}" var="notice">
+            	 	 <tr>
+	                    <td>${notice.notCd}</td>
+	                    <td>${notice.notTitle}</td>
+	                    <td>${notice.memCd}</td>
+	                    <td>${notice.notRdate}</td>
+	                    <td>${notice.notHit}</td>
+                	</tr>
+            	 
+            	 </c:forEach>
+               <!--  <tr>
                     <td>1</td>
                     <td>Tiger Nixon</td>
                     <td>System Architect</td>
@@ -66,7 +76,7 @@
                     <td>San Francisco</td>
                     <td>2011/06/07</td>
                     
-                </tr>
+                </tr> -->
             </tbody>
         </table>
         <div><button class="my btn btn-primary" type="button"><a href="./insert" style="color: white;">글쓰기</a></button></div>
