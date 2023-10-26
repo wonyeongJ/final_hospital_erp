@@ -8,7 +8,6 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hospital.erp.util.CommonMethod;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -69,6 +68,7 @@ public class MemberService {
 			int memThreeValue = Integer.parseInt(endThreeValue);
 			memThreeValue++;
 			log.info("===========memThreeValue {}===========", memThreeValue);
+			//10 이하일때 00 100이하일때 00 붙이기
 			if(memThreeValue < 10) {
 				String addZero = "00";
 				endThreeValue = addZero.concat(Integer.toString(memThreeValue));
@@ -84,8 +84,7 @@ public class MemberService {
 			memberVO.setMemCd(startFourValue);
 		}
 		
-		
-		//비밀번호 생성
+		//비밀번호 생성 "-" 으로 앞 6자리 분리
 		String [] juminAr = memberVO.getMemRnum().split("-");
 		memberVO.setMemPw(juminAr[0]);
 	
