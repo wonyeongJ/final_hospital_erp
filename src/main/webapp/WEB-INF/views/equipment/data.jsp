@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<link rel="stylesheet" href="/vendors/styles/equipment/detail.css">
+<link rel="stylesheet" href="/vendors/styles/equipment/data.css">
 
 <h1>수술실/비품관리</h1>
 	<br>
 <h2>비품 상세</h2>
 	<br><br>
 
-<table class="table table-bordered">
+<table class="table table-bordered" style="text-align: center;">
     <thead>
         <tr id="table-top">
             <th scope="col">물품 구매일</th>
@@ -24,7 +24,7 @@
     </tbody>
 </table>
     <br>
-<table class="table table-bordered">
+<table class="table table-bordered" style="text-align: center;">
     <thead>
         <tr id="table-top">
             <th scope="col">대여자</th>

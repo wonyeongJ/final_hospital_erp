@@ -11,30 +11,36 @@ public class SurgeryController {
 	@GetMapping("list") 
 	public String surgeryList() throws Exception{ 
 		   
-		return "surgery/surgery_list"; 
+		return "surgery/list"; 
 	}
 	
-	@GetMapping("detail") 
-	public String surgeryAddRoom() throws Exception{ 
+	@GetMapping("scheduleData") 
+	public String surgeryScheduleData() throws Exception{ 
 		   
-		return "surgery/surgery_detail"; 
+		return "surgery/scheduleData"; 
 	}
 	
-	@GetMapping("reservation") 
-	public String surgeryReservation() throws Exception{ 
+	@GetMapping("scheduleInsert") 
+	public String surgeryScheduleInsert() throws Exception{ 
 		   
-		return "surgery/surgery_reservation"; 
+		return "surgery/scheduleInsert"; 
 	}
 	
-	@GetMapping("roomList") 
+	@GetMapping("update") 
 	public String surgeryRoomList() throws Exception{ 
 		   
-		return "surgery/surgery_roomList"; 
+		return "surgery/update"; 
 	}
 	
-	@GetMapping("myReservation") 
-	public String surgerymyReservation() throws Exception{ 
+	@GetMapping("scheduleList") 
+	public String surgeryScheduleList() throws Exception{ 
 		   
-		return "surgery/surgery_myReservation"; 
+		return "surgery/scheduleList"; 
+	}
+	
+	@GetMapping("scheduleUpdate") 
+	public String surgeryscheduleUpdate() throws Exception{ 
+		   
+		return "surgery/scheduleUpdate"; 
 	}
 }

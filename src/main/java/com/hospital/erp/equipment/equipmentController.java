@@ -6,35 +6,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/equipment/*")
-public class equipmentController {
+public class EquipmentController {
 	
-	@GetMapping("add") 
-	public String equipmentAdd() throws Exception{ 
+	@GetMapping("data") 
+	public String equipmentData() throws Exception{ 
 		   
-		return "equipment/equipment_add"; 
-	}
-	
-	@GetMapping("categories") 
-	public String equipmentCategories() throws Exception{ 
-		   
-		return "equipment/equipment_categories"; 
-	}
-	
-	@GetMapping("detail") 
-	public String equipmentDetail() throws Exception{ 
-		   
-		return "equipment/equipment_detail"; 
+		return "equipment/data"; 
 	}
 	
 	@GetMapping("list") 
 	public String equipmentList() throws Exception{ 
 		   
-		return "equipment/equipment_list"; 
+		return "equipment/list"; 
 	}
 	
-	@GetMapping("reservation") 
-	public String equipmentReservation() throws Exception{ 
+	@GetMapping("historyInsert") 
+	public String equipmentHistoryInsert() throws Exception{ 
 		   
-		return "equipment/equipment_reservation"; 
+		return "equipment/historyInsert"; 
 	}
 }
