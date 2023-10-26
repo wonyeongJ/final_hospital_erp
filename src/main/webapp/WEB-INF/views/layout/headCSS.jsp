@@ -17,5 +17,10 @@
 	<link rel="stylesheet" type="text/css" href="/src/plugins/datatables/css/dataTables.bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="/src/plugins/datatables/css/responsive.bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="/vendors/styles/style.css">
+	<link rel="stylesheet" type="text/css" href="/src/plugins/switchery/switchery.min.css">
+	<!-- bootstrap-tagsinput css -->
+	<link rel="stylesheet" type="text/css" href="/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
+	<!-- bootstrap-touchspin css -->
+	<link rel="stylesheet" type="text/css" href="/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.css">
 	
 	
