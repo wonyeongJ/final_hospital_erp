@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<link rel="stylesheet" href="/vendors/styles/equipment/categories.css">
+<link rel="stylesheet" href="/vendors/styles/equipment/codeList.css">
 
 <h1>수술실/비품관리</h1>
 	<br>

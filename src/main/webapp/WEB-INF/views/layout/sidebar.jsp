@@ -71,8 +71,8 @@
 							<span class="micon dw dw-calendar1"></span><span class="mtext">일정관리</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="/schedule/team">과일정</a></li>
-							<li><a href="/schedule/personal">개인일정</a></li>
+							<li><a href="/schedule/teamList">과일정</a></li>
+							<li><a href="/schedule/personalList">개인일정</a></li>
 						</ul>
 					</li>
 					

@@ -8,7 +8,7 @@
 <h2>수술실 예약</h2>
 <div class="clearfix mb-20">
 	<div class="pull-right">
-		<input type="button" class="btn btn-outline-primary header-white" value="나의 예약" onclick="window.open('myReservation', '나의 수술실 예약 내역', 'width=800, height=750')">
+		<input type="button" class="btn btn-outline-primary" value="나의 예약" onclick="location.href='scheduleList'">
 	</div>
 </div>
 	<table class="table table-bordered">
@@ -25,33 +25,31 @@
 				<th scope="row" class="th-1">1</th>
 				<td>201</td>
 				<td>09:00 ~ 21:00</td>
-				<td>
-					<span class="badge badge-primary"><a onclick="window.open('reservation', '수술실 예약', 'width=800, height=750')" id="a2">예약하기</a></span>
-				</td>
+				<td><span class="badge badge-primary"><a onclick="location.href='scheduleInsert'" id="a2">예약하기</a></span></td>
 			</tr>
 			<tr>
 				<th scope="row" class="th-1">2</th>
 				<td>202</td>
 				<td>09:00 ~ 21:00</td>
-				<td><span class="badge badge-primary"><a onclick="window.open('reservation', '수술실 조회/예약', 'width=800, height=750')" id="a2">예약하기</a></span></td>
+				<td><span class="badge badge-primary"><a onclick="location.href='scheduleInsert'" id="a2">예약하기</a></span></td>
 			</tr>
 			<tr>
 				<th scope="row" class="th-1">3</th>
 				<td>203</td>
 				<td>09:00 ~ 21:00</td>
-				<td><span class="badge badge-primary"><a onclick="window.open('reservation', '수술실 조회/예약', 'width=800, height=750')" id="a2">예약하기</a></span></td>
+				<td><span class="badge badge-primary"><a onclick="location.href='scheduleInsert'" id="a2">예약하기</a></span></td>
 			</tr>
 			<tr>
 				<th scope="row" class="th-1">4</th>
 				<td>204</td>
 				<td>09:00 ~ 21:00</td>
-				<td><span class="badge badge-primary"><a onclick="window.open('reservation', '수술실 조회/예약', 'width=800, height=750')" id="a2">예약하기</a></span></td>
+				<td><span class="badge badge-primary"><a onclick="location.href='scheduleInsert'" id="a2">예약하기</a></span></td>
 			</tr>
 			<tr>
 				<th scope="row" class="th-1">5</th>
 				<td>205</td>
 				<td>09:00 ~ 21:00</td>
-				<td><span class="badge badge-primary"><a onclick="window.open('reservation', '수술실 조회/예약', 'width=800, height=750')" id="a2">예약하기</a></span></td>
+				<td><span class="badge badge-primary"><a onclick="location.href='scheduleInsert'" id="a2">예약하기</a></span></td>
 			</tr>
 		</tbody>
 	</table>
@@ -76,12 +74,58 @@
 				<span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
 			</code></pre>
 		</div>
-	</div>
-	<div class="clearfix mb-20">
+	</div>	<div class="clearfix mb-20">
 		<div class="pull-right">
-			<input type="button" class="btn btn-outline-primary header-white" value="수술실 관리" onclick="window.open('roomList', '수술실 관리', 'width=800, height=750')">
+			<a href="#" class="btn-block" data-toggle="modal" data-target="#Medium-modal" type="button">
+				<button class="btn btn-outline-primary">수술실 관리</button>
+			</a>
+			<div class="modal fade" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myLargeModalLabel">수술실 관리</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						</div>
+						<div class="modal-body">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th scope="row"><input class="form-control" type="text" name="" value="201호"></th>
+										<td><button class="btn btn-outline-primary header-white">수정</button></td>
+									</tr>
+									<tr>
+										<th scope="row"><input class="form-control" type="text" name="" value="202호"></th>
+										<td><button class="btn btn-outline-primary header-white">수정</button></td>
+									</tr>
+									<tr>
+										<th scope="row"><input class="form-control" type="text" name="" value="203호"></th>
+										<td><button class="btn btn-outline-primary header-white">수정</button></td>
+									</tr>
+									<tr>
+										<th scope="row"><input class="form-control" type="text" name="" value="204호"></th>
+										<td><button class="btn btn-outline-primary header-white">수정</button></td>
+									</tr>
+									<tr>
+										<th scope="row"><input class="form-control" type="text" name="" value="205호"></th>
+										<td><button class="btn btn-outline-primary header-white">수정</button></td>
+									</tr>
+									<tr>
+										<th scope="row"><input type="text" placeholder="호수 입력" class="form-control" style="width: 120px;"></th>
+										<td><button class="btn btn-outline-primary header-white">수술실 등록</button></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+
+
 
 <script src="/src/plugins/switchery/switchery.min.js"></script>

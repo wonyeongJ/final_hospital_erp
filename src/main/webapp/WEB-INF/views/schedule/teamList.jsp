@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
-<link rel="stylesheet" href="/vendors/styles/schedule/team.css">
+<link rel="stylesheet" href="/vendors/styles/schedule/teamList.css">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
@@ -28,4 +28,4 @@
 <div id='calendar'></div>
 
 <!-- 달력을 출력하는 JS -->
-<script src="/vendors/scripts/schedule/team.js"></script>
+<script src="/vendors/scripts/schedule/teamList.js"></script>

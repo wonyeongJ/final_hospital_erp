@@ -11,34 +11,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/schedule/*")
 public class ScheduleController {
 	
-	@GetMapping("add") 
-	public String scheduleAdd() throws Exception{ 
+	@GetMapping("insert") 
+	public String scheduleInsert() throws Exception{ 
 		   
-		return "schedule/schedule_add"; 
+		return "schedule/insert"; 
 	}
 	
-	@GetMapping("detail") 
-	public String scheduleDetail() throws Exception{ 
+	@GetMapping("data") 
+	public String scheduleData() throws Exception{ 
 		   
-		return "schedule/schedule_detail"; 
+		return "schedule/data"; 
 	}
 	
-	@GetMapping("personal") 
-	public String schedulePersonal() throws Exception{ 
+	@GetMapping("personalList") 
+	public String schedulePersonalList() throws Exception{ 
 		   
-		return "schedule/schedule_personal"; 
+		return "schedule/personalList"; 
 	}
 	
-	@GetMapping("team") 
-	public String scheduleTeal() throws Exception{ 
+	@GetMapping("teamList") 
+	public String scheduleTeamList() throws Exception{ 
 		   
-		return "schedule/schedule_team"; 
-	}
-	
-	@GetMapping("update") 
-	public String scheduleUpdate() throws Exception{ 
-		   
-		return "schedule/schedule_update"; 
+		return "schedule/teamList"; 
 	}
 	
 }
