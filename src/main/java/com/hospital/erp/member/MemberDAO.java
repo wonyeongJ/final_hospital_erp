@@ -13,6 +13,8 @@ public interface MemberDAO {
 	 //직원등록 메서드
 	 public int memberInsert(MemberVO memberVO) throws Exception;
 	 
+	 //직원조회 메서드
+	 public MemberVO memberData(MemberVO memberVO) throws Exception;
 	 
-		
+	 
 }

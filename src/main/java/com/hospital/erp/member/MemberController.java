@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,10 +54,17 @@ public class MemberController {
 		  return "member/insert";
 	  }
 	  
-	  // 직원 상세 detail 요청 메서드
+	  // 직원 상세 detail 요청 메서드 detail 동시에 수정할 수 있는 udpate form 요청
 	  @GetMapping("data")
-	  public String memberData(MemberVO memberVO) throws Exception {
+	  public String memberData(MemberVO memberVO, Model model) throws Exception {
+		  memberVO = memberService.memberData(memberVO);
+		  model.addAttribute("memberVO", memberVO);
 		  return "member/data";
+	  }
+	  // 업데이트 요청 메서드
+	  @PostMapping("update")
+	  public String memberUpdate(MemberVO memberVO) throws Exception {
+		  return "redirect:./data";
 	  }
 	 
 	 

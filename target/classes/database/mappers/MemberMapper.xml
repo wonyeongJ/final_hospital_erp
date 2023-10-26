@@ -14,6 +14,16 @@
   	</select>
   	
   	
+  	<!-- 직원 조회 쿼리 -->
+  	<select id="memberData" parameterType="MemberVO" resultType="MemberVO">
+		SELECT
+			*
+		FROM
+			MEMBER
+		WHERE
+			MEM_CD = #{memCd}  	
+  	</select>
+  	
   	<!-- Member 테이블 Insert 전 사번 입력을위해 가장 마지막 사번 조회해오는 쿼리문 -->
   	<select id="memberDataMaxMemCd" resultType="MemberVO" parameterType="MemberVO">
   		SELECT 

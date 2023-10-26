@@ -23,6 +23,11 @@ public class MemberService {
 		return memberDAO.memberLogin(memberVO);
 	}
 	
+	//직원 조회 메서드
+	public MemberVO memberData(MemberVO memberVO) throws Exception {
+		return memberDAO.memberData(memberVO);
+	}
+	
 	//직원 등록 메서드
 	public int memberInsert(MemberVO memberVO) throws Exception {
 		
