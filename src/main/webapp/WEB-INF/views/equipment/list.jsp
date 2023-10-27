@@ -41,21 +41,21 @@
 				<tr>
 					<th scope="row">2</th>
 					<td>노트북</td>
-					<td><a id="a1" onclick="location.href='scheduleInsert'">NOTEBOOK002</a></td>
+					<td><a id="a1" onclick="location.href='data'">NOTEBOOK002</a></td>
 					<td>최경묵</td>
 					<td><span class="badge badge-success"><a onclick="#" id="a2">반납하기</a></span></td>
 				</tr>
 				<tr>
 					<th scope="row">3</th>
 					<td>노트북</td>
-					<td><a id="a1" onclick="location.href='scheduleInsert'">NOTEBOOK003</a></td>
+					<td><a id="a1" onclick="location.href='data'">NOTEBOOK003</a></td>
 					<td>-</td>
 					<td><span class="badge badge-primary"><a onclick="location.href='historyInsert'" id="a2">대여하기</a></span></td>
 				</tr>
 				<tr>
 					<th scope="row">4</th>
 					<td>책상</td>
-					<td><a id="a1" onclick="location.href='scheduleInsert'">DESK001</a></td>
+					<td><a id="a1" onclick="location.href='data'">DESK001</a></td>
 					<td>-</td>
 					<td><span class="badge badge-primary"><a onclick="location.href='historyInsert'" id="a2">대여하기</a></span></td>
 				</tr>

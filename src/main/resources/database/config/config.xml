@@ -10,5 +10,17 @@
 		<typeAlias type="com.hospital.erp.department.DepartmentVO" alias="DepartmentVO"/>
 		<typeAlias type="com.hospital.erp.patient.PatientVO" alias="PatientVO"/>
 		<typeAlias type="com.hospital.erp.reservation.ReservationVO" alias="ReservationVO"/>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!-- 홍일-->
+		<typeAlias type="com.hospital.erp.equipment.EquipmentVO" alias="EquipmentVO"/>
 	</typeAliases>
 </configuration>	  
