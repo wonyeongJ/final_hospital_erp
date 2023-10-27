@@ -20,38 +20,7 @@
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<typeAlias type="com.hospital.erp.board.notice.NoticeVO" alias="NoticeVO"/>
-		<typeAlias type="com.hospital.erp.file.FileVO" alias="FileVO"/>
-		
-		
-		
-		
+		<!-- 홍일-->
+		<typeAlias type="com.hospital.erp.equipment.EquipmentVO" alias="EquipmentVO"/>
 	</typeAliases>
 </configuration>	  
