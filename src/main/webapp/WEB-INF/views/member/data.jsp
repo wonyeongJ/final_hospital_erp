@@ -9,7 +9,7 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">이름</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="memName" value="${memberVO.memName}" placeholder="홍길동" >
+				<input class="form-control" type="text" name="memName" value="${memberVO.memName}" >
 			</div>
 		</div>
 		<div class="form-group row">
@@ -27,31 +27,31 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">직무</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="memJobCd" value="${memberVO.memJobCd}">
+				<input class="form-control" type="text" name="memJobCd" value="${memberVO.jobCd}">
 			</div>
 		</div>
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">입사일</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control date-picker" type="date" name="memHdate" value="${memberVO.memHdate}" >
+				<input class="form-control date-picker" type="date" value="${memberVO.memHdate}" readonly>
 			</div>
 		</div>
 			<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">연봉</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="number" name="memSalary" value="${memberVO.memSalary}" >
+				<input class="form-control" type="number" value="${memberVO.memSalary}" readonly>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">부서</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="memDepCd" value="${memberVO.memDepCd}">
+				<input class="form-control" type="text" name="memDepCd" value="${memberVO.depCd}">
 			</div>
 		</div>
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">연차</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="number" name="memAnnual" value="${memberVO.memAnnual}" >
+				<input class="form-control" type="number" value="${memberVO.memAnnual}" readonly>
 			</div>
 		</div>
 			<div class="form-group row">
@@ -63,13 +63,13 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">직책</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="memPosCd" value="$memberVO.{memPosCd}">
+				<input class="form-control" type="text" name="memPosCd" value="${memberVO.posCd}">
 			</div>
 		</div>
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">성별</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="memCodeCd" value="${memberVO.memCodeCd}">
+				<input class="form-control" type="text" name="memCodeCd" value="${memberVO.codeCd}">
 			</div>
 		</div>
 	</form>
