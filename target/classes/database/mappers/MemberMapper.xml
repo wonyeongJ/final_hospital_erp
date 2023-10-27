@@ -4,7 +4,7 @@
 <mapper namespace="com.hospital.erp.member.MemberDAO">
  	
  	<!-- 직원 리스트 조회 쿼리 -->
-	<select id="memberList" resultMap="memberListJoin">
+	<select id="memberList" resultType="MemberVO">
 		SELECT 
 			M.MEM_CD,
 			M.MEM_NAME,
@@ -20,18 +20,8 @@
 					ON M.MEM_CD = COM.MEM_CD
 				LEFT OUTER JOIN	DEPARTMENT D
 					ON M.DEP_CD = D.DEP_CD
+		ORDER BY M.MEM_CD
 	</select> 	
-	
-	<resultMap type="MemberVO" id="memberListJoin">
-		<id column="MEM_CD" property="memCd"/>
-		<result column="MEM_NAME" property="memName"/>
-		<result column="MEM_HDATE" property="memHdate"/>
-		<result column="MEM_ANNUAL" property="memAnnual"/>
-		<result column="CODE_NAME" property="codeName"/>
-		<association property="departmentVO" javaType="DepartmentVO">
-			<result column="DEP_NAME" property="depName"/>
-		</association>	
-	</resultMap>
   	
   	<!-- 직원 상세 조회 쿼리 -->
   	<select id="memberData" parameterType="MemberVO" resultType="MemberVO">

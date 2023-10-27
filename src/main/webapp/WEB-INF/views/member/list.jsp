@@ -33,7 +33,7 @@
 									<th class="table-plus">${i.index+1}</th>
 									<td><a href="./data?memCd=${memberVO.memCd}">${memberVO.memName}</a></td>
 									<td><a href="./data?memCd=${memberVO.memCd}">${memberVO.memCd}</a></td>
-									<td>${memberVO.departmentVO.depName}</td>
+									<td>${memberVO.depName}</td>
 									<td>${memberVO.codeName}</td>
 									<td>${memberVO.memHdate}</td>
 									<td>${memberVO.memAnnual}</td>

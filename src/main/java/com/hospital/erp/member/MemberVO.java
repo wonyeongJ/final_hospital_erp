@@ -34,6 +34,6 @@ public class MemberVO {
 	private Integer memDelete;
 	private Date memRdate;
 	
-	private DepartmentVO departmentVO;
-	private String codeName;
+	private String depName; // memberListJoin 
+	private String codeName; // memberListJoin 
 }
