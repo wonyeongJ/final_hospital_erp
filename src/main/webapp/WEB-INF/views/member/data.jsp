@@ -33,7 +33,7 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">입사일</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control date-picker" type="date" value="${memberVO.memHdate}" readonly>
+				<input class="form-control" type="date" value="${memberVO.memHdate}" readonly>
 			</div>
 		</div>
 			<div class="form-group row">
@@ -71,6 +71,9 @@
 			<div class="col-sm-12 col-md-10">
 				<input class="form-control" type="text" name="memCodeCd" value="${memberVO.codeCd}">
 			</div>
+		</div>
+		<div style="display: flex; justify-content: flex-end;">
+			<button type="submit" class="btn btn-primary">수정완료</button>
 		</div>
 	</form>
 </body>

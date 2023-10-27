@@ -2,19 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.hospital.erp.member.MemberDAO">
-	<!-- 로그인 조회 쿼리문 -->
-	<select id="memberLogin" parameterType="MemberVO" resultType="MemberVO">
-  		SELECT
-  			*
-  		FROM
-  			MEMBER
-  		WHERE
-  			ID = #{memCd} AND
-  			PASSWORD = #{memPw}
-  	</select>
+ 	
+ 	<!-- 직원 리스트 조회 쿼리 -->
+	<select id="memberList" resultMap="memberListJoin">
+		SELECT 
+			M.MEM_CD,
+			M.MEM_NAME,
+			D.DEP_NAME,
+			C.CODE_NAME,
+			M.MEM_HDATE,
+			M.MEM_ANNUAL
+		FROM 
+			MEMBER AS M
+				LEFT OUTER JOIN CODE AS C
+					ON M.JOB_CD = C.CODE_CD
+				LEFT OUTER JOIN COMMUTE AS COM
+					ON M.MEM_CD = COM.MEM_CD
+				LEFT OUTER JOIN	DEPARTMENT D
+					ON M.DEP_CD = D.DEP_CD
+	</select> 	
+	
+	<resultMap type="MemberVO" id="memberListJoin">
+		<id column="MEM_CD" property="memCd"/>
+		<result column="MEM_NAME" property="memName"/>
+		<result column="MEM_HDATE" property="memHdate"/>
+		<result column="MEM_ANNUAL" property="memAnnual"/>
+		<result column="CODE_NAME" property="codeName"/>
+		<association property="departmentVO" javaType="DepartmentVO">
+			<result column="DEP_NAME" property="depName"/>
+		</association>	
+	</resultMap>
   	
-  	
-  	<!-- 직원 조회 쿼리 -->
+  	<!-- 직원 상세 조회 쿼리 -->
   	<select id="memberData" parameterType="MemberVO" resultType="MemberVO">
 		SELECT
 			*
@@ -40,7 +59,8 @@
 						JOB_CD 
 					HAVING 
 						JOB_CD = #{jobCd} AND 
-						MEM_HDATE > #{memHdate})
+						MEM_HDATE > #{memHdate}
+					)
 			   
   	</select>
   	
@@ -52,7 +72,7 @@
   			(
   			#{memCd},
   			#{jobCd},
-  			0,
+  			1,
   			3,
   			#{codeCd},
   			#{memName},

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,9 @@ public class MemberService {
 	 @Autowired 
 	 private MemberDAO memberDAO;
 	  
-	public int memberLogin(MemberVO memberVO) throws Exception {
-		return memberDAO.memberLogin(memberVO);
+	//직원 리스트 조회 메서드
+	public List<MemberVO> memberList() throws Exception {
+		return memberDAO.memberList();
 	}
 	
 	//직원 조회 메서드
