@@ -64,7 +64,7 @@ public class NoticeController {
 	
 	// 공지사항 상세
 	@GetMapping("data/{notCd}")
-	public String noticeData(@par int notCd, Model model) throws Exception {
+	public String noticeData(@PathVariable int notCd, Model model) throws Exception {
 		NoticeVO noticeVO = noticeService.noticeData(notCd);
 		model.addAttribute("data", noticeVO);
 		return "board/notice/data";
