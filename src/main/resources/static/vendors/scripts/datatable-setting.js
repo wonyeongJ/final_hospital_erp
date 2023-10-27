@@ -14,8 +14,7 @@ $(document).ready(function () {
             }
         },
         'columnDefs': [
-            { 'searchable': false, 'targets': 0 }, // 0번째 열에 필터 기능 비활성화
-            { 'type': 'string', 'targets': 0 } // 0번째 열에 문자열 정렬 적용 (한글)
+            { 'type': 'num', 'targets': 0 } // 0번째 열에 문자열 정렬 적용 (한글)
         ],
         'order': [0, 'desc'] // 0번째 열 (한글) 먼저 오름차순 정렬, 그 후 1번째 열 (숫자) 오름차순 정렬
     });

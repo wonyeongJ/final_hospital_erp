@@ -19,64 +19,16 @@
                 </tr>
             </thead>
             <tbody>
-            	 <c:forEach items="${noticeList}" var="notice">
+            	 <c:forEach items="${data}" var="notice">
             	 	 <tr>
 	                    <td>${notice.notCd}</td>
-	                    <td>${notice.notTitle}</td>
+	                    <td><a href="./data/${notice.notCd}">${notice.notTitle}</a></td>
 	                    <td>${notice.memCd}</td>
 	                    <td>${notice.notRdate}</td>
 	                    <td>${notice.notHit}</td>
                 	</tr>
             	 
             	 </c:forEach>
-               <!--  <tr>
-                    <td>1</td>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Tokyo</td>
-                    <td>2008/11/28</td>
-                    
-                </tr>
-                <tr>
-                    <td>중요</td>
-                    <td>Angelica Ramos</td>
-                    <td>Chief Executive Officer (CEO)</td>
-                    <td>London</td>
-                    <td>2009/10/09</td>
-                    
-                </tr>
-                <tr>
-                    <td>중요</td>
-                    <td>Ashton Cox</td>
-                    <td>Junior Technical Author</td>
-                    <td>San Francisco</td>
-                    <td>2009/01/12</td>
-                    
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Bradley Greer</td>
-                    <td>Software Engineer</td>
-                    <td>London</td>
-                    <td>2012/10/13</td>
-                    
-                </tr>
-                <tr>
-                    <td>중요</td>
-                    <td>Brenden Wagner</td>
-                    <td>Software Engineer</td>
-                    <td>San Francisco</td>
-                    <td>2011/06/07</td>
-                    
-                </tr>
-                 <tr>
-                    <td>3</td>
-                    <td>Brenden Wagner</td>
-                    <td>Software Engineer</td>
-                    <td>San Francisco</td>
-                    <td>2011/06/07</td>
-                    
-                </tr> -->
             </tbody>
         </table>
         <div><button class="my btn btn-primary" type="button"><a href="./insert" style="color: white;">글쓰기</a></button></div>
