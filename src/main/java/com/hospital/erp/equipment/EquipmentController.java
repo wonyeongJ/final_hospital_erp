@@ -1,7 +1,10 @@
 package com.hospital.erp.equipment;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -24,15 +27,12 @@ public class EquipmentController {
 	}
 	
 	@GetMapping("list") 
-	public void equipmentList() throws Exception{ 
-		EquipmentVO ev = equipmentService.equipmentList();
-		System.out.println(ev);
-        
-		TimeSetter timeSetter = new TimeSetter();
-		String st = timeSetter.localDateTimeToString(ev.getEquPdate(), "yyyy년 MM월 dd일 hh시 mm분 ss초");
+	public String equipmentList(Model model) throws Exception{ 
+		List<EquipmentVO> allEquipments = equipmentService.equipmentList();
+		System.out.println(allEquipments);
+		model.addAttribute("allEquipments", allEquipments);
 		
-		System.out.println(st);
-		
+		return "equipment/list";
 	}
 	
 	@GetMapping("historyInsert") 

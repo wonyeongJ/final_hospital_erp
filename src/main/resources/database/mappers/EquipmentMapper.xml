@@ -3,11 +3,65 @@
   
 <mapper namespace="com.hospital.erp.equipment.EquipmentDAO">
 
-	<select id="equipmentList" resultType="EquipmentVO">
-  		SELECT
-  			*
-  		FROM
-  			EQUIPMENT
+	<select id="equipmentList" resultMap="equipmentListResult">
+		SELECT
+			E.*,
+			MAX(EH_REDATE),
+			EH.*,
+			M.MEM_NAME,
+			C.CODE_NAME
+		FROM 
+			EQUIPMENT E
+			LEFT OUTER JOIN EQUIPMENT_HISTORY EH
+			ON E.EQU_CD = EH.EQU_CD
+				LEFT OUTER JOIN MEMBER M
+			ON EH.MEM_CD = M.MEM_CD 
+			LEFT OUTER JOIN CODE C
+			ON E.CODE_CD = C.CODE_CD
+		GROUP BY 
+			E.EQU_CD
   	</select>
+  	
+<!--  	<resultMap type="EquipmentVO" id="equipmentListResult">
+		<result column="EQU_CD" property="equCd"/>
+		<result column="CODE_CD" property="codeCd"/>
+		<result column="CODE_NAME" property="codeName"/>
+		<result column="EQU_SNUM" property="equSnum"/>
+		<result column="EQU_DELETE" property="equDelete"/>
+		<result column="EQU_PDATE" property="equPdate"/>
+		<result column="EQU_RDATE" property="equRdate"/>
+		<collection property="equipmentHistoryVO" javaType="java.util.List" ofType="EquipmentHistoryVO">
+  			<id column="EH_CD" property="ehCd"/>
+  			<result column="MEM_CD" property="memCd"/>
+  			<result column="EQU_CD" property="equCd"/>
+  			<result column="EH_SDATE" property="ehSdate"/>
+  			<result column="EH_REDATE" property="ehRedate"/>
+  			<result column="EH_RDATE" property="ehRdate"/>
+  			<result column="MEM_NAME" property="memName"/>
+  		</collection>
+	</resultMap> 
+-->
+	
+	<resultMap type="EquipmentHistoryVO" id="EquipmentHistoryVO">
+  		<result column="EH_CD" property="ehCd"/>
+  		<result column="MEM_CD" property="memCd"/>
+  		<result column="EQU_CD" property="equCd"/>
+  		<result column="EH_RETURN" property="ehReturn"/>
+  		<result column="EH_SDATE" property="ehSdate"/>
+  		<result column="EH_REDATE" property="ehRedate"/>
+  		<result column="EH_RDATE" property="ehRdate"/>
+  		<result column="MEM_NAME" property="memName"/>
+	</resultMap>
+	
+	<resultMap type="EquipmentVO" id="equipmentListResult">
+		<result column="EQU_CD" property="equCd"/>
+		<result column="CODE_CD" property="codeCd"/>
+		<result column="CODE_NAME" property="codeName"/>
+		<result column="EQU_SNUM" property="equSnum"/>
+		<result column="EQU_DELETE" property="equDelete"/>
+		<result column="EQU_PDATE" property="equPdate"/>
+		<result column="EQU_RDATE" property="equRdate"/>
+		<collection property="equipmentHistoryVO" resultMap="EquipmentHistoryVO"/>
+	</resultMap>
   	
 </mapper>
