@@ -12,9 +12,6 @@ public class NoticeVO {
 	// 공지사항 PK
 	private int notCd;
 	
-	// 멤버 테이블PK를 참조(FK)
-	private String memCd;
-	
 	// 공지사항 제목
 	private String notTitle;
 	
@@ -30,4 +27,6 @@ public class NoticeVO {
 	// 공지사항 생성날짜
 	private Date notRdate;
 
+	// 멤버 테이블PK를 참조(FK)
+	private String memCd;
 }

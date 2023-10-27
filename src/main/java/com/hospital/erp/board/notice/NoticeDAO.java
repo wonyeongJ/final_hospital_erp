@@ -21,7 +21,7 @@ public interface NoticeDAO {
 	public NoticeVO noticeData(int notCd) throws Exception;
 
 	// 공지사항 등록
-	public int noticeInsert(NoticeVO noticeVO,MultipartFile[] files) throws Exception;
+	public int noticeInsert(NoticeVO noticeVO) throws Exception;
 
 	// 파일 등록
 	public int fileInsert(FileVO fileVO) throws Exception;

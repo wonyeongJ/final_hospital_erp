@@ -19,8 +19,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.hospital.erp.util.FileManager;
 
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 @RequestMapping("/board/notice/*")
+@Slf4j
+@ToString
 public class NoticeController {
 	
 	// NoticeService 의존성 주입
@@ -48,15 +53,18 @@ public class NoticeController {
 	}
 	
 	@PostMapping("insert")
-	public String noticeInsert(NoticeVO noticeVO, MultipartFile [] files) throws Exception{
-		 int result = noticeService.noticeInsert(noticeVO, files);
+	public String noticeInsert(NoticeVO noticeVO) throws Exception{
+		
+		 log.info("=------------noticeVO {}=============", noticeVO);
+		
+		 int result = noticeService.noticeInsert(noticeVO);
 			
 			return "redirect:./list";
     }
 	
 	// 공지사항 상세
 	@GetMapping("data/{notCd}")
-	public String noticeData(@PathVariable int notCd, Model model) throws Exception {
+	public String noticeData(@par int notCd, Model model) throws Exception {
 		NoticeVO noticeVO = noticeService.noticeData(notCd);
 		model.addAttribute("data", noticeVO);
 		return "board/notice/data";

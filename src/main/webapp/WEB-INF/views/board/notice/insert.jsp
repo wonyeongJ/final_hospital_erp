@@ -11,7 +11,7 @@
     </div>
 
     <div class="row justify-content-center my-4">
-        <form class="col-md-7" action="/board/notice/insert" method="post" id="frm" enctype="multipart/form-data">
+        <form class="col-md-7" action="insert" method="post" id="frm">
             <!-- 로그인 상태 확인 -->
            <%--  <c:if test="${empty member}">
                 <div class="alert alert-danger">관리자만 등록가능합니다.</div>
@@ -30,26 +30,26 @@
 			        <input type="text" class="form-control" id="notTitle" name="notTitle" placeholder="제목 입력">
 			    </div>
 		   </div>
-		   <div class="mb-3">
-			    <label for="memCd" class="form-label">사번</label>
-			    <div class="input-group">
-			        <input type="text" class="form-control" id="memCd" name="memCd" placeholder="멤버가없기에일단 사번입력">
-			    </div>
-		   </div>
 			
 			<!-- 썸머노트 에디터를 사용할 textarea -->
 			<div class="mb-3">
 			    <label for="notContents" class="form-label">내용 (필수)</label>
 			    <div class="input-group">
-			        <textarea name="notContents" class="summernote"></textarea>
+			        <textarea name="notContents" class="summernote form-control"></textarea>
 			    </div>
 			</div>
-
+<!-- 
            	<div class="mb-3">
 		        <label for="files" class="form-label">첨부파일</label>
 		        <input type="file" name="files" class="form-control" id="files" placeholder="+">
-		    </div>
-            <div id="fileList" class="my-5"></div>
+		    </div> -->
+            <!-- <div id="fileList" class="my-5"></div> -->
+            <div class="mb-3">
+			    <label for="iss" class="form-label">사번</label>
+			    <div class="input-group">
+			        <input class="form-control" name="memCd">
+			    </div>
+		   </div>
             <div class="mb-3">
                 <button class="my btn btn-primary" type="submit" id="btn">글쓰기</button>
             </div>
@@ -62,11 +62,4 @@
     $('.summernote').summernote({
         height: 150
     });
-</script>
-<script>
-	//폼 제출 시 중요공지여부 값을 변경하여 서버로 전송
-	$('#frm').submit(function(event) {
-	    var notImportant = $('#inlineCheckbox1').is(':checked') ? 1 : 0;
-	    $('#frm').append('<input type="hidden" name="notImportant" value="' + notImportant + '">');
-	});
 </script>

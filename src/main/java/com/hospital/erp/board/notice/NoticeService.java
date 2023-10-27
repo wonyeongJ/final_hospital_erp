@@ -21,7 +21,7 @@ public class NoticeService {
 	@Autowired
 	private FileManager fileManger;
 	
-	@Value("${app.upload.nodeValue2}")
+	@Value("${app2.upload.nodeValue2}")
 	private String uploadPath;
 	
 	
@@ -36,39 +36,39 @@ public class NoticeService {
 	}
 	
 	// 공지사항 등록
-	public int noticeInsert(NoticeVO noticeVO, MultipartFile[] files) throws Exception {
+	public int noticeInsert(NoticeVO noticeVO) throws Exception {
 		
 		
-		int result = noticeDAO.noticeInsert(noticeVO, files);
+		int result = noticeDAO.noticeInsert(noticeVO);
 		
 		
-		for(MultipartFile multipartFile:files) {
-		
-		if(multipartFile.isEmpty()) {
-			continue;
-		}
-		
-		FileVO fileVO = new FileVO();
-		String fileName=fileManger.save(this.uploadPath+"notice", multipartFile);
-		fileVO.setBfFk(noticeVO.getNotCd());
-		fileVO.setCodeCd(9);
-		fileVO.setBfPath(uploadPath); // 실제경로
-		
-		// 파일 이름에서 확장자 추출
-		String originalFilename = multipartFile.getOriginalFilename();
-		int lastIndex = originalFilename.lastIndexOf('.');
-		if (lastIndex > 0) {
-		    String extension = originalFilename.substring(lastIndex + 1); // 확장자 추출
-		    fileVO.setBfExtension(extension);
-		} else {
-		    // 확장자를 추출하지 못한 경우 예외 처리 또는 기본값 설정
-		    fileVO.setBfExtension("확장자 없음"); // 예외 처리나 기본값을 설정해 주세요.
-		}
-		
-		fileVO.setBfFname(fileName);
-		fileVO.setBfOname(multipartFile.getOriginalFilename());
-		result = noticeDAO.fileInsert(fileVO);
-	}
+//		for(MultipartFile multipartFile:files) {
+//		
+//		if(multipartFile.isEmpty()) {
+//			continue;
+//		}
+//		
+//		FileVO fileVO = new FileVO();
+//		String fileName=fileManger.save(this.uploadPath+"notice", multipartFile);
+//		fileVO.setBfFk(noticeVO.getNotCd());
+//		fileVO.setCodeCd(9);
+//		fileVO.setBfPath(uploadPath); // 실제경로
+//		
+//		// 파일 이름에서 확장자 추출
+//		String originalFilename = multipartFile.getOriginalFilename();
+//		int lastIndex = originalFilename.lastIndexOf('.');
+//		if (lastIndex > 0) {
+//		    String extension = originalFilename.substring(lastIndex + 1); // 확장자 추출
+//		    fileVO.setBfExtension(extension);
+//		} else {
+//		    // 확장자를 추출하지 못한 경우 예외 처리 또는 기본값 설정
+//		    fileVO.setBfExtension("확장자 없음"); // 예외 처리나 기본값을 설정해 주세요.
+//		}
+//		
+//		fileVO.setBfFname(fileName);
+//		fileVO.setBfOname(multipartFile.getOriginalFilename());
+//		result = noticeDAO.fileInsert(fileVO);
+//	}
 		return result;
 	}
    
