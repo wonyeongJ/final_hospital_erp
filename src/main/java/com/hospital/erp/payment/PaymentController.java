@@ -41,5 +41,11 @@ public class PaymentController {
 		return "payment/formList";
 	}
 	
+	@GetMapping("formTest")
+	public String paymentFormTest()throws Exception{
+		
+		return "payment/formTest";
+	}
+	
 
 }
