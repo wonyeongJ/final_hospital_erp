@@ -20,4 +20,7 @@ public class EquipmentHistoryVO {
 	private LocalDateTime ehRdate;
 	
 	private String memName;
+	
+	private String processedSdate;
+	private String processedRedate;
 }
