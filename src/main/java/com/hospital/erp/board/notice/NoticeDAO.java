@@ -41,4 +41,6 @@ public interface NoticeDAO {
 	// 중요 공지사항 카운트
 	public int noticeImportantCount(int notImportant) throws Exception;
 	
+	// 공지사항 삭제
+	public int noticeDelete(int notCd) throws Exception;
 }

@@ -122,5 +122,14 @@
     		NOT_IMPORTANT = 1
 </select>
 
+<!-- 공지사항 삭제 -->
+<delete id="noticeDelete" parameterType="int">
+    	DELETE
+    		FROM
+    	NOTICE
+    		WHERE 
+    	NOT_CD = #{notCd}
+</delete>
+
   	
 </mapper>

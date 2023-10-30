@@ -152,5 +152,10 @@ public class NoticeService {
 	public int noticeImportantCount(int notImportant) throws Exception{
 		return noticeDAO.noticeImportantCount(notImportant);
 	}
+	
+	// 공지사항 삭제
+	public int noticeDelete(int notCd) throws Exception{
+		return noticeDAO.noticeDelete(notCd);
+	}
 
 }

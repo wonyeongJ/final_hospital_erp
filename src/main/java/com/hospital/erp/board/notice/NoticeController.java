@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hospital.erp.file.FileVO;
@@ -141,4 +142,20 @@ public class NoticeController {
 		return "commons/result";
 		}
 	
+	
+	/// Delete
+	@RequestMapping(value = "delete/{notCd}", method = RequestMethod.POST)
+	@ResponseBody
+	public String noticeDelete(@PathVariable int notCd) throws Exception {
+	    int result = noticeService.noticeDelete(notCd);
+
+	    if (result > 0) {
+	        return "success";
+	    } else {
+	        return "failure";
+	    }
+	}
+		
 }
+	
+
