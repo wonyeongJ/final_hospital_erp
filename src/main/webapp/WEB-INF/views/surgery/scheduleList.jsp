@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<link rel="stylesheet" href="/vendors/styles/equipment/detail.css">
 <link rel="stylesheet" href="/vendors/styles/equipment/list.css">
 
 <h1>수술실/비품관리</h1>
@@ -25,7 +24,8 @@
             <td>12:00</td>
 			<td>15:00</td>
 			<td>
-				<span class="badge badge-primary"><a onclick="window.open('#', '수술실 취소', 'width=100, height=100')" id="a2">취소하기</a></span>
+                <span class="badge badge-primary"><a onclick="location.href='scheduleUpdate'" id="a2">수정하기</a></span>
+				<span class="badge badge-primary"><a onclick="window.open('#', '수술실 예약 취소', 'width=100, height=100')" id="a2">취소하기</a></span>
 			</td>
         </tr>
     </tbody>

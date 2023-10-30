@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 	var calendarEl = document.getElementById('calendar');
 	var calendar = new FullCalendar.Calendar(calendarEl, {
-		initialView : 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
+		initialView : 'dayGridDay', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
 		height: 800,
 		contentHeight: 600,
 		headerToolbar : { // 헤더에 표시할 툴 바
@@ -19,22 +19,22 @@ document.addEventListener('DOMContentLoaded', function() {
 		events: [
       {
         title: '회의',
-        start: '2023-10-23',
+        start: '2023-10-25',
         backgroundColor: '#8B0000',
         borderColor:'#8B0000'
       },
       {
         title: '휴가',
-        start: '2023-10-11',
-        end: '2023-10-13',
+        start: '2023-10-25',
+        end: '2023-10-25',
         backgroundColor: '#008404',
         borderColor:'#008404'         
       }],
       dateClick: function() { 
-		 window.open('add', '개인 일정 추가하기', 'width=800, height=750')
+		 window.open('insert', '개인 일정 추가하기', 'width=800, height=750')
 	  },
 	  eventClick: function() {
-		 window.open('detail', '개인 일정 상세 보기', 'width=800, height=750')
+		 window.open('data', '개인 일정 상세 보기', 'width=800, height=750')
 	  } 
 	});
 	calendar.render();
