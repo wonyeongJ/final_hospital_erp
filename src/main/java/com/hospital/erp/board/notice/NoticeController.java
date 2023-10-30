@@ -54,19 +54,28 @@ public class NoticeController {
 	}
 	
 	@PostMapping("insert")
-	public String noticeInsert(NoticeVO noticeVO,MultipartFile[] files) throws Exception{
+	public String noticeInsert(NoticeVO noticeVO,MultipartFile[] files, Model model) throws Exception{
 		
 		 log.info("=------------noticeVO {}=============", noticeVO);
 		
 		 int result = noticeService.noticeInsert(noticeVO, files);
 			
-			return "redirect:./list";
+		 String message = "등록 실패";
+
+			if (result > 0) {
+				message = "등록 성공";
+				}
+			model.addAttribute("message", message);
+			model.addAttribute("url", "list");
+			
+			return "commons/result";
     }
 	
 	// 공지사항 상세
 	@GetMapping("data/{notCd}")
 	public String noticeData(NoticeVO noticeVO, Model model) throws Exception {
 		noticeVO = noticeService.noticeData(noticeVO);
+		noticeService.noticeHitCount(noticeVO.getNotCd());
 		model.addAttribute("data", noticeVO);
 		
 		return "board/notice/data";
@@ -77,8 +86,18 @@ public class NoticeController {
 	@GetMapping("fileDown")
 	public String getFileDown(NoticeFileVO noticeFileVO, Model model)throws Exception{
 		noticeFileVO = (NoticeFileVO) noticeService.fileData(noticeFileVO);
-		model.addAttribute("noticeFileVO", noticeFileVO);
+		model.addAttribute("list", noticeFileVO);
 		return "fileDownView";
+	}
+	
+	// FileDelete
+	@GetMapping("fileDelete")
+	public String fileDelete(NoticeFileVO noticeFileVO,Model model,HttpSession session) throws Exception{
+		
+		int result = noticeService.fileDelete(noticeFileVO, session);
+		model.addAttribute("result",result);
+		
+		return "commons/ajaxResult";
 	}
 	
 	
@@ -92,6 +111,7 @@ public class NoticeController {
 			
 		return "board/notice/update";
 	}
+	
 	//update
 	@PostMapping("update")
 	public String getUpdate(NoticeVO noticeVO,MultipartFile[] files,HttpSession session, Model model)throws Exception{

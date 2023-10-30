@@ -1,7 +1,7 @@
-const insert = document.getElementById("insert");
-const fileList = document.getElementById("fileList");
-const delets = document.getElementsByClassName("delets");
-
+document.addEventListener("DOMContentLoaded", function () {
+    const insert = document.getElementById("insert");
+    const fileList = document.getElementById("fileList");
+    const delets = document.getElementsByClassName("delets");
 // 이벤트 핸들러를 함수로 만들어 재사용 가능하게 만듭니다.
 function addDeleteEventListener(deleteElement) {
     deleteElement.addEventListener("click", function () {
@@ -43,9 +43,6 @@ for (let i = 0; i < delets.length; i++) {
     addDeleteEventListener(deleteElement);
 }
 
-// 나머지 코드는 그대로 유지됩니다.
-
-
 let max = 5;
 let count = 0;
 
@@ -55,23 +52,96 @@ if (delets != null) {
 
 let idx = 0;
 
-$("#fileList").on("click", ".df", function () {
-    $(this).parent().remove();
-    count--;
-});
-
-$("#insert").click(function () {
+insert.addEventListener("click", function () {
     if (count >= max) {
         alert("최대 5개만 가능");
         return;
     }
     count++;
 
-    let r = '<div class="input-group mb-3" id="files' + idx + '">'
-    r = r + '<input type="file" class="form-control" id="files" name="files">'
-    r = r + '<span class="df" data-id="file' + idx + '">X</span>'
-    r = r + "</div>";
-    idx++;
+    let inputGroup = document.createElement("div");
+    inputGroup.className = "input-group mb-3";
+    inputGroup.id = "files" + idx;
 
-    $("#fileList").append(r);
+    let fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.className = "form-control";
+    fileInput.name = "files";
+
+    let deleteButton = document.createElement("span");
+    deleteButton.className = "df";
+    deleteButton.setAttribute("data-id", "file" + idx);
+    deleteButton.textContent = "X";
+
+    inputGroup.appendChild(fileInput);
+    inputGroup.appendChild(deleteButton);
+
+    fileList.appendChild(inputGroup);
+
+    // Delete file button click event
+    deleteButton.addEventListener("click", function () {
+        inputGroup.remove();
+        count--;
+    });
+
+    idx++;
 });
+});
+
+
+// Summernote 이미지 업로드 처리
+$("#contents").summernote({
+    height: 400,
+    callbacks: {
+        onImageUpload: function (files) {
+            // 이미지를 서버에 업로드
+            let formData = new FormData();
+            formData.append("files", files[0]);
+            
+            $.ajax({
+                type: "post",
+                url: './contentsImgInsert',
+                data: formData,
+                enctype: 'multipart/form-data',
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    // 서버에서의 이미지 경로를 에디터에 추가
+                    var img = new Image();
+                    img.src = result.trim();
+                    img.style.maxWidth = '100%';
+                    $('#contents').summernote('insertNode', img);
+                },
+                error: function () {
+                    console.log('error');
+                }
+            });
+        },
+        // 이미지 삭제를 위한 처리
+        onMediaDelete: function (target) {
+            // 이미지 삭제 요청을 서버로 보내고 성공하면 이미지를 삭제합니다.
+            let path = $(target[0]).attr("src"); // 이미지 경로
+            console.log("del");
+            $.ajax({
+                type: 'post',
+                url: './contentsImgDelete',
+                data: {
+                    path: path
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (result.trim() === '1') {
+                        // 이미지 삭제 성공 시 해당 이미지를 에디터에서도 삭제합니다.
+                        $(target[0]).remove();
+                    }
+                },
+                error: function () {
+                    console.log('error');
+                }
+            });
+        }
+    }
+});
+
+

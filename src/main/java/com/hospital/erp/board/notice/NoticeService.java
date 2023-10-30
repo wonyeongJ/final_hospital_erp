@@ -39,6 +39,26 @@ public class NoticeService {
 		return noticeDAO.noticeData(noticeVO);
 	}
 	
+	
+	// 썸머노트 사진 등록
+	public String contentsImgInsert(MultipartFile files, HttpSession session) throws Exception{
+		
+		
+		 String FileName = fileManger.save(this.uploadPath+this.boardName, files);
+         
+         return this.uploadPath+this.boardName+FileName;
+	}
+	
+	
+	// 썸머노트 사진 삭제
+	public boolean contentsImgDelete(NoticeFileVO noticeFileVO, HttpSession session) throws Exception {
+	   
+		noticeFileVO.setBfFname(this.boardName.substring(this.boardName.lastIndexOf("/") + 1));
+	    return fileManger.fileDelete(noticeFileVO, uploadPath, session);
+	}
+
+	
+	
 	// 공지사항 등록
 	public int noticeInsert(NoticeVO noticeVO, MultipartFile[] files) throws Exception {
 		
@@ -67,8 +87,22 @@ public class NoticeService {
    
 	
 	// 파일다운로드
-	public FileVO fileData(NoticeFileVO noticeFileVO)throws Exception{
+	public NoticeFileVO fileData(NoticeFileVO noticeFileVO)throws Exception{
 		return noticeDAO.fileData(noticeFileVO);
+	}
+	
+	//fileDelete
+	public int fileDelete(NoticeFileVO noticeFileVO,HttpSession session)throws Exception{
+			
+			noticeFileVO = (NoticeFileVO) noticeDAO.fileData(noticeFileVO);
+			boolean flag = fileManger.fileDelete(noticeFileVO, uploadPath, session);
+			
+			if(flag) {
+				//db삭제
+				return noticeDAO.fileDelete(noticeFileVO);
+			}
+			
+			return 0;
 	}
 	
 	// 공지사항 업데이트
@@ -94,6 +128,12 @@ public class NoticeService {
         }
 
 		return result;
+	}
+	
+	
+	// 공지사항 조회수 업데이트
+	public int noticeHitCount(int notCd)throws Exception{
+		return noticeDAO.noticeHitCount(notCd);
 	}
 
 }

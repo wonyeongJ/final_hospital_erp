@@ -5,10 +5,16 @@
 	
 <!-- 공지사항리스트 조회 쿼리문 -->
 <select id="noticeList" parameterType="NoticeVO" resultType="NoticeVO">
-	   SELECT
-	   		*
-	   FROM
-	      	NOTICE
+	SELECT
+		* 
+	FROM
+		NOTICE
+	ORDER BY CASE
+		WHEN NOT_IMPORTANT = 1 THEN 1
+    ELSE 2
+		END,
+		NOT_RDATE DESC
+
 </select>
 
 <!-- 공지사항 insert 쿼리문 -->
@@ -79,12 +85,32 @@
 
 <!-- 공지사항 Update -->
 <update id="noticeUpdate" parameterType="NoticeVO">
-  		UPDATE NOTICE
+  		UPDATE 
+  			NOTICE
 	    SET
 	        NOT_TITLE = #{notTitle},
 	        NOT_CONTENTS = #{notContents},
 	        NOT_IMPORTANT = #{notImportant}
 	    WHERE NOT_CD = #{notCd}
+</update>
+
+<!--fileDelete  -->
+<delete id="fileDelete" parameterType="NoticeFileVO">
+		DELETE
+		FROM 
+		BOARD_FILE
+		WHERE
+			bfCd = #{bfCd}
+</delete>
+
+<!-- 공지사항 조회수 -->
+<update id="noticeHitCount">
+		UPDATE
+			NOTICE 
+		SET 
+			NOT_HIT = NOT_HIT + 1
+		WHERE
+			NOT_CD = #{notCd}
 </update>
   	
 </mapper>

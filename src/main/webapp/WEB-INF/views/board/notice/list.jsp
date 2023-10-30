@@ -20,7 +20,16 @@
             <tbody>
                 <c:forEach items="${data}" var="notice">
                     <tr>
-                        <td>${notice.notCd}</td>
+                        <td>
+                        <c:choose>
+			                <c:when test="${notice.notImportant eq 1}">
+			                   <span style="color: red;">중요[!]</span>
+			                </c:when>
+			                <c:otherwise>
+			                   ${notice.notCd}
+			                </c:otherwise>
+			            </c:choose>
+			            </td>
                         <td><a href="./data/${notice.notCd}">${notice.notTitle}</a></td>
                         <td>${notice.memCd}</td>
                         <td>${notice.notRdate}</td>

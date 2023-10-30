@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import url="/WEB-INF/views/layout/summernote.jsp"></c:import>
+<script src="/vendors/scripts/board/file.js"></script>
 
 <div class="container-fluid">
     <div class="row justify-content-center my-4">
@@ -10,7 +11,7 @@
     </div>
 
     <div class="row justify-content-center my-4">
-        <form class="col-md-7" action="./update" method="post" id="frm" enctype="multipart/form-data">
+        <form class="col-md-7" action="../update" method="post" id="frm" enctype="multipart/form-data">
             <input type="hidden" name="notCd" readonly="readonly"  value="${data.notCd}">
 
             <div class="form-check form-check-inline mb-3">
@@ -36,13 +37,21 @@
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label for="pic" class="form-label">첨부파일</label>
-                <input type="files" name="files" class="form-control" id="pic" placeholder="+">
-            </div>
+           <div>
+			    <c:forEach items="${list}" var="f">
+			        <span class="alert alert-primary me-2" role="alert" id="${f.bfCd}">
+			            첨부파일: ${f.bfOname}
+			        </span>
+			        <span class="delets" data-delete-num="${f.bfCd}">x</span>
+			    </c:forEach>
+			</div>
 
-            <div id="fileList" class="my-5"></div>
-
+			<div class="mb-3">
+			    <button type="button" class="btn btn-primary" id="insert">파일 추가</button>
+			</div>
+			<div id="fileList" class="my-5">
+			    
+			</div>
             <div class="mb-3">
                 <button class="my btn btn-primary" type="submit" id="btn-update">수정완료</button>
             </div>

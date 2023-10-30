@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <c:import url="/WEB-INF/views/layout/summernote.jsp"></c:import>
-<script src="/vendors/script/board/file.js"></script>
+<script src="/vendors/scripts/board/file.js"></script>
 
 
 <div class="container-fluid">
@@ -46,11 +46,13 @@
 			    </div>
 			</div>
 
-           	<div class="mb-3">
-		        <label for="files" class="form-label">첨부파일</label>
-		        <input type="file" name="files" class="form-control" id="files" placeholder="+">
-		    </div>
-            <div id="fileList" class="my-5"></div>
+ 			<div class="mb-3">
+			    <button type="button" class="btn btn-primary" id="insert">파일 추가</button>
+			</div>
+			<div id="fileList" class="my-5">
+			    <!-- 초기에는 아무 파일 입력 상자도 없습니다. -->
+			</div>
+
          
             <div class="mb-3">
                 <button class="my btn btn-primary" type="submit" id="btn">글쓰기</button>

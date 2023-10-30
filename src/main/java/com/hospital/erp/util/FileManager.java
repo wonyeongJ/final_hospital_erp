@@ -18,6 +18,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.AbstractView;
 
+import com.hospital.erp.board.notice.NoticeFileVO;
 import com.hospital.erp.file.FileVO;
 
 @Component
@@ -57,61 +58,22 @@ public class FileManager extends AbstractView {
 		}
 		
 
-	}
+	
 
+    // 파일 삭제
+    public boolean fileDelete(NoticeFileVO noticeFileVO, String path, HttpSession session) {
+        // 1. 삭제할 폴더의 실제 경로
+        path = session.getServletContext().getRealPath(path);
 
-//
-//    @Value("${app.upload.nodeValue2}") // 파일 저장 경로를 application.properties 파일에서 가져오도록 설정
-//    private String uploadPath;
-//
-//    @Override
-//    protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
-//            HttpServletResponse response) throws Exception {
-//        String b = (String) model.get("board");
-//        FileVO fileVO = (FileVO) model.get("file");
-//
-//        // 1. 파일 경로 준비
-//        String path = uploadPath + File.separator + "resources" + File.separator + "upload" + File.separator + b;
-//        System.out.println(path);
-//
-//        // 2. File 객체 생성
-//        File file = new File(path, fileVO.getBfFname());
-//
-//        // 3. 파일의 크기 설정
-//        response.setContentLength((int) file.length());
-//
-//        // 4. 다운로드 이름 인코딩
-//        String downName = fileVO.getBfOname();
-//        downName = URLEncoder.encode(downName, "UTF-8");
-//
-//        // 5. Header 정보 설정
-//        response.setHeader("Content-Disposition", "attachment; filename=\"" + downName + "\"");
-//        response.setHeader("Content-Transfer-Encoding", "binary");
-//
-//        // 6. 전송
-//        FileInputStream is = new FileInputStream(file);
-//        OutputStream os = response.getOutputStream();
-//
-//        FileCopyUtils.copy(is, os);
-//
-//        // 7. 자원 해제
-//        os.close();
-//        is.close();
-//    }
-//
-//    // 파일 삭제
-//    public boolean fileDelete(FileVO fileVO, String path, HttpSession session) {
-//        // 1. 삭제할 폴더의 실제 경로
-//        path = session.getServletContext().getRealPath(path);
-//
-//        File file = new File(path, fileVO.getBfFname());
-//
-//        // 로그 추가
-//        System.out.println("Deleting file: " + file.getAbsolutePath());
-//
-//        return file.delete();
-//    }
-//
+        File file = new File(path, noticeFileVO.getBfFname());
+
+        // 로그 추가
+        System.out.println("Deleting file: " + file.getAbsolutePath());
+
+        return file.delete();
+    }
+}
+
 //    // fileSave
 //    public String fileSave(String path, HttpSession session, MultipartFile multipartFile) throws Exception {
 //        // 파일의 정보를 이용해서 HDD에 파일을 저장

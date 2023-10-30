@@ -7,7 +7,7 @@
     <div>
         <div>
             <div class="row justify-content-center my-4">
-                <h1 class="col-md-7 text-center">공지사항 상세</h1>
+                <h1 class="col-md-7 text-center">공지사항</h1>
             </div>
 
             <section>

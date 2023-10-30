@@ -27,8 +27,16 @@ public interface NoticeDAO {
 	public int fileInsert(NoticeFileVO noticeFileVO) throws Exception;
 	
 	// 파일다운로드
-	public FileVO fileData(NoticeFileVO noticeFileVO)throws Exception;
+	public NoticeFileVO fileData(NoticeFileVO noticeFileVO)throws Exception;
+	
+	// 파일 삭제
+	public int fileDelete(NoticeFileVO noticeFileVO) throws Exception;		
 
 	// 공지사항 업데이트
 	public int noticeUpdate (NoticeVO notceVO)throws Exception;
+	
+	// 공지사항 조회수 업데이트
+	public int noticeHitCount(int notCd)throws Exception;
+		
+	
 }
