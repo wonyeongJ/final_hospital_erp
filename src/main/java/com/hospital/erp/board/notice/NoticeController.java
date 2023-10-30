@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hospital.erp.file.FileVO;
 import com.hospital.erp.util.FileManager;
 
 import lombok.ToString;
@@ -53,27 +54,59 @@ public class NoticeController {
 	}
 	
 	@PostMapping("insert")
-	public String noticeInsert(NoticeVO noticeVO) throws Exception{
+	public String noticeInsert(NoticeVO noticeVO,MultipartFile[] files) throws Exception{
 		
 		 log.info("=------------noticeVO {}=============", noticeVO);
 		
-		 int result = noticeService.noticeInsert(noticeVO);
+		 int result = noticeService.noticeInsert(noticeVO, files);
 			
 			return "redirect:./list";
     }
 	
 	// 공지사항 상세
 	@GetMapping("data/{notCd}")
-	public String noticeData(@PathVariable int notCd, Model model) throws Exception {
-		NoticeVO noticeVO = noticeService.noticeData(notCd);
+	public String noticeData(NoticeVO noticeVO, Model model) throws Exception {
+		noticeVO = noticeService.noticeData(noticeVO);
 		model.addAttribute("data", noticeVO);
+		
 		return "board/notice/data";
 
 	}
-	@GetMapping("update")
-	public String noticeUpdate() {
-		return "board/notice/update";
-
+	
+	// FileDown
+	@GetMapping("fileDown")
+	public String getFileDown(NoticeFileVO noticeFileVO, Model model)throws Exception{
+		noticeFileVO = (NoticeFileVO) noticeService.fileData(noticeFileVO);
+		model.addAttribute("noticeFileVO", noticeFileVO);
+		return "fileDownView";
 	}
+	
+	
+	//update	
+	@GetMapping("update/{notCd}")
+	public String getUpdate(NoticeVO noticeVO, Model model)throws Exception{
+			
+		noticeVO = noticeService.noticeData(noticeVO);
+		
+		model.addAttribute("data",noticeVO);
+			
+		return "board/notice/update";
+	}
+	//update
+	@PostMapping("update")
+	public String getUpdate(NoticeVO noticeVO,MultipartFile[] files,HttpSession session, Model model)throws Exception{
+			 
+		int result = noticeService.noticeUpdate(noticeVO, files);
+			 
+		String message = "등록 실패";
+
+		if (result > 0) {
+			message = "등록 성공";
+			}
+		model.addAttribute("message", message);
+		model.addAttribute("url", "list");
+		
+		return "commons/result";
+		}
 	
 }

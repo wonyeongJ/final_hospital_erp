@@ -48,6 +48,7 @@
 		
 		
 		<typeAlias type="com.hospital.erp.board.notice.NoticeVO" alias="NoticeVO"/>
+		<typeAlias type="com.hospital.erp.board.notice.NoticeFileVO" alias="NoticeFileVO"/>
 		<typeAlias type="com.hospital.erp.file.FileVO" alias="FileVO"/>
 		
 	</typeAliases>

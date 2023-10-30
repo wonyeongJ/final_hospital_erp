@@ -24,6 +24,10 @@ public class NoticeService {
 	@Value("${app2.upload.nodeValue2}")
 	private String uploadPath;
 	
+	@Value("${app.board.notice}")
+	private String boardName;
+
+	
 	
 	// 공지사항 리스트
 	public List<NoticeVO> noticeList(NoticeVO noticeVO) throws Exception{
@@ -31,46 +35,65 @@ public class NoticeService {
 	}
 	
 	// 공지사항 상세
-	public NoticeVO noticeData(int notCd) throws Exception{
-		return noticeDAO.noticeData(notCd);
+	public NoticeVO noticeData(NoticeVO noticeVO) throws Exception{
+		return noticeDAO.noticeData(noticeVO);
 	}
 	
 	// 공지사항 등록
-	public int noticeInsert(NoticeVO noticeVO) throws Exception {
+	public int noticeInsert(NoticeVO noticeVO, MultipartFile[] files) throws Exception {
 		
 		
 		int result = noticeDAO.noticeInsert(noticeVO);
+		int notCd = noticeVO.getNotCd();
 		
-		
-//		for(MultipartFile multipartFile:files) {
-//		
-//		if(multipartFile.isEmpty()) {
-//			continue;
-//		}
-//		
-//		FileVO fileVO = new FileVO();
-//		String fileName=fileManger.save(this.uploadPath+"notice", multipartFile);
-//		fileVO.setBfFk(noticeVO.getNotCd());
-//		fileVO.setCodeCd(9);
-//		fileVO.setBfPath(uploadPath); // 실제경로
-//		
-//		// 파일 이름에서 확장자 추출
-//		String originalFilename = multipartFile.getOriginalFilename();
-//		int lastIndex = originalFilename.lastIndexOf('.');
-//		if (lastIndex > 0) {
-//		    String extension = originalFilename.substring(lastIndex + 1); // 확장자 추출
-//		    fileVO.setBfExtension(extension);
-//		} else {
-//		    // 확장자를 추출하지 못한 경우 예외 처리 또는 기본값 설정
-//		    fileVO.setBfExtension("확장자 없음"); // 예외 처리나 기본값을 설정해 주세요.
-//		}
-//		
-//		fileVO.setBfFname(fileName);
-//		fileVO.setBfOname(multipartFile.getOriginalFilename());
-//		result = noticeDAO.fileInsert(fileVO);
-//	}
+		// 파일 업로드 및 파일 정보 저장
+        for (MultipartFile file : files) {
+            if (!file.isEmpty()) {
+                NoticeFileVO noticeFileVO = new NoticeFileVO();
+                noticeFileVO.setCodeCd(9); // 해당 공지사항 카테고리 코드
+                noticeFileVO.setBfFk(notCd); // 공지사항 등록 후 생성된 PK
+                noticeFileVO.setBfOname(file.getOriginalFilename());
+                String FileName = fileManger.save(this.uploadPath+this.boardName, file);
+                noticeFileVO.setBfFname(FileName);
+                noticeFileVO.setBfPath(uploadPath);
+                String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+                noticeFileVO.setBfExtension(extension);
+                noticeDAO.fileInsert(noticeFileVO);
+            }
+        }
+
 		return result;
 	}
    
+	
+	// 파일다운로드
+	public FileVO fileData(NoticeFileVO noticeFileVO)throws Exception{
+		return noticeDAO.fileData(noticeFileVO);
+	}
+	
+	// 공지사항 업데이트
+	public int noticeUpdate (NoticeVO notceVO,MultipartFile[] files)throws Exception{
+		
+		int result = noticeDAO.noticeUpdate(notceVO);
+		int notCd = notceVO.getNotCd();
+		
+		// 파일 업로드 및 파일 정보 저장
+        for (MultipartFile file : files) {
+            if (!file.isEmpty()) {
+                NoticeFileVO noticeFileVO = new NoticeFileVO();
+                noticeFileVO.setCodeCd(9); // 해당 공지사항 카테고리 코드
+                noticeFileVO.setBfFk(notCd); // 공지사항 등록 후 생성된 PK
+                noticeFileVO.setBfOname(file.getOriginalFilename());
+                String FileName = fileManger.save(this.uploadPath+this.boardName, file);
+                noticeFileVO.setBfFname(FileName);
+                noticeFileVO.setBfPath(uploadPath);
+                String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+                noticeFileVO.setBfExtension(extension);
+                noticeDAO.fileInsert(noticeFileVO);
+            }
+        }
+
+		return result;
+	}
 
 }

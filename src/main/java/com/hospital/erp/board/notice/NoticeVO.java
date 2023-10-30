@@ -1,13 +1,16 @@
 package com.hospital.erp.board.notice;
 
 import java.sql.Date;
+import java.util.List;
+
+import com.hospital.erp.file.FileVO;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class NoticeVO {
+public class NoticeVO extends FileVO{
 	
 	// 공지사항 PK
 	private int notCd;
@@ -29,4 +32,10 @@ public class NoticeVO {
 
 	// 멤버 테이블PK를 참조(FK)
 	private String memCd;
+	
+	// 공지사항 파일 리스트
+	private List<NoticeFileVO> list;
+	
+	
+	
 }

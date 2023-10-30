@@ -22,6 +22,10 @@ import com.hospital.erp.file.FileVO;
 
 @Component
 public class FileManager extends AbstractView {
+	 	
+	    @Value("${app2.upload.nodeValue2}")
+	    private String uploadPath;
+
 		//file 저장 후 파일명 리턴
 		public String save(String path, MultipartFile multipartFile)throws Exception{
 			//어디에?, 어떤파일을?

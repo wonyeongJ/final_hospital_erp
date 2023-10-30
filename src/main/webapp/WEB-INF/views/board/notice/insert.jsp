@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <c:import url="/WEB-INF/views/layout/summernote.jsp"></c:import>
+<script src="/vendors/script/board/file.js"></script>
 
 
 <div class="container-fluid">
@@ -11,7 +12,7 @@
     </div>
 
     <div class="row justify-content-center my-4">
-        <form class="col-md-7" action="insert" method="post" id="frm">
+        <form class="col-md-7" action="insert" method="post" id="frm" enctype="multipart/form-data">
             <!-- 로그인 상태 확인 -->
            <%--  <c:if test="${empty member}">
                 <div class="alert alert-danger">관리자만 등록가능합니다.</div>
@@ -24,6 +25,12 @@
             <div class="pull-right">
                 <span class="input-group-text">인사과 : 홍길동</span>
             </div>
+               <div class="mb-3">
+			    <label for="iss" class="form-label">사번</label>
+			    <div class="input-group">
+			        <input class="form-control" name="memCd" value="2304001">
+			    </div>
+		   </div>
            <div class="mb-3">
 			    <label for="notTile" class="form-label">제목 (필수)</label>
 			    <div class="input-group">
@@ -38,18 +45,13 @@
 			        <textarea name="notContents" class="summernote form-control"></textarea>
 			    </div>
 			</div>
-<!-- 
+
            	<div class="mb-3">
 		        <label for="files" class="form-label">첨부파일</label>
 		        <input type="file" name="files" class="form-control" id="files" placeholder="+">
-		    </div> -->
-            <!-- <div id="fileList" class="my-5"></div> -->
-            <div class="mb-3">
-			    <label for="iss" class="form-label">사번</label>
-			    <div class="input-group">
-			        <input class="form-control" name="memCd">
-			    </div>
-		   </div>
+		    </div>
+            <div id="fileList" class="my-5"></div>
+         
             <div class="mb-3">
                 <button class="my btn btn-primary" type="submit" id="btn">글쓰기</button>
             </div>
