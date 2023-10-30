@@ -63,8 +63,14 @@ public class NoticeService {
 	public int noticeInsert(NoticeVO noticeVO, MultipartFile[] files) throws Exception {
 		
 		
-		int result = noticeDAO.noticeInsert(noticeVO);
-		int notCd = noticeVO.getNotCd();
+		int importantCount = noticeImportantCount(1); // 중요 공지사항 개수 조회
+        if (noticeVO.getNotImportant() == 1 && importantCount >= 3) {
+            return -1; // 중요 공지사항 제한에 도달함
+        }
+
+        int result = noticeDAO.noticeInsert(noticeVO);
+        int notCd = noticeVO.getNotCd();
+
 		
 		// 파일 업로드 및 파일 정보 저장
         for (MultipartFile file : files) {
@@ -106,10 +112,16 @@ public class NoticeService {
 	}
 	
 	// 공지사항 업데이트
-	public int noticeUpdate (NoticeVO notceVO,MultipartFile[] files)throws Exception{
+	public int noticeUpdate (NoticeVO noticeVO,MultipartFile[] files)throws Exception{
 		
-		int result = noticeDAO.noticeUpdate(notceVO);
-		int notCd = notceVO.getNotCd();
+		int importantCount = noticeImportantCount(1); // 중요 공지사항 개수 조회
+        if (noticeVO.getNotImportant() == 1 && importantCount >= 3) {
+            return -1; // 중요 공지사항 제한에 도달함
+        }
+
+       int result = noticeDAO.noticeUpdate(noticeVO);
+       int notCd = noticeVO.getNotCd();
+
 		
 		// 파일 업로드 및 파일 정보 저장
         for (MultipartFile file : files) {
@@ -134,6 +146,11 @@ public class NoticeService {
 	// 공지사항 조회수 업데이트
 	public int noticeHitCount(int notCd)throws Exception{
 		return noticeDAO.noticeHitCount(notCd);
+	}
+	
+	// 중요 공지사항 카운트
+	public int noticeImportantCount(int notImportant) throws Exception{
+		return noticeDAO.noticeImportantCount(notImportant);
 	}
 
 }

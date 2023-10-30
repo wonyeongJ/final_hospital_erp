@@ -56,17 +56,24 @@ public class NoticeController {
 	@PostMapping("insert")
 	public String noticeInsert(NoticeVO noticeVO,MultipartFile[] files, Model model) throws Exception{
 		
-		 log.info("=------------noticeVO {}=============", noticeVO);
+
 		
 		 int result = noticeService.noticeInsert(noticeVO, files);
+		 
+		 if (result == -1) {
+	            // 중요 공지사항 제한에 도달했을 때 메시지 표시
+	            String message = "중요 공지사항은 3개까지 등록 가능합니다. 등록되어 있는 중요 공지사항을 일반 공지사항으로 수정 후 다시 등록해주세요.";
+	            model.addAttribute("message", message);
+	            model.addAttribute("url", "list");
+	        } else {
+	            String message = "등록 실패";
+	            if (result > 0) {
+	                message = "등록 성공";
+	            }
+	            model.addAttribute("message", message);
+	            model.addAttribute("url", "list");
+	        }
 			
-		 String message = "등록 실패";
-
-			if (result > 0) {
-				message = "등록 성공";
-				}
-			model.addAttribute("message", message);
-			model.addAttribute("url", "list");
 			
 			return "commons/result";
     }
@@ -117,15 +124,20 @@ public class NoticeController {
 	public String getUpdate(NoticeVO noticeVO,MultipartFile[] files,HttpSession session, Model model)throws Exception{
 			 
 		int result = noticeService.noticeUpdate(noticeVO, files);
-			 
-		String message = "등록 실패";
-
-		if (result > 0) {
-			message = "등록 성공";
-			}
-		model.addAttribute("message", message);
-		model.addAttribute("url", "list");
 		
+		if (result == -1) {
+            // 중요 공지사항 제한에 도달했을 때 메시지 표시
+            String message = "중요 공지사항은 3개까지 등록 가능합니다. 등록되어 있는 중요 공지사항을 일반 공지사항으로 수정 후 다시 등록해주세요.";
+            model.addAttribute("message", message);
+            model.addAttribute("url", "list");
+        } else {
+            String message = "등록 실패";
+            if (result > 0) {
+                message = "등록 성공";
+            }
+            model.addAttribute("message", message);
+            model.addAttribute("url", "list");
+        }
 		return "commons/result";
 		}
 	

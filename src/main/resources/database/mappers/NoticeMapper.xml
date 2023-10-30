@@ -14,7 +14,6 @@
     ELSE 2
 		END,
 		NOT_RDATE DESC
-
 </select>
 
 <!-- 공지사항 insert 쿼리문 -->
@@ -112,5 +111,16 @@
 		WHERE
 			NOT_CD = #{notCd}
 </update>
+
+<!-- 중요 공지 수 조회 -->
+<select id="noticeImportantCount" resultType="int">
+    	SELECT
+    		COUNT(*)
+    	FROM
+    		NOTICE
+    	WHERE
+    		NOT_IMPORTANT = 1
+</select>
+
   	
 </mapper>

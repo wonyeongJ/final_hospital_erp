@@ -17,10 +17,12 @@
            <%--  <c:if test="${empty member}">
                 <div class="alert alert-danger">관리자만 등록가능합니다.</div>
             </c:if> --%>
-            <div class="form-check form-check-inline mb-3">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1">중요공지여부</label>
-            </div>
+           <div class="form-check form-check-inline mb-3">
+			    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="notImportant" value="1">
+			    <label class="form-check-label" for="inlineCheckbox1">중요공지여부</label>
+			    <input type="hidden" name="notImportant" value="0"> <!-- 기본값으로 0을 설정 -->
+			</div>
+
             
             <div class="pull-right">
                 <span class="input-group-text">인사과 : 홍길동</span>
@@ -67,3 +69,4 @@
         height: 150
     });
 </script>
+

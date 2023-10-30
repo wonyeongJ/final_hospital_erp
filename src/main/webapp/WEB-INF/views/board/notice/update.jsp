@@ -14,10 +14,11 @@
         <form class="col-md-7" action="../update" method="post" id="frm" enctype="multipart/form-data">
             <input type="hidden" name="notCd" readonly="readonly"  value="${data.notCd}">
 
-            <div class="form-check form-check-inline mb-3">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="${data.notImportant}">
-                <label class="form-check-label" for="inlineCheckbox1">중요공지여부</label>
-            </div>
+             <div class="form-check form-check-inline mb-3">
+			    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="notImportant" value="1">
+			    <label class="form-check-label" for="inlineCheckbox1">중요공지여부</label>
+			    <input type="hidden" name="notImportant" value="0"> <!-- 기본값으로 0을 설정 -->
+			</div>
             <div class="pull-right">
                 <span class="input-group-text">인사과: ${member.memName}</span>
             </div>
