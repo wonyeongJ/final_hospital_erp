@@ -31,6 +31,12 @@ public class MemberController {
 	  private MemberService memberService;
 	    
 	
+	  // 로그인 요청 메서드
+	  @GetMapping("login")
+	  public String getLogin() throws Exception {
+		  return "member/login";
+	  }
+	  
 	  // 직원 리스트 요청 메서드
 	  @GetMapping("list")
 	  public String memberList(Model model) throws Exception {

@@ -39,12 +39,17 @@ public class SecurityConfig {
 			.csrf()
 			.disable()
 			.authorizeHttpRequests()
-				.antMatchers("/").permitAll()
+				.antMatchers("/","/member/insert").permitAll()
 				.anyRequest().authenticated()
 				.and()
 			//form 관련 설정
 			.formLogin()
-				.loginPage("/login") //내장된 로그인폼을 사용하지 않고, 개발자가 만든 폼을 사용
+				.loginPage("/") //내장된 로그인폼을 사용하지 않고, 개발자가 만든 폼을 사용
+				.defaultSuccessUrl("/member/list")
+				.loginProcessingUrl("/")
+				.failureUrl("/")
+				.usernameParameter("memCd")
+				.passwordParameter("memPw")
 				.and()
 			.logout()
 				.and()
@@ -61,6 +66,11 @@ public class SecurityConfig {
 			;
 		
 		return httpSecurity.build();
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 	
 	private SecurityLogoutHandler getLogoutHandler() {

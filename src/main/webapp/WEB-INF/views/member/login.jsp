@@ -51,7 +51,7 @@
 						<div class="login-title">
 							<h2 class="text-center text-primary">Login To ERP-Hospital</h2>
 						</div>
-						<form action="/" method="post">
+						<form action="/member/login" method="post">
 							<div class="input-group custom">
 								<input type="text" class="form-control form-control-lg" name="memCd" placeholder="Username">
 								<div class="input-group-append custom">
