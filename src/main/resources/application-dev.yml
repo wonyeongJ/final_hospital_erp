@@ -5,8 +5,7 @@ spring:
     encoding: UTF-8
     basename: messages/message
     use-code-as-default-message: 'true'
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
+
     
 # view 파일(jsp) 관련 설정
   mvc:
