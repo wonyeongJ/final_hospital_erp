@@ -27,7 +27,7 @@ public class NoticeService {
 	@Value("${app2.upload.nodeValue2}")
 	private String uploadPath;
 	
-	@Value("${app.board.notice}")
+	@Value("${app2.board.notice}")
 	private String boardName;
 
 	

@@ -36,7 +36,7 @@ public class NoticeVO extends FileVO{
 	private String memCd;
 	
 	// 공지사항 파일 리스트
-	 private List<NoticeFileVO> list = new ArrayList<>();
+	private List<NoticeFileVO> list = new ArrayList<>();
 
 	
 	

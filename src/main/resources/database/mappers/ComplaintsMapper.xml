@@ -1,135 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.hospital.erp.board.notice.NoticeDAO">
+<mapper namespace="com.hospital.erp.board.complaints.ComplaintsDAO">
 	
-<!-- 공지사항리스트 조회 쿼리문 -->
-<select id="noticeList" parameterType="NoticeVO" resultType="NoticeVO">
-		SELECT
-			* 
-		FROM
-			NOTICE
-		ORDER BY CASE
-			WHEN NOT_IMPORTANT = 1 THEN 1
-	    ELSE 2
-			END,
-			NOT_RDATE DESC
+<select id="complaintsList" parameterType="ComplaintsVO" resultType="ComplaintsVO">
+		SELECT 
+		    C.COMP_CD, 
+		    C.MEM_CD, 
+		    C.CODE_CD, 
+		    CO.CODE_NAME AS codeTypeName, 
+		    C.CODE_CD_ACTION, 
+		    CA.CODE_NAME AS actionTypeName, 
+		    C.COMP_TITLE, 
+		    C.COMP_CONTENTS, 
+		    C.COMP_SECRET, 
+		    C.COMP_DELETE, 
+		    C.COMP_RDATE
+		FROM COMPLAINTS C
+		INNER JOIN CODE CO ON C.CODE_CD = CO.CODE_CD
+		INNER JOIN CODE CA ON C.CODE_CD_ACTION = CA.CODE_CD
 </select>
 
-<!-- 공지사항 insert 쿼리문 -->
-<insert id="noticeInsert" parameterType="NoticeVO" useGeneratedKeys="true" keyProperty="notCd">
-	    INSERT 
-	    	INTO 
-	    NOTICE 
-	    	(MEM_CD, NOT_TITLE, NOT_CONTENTS, NOT_HIT, NOT_IMPORTANT, NOT_DELETE, NOT_RDATE)
-	    VALUES
-	    	 (#{memCd}, #{notTitle}, #{notContents}, 0, #{notImportant}, 0, NOW())
-</insert>
-
-
-
-<!-- 파일 업로드 쿼리문 -->
-<insert id="fileInsert" parameterType="NoticeFileVO">
-		INSERT
-			INTO 
-		BOARD_FILE
-			(BF_CD, CODE_CD, BF_FK, BF_ONAME, BF_FNAME, BF_PATH, BF_EXTENSION, BF_RDATE)
-		VALUES 
-	    	(NULL, #{codeCd}, #{bfFk}, #{bfOname}, #{bfFname}, #{bfPath}, #{bfExtension}, NOW())
-</insert>
-
-
-<!-- 공지사항 상세조회 쿼리문 -->
-<select id="noticeData" parameterType="NoticeVO" resultMap="noticeResultMap">
-		SELECT
-			N.*, NF.* 
-   		FROM
-   			NOTICE N
-    	LEFT OUTER JOIN 
-    		BOARD_FILE NF ON N.NOT_CD = NF.BF_FK 
-    	WHERE
-    		N.NOT_CD = #{notCd}
-</select>
-
-<resultMap id="noticeResultMap" type="NoticeVO">
-    <id property="notCd" column="NOT_CD" />
-    <result property="notTitle" column="NOT_TITLE" />
-    <result property="notContents" column="NOT_CONTENTS" />
-    <result property="notHit" column="NOT_HIT" />
-    <result property="notImportant" column="NOT_IMPORTANT" />
-    <result property="notRdate" column="NOT_RDATE" />
-    <result property="memCd" column="MEM_CD" />
-    	<collection property="list" ofType="NoticeFileVO" javaType="list">
-	        <id column="bfCd" property="bfCd" />
-	        <result column="codeCd" property="codeCd" />
-	        <result column="bfFk" property="bfFk" />
-	        <result column="bfOname" property="bfOname" />
-	        <result column="bfFname" property="bfFname" />
-	        <result column="bfPath" property="bfPath" />
-	        <result column="bfExtension" property="bfExtension" />
-	        <result column="bfRdata" property="bfRdata" />
-    	</collection>
-</resultMap>
-
-
-
-<select id="fileData" parameterType="int" resultType="NoticeFileVO">
-  		SELECT 
-  			*
-  		FROM
-  			BOARD_FILE
-  		WHERE 
-  			BF_FK=#{notCd}
-</select>
-
-<!-- 공지사항 Update -->
-<update id="noticeUpdate" parameterType="NoticeVO">
-  		UPDATE 
-  			NOTICE
-	    SET
-	        NOT_TITLE = #{notTitle},
-	        NOT_CONTENTS = #{notContents},
-	        NOT_IMPORTANT = #{notImportant}
-	    WHERE NOT_CD = #{notCd}
-</update>
-
-<!--fileDelete  -->
-<delete id="fileDelete" parameterType="int">
-		DELETE
-		FROM 
-		BOARD_FILE
-		WHERE
-			BF_FK = #{notCd}
-</delete>
-
-<!-- 공지사항 조회수 -->
-<update id="noticeHitCount">
-		UPDATE
-			NOTICE 
-		SET 
-			NOT_HIT = NOT_HIT + 1
-		WHERE
-			NOT_CD = #{notCd}
-</update>
-
-<!-- 중요 공지 수 조회 -->
-<select id="noticeImportantCount" resultType="int">
-    	SELECT
-    		COUNT(*)
-    	FROM
-    		NOTICE
-    	WHERE
-    		NOT_IMPORTANT = 1
-</select>
-
-<!-- 공지사항 삭제 -->
-<delete id="noticeDelete" parameterType="int">
-    	DELETE
-    		FROM
-    	NOTICE
-    		WHERE 
-    	NOT_CD = #{notCd}
-</delete>
 
   	
 </mapper>

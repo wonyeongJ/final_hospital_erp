@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="/vendors/styles/board/board.css">
     	 	
- 	<div class="container">
+ 	<div class="containerBoard">
         <div class="author-info">
             <span class="author-icon">작성자: ${data.memCd}</span>
         </div>
