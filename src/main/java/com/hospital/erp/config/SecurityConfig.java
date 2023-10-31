@@ -68,6 +68,7 @@ public class SecurityConfig {
 		return httpSecurity.build();
 	}
 	
+	//패스워드 암호화 객체
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
