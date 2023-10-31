@@ -7,6 +7,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -14,11 +18,25 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class MemberService {
+public class MemberService implements UserDetailsService {
 
 	
 	 @Autowired 
 	 private MemberDAO memberDAO;
+	 
+	 @Autowired
+	 private PasswordEncoder passwordEncoder;
+	 
+	//로그인처리 하는 메서드
+	 @Override
+	public UserDetails loadUserByUsername(String memCd) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		 log.info("=================== 테스트 =================== {}", memCd);
+		MemberVO memberVO = memberDAO.memberFindByData(memCd);
+		return memberVO;
+	}
+	 
+	
 	  
 	//직원 리스트 조회 메서드
 	public List<MemberVO> memberList() throws Exception {
@@ -100,7 +118,8 @@ public class MemberService {
 		
 		//비밀번호 생성 "-" 으로 앞 6자리 분리
 		String [] juminAr = memberVO.getMemRnum().split("-");
-		memberVO.setMemPw(juminAr[0]);
+		memberVO.setMemPw(passwordEncoder.encode(juminAr[0]));
+		
 	
 		return memberDAO.memberInsert(memberVO);
 	}
