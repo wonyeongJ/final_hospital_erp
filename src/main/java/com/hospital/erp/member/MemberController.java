@@ -1,9 +1,12 @@
 package com.hospital.erp.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,17 +30,21 @@ public class MemberController {
 	  @Autowired 
 	  private MemberService memberService;
 	    
-	  // 마이페이지 요청 메서드
-	  @GetMapping("mypage")
-	  public String memberData() throws Exception {
-		  
-		  return "member/mypage";
-	  }
-	  
+	
 	  // 직원 리스트 요청 메서드
 	  @GetMapping("list")
-	  public String memberList() throws Exception {
+	  public String memberList(Model model) throws Exception {
+		  List<MemberVO> memberAr = memberService.memberList();
+		  model.addAttribute("memberAr", memberAr);
 		  return "member/list";
+	  }
+	  
+	  // 직원 상세 detail 요청 메서드 detail 동시에 수정할 수 있는 udpate form 요청
+	  @GetMapping("data")
+	  public String memberData(MemberVO memberVO, Model model) throws Exception {
+		  memberVO = memberService.memberData(memberVO);
+		  model.addAttribute("memberVO", memberVO);
+		  return "member/data";
 	  }
 	  
 	  // 직원 등록 폼 메서드
@@ -53,11 +60,19 @@ public class MemberController {
 		  return "member/insert";
 	  }
 	  
-	  // 직원 상세 detail 요청 메서드
-	  @GetMapping("data")
-	  public String memberData(MemberVO memberVO) throws Exception {
-		  return "member/data";
+	 
+	  // 업데이트 요청 메서드
+	  @PostMapping("update")
+	  public String memberUpdate(MemberVO memberVO) throws Exception {
+		  return "redirect:./data";
 	  }
 	 
+	  // 마이페이지 요청 메서드
+	  @GetMapping("mypage")
+	  public String memberData() throws Exception {
+		  
+		  return "member/mypage";
+	  }
+	  
 	 
 }

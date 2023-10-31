@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Setter
-@Slf4j
 @ToString
 public class PatientVO {
 
@@ -19,4 +18,7 @@ public class PatientVO {
 	private String patRnum;
 	private String patPnum;
 	private Date patRdate;
+	
+	private Date resVdate; //Reservation 테이블 Join
+	private String codeName; //Code 테이블 Join
 }

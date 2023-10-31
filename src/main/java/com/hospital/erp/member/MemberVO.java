@@ -5,6 +5,8 @@ import java.sql.Date;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hospital.erp.department.DepartmentVO;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -31,5 +33,7 @@ public class MemberVO {
 	private Date memQdate;
 	private Integer memDelete;
 	private Date memRdate;
-		
+	
+	private String depName; // memberListJoin 
+	private String codeName; // memberListJoin 
 }
