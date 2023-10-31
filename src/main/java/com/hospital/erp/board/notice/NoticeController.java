@@ -79,30 +79,44 @@ public class NoticeController {
 			return "commons/result";
     }
 	
-	// 공지사항 상세
 	@GetMapping("data/{notCd}")
-	public String noticeData(NoticeVO noticeVO, Model model) throws Exception {
-		noticeVO = noticeService.noticeData(noticeVO);
-		noticeService.noticeHitCount(noticeVO.getNotCd());
-		model.addAttribute("data", noticeVO);
-		
-		return "board/notice/data";
+	public String noticeData(@PathVariable int notCd, Model model) throws Exception {
+	    // 공지사항 상세 정보를 가져옵니다.
+	    NoticeVO noticeVO = noticeService.noticeData(notCd);
+	    
+	    if (noticeVO != null) {
+	        // 공지사항 조회수 증가
+	        noticeService.noticeHitCount(notCd);
 
+	        // 공지사항에 속하는 파일 리스트를 가져옵니다.
+	        List<NoticeFileVO> fileList =noticeService.fileData(notCd);
+	        noticeVO.setList(fileList);
+
+	        // 로그로 데이터 확인 (옵션)
+	        log.info("List 데이터: {}", noticeVO.getList());
+
+	        // Model에 공지사항 정보를 담아서 View로 전달합니다.
+	        model.addAttribute("data", noticeVO);
+
+	        return "board/notice/data";
+	    } else {
+	        // 공지사항이 존재하지 않을 때 예외 처리 (View에서 메시지 표시 등)
+	        return "redirect:/board/notice/list"; // 에러 페이지로 리다이렉트 또는 다른 처리
+	    }
 	}
 	
-	// FileDown
-	@GetMapping("fileDown")
-	public String getFileDown(NoticeFileVO noticeFileVO, Model model)throws Exception{
-		noticeFileVO = (NoticeFileVO) noticeService.fileData(noticeFileVO);
-		model.addAttribute("list", noticeFileVO);
+	@GetMapping("fileDown/{bfCd}")
+	public String fileDown(int bfCd,NoticeFileVO noticeFileVO, Model model)throws Exception{
+		List<NoticeFileVO> fileList = noticeService.fileData(bfCd);
+		model.addAttribute("list", fileList);
 		return "fileDownView";
 	}
 	
 	// FileDelete
 	@GetMapping("fileDelete")
-	public String fileDelete(NoticeFileVO noticeFileVO,Model model,HttpSession session) throws Exception{
+	public String fileDelete(int notCd,NoticeFileVO noticeFileVO,Model model,HttpSession session) throws Exception{
 		
-		int result = noticeService.fileDelete(noticeFileVO, session);
+		int result = noticeService.fileDelete(notCd, noticeFileVO, session);
 		model.addAttribute("result",result);
 		
 		return "commons/ajaxResult";
@@ -111,9 +125,14 @@ public class NoticeController {
 	
 	//update	
 	@GetMapping("update/{notCd}")
-	public String getUpdate(NoticeVO noticeVO, Model model)throws Exception{
+	public String getUpdate(@PathVariable int notCd,NoticeVO noticeVO, Model model)throws Exception{
 			
-		noticeVO = noticeService.noticeData(noticeVO);
+		noticeVO = noticeService.noticeData(notCd);
+		
+		 // 공지사항에 속하는 파일 리스트를 가져옵니다.
+        List<NoticeFileVO> fileList =noticeService.fileData(notCd);
+        noticeVO.setList(fileList);
+
 		
 		model.addAttribute("data",noticeVO);
 			

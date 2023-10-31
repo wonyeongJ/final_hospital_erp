@@ -2,6 +2,8 @@ package com.hospital.erp.board.notice;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.ArrayList;
+
 
 import com.hospital.erp.file.FileVO;
 
@@ -34,7 +36,8 @@ public class NoticeVO extends FileVO{
 	private String memCd;
 	
 	// 공지사항 파일 리스트
-	private List<NoticeFileVO> list;
+	 private List<NoticeFileVO> list = new ArrayList<>();
+
 	
 	
 	

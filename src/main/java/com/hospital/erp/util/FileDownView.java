@@ -25,13 +25,17 @@ public class FileDownView extends AbstractView{
 	@Value("${app2.upload.nodeValue2}")
 	private String filePath;
 	
+	@Value("${app.board.notice}")
+	private String boardName;
+
+	
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		//서버에서 파일을 찾아서 client로 전송
 		//어디에서??
 		// /GDJ68/upload/
-		String board = (String)model.get("notice");
+		String board = (String)model.get(boardName);
 		
 		//어떤파일??,
 		FileVO fileVO = (FileVO)model.get("fileVO");

@@ -12,7 +12,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hospital.erp.file.FileVO;
 import com.hospital.erp.util.FileManager;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class NoticeService {
 	
 	@Autowired
@@ -35,9 +38,17 @@ public class NoticeService {
 	}
 	
 	// 공지사항 상세
-	public NoticeVO noticeData(NoticeVO noticeVO) throws Exception{
-		return noticeDAO.noticeData(noticeVO);
-	}
+	public NoticeVO noticeData(int notCd) throws Exception{
+		
+	        log.info("notCd {}번 공지사항 데이터 조회 시도 중", notCd);
+	        NoticeVO noticeVO = noticeDAO.noticeData(notCd);
+	        if (noticeVO != null) {
+	            log.info("notCd {}번 공지사항 데이터를 성공적으로 조회했습니다: {}", notCd, noticeVO.toString());
+	        }
+	        return noticeVO;
+	    }
+		
+	
 	
 	
 	// 썸머노트 사진 등록
@@ -92,20 +103,24 @@ public class NoticeService {
 	}
    
 	
-	// 파일다운로드
-	public NoticeFileVO fileData(NoticeFileVO noticeFileVO)throws Exception{
-		return noticeDAO.fileData(noticeFileVO);
-	}
+	// 파일상세
+	public List<NoticeFileVO> fileData(int notCd)throws Exception{
+		 List<NoticeFileVO> fileList = noticeDAO.fileData(notCd);
+		    return fileList;
+		}
+	
+	
+
 	
 	//fileDelete
-	public int fileDelete(NoticeFileVO noticeFileVO,HttpSession session)throws Exception{
+	public int fileDelete(int notCd,NoticeFileVO noticeFileVO,HttpSession session)throws Exception{
 			
-			noticeFileVO = (NoticeFileVO) noticeDAO.fileData(noticeFileVO);
+			noticeFileVO = (NoticeFileVO) noticeDAO.fileData(notCd);
 			boolean flag = fileManger.fileDelete(noticeFileVO, uploadPath, session);
 			
 			if(flag) {
 				//db삭제
-				return noticeDAO.fileDelete(noticeFileVO);
+				return noticeDAO.fileDelete(notCd);
 			}
 			
 			return 0;

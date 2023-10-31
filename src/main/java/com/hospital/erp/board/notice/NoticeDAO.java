@@ -18,7 +18,7 @@ public interface NoticeDAO {
 	public List<NoticeVO> noticeList(NoticeVO noticeVO) throws Exception;
 	
 	// 공지사항 상세
-	public NoticeVO noticeData(NoticeVO noticeVO) throws Exception;
+	public NoticeVO noticeData(int notCd) throws Exception;
 
 	// 공지사항 등록
 	public int noticeInsert(NoticeVO noticeVO) throws Exception;
@@ -26,11 +26,11 @@ public interface NoticeDAO {
 	// 파일 등록
 	public int fileInsert(NoticeFileVO noticeFileVO) throws Exception;
 	
-	// 파일다운로드
-	public NoticeFileVO fileData(NoticeFileVO noticeFileVO)throws Exception;
+	// 파일 상세
+	public List<NoticeFileVO> fileData(int notCd)throws Exception;
 	
 	// 파일 삭제
-	public int fileDelete(NoticeFileVO noticeFileVO) throws Exception;		
+	public int fileDelete(int notCd) throws Exception;		
 
 	// 공지사항 업데이트
 	public int noticeUpdate (NoticeVO notceVO)throws Exception;

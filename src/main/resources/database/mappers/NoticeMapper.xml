@@ -5,15 +5,15 @@
 	
 <!-- 공지사항리스트 조회 쿼리문 -->
 <select id="noticeList" parameterType="NoticeVO" resultType="NoticeVO">
-	SELECT
-		* 
-	FROM
-		NOTICE
-	ORDER BY CASE
-		WHEN NOT_IMPORTANT = 1 THEN 1
-    ELSE 2
-		END,
-		NOT_RDATE DESC
+		SELECT
+			* 
+		FROM
+			NOTICE
+		ORDER BY CASE
+			WHEN NOT_IMPORTANT = 1 THEN 1
+	    ELSE 2
+			END,
+			NOT_RDATE DESC
 </select>
 
 <!-- 공지사항 insert 쿼리문 -->
@@ -73,13 +73,13 @@
 
 
 
-<select id="fileData" parameterType="FileVO" resultType="NoticeFileVO">
+<select id="fileData" parameterType="int" resultType="NoticeFileVO">
   		SELECT 
   			*
   		FROM
   			BOARD_FILE
   		WHERE 
-  			BF_CD=#{bfCd}
+  			BF_FK=#{notCd}
 </select>
 
 <!-- 공지사항 Update -->
@@ -94,12 +94,12 @@
 </update>
 
 <!--fileDelete  -->
-<delete id="fileDelete" parameterType="NoticeFileVO">
+<delete id="fileDelete" parameterType="int">
 		DELETE
 		FROM 
 		BOARD_FILE
 		WHERE
-			bfCd = #{bfCd}
+			BF_FK = #{notCd}
 </delete>
 
 <!-- 공지사항 조회수 -->
