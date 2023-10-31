@@ -22,5 +22,7 @@
 		
 		<!-- 홍일-->
 		<typeAlias type="com.hospital.erp.equipment.EquipmentVO" alias="EquipmentVO"/>
+		
+		<typeAlias type="com.hospital.erp.payment.documentForm.DocumentFormVO" alias="DocumentFormVO"/>
 	</typeAliases>
 </configuration>	  
