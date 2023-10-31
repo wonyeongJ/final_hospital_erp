@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <h1>전자결재</h1>
 <h2>결재문서작성</h2>
 
@@ -12,4 +13,10 @@
 <div class="form-group">
 	<label>문서양식 ajax로 불러올 장소</label>
 	<textarea class="form-control"></textarea>
+</div>
+
+<div>
+	<c:forEach items="${list}" var="vo">
+		<a type="button" class="btn btn-success" >${vo.dfKind}</a>
+	</c:forEach>
 </div>

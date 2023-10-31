@@ -1,8 +1,13 @@
 package com.hospital.erp.payment;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,22 +34,28 @@ public class PaymentController {
 		return "payment/insert";
 	}
 	
-	@GetMapping("formInsert")
-	public String paymentFormAdd()throws Exception{
-		
-		return "payment/formInsert";
-	}
-	
 	@GetMapping("formList")
 	public String paymentFormList()throws Exception{
 		
 		return "payment/formList";
 	}
 	
+	@GetMapping("formInsert")
+	public String paymentFormAdd()throws Exception{
+		
+		return "payment/formInsert";
+	}
+	
 	@GetMapping("formTest")
 	public String paymentFormTest()throws Exception{
 		
 		return "payment/formTest";
+	}
+	
+	@PostMapping("formTest")
+	public void postPaymentFormTest(@RequestBody Map<String, Object> data)throws Exception{
+		log.info("error");
+		log.info((String)data.get("check"));
 	}
 	
 

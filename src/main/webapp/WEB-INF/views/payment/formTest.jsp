@@ -253,14 +253,30 @@ pageEncoding="UTF-8"%>
 
 	//휴가종류탭 비활성화
 	$(document).ready(function () {
-	$("#checkVTab").on("click", function () {
-  		if ($(this).prop("checked")) {
-    		console.log(this);
-    		$('#vTab').hide();
-  		}else {
-			$('#vTab').show();
-  		}
-	});
+		$("#checkVTab").on("click", function () {
+	  		if ($(this).prop("checked")) {
+	  			$.ajax({
+	  			    type : 'post', // 타입 (get, post, put 등등)
+	  			    url : '/payment/formTest', // 요청할 서버url
+	  			    async : true, // 비동기화 여부 (default : true)
+	  			    dataType : 'json', // 데이터 타입 (html, xml, json, text 등등)
+	  			    data : JSON.stringify({ // 보낼 데이터 (Object , String, Array)
+	  			      "check" : 1
+	  			    }),
+	  			    contentType : 'application/json; charset=utf-8',
+	  			    success : function(result) { // 결과 성공 콜백함수
+	  			        console.log(result);
+	  			    },
+	  			    error : function(request, status, error) { // 결과 에러 콜백함수
+	  			        console.log(error)
+	  			    }
+	  			})
+	    		console.log(this);
+	    		$('#vTab').hide();
+	  		}else {
+				$('#vTab').show();
+	  		}
+		});
 	});
 	
 	//출타종류탭 비활성화
