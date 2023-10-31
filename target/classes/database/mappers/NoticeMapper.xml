@@ -40,15 +40,11 @@
 
 
 <!-- 공지사항 상세조회 쿼리문 -->
-<select id="noticeData" parameterType="NoticeVO" resultMap="noticeResultMap">
-		SELECT
-			N.*, NF.* 
-   		FROM
-   			NOTICE N
-    	LEFT OUTER JOIN 
-    		BOARD_FILE NF ON N.NOT_CD = NF.BF_FK 
-    	WHERE
-    		N.NOT_CD = #{notCd}
+<select id="noticeData" parameterType="int" resultMap="noticeResultMap">
+    SELECT N.*, BF.BF_ONAME, BF.BF_FNAME, BF.BF_PATH, BF.BF_EXTENSION, BF.BF_RDATE
+    FROM NOTICE N
+    LEFT OUTER JOIN BOARD_FILE BF ON N.NOT_CD = BF.BF_FK
+    WHERE N.NOT_CD = #{notCd}
 </select>
 
 <resultMap id="noticeResultMap" type="NoticeVO">
@@ -58,28 +54,24 @@
     <result property="notHit" column="NOT_HIT" />
     <result property="notImportant" column="NOT_IMPORTANT" />
     <result property="notRdate" column="NOT_RDATE" />
-    <result property="memCd" column="MEM_CD" />
-    	<collection property="list" ofType="NoticeFileVO" javaType="list">
-	        <id column="bfCd" property="bfCd" />
-	        <result column="codeCd" property="codeCd" />
-	        <result column="bfFk" property="bfFk" />
-	        <result column="bfOname" property="bfOname" />
-	        <result column="bfFname" property="bfFname" />
-	        <result column="bfPath" property="bfPath" />
-	        <result column="bfExtension" property="bfExtension" />
-	        <result column="bfRdata" property="bfRdata" />
-    	</collection>
+    <!-- 파일 정보를 collection으로 매핑 -->
+    <collection property="list" ofType="NoticeFileVO">
+        <result property="bfOname" column="BF_ONAME" />
+        <result property="bfFname" column="BF_FNAME" />
+        <result property="bfPath" column="BF_PATH" />
+        <result property="bfExtension" column="BF_EXTENSION" />
+        <result property="bfRdata" column="BF_RDATE" />
+    </collection>
 </resultMap>
 
 
-
-<select id="fileData" parameterType="FileVO" resultType="NoticeFileVO">
+<select id="fileData" parameterType="int" resultType="NoticeFileVO">
   		SELECT 
   			*
   		FROM
   			BOARD_FILE
   		WHERE 
-  			BF_CD=#{bfCd}
+  			BF_FK=${notCd}
 </select>
 
 <!-- 공지사항 Update -->
