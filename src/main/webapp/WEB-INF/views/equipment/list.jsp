@@ -122,7 +122,7 @@
 							<div class="form-group row">
 								<label for="example-datetime-local-input" class="col-sm-12 col-md-2 col-form-label">구매날짜</label>
 								<div class="col-sm-12 col-md-10">
-									<input class="form-control datetimepicker" placeholder="Choose Date and time" type="text" name="equPdate">
+									<input class="form-control datetimepicker" placeholder="Choose Date and time" type="text" name="equPdate" onkeydown="return false">
 								</div>
 							</div>
 							<div class="clearfix mb-20">

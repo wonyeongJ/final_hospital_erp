@@ -5,17 +5,18 @@ table, tr, th{
 }
 
 .t{
-	background-color: chartreuse;
+	background-color: rgb(142, 255, 148);
 }
 
 .f{
-	background-color: red;
+	background-color: rgb(255, 112, 108);
 }
 
 .time-table-1{
 	position: relative; 
 	left: 3%;
 	width: 100;
+	text-align: center;
 }
 
 .description{

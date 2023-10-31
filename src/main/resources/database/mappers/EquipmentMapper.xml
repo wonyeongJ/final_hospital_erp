@@ -123,7 +123,7 @@
 	  	INSERT INTO 
 			CODE(CODE_CD, CODE_NAME, CODE_GID, CODE_GNAME, CODE_USE, CODE_RDATE)
 		VALUES 
-			(15, #{codeName}, 5, 'CATEGORY', 1, NOW())
+			(19, #{codeName}, 5, 'CATEGORY', 1, NOW())
   	</insert>
   	
   	<!-- 비품 카테고리 논리삭제 -->

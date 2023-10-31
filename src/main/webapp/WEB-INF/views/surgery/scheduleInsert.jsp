@@ -1,98 +1,108 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <link rel="stylesheet" href="/vendors/styles/surgery/scheduleInsert.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <h1>수술실/비품관리</h1>
 	<br>
 <h2>수술실 예약</h2>
 	<br><br>
+
+<c:forEach items="${list}" var="eachList">
+    <input type="hidden" class="reservator" reservator="${eachList.memName}">
+    <input type="hidden" class="start-time" timeid="${eachList.startNum}">
+    <input type="hidden" class="end-time" timeid="${eachList.endNum}">
+</c:forEach>
+
 <div id="schedule-insert-all-component">
     <div class="form-group row">
         <label class="col-sm-12 col-md-2 col-form-label" style="font-weight: bold; font-size: large; text-align: center;">조회 날짜</label>
         <div>
-            <input class="form-control date-picker" placeholder="Select Reservation Date" type="text">
+            <input class="form-control date-picker" id="datepicker" placeholder="Select Reservation Date" type="text" value="${ldt}" onkeydown="return false">
         </div>
     </div>
     <br><br>
     <table class="time-table-1">
-        <tr id="table-top">
-            <th scope="col">선택한 날짜</th>
-            <th scope="col">수술실 호수</th>
-            <th scope="col">예약자</th>
-        </tr>
         <tr>
-            <th scope="row">2023.10.25</th>
-            <th>201호</th>
-            <th>주홍일</th>
+            <th scope="row">선택한 날짜</th>
+            <th>호수</th>
+            <th>예약자</th>
+        </tr>
+        <tr id="table-top">
+            <th scope="col">${ldt}</th>
+            <th scope="col">${surgeryVO.surNum}</th>
+            <th scope="col">주홍일</th>
+            <input id="surCd" type="hidden" value="${surgeryVO.surCd}">
         </tr>
     </table>
         <br><br><br>
     <table class="time-table-1">
         <tr>
-            <th>9:00 ~ 9:30</th>
-            <th>9:30 ~ 10:00</th>
-            <th>10:00 ~ 10:30</th>
-            <th>10:30 ~ 11:00</th>
-            <th>11:00 ~ 11:30</th>
-            <th>11:30 ~ 12:00</th>
-            <th>12:00 ~ 12:30</th>
-            <th>12:30 ~ 13:00</th>
+            <th>00:00 ~ 01:00</th>
+            <th>01:00 ~ 02:00</th>
+            <th>02:00 ~ 03:00</th>
+            <th>03:00 ~ 04:00</th>
+            <th>04:00 ~ 05:00</th>
+            <th>05:00 ~ 06:00</th>
+            <th>06:00 ~ 07:00</th>
+            <th>07:00 ~ 08:00</th>
         </tr>
         <tr>
-            <th id="time-area-1" class="t"></th>
-            <th id="time-area-2" class="t"></th>
-            <th id="time-area-3" class="t"></th>
-            <th id="time-area-4" class="t"></th>
-            <th id="time-area-5" class="t"></th>
-            <th id="time-area-6" class="t"></th>
-            <th id="time-area-7" class="t"></th>
-            <th id="time-area-8" class="t"></th>
-        </tr>
-    </table>
-        <br>
-    <table class="time-table-1">
-        <tr>
-            <th>13:00 ~ 13:30</th>
-            <th>13:30 ~ 14:00</th>
-            <th>14:00 ~ 14:30</th>
-            <th>14:30 ~ 15:00</th>
-            <th>15:00 ~ 15:30</th>
-            <th>15:30 ~ 16:00</th>
-            <th>16:00 ~ 16:30</th>
-            <th>16:30 ~ 17:00</th>
-        </tr>
-        <tr>
-            <th id="time-area-9" class="f">주홍일</th>
-            <th id="time-area-10" class="f"></th>
-            <th id="time-area-11" class="f"></th>
-            <th id="time-area-12" class="f"></th>
-            <th id="time-area-13" class="f"></th>
-            <th id="time-area-14" class="f"></th>
-            <th id="time-area-15" class="f"></th>
-            <th id="time-area-16" class="t"></th>
+            <th id="0" class="t"></th>
+            <th id="1" class="t"></th>
+            <th id="2" class="t"></th>
+            <th id="3" class="t"></th>
+            <th id="4" class="t"></th>
+            <th id="5" class="t"></th>
+            <th id="6" class="t"></th>
+            <th id="7" class="t"></th>
         </tr>
     </table>
         <br>
     <table class="time-table-1">
         <tr>
-            <th>17:00 ~ 17:30</th>
-            <th>17:30 ~ 18:00</th>
-            <th>18:00 ~ 18:30</th>
-            <th>18:30 ~ 19:00</th>
-            <th>19:00 ~ 19:30</th>
-            <th>19:30 ~ 20:00</th>
-            <th>20:00 ~ 20:30</th>
-            <th>20:30 ~ 21:00</th>
+            <th>08:00 ~ 09:00</th>
+            <th>09:00 ~ 10:00</th>
+            <th>10:00 ~ 11:00</th>
+            <th>11:00 ~ 12:00</th>
+            <th>12:00 ~ 13:00</th>
+            <th>13:00 ~ 14:00</th>
+            <th>14:00 ~ 15:00</th>
+            <th>15:00 ~ 16:00</th>
         </tr>
         <tr>
-            <th id="time-area-17" class="t"></th>
-            <th id="time-area-18" class="t"></th>
-            <th id="time-area-19" class="t"></th>
-            <th id="time-area-20" class="f">최경묵</th>
-            <th id="time-area-21" class="f"></th>
-            <th id="time-area-22" class="f"></th>
-            <th id="time-area-23" class="t"></th>
-            <th id="time-area-24" class="t"></th>
+            <th id="8" class="t"></th>
+            <th id="9" class="t"></th>
+            <th id="10" class="t"></th>
+            <th id="11" class="t"></th>
+            <th id="12" class="t"></th>
+            <th id="13" class="t"></th>
+            <th id="14" class="t"></th>
+            <th id="15" class="t"></th>
+        </tr>
+    </table>
+        <br>
+    <table class="time-table-1">
+        <tr>
+            <th>16:00 ~ 17:00</th>
+            <th>17:00 ~ 18:00</th>
+            <th>18:00 ~ 19:00</th>
+            <th>19:00 ~ 20:00</th>
+            <th>20:00 ~ 21:00</th>
+            <th>21:00 ~ 22:00</th>
+            <th>22:00 ~ 23:00</th>
+            <th>23:00 ~ 24:00</th>
+        </tr>
+        <tr>
+            <th id="16" class="t"></th>
+            <th id="17" class="t"></th>
+            <th id="18" class="t"></th>
+            <th id="19" class="t"></th>
+            <th id="20" class="t"></th>
+            <th id="21" class="t"></th>
+            <th id="22" class="t"></th>
+            <th id="23" class="t"></th>
         </tr>
     </table>
         <br>
@@ -171,3 +181,5 @@
     </div>
         <br>
 </div>
+
+<script src="/vendors/scripts/surgery/scheduleInsert.js"></script>

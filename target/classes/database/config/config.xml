@@ -20,10 +20,29 @@
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<!-- 홍일-->
 		<typeAlias type="com.hospital.erp.equipment.EquipmentVO" alias="EquipmentVO"/>
 		<typeAlias type="com.hospital.erp.equipment.EquipmentHistoryVO" alias="EquipmentHistoryVO"/>
 		<typeAlias type="com.hospital.erp.common.CodeVO" alias="CodeVO"/>
 		<typeAlias type="java.lang.Integer" alias="Integer"/>
+		<typeAlias type="com.hospital.erp.surgery.SurgeryVO" alias="SurgeryVO"/>
 	</typeAliases>
 </configuration>	  

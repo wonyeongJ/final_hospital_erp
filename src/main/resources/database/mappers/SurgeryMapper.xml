@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.hospital.erp.surgery.SurgeryDAO">
+
+	<!-- 전체 수술실 리스트 조회 -->
+	<select id="surgeryList" resultType="SurgeryVO">
+		SELECT
+			*
+		FROM
+			SURGERY
+		WHERE
+			SUR_USE = 1
+  	</select>
+  	
+  	<!-- surCd 파라미터로 수술실 한건 조회 -->
+	<select id="surgeryData" resultType="SurgeryVO" parameterType="SurgeryVO">
+		SELECT
+			*
+		FROM
+			SURGERY
+		WHERE
+			SUR_CD = #{surCd}
+  	</select>
+  	
+  	<!-- 수술실 수정 -->
+  	<update id="surgeryUpdate" parameterType="SurgeryVO">	
+		UPDATE 
+			SURGERY 
+		SET 
+			SUR_NUM = #{surNum}
+		WHERE 
+			SUR_CD = #{surCd}
+  	</update>
+  	
+  	<!-- 수술실 삭제 -->
+  	<update id="surgeryDelete" parameterType="SurgeryVO">	
+		UPDATE 
+			SURGERY 
+		SET 
+			SUR_USE = 0
+		WHERE 
+			SUR_CD = #{surCd} AND SUR_NUM = #{surNum}
+  	</update>
+  	
+  	<!-- 수술실 등록 : 추후 SUR_CD 오토인크리먼트로 변경하기 -->
+  	<insert id="surgeryInsert" parameterType="SurgeryVO">	
+		INSERT INTO 
+			SURGERY(SUR_CD, SUR_NUM, SUR_RDATE, SUR_USE)
+		VALUES 
+			(6, #{surNum}, NOW(), 1)
+  	</insert>
+  	
+</mapper>
