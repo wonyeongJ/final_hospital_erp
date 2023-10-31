@@ -12,7 +12,7 @@
         <div class="notice-contents">${data.notContents}</div>
         <div>
             <c:forEach items="${data.list}" var="f">
-                <a href="./fileDown?bfCd=${f.bfCd}" class="file-link">${f.bfOname}</a>
+                <a href="./fileDown?bfCd=${f.bfCd}" class="file-link"><i class="icon-copy fi-download"></i>${f.bfOname}</a>
             </c:forEach>
         </div>
         <div class="action-buttons">

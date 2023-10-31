@@ -49,7 +49,7 @@
 			</div>
 
  			<div class="mb-3">
-			    <button type="button" class="btn btn-primary" id="insert">파일 추가</button>
+			    <button type="button" class="btn btn-primary" id="insert">파일 추가 <i class="icon-copy fi-upload"></i></button>
 			</div>
 			<div id="fileList" class="my-5">
 			    <!-- 초기에는 아무 파일 입력 상자도 없습니다. -->

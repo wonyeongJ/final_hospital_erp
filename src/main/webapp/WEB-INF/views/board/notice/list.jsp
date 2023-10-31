@@ -23,7 +23,7 @@
                         <td>
                         <c:choose>
 			                <c:when test="${notice.notImportant eq 1}">
-			                   <span style="color: red;">중요[!]</span>
+			                   <span style="color: red;">중요 <i class="icon-copy ion-alert" style="color: red"></i></span>
 			                </c:when>
 			                <c:otherwise>
 			                   ${notice.notCd}
