@@ -26,7 +26,7 @@ public class SecurityConfig {
 			   .antMatchers("/img/**")
 			   .antMatchers("/css/**")
 			   .antMatchers("/js/**")
-			   .antMatchers("/vendor/**")
+			   .antMatchers("/vendors/**")
 			   .antMatchers("/resources/**")
 			   ;
 	}
@@ -40,11 +40,12 @@ public class SecurityConfig {
 			.disable()
 			.authorizeHttpRequests()
 				.antMatchers("/").permitAll()
+				.anyRequest().authenticated()
 				.and()
 			//form 관련 설정
 			.formLogin()
-				.disable()  //내장된 로그인폼을 사용하지 않고, 개발자가 만든 폼을 사용
-
+				.loginPage("/login") //내장된 로그인폼을 사용하지 않고, 개발자가 만든 폼을 사용
+				.and()
 			.logout()
 				.and()
 			.rememberMe()
