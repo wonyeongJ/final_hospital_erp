@@ -21,9 +21,21 @@
 	    INSERT 
 	    	INTO 
 	    NOTICE 
-	    	(MEM_CD, NOT_TITLE, NOT_CONTENTS, NOT_HIT, NOT_IMPORTANT, NOT_DELETE, NOT_RDATE)
+	    	(MEM_CD,
+	    	 NOT_TITLE,
+	    	 NOT_CONTENTS,
+	    	 NOT_HIT,
+	    	 NOT_IMPORTANT,
+	    	 NOT_DELETE,
+	    	 NOT_RDATE)
 	    VALUES
-	    	 (#{memCd}, #{notTitle}, #{notContents}, 0, #{notImportant}, 0, NOW())
+	    	 (#{memCd},
+	    	  #{notTitle},
+	    	  #{notContents},
+	    	  0,
+	    	  #{notImportant},
+	    	  0,
+	    	  NOW())
 </insert>
 
 
@@ -33,9 +45,23 @@
 		INSERT
 			INTO 
 		BOARD_FILE
-			(BF_CD, CODE_CD, BF_FK, BF_ONAME, BF_FNAME, BF_PATH, BF_EXTENSION, BF_RDATE)
+			(BF_CD,
+			 CODE_CD,
+			 BF_FK,
+			 BF_ONAME,
+			 BF_FNAME,
+			 BF_PATH,
+			 BF_EXTENSION,
+			 BF_RDATE)
 		VALUES 
-	    	(NULL, #{codeCd}, #{bfFk}, #{bfOname}, #{bfFname}, #{bfPath}, #{bfExtension}, NOW())
+	    	(NULL,
+	    	 #{codeCd},
+	    	 #{bfFk},
+	    	 #{bfOname},
+	    	 #{bfFname}, 
+	    	 #{bfPath}, 
+	    	 #{bfExtension}, 
+	    	 NOW())
 </insert>
 
 

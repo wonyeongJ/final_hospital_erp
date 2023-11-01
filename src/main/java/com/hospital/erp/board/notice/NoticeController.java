@@ -65,7 +65,7 @@ public class NoticeController {
 	            // 중요 공지사항 제한에 도달했을 때 메시지 표시
 	            String message = "중요 공지사항은 3개까지 등록 가능합니다. 등록되어 있는 중요 공지사항을 일반 공지사항으로 수정 후 다시 등록해주세요.";
 	            model.addAttribute("message", message);
-	            model.addAttribute("url", "list");
+	            model.addAttribute("url", "insert");
 	        } else {
 	            String message = "등록 실패";
 	            if (result > 0) {
