@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,15 +34,17 @@
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach items="${patientAr}" var="patientVO" varStatus="i">	
 							<tr>
-								<th scope="row">1</th>
-								<td>홍길동</td>
-								<td>940908-1234567</td>
-								<td>남</td>
-								<td>010-1234-5678</td>
-								<td>2023-10-21</td>
+								<th scope="row">${i.index+1}</th>
+								<td>${patientVO.patName}</td>
+								<td>${patientVO.patRnum}</td>
+								<td>${patientVO.codeName}</td>
+								<td>${patientVO.patPnum}</td>
+								<td></td>
 								<td></td>
 							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				<div style="display: flex; justify-content: flex-end;">

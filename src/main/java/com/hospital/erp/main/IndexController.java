@@ -16,7 +16,7 @@ public class IndexController {
 	public String getIndex(HttpSession session)throws Exception{
 
 		
-		return "index";
+		return "login";
 	}
 	
 }

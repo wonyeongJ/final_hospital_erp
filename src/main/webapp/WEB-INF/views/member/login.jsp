@@ -51,15 +51,15 @@
 						<div class="login-title">
 							<h2 class="text-center text-primary">Login To ERP-Hospital</h2>
 						</div>
-						<form>
+						<form action="/member/login" method="post">
 							<div class="input-group custom">
-								<input type="text" class="form-control form-control-lg" placeholder="Username">
+								<input type="text" class="form-control form-control-lg" name="memCd" placeholder="Username">
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
 								</div>
 							</div>
 							<div class="input-group custom">
-								<input type="password" class="form-control form-control-lg" placeholder="**********">
+								<input type="password" class="form-control form-control-lg" name="memPw" placeholder="**********">
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="dw dw-padlock1"></i></span>
 								</div>
@@ -82,7 +82,7 @@
 											use code for form submit
 											<input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
 										-->
-										<a class="btn btn-primary btn-lg btn-block" href="index.html">Sign In</a>
+										<button class="btn btn-primary btn-lg btn-block" type="submit">Sign In</button>
 									</div>
 								</div>
 							</div>
