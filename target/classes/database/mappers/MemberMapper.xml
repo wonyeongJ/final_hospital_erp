@@ -63,7 +63,7 @@
   			#{memCd},
   			#{jobCd},
   			1,
-  			3,
+  			6,
   			#{codeCd},
   			#{memName},
   			#{memRnum},

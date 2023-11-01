@@ -38,7 +38,9 @@ public class MemberVO implements UserDetails {
 	private Date memRdate;
 	
 	private String depName; // memberListJoin 
-	private String codeName; // memberListJoin 
+	private String codeName; // memberListJoin 성별 
+	private String jobName; //meberListJoin 직무
+	private String posname; // meberListJoin 직책
 	
 	@Override
 	public String getUsername() {
