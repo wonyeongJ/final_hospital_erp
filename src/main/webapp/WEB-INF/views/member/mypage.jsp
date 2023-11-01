@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%><%@ taglib prefix="c"
-	uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="spring" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <body>
 	<div>
@@ -57,12 +57,13 @@
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						</div>
 						<div class="modal-body">
-							<form id="UpdatePasswordFrm" action="./updatePassword" method="post" >
+							<form:form modelAttribute="passwordVO" name="updatePasswordForm" id="updatePasswordFrm" action="./updatePassword" method="post" >
 								<div class="input-group custom">
 									<input type="text" class="form-control form-control-lg" name="newPassword" placeholder="New Password">
 									<div class="input-group-append custom">
 										<span class="input-group-text"><i class="dw dw-padlock1"></i></span>
 									</div>
+									<form:errors path="newPassword"></form:errors>
 								</div>
 								<div class="input-group custom">
 									<input type="text" class="form-control form-control-lg" name="newPasswordConfirm" placeholder="Confirm New Password">
@@ -70,6 +71,9 @@
 										<span class="input-group-text"><i class="dw dw-padlock1"></i></span>
 									</div>
 								</div>
+									<div>
+										<form:errors path="newPasswordConfirm"></form:errors>
+									</div>
 								<div class="row align-items-center">
 									<div class="col-5">
 										<div class="input-group mb-0">
@@ -80,10 +84,10 @@
 										</div>
 									</div>
 								</div>
-							</form>
+							</form:form>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary btn-lg btn-block" id="updatePasswordBtn">Submit</button>
+							<a type="button" id="updatePasswordBtn" class="btn btn-primary btn-lg btn-block"   >Submit</a>
 						</div>
 										
 					</div>
@@ -137,11 +141,7 @@
 	
 	
 	<!-- js -->
-	<script src="/vendors/scripts/core.js"></script>
-	<script src="/vendors/scripts/script.min.js"></script>
-	<script src="/vendors/scripts/process.js"></script>
-	<script src="/vendors/scripts/layout-settings.js"></script>
-	<script src="src/plugins/cropperjs/dist/cropper.js"></script>
+	
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="/js/mypage.js"></script>
 	<script>

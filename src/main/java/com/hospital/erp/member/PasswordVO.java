@@ -1,7 +1,10 @@
 package com.hospital.erp.member;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.springframework.validation.annotation.Validated;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,8 +19,7 @@ public class PasswordVO {
 	
 	private String newPasswordConfirm;
 	
-	public boolean isPasswordMatch() {
-		return newPassword.equals(newPasswordConfirm);
-	}
+	
+	
 
 }

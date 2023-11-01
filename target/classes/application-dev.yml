@@ -52,7 +52,7 @@ logging:
     root: info
     org:
       springframework:
-        web: 
+        web: info
     com:
       zaxxer:
         hikari: 'OFF'

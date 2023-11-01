@@ -129,9 +129,7 @@ public class MemberService implements UserDetailsService {
 		// 시큐리티에서 유저정보 꺼내기
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 		UserDetails userDetails = (UserDetails)principal;
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemCd(userDetails.getUsername());
-		memberVO.setMemPw(userDetails.getPassword());
+		MemberVO memberVO = (MemberVO)userDetails;
 		
 		memberVO.setMemPw(passwordEncoder.encode(memberVO.getMemPw()));
 		return memberDAO.memberUpdatePassword(memberVO);

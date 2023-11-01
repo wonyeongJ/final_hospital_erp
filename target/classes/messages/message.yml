@@ -1,3 +1,0 @@
-messages:
-    error.password.pattern: 비밀번호는 8자에서 16자 사이어야 하며 영와 특수 문자가 포함되어있어야 합니다.
-    error.password.mismatch: 비밀번호가 일치하지 않습니다.

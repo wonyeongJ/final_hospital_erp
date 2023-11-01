@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -88,15 +89,22 @@ public class MemberController {
 	  @PostMapping("updatePassword")
 	  public String memberUpdatePassword(@ModelAttribute @Valid PasswordVO passwordVO, BindingResult bindingResult) throws Exception {
 		  
-		  if(bindingResult.hasErrors()) {
-			  System.out.println("if문에서 에러");
-			  return "member/updatePassword";
-		  }else {
-			  System.out.println("else 문에서 에러");
-			  memberService.memberUpdatePassword(passwordVO);
-			  return "redirect:./mypage";
-		  }
+		 
 		  
+		  // 비밀번호 정규식패턴이 아닐경우
+		  if(bindingResult.hasErrors()) {
+			  return "member/mypage";
+		  }else {
+			  // newPassword와 newPasswordConfirm 불일치시
+			  if(!passwordVO.getNewPassword().equals(passwordVO.getNewPasswordConfirm())) {
+				  bindingResult.rejectValue("newPasswordConfirm","newPasswordConfirm");
+				  return "member/mypage";
+			  }else{
+				  //패스워드 리셋 수행 메서드 호출
+				  memberService.memberUpdatePassword(passwordVO);
+				  return "redirect:./mypage";
+			  }
+		  }
 	  }
 	 
 }
