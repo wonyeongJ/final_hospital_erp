@@ -44,10 +44,10 @@ public class ComplaintsService {
 	// 민원게시판 상세
 		public ComplaintsVO complaintsData(int compCd) throws Exception{
 			
-		        log.info("compCd {}번 공지사항 데이터 조회 시도 중", compCd);
+		        log.info("compCd {}번 민원게시판 데이터 조회 시도 중", compCd);
 		        ComplaintsVO complaintsVO = complaintsDAO.complaintsData(compCd);
 		        if (complaintsVO != null) {
-		            log.info("compCd {}번 공지사항 데이터를 성공적으로 조회했습니다: {}", compCd, complaintsVO.toString());
+		            log.info("compCd {}번 민원게시판 데이터를 성공적으로 조회했습니다: {}", compCd, complaintsVO.toString());
 		        }
 		        return complaintsVO;
 		    }

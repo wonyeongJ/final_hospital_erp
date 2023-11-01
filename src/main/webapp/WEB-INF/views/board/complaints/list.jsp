@@ -39,7 +39,7 @@
                                     <i class="icon-copy fa fa-lock" aria-hidden="true"></i>비공개글입니다
                                 </c:when>
                                 <c:otherwise>
-                                    ${complaints.compTitle}
+                                   <a href="./data/${complaints.compCd}"> ${complaints.compTitle}</a>
                                 </c:otherwise>
                             </c:choose>
                         </td>

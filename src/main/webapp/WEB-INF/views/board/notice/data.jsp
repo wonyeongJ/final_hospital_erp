@@ -8,8 +8,8 @@
             <span class="author-icon">작성자: ${data.memCd}</span>
         </div>
         <div class="notHit">조회수: ${data.notHit}</div>
-        <h1 class="notice-title">제목 : ${data.notTitle}</h1>
-        <div class="notice-contents">${data.notContents}</div>
+        <h1 class="title">제목 : ${data.notTitle}</h1>
+        <div class="contents">${data.notContents}</div>
         <div>
             <c:forEach items="${data.list}" var="f">
                 <a href="./fileDown?bfCd=${f.bfCd}" class="file-link"><i class="icon-copy fi-download"></i>${f.bfOname}</a>

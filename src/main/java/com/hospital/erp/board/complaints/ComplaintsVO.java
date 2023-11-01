@@ -13,7 +13,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 public class ComplaintsVO extends FileVO{
 
 	// 민원게시판의 PK
@@ -36,6 +35,9 @@ public class ComplaintsVO extends FileVO{
 	
 	// 비밀글 공개글 여부
 	private int compSecret;
+	
+	// 삭제여부
+	private int compDelete;	
 	
 	// 작성날짜 
 	private Date compRdate;
