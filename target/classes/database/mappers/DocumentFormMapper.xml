@@ -9,4 +9,60 @@
 		FROM
 			DOCUMENT_FORM
 	</select>
+	
+	<select id="documentFormData" parameterType="DocumentFormVO" resultType="DocumentFormVO">
+  		SELECT
+  			*
+  		FROM
+			DOCUMENT_FORM
+  		WHERE
+  			DF_CD=#{dfCd}
+  	</select>
+  	
+  	<insert id="documentFormInsert" parameterType="DocumentFormVO">
+  		INSERT INTO 
+  			DOCUMENT_FORM 
+  				(
+  				DF_KIND, 
+  				DF_VTAB, 
+  				DF_OTAB, 
+  				DF_DTAB, 
+  				DF_PTAB, 
+  				DF_LTAB, 
+  				DF_IN1TAB, 
+  				DF_IN2TAB, 
+  				DF_IN3TAB, 
+  				DF_CONTENTS
+  				)
+		VALUES
+			(
+			#{dfKind},
+			#{dfVTab},
+			#{dfOTab},
+			#{dfDTab},
+			#{dfPTab},
+			#{dfLTab},
+			#{dfIn1Tab},
+			#{dfIn2Tab},
+			#{dfIn3Tab},
+			#{dfContents}
+			)
+		;
+  	</insert>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
 </mapper>

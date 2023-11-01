@@ -3,8 +3,8 @@
 <h1>전자결재</h1>
 <h2>내결재함</h2>
 
-
-<div class="col-md-2 col-sm-12 mb-30">
+<!-- modal -->
+<!-- <div class="col-md-2 col-sm-12 mb-30">
 	<div class="pd-20 card-box height-100-p">
 							
 		<a href="#" class="btn-block" data-toggle="modal" data-target="#Medium-modal" type="button">
@@ -29,10 +29,10 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 
 <div>
-	<a type="button" class="btn btn-success" href="/payment/formList">결재문서작성</a>
+	
 </div>
 
 <div>
@@ -42,6 +42,7 @@
 	<button type="button" class="btn btn-secondary">참조문서</button>
 	<button type="button" class="btn btn-secondary">기안문서</button>
 	<button type="button" class="btn btn-secondary">임시저장</button>
+	<a type="button" class="btn btn-success" href="/payment/documentForm/list">결재문서작성</a>
 </div>
 
 <div>
@@ -53,23 +54,6 @@
 						<div id="DataTables_Table_2_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
 							<table class="table hover multiple-select-row data-table-export nowrap dataTable no-footer dtr-inline" id="DataTables_Table_2" role="grid">
 							
-							<!-- 몇개보기 -->
-<!-- 							
-							<div class="row">
-								<div class="col-sm-12 col-md-6">
-									<div class="dataTables_length" id="DataTables_Table_3_length">
-										<label>Show 
-											<select name="DataTables_Table_3_length" aria-controls="DataTables_Table_3" class="custom-select custom-select-sm form-control form-control-sm">
-												<option value="10">10</option>
-												<option value="25">25</option>
-												<option value="50">50</option>
-												<option value="-1">All</option>
-											</select> entries
-										</label>
-									</div>
-								</div>
-							</div>
--->
 							<thead>
 								<tr role="row">
 									<th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >순번</th>

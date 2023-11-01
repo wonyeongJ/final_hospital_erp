@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PaymentVO {
 	
-	private Integer epCd;
 	private Integer codeCd;
 	private String memCd;
 	private Integer dfCd;
@@ -28,6 +27,7 @@ public class PaymentVO {
 	private String epInput2;
 	private String epInput3;
 	private String epReason;
+	private String epDStatus;
 	private Date epFDate;
 	private Date epRDate;
 	
