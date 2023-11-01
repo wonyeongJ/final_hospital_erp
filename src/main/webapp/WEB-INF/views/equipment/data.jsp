@@ -100,7 +100,7 @@
                         <div class="form-group row">
                             <label for="example-datetime-local-input" class="col-sm-12 col-md-2 col-form-label">구매날짜</label>
                             <div class="col-sm-12 col-md-10">
-                                <input class="form-control datetimepicker" placeholder="Choice Date and Time" type="text" name="" onkeydown="return false">
+                                <input class="form-control datetimepicker" placeholder="Click to select Date and Time" type="text" name="" readonly style="background-color: white;">
                             </div>
                         </div>
                         <div class="clearfix mb-20">

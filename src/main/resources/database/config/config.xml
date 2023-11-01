@@ -44,5 +44,7 @@
 		<typeAlias type="com.hospital.erp.common.CodeVO" alias="CodeVO"/>
 		<typeAlias type="java.lang.Integer" alias="Integer"/>
 		<typeAlias type="com.hospital.erp.surgery.SurgeryVO" alias="SurgeryVO"/>
+		<typeAlias type="com.hospital.erp.surgery.SurgeryParticiantVO" alias="SurgeryParticiantVO"/>
+		<typeAlias type="com.hospital.erp.schedule.ScheduleVO" alias="ScheduleVO"/>
 	</typeAliases>
 </configuration>	  

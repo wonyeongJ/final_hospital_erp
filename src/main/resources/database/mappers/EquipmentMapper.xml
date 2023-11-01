@@ -105,7 +105,8 @@
 		FROM
 			CODE
 		WHERE 	
-			CODE_GID = 5 AND CODE_USE = 1
+			CODE_GID = 5 AND 
+			CODE_USE = 1
   	</select>
   	
   	<!-- 비품 카테고리 수정 -->
@@ -121,9 +122,23 @@
   	<!-- 비품 카테고리 추가 : 추후 CODE_CD 오토인크리먼트로 변경하기 -->
   	<insert id="codeInsert" parameterType="CodeVO">
 	  	INSERT INTO 
-			CODE(CODE_CD, CODE_NAME, CODE_GID, CODE_GNAME, CODE_USE, CODE_RDATE)
-		VALUES 
-			(19, #{codeName}, 5, 'CATEGORY', 1, NOW())
+			CODE(
+				CODE_CD, 
+				CODE_NAME, 
+				CODE_GID, 
+				CODE_GNAME, 
+				CODE_USE, 
+				CODE_RDATE
+				)
+			VALUES 
+				(
+				25, 
+				#{codeName}, 
+				5, 
+				'CATEGORY', 
+				1, 
+				NOW()
+				)
   	</insert>
   	
   	<!-- 비품 카테고리 논리삭제 -->
@@ -133,7 +148,8 @@
 		SET 
 			CODE_USE = 0
 		WHERE 
-			CODE_CD = #{codeCd} AND CODE_NAME = #{codeName}
+			CODE_CD = #{codeCd} AND 
+			CODE_NAME = #{codeName}
   	</update>
   	
   	<!-- codeName으로 (codeCd을 얻기 위해) CODE TABLE의 해당 인스턴스 1건 조회 -->
@@ -159,9 +175,24 @@
 	<!-- 비품 추가 : 추후 EQU_CD 오토인크리먼트로 변경하기 -->
   	<insert id="equipmentInsert" parameterType="EquipmentVO">
 	  	INSERT INTO 
-			EQUIPMENT (EQU_CD, CODE_CD, EQU_SNUM, EQU_DELETE, EQU_PDATE, EQU_RDATE)
-		VALUES 
-			(3, #{codeCd}, #{equSnum}, 0, #{equPdate}, NOW())
+			EQUIPMENT 
+				(
+				EQU_CD, 
+				CODE_CD, 
+				EQU_SNUM, 
+				EQU_DELETE, 
+				EQU_PDATE, 
+				EQU_RDATE
+				)
+			VALUES 
+				(
+				3, 
+				#{codeCd}, 
+				#{equSnum}, 
+				0, 
+				#{equPdate}, 
+				NOW()
+				)
   	</insert>
   	
   	<!-- equCd로 (codeCD를 얻기 위해) EQUIPMENT TABLE의 해당 인스턴스 1건 조회 -->
@@ -219,8 +250,25 @@
   	<!-- 비품 예약 추가 : 추후 EH_CD 오토인크리먼트로 변경하기 -->
   	<insert id="equipmenthistoryInsert" parameterType="EquipmentHistoryVO">
 		INSERT INTO 
-			EQUIPMENT_HISTORY (EH_CD, MEM_CD, EQU_CD, EH_RETURN, EH_SDATE, EH_REDATE, EH_RDATE)
-		VALUES 
-			(5, #{memCd}, #{equCd}, 1, NOW(), #{ehRedate}, NOW())
+			EQUIPMENT_HISTORY 
+				(
+				EH_CD, 
+				MEM_CD, 
+				EQU_CD, 
+				EH_RETURN, 
+				EH_SDATE, 
+				EH_REDATE, 
+				EH_RDATE
+				)
+			VALUES 
+				(
+				5, 
+				#{memCd}, 
+				#{equCd}, 
+				1, 
+				NOW(), 
+				#{ehRedate}, 
+				NOW()
+				)
   	</insert>
 </mapper>

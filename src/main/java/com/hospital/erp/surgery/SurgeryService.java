@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hospital.erp.schedule.ScheduleVO;
+
 @Service
 public class SurgeryService {
 	
@@ -32,5 +34,19 @@ public class SurgeryService {
 		surgeryVO = surgeryDAO.surgeryData(surgeryVO);
 		return surgeryVO;
 	}
+
+	public List<ScheduleVO> surgeryScheduleCheck(ScheduleVO scheduleVO) throws Exception {
+		List<ScheduleVO> scheduleList = surgeryDAO.surgeryScheduleCheck(scheduleVO);
+		return scheduleList;
+	}
+
+	public void surgeryScheduleInsert(ScheduleVO scheduleVO) throws Exception {
+		surgeryDAO.surgeryScheduleInsert(scheduleVO);
+	}
+
+//	public List<SurgeryParticiantVO> memberList() throws Exception {
+//		List<SurgeryParticiantVO> result = surgeryDAO.memberList();
+//		return result;
+//	}
 	
 }

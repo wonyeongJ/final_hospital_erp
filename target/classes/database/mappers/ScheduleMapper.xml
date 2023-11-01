@@ -17,4 +17,26 @@
 			SCH_SDATE BETWEEN #{schSdate} AND #{schEdate}
   	</select>
   	
+  	<!-- 나의 수술 리스트 조회 -->
+	<select id="myScheduleList" resultType="ScheduleVO" parameterType="ScheduleVO">
+		SELECT
+			SCH.*,
+			SUR.SUR_NUM 
+		FROM
+			SCHEDULE SCH JOIN SURGERY SUR
+			ON SCH.SCH_FK  = SUR_CD 
+		WHERE
+			MEM_CD = '2303004' AND
+			CODE_CD = 15
+		ORDER BY
+			SCH.SCH_SDATE DESC
+  	</select>
+  	
+  	<delete id="surgeryScheduleDelete" parameterType="scheduleVO">
+		  DELETE 
+			FROM SCHEDULE 
+		WHERE 
+			SCH_CD = #{schCd}
+	</delete>
+  	
 </mapper>

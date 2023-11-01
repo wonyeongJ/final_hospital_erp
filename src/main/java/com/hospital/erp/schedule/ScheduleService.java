@@ -15,5 +15,14 @@ public class ScheduleService {
 		List<ScheduleVO> list = surgeryDAO.scheduleList(scheduleVO);
 		return list;
 	}
+
+	public List<ScheduleVO> myScheduleList(ScheduleVO scheduleVO) throws Exception {
+		List<ScheduleVO> list = surgeryDAO.myScheduleList(scheduleVO);
+		return list;
+	}
+
+	public void surgeryScheduleDelete(ScheduleVO scheduleVO) throws Exception {
+		surgeryDAO.surgeryScheduleDelete(scheduleVO);
+	}
 	
 }

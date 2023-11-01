@@ -40,15 +40,79 @@
 		SET 
 			SUR_USE = 0
 		WHERE 
-			SUR_CD = #{surCd} AND SUR_NUM = #{surNum}
+			SUR_CD = #{surCd} AND 
+			SUR_NUM = #{surNum}
   	</update>
   	
   	<!-- 수술실 등록 : 추후 SUR_CD 오토인크리먼트로 변경하기 -->
   	<insert id="surgeryInsert" parameterType="SurgeryVO">	
 		INSERT INTO 
-			SURGERY(SUR_CD, SUR_NUM, SUR_RDATE, SUR_USE)
-		VALUES 
-			(6, #{surNum}, NOW(), 1)
+			SURGERY
+				(
+				SUR_CD, 
+				SUR_NUM, 
+				SUR_RDATE, 
+				SUR_USE
+				)
+			VALUES 
+				(
+				6, 
+				#{surNum}, 
+				NOW(), 
+				1
+				)
+  	</insert>
+  	
+  	<!-- 수술실 참가자 선택을 위한 MEMBER 리스트 조회 (가발령, 인사과 제외) -->
+<!--	<select id="memberList" resultType="SurgeryParticiantVO">
+		SELECT
+			M.MEM_CD,
+			M.MEM_NAME,
+			D.DEP_NAME
+		FROM 
+			MEMBER M JOIN DEPARTMENT D
+			ON M.DEP_CD = D.DEP_CD
+		WHERE 
+			D.DEP_CD NOT IN (1,2)
+  	</select>-->
+  	
+  	<select id="surgeryScheduleCheck" resultType="ScheduleVO" parameterType="ScheduleVO">
+		SELECT
+			*
+		FROM 
+			SCHEDULE
+		WHERE 
+			CODE_CD = #{codeCd} AND 
+			SCH_FK = #{schFk} AND 
+			(
+			(#{schSdate} <![CDATA[<=]]> SCH_SDATE AND #{schEdate} <![CDATA[>]]> SCH_SDATE) OR
+			(#{schSdate} <![CDATA[<]]> SCH_EDATE AND #{schEdate} <![CDATA[>=]]> SCH_EDATE)
+			)
+  	</select>
+  	
+  	<!-- 수술실 예약 등록 : 추후 pk 오토인크리먼트로 변경하기 -->
+  	<insert id="surgeryScheduleInsert" parameterType="scheduleVO">	
+		INSERT INTO 
+			SCHEDULE
+				(
+				SCH_CD, 
+				MEM_CD, 
+				CODE_CD, 
+				SCH_FK, 
+				SCH_SDATE, 
+				SCH_EDATE, 
+				SCH_RDATE
+				)
+			VALUES 
+				(
+				5, 
+				#{memCd}, 
+				#{codeCd}, 
+				#{schFk}, 
+				#{schSdate}, 
+				#{schEdate}, 
+				NOW()
+				)
   	</insert>
   	
 </mapper>

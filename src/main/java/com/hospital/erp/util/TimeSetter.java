@@ -1,5 +1,7 @@
 package com.hospital.erp.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -55,5 +57,56 @@ public class TimeSetter {
                 .atZone(ZoneId.systemDefault())  // Instant -> ZonedDateTime
                 .toLocalDate(); // ZonedDateTime -> LocalDate
         return localDate;
+	}
+	
+	// string을 date 타입으로 변경
+	public Date stringToDate(String str, String format) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat(format);
+        Date date = formatter.parse(str);
+        return date;
+	}
+	
+	public String stringDateChanger(String date) {
+		String[] dateArray = date.split(" ");
+		switch(dateArray[1]) {
+        case "January":
+        	dateArray[1] = "01";
+            break;
+        case "February":
+        	dateArray[1] = "02";
+            break;
+        case "March":
+        	dateArray[1] = "03";
+            break;
+        case "April":
+        	dateArray[1] = "04";
+            break;
+        case "May":
+        	dateArray[1] = "05";
+            break;
+        case "June":
+        	dateArray[1] = "06";
+            break;
+        case "July":
+        	dateArray[1] = "07";
+            break;
+        case "August":
+        	dateArray[1] = "08";
+            break;
+        case "September":
+        	dateArray[1] = "09";
+            break;
+        case "October":
+        	dateArray[1] = "10";
+            break;
+        case "November":
+        	dateArray[1] = "11";
+            break;
+        case "December":
+        	dateArray[1] = "12";
+            break;
+	}
+		String result = dateArray[0]+" "+dateArray[1]+" "+dateArray[2];
+		return result;
 	}
 }

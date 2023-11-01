@@ -19,7 +19,9 @@
     <div class="form-group row">
         <label class="col-sm-12 col-md-2 col-form-label" style="font-weight: bold; font-size: large; text-align: center;">조회 날짜</label>
         <div>
-            <input class="form-control date-picker" id="datepicker" placeholder="Select Reservation Date" type="text" value="${ldt}" onkeydown="return false">
+            <input class="form-control date-picker" id="datepicker" placeholder="Select Reservation Date" type="text" value="${ldt}" readonly style="background-color: white;">
+            <button class="btn btn-outline-primary date-change-btn">날짜 변경 조회</button>
+            <a id="hidden-link" href=""></a>
         </div>
     </div>
     <br><br>
@@ -30,7 +32,7 @@
             <th>예약자</th>
         </tr>
         <tr id="table-top">
-            <th scope="col">${ldt}</th>
+            <th scope="col" class="param-date" id="${ldt}">${ldt}</th>
             <th scope="col">${surgeryVO.surNum}</th>
             <th scope="col">주홍일</th>
             <input id="surCd" type="hidden" value="${surgeryVO.surCd}">
@@ -114,69 +116,84 @@
     <div class="form-group row">
         <label class="col-sm-12 col-md-2 col-form-label" style="font-weight: bold; font-size: large; text-align: center;">시작 시간</label>
         <div>
-            <select class="custom-select col-12">
-                <option selected="">Select Start-time</option>
-                <option value="">09:00</option>
-                <option value="">09:30</option>
-                <option value="">10:00</option>
-                <option value="">10:30</option>
-                <option value="">11:00</option>
-                <option value="">11:30</option>
-                <option value="">12:00</option>
-                <option value="">12:30</option>
-                <option value="">13:00</option>
-                <option value="">13:00</option>
-                <option value="">14:30</option>
-                <option value="">14:00</option>
-                <option value="">15:00</option>
-                <option value="">15:30</option>
-                <option value="">16:00</option>
-                <option value="">16:00</option>
-                <option value="">17:30</option>
-                <option value="">18:00</option>
-                <option value="">18:00</option>
-                <option value="">19:30</option>
-                <option value="">19:00</option>
-                <option value="">20:00</option>
-                <option value="">20:30</option>
+            <select class="custom-select col-12 surgery-start">
+                <option value="0">00:00</option>
+                <option value="1">01:00</option>
+                <option value="2">02:00</option>
+                <option value="3">03:00</option>
+                <option value="4">04:00</option>
+                <option value="5">05:00</option>
+                <option value="6">06:00</option>
+                <option value="7">07:00</option>
+                <option value="8">08:00</option>
+                <option value="9">09:00</option>
+                <option value="10">10:00</option>
+                <option value="11">11:00</option>
+                <option value="12">12:00</option>
+                <option value="13">13:00</option>
+                <option value="14">14:00</option>
+                <option value="15">15:00</option>
+                <option value="16">16:00</option>
+                <option value="17">17:00</option>
+                <option value="18">18:00</option>
+                <option value="19">19:00</option>
+                <option value="20">20:00</option>
+                <option value="21">21:00</option>
+                <option value="22">22:00</option>
+                <option value="23">23:00</option>
             </select>
         </div>
     </div>
     <div class="form-group row">
         <label class="col-sm-12 col-md-2 col-form-label" style="font-weight: bold; font-size: large; text-align: center;">종료 시간</label>
         <div>
-            <select class="custom-select col-12">
-                <option selected="">&nbsp;Select End-time&nbsp;</option>
-                <option value="">09:30</option>
-                <option value="">10:00</option>
-                <option value="">10:30</option>
-                <option value="">11:00</option>
-                <option value="">11:30</option>
-                <option value="">12:00</option>
-                <option value="">12:30</option>
-                <option value="">13:00</option>
-                <option value="">13:00</option>
-                <option value="">14:30</option>
-                <option value="">14:00</option>
-                <option value="">15:00</option>
-                <option value="">15:30</option>
-                <option value="">16:00</option>
-                <option value="">16:00</option>
-                <option value="">17:30</option>
-                <option value="">18:00</option>
-                <option value="">18:00</option>
-                <option value="">19:30</option>
-                <option value="">19:00</option>
-                <option value="">20:00</option>
-                <option value="">20:30</option>
-                <option value="">21:00</option>
+            <select class="custom-select col-12 surgery-end">
+                <option value="1">01:00</option>
+                <option value="2">02:00</option>
+                <option value="3">03:00</option>
+                <option value="4">04:00</option>
+                <option value="5">05:00</option>
+                <option value="6">06:00</option>
+                <option value="7">07:00</option>
+                <option value="8">08:00</option>
+                <option value="9">09:00</option>
+                <option value="10">10:00</option>
+                <option value="11">11:00</option>
+                <option value="12">12:00</option>
+                <option value="13">13:00</option>
+                <option value="14">14:00</option>
+                <option value="15">15:00</option>
+                <option value="16">16:00</option>
+                <option value="17">17:00</option>
+                <option value="18">18:00</option>
+                <option value="19">19:00</option>
+                <option value="20">20:00</option>
+                <option value="21">21:00</option>
+                <option value="22">22:00</option>
+                <option value="23">23:00</option>
+                <option value="24">24:00</option>
             </select>
         </div>
     </div>
         <br>
+    <!-- <div class="form-group row">
+        <label class="col-sm-12 col-md-2 col-form-label" style="font-weight: bold; font-size: large; text-align: center;">참가 인원 선택</label>
+        <div>
+            <select class="custom-select col-12 particiant-select">
+                <c:forEach items="${surgeryParticiantList}" var="particiant">
+                    <option value="${particiant.depName}&nbsp;${particiant.memName}&nbsp;${particiant.memCd}">${particiant.depName}&nbsp;${particiant.memName}&nbsp;${particiant.memCd}</option>
+                </c:forEach>
+            </select>
+            <button class="btn btn-outline-primary particiant-insert">인원 등록</button>
+            <button class="btn btn-outline-primary all-particiant-delete">인원 초기화</button>
+        </div>
+    </div>
+    <div class="bootstrap-tagsinput" id="particiant-place">
+    </div> -->
+        <br><br>
     <div class="clearfix mb-20">
         <div id="schedule-insert-btn">
-            <input type="button" class="btn btn-outline-primary header-white" value="수술실 예약"></button>
+            <input type="button" class="btn btn-outline-primary" value="수술실 예약"></button>
         </div>
     </div>
         <br>

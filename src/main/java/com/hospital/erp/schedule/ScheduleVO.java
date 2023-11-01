@@ -24,4 +24,10 @@ public class ScheduleVO {
 	
 	private int startNum;
 	private int endNum;
+	
+	private String startNumString;
+	private String endNumString;
+	private String dateString;
+	
+	private int surNum;
 }

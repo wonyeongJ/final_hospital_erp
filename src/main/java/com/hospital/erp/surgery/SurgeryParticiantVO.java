@@ -15,4 +15,7 @@ public class SurgeryParticiantVO {
 	private int surCd;
 	private String memCd;
 	private LocalDateTime spRdate;
+	
+	private String memName;
+	private String depName;
 }

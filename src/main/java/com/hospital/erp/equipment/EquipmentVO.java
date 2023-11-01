@@ -1,9 +1,6 @@
 package com.hospital.erp.equipment;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
-import com.hospital.erp.common.CodeVO;
 
 import lombok.Getter;
 import lombok.Setter;

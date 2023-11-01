@@ -1,9 +1,9 @@
 package com.hospital.erp.surgery;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hospital.erp.common.CodeVO;
 import com.hospital.erp.schedule.ScheduleService;
 import com.hospital.erp.schedule.ScheduleVO;
 import com.hospital.erp.util.TimeSetter;
@@ -76,21 +75,38 @@ public class SurgeryController {
 	}
 	
 	@GetMapping("scheduleInsert") 
-	public String surgeryScheduleInsert(SurgeryVO surgeryVO, Model model, ScheduleVO scheduleVO) throws Exception{ 
+	public String surgeryScheduleInsert(SurgeryVO surgeryVO, Model model, ScheduleVO scheduleVO, String paramDate) throws Exception{ 
 		
 		surgeryVO = surgeryService.surgeryData(surgeryVO);
 		model.addAttribute("surgeryVO", surgeryVO);
 		
-		// view에 보여주기용 데이터 생성
-		LocalDate localDate = timeSetter.currentLocalDate();
-		LocalDateTime localDateTime = localDate.atStartOfDay();
-		String ldt = timeSetter.localDateTimeToString(localDateTime, "yyyy년 MM월 dd일");
-		model.addAttribute("ldt", ldt);
-		
-		LocalDateTime localDateTimeL = localDate.atTime(LocalTime.MAX);//(날짜 + 23:59:59:9999999)
+		if(paramDate != null) {
+			String stringDate = timeSetter.stringDateChanger(paramDate);
+	        SimpleDateFormat formatter = new SimpleDateFormat("dd MM yyyy");
+	        Date date = formatter.parse(stringDate);    
+	        LocalDate localDate = timeSetter.dateToLocalDate(date);
+	        LocalDateTime localDateTime = localDate.atStartOfDay();
+			String ldt = timeSetter.localDateTimeToString(localDateTime, "yyyy년 MM월 dd일");
+			// view에 보여주기용 데이터
+			model.addAttribute("ldt", ldt);
 			
-		scheduleVO.setSchSdate(localDateTime);
-		scheduleVO.setSchEdate(localDateTimeL);
+			LocalDateTime localDateTimeL = localDate.atTime(LocalTime.MAX);//(날짜 + 23:59:59:9999999)
+			
+			scheduleVO.setSchSdate(localDateTime);
+			scheduleVO.setSchEdate(localDateTimeL);
+		}else {
+			LocalDate localDate = timeSetter.currentLocalDate();
+			LocalDateTime localDateTime = localDate.atStartOfDay();
+			String ldt = timeSetter.localDateTimeToString(localDateTime, "yyyy년 MM월 dd일");
+			// view에 보여주기용 데이터
+			model.addAttribute("ldt", ldt);
+			
+			LocalDateTime localDateTimeL = localDate.atTime(LocalTime.MAX);//(날짜 + 23:59:59:9999999)
+			
+			scheduleVO.setSchSdate(localDateTime);
+			scheduleVO.setSchEdate(localDateTimeL);
+		}
+		
 		scheduleVO.setCodeCd(15);
 		scheduleVO.setSchFk(surgeryVO.getSurCd());	
 
@@ -104,7 +120,67 @@ public class SurgeryController {
 		
 		model.addAttribute("list", list);
 		
+//		// 예약자 선택란을 위한 MEMBER 데이터
+//		List<SurgeryParticiantVO> surgeryParticiantList =  surgeryService.memberList();
+//		model.addAttribute("surgeryParticiantList", surgeryParticiantList);
+		
 		return "surgery/scheduleInsert"; 	
+	}
+	
+	@ResponseBody
+	@PostMapping("reservation")
+	public String surgeryReservationInsert(SurgeryReservationVO surgeryReservationVO, ScheduleVO scheduleVO)throws Exception{
+		
+		Date date = timeSetter.stringToDate(surgeryReservationVO.getParamDate(), "yyyy년 MM월 dd일");
+		LocalDateTime localDateTime = timeSetter.dateTolocalDateTime(date);
+		scheduleVO.setSchSdate(localDateTime.plusHours(surgeryReservationVO.getSTime()));
+		scheduleVO.setSchEdate(localDateTime.plusHours(surgeryReservationVO.getETime()));
+		scheduleVO.setSchFk(surgeryReservationVO.getSurCd());
+		scheduleVO.setCodeCd(15);
+		scheduleVO.setMemCd("2303004");
+		List<ScheduleVO> checkResult = surgeryService.surgeryScheduleCheck(scheduleVO);
+		
+		String result;
+		if(checkResult.size()==0) {
+			// 등록가능
+			surgeryService.surgeryScheduleInsert(scheduleVO);
+			result = "scheduleInsert?surCd="+surgeryReservationVO.getSurCd();
+			return result;
+		}else {
+			// 등록 불가능
+			result = "x";
+			return result;
+		}
+	}
+	
+	@GetMapping("scheduleList") 
+	public String surgeryScheduleList(ScheduleVO scheduleVO, Model model) throws Exception{ 
+		
+		scheduleVO.setCodeCd(15);
+		// 로그인 완성 되면 세션에서 가져오기
+		scheduleVO.setMemCd("2303004");
+		
+		List<ScheduleVO> scheduleList = scheduleService.myScheduleList(scheduleVO);
+		
+		for(int i = 0; i < scheduleList.size(); i++) {
+			scheduleList.get(i).setStartNumString(timeSetter.localDateTimeToString(scheduleList.get(i).getSchSdate(), "HH시 mm분"));
+			scheduleList.get(i).setEndNumString(timeSetter.localDateTimeToString(scheduleList.get(i).getSchEdate(), "HH시 mm분"));
+			scheduleList.get(i).setDateString(timeSetter.localDateTimeToString(scheduleList.get(i).getSchSdate(), "yyyy년 MM월 dd일"));
+		}
+	
+		model.addAttribute("scheduleList", scheduleList);
+		
+		return "surgery/scheduleList"; 
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("scheduleDelete")
+	public String surgeryScheduleDelete(ScheduleVO scheduleVO)throws Exception{
+		
+		scheduleService.surgeryScheduleDelete(scheduleVO);
+		
+		return "complete";
 	}
 	
 	@GetMapping("scheduleData") 
@@ -118,13 +194,6 @@ public class SurgeryController {
 	public String surgeryRoomList() throws Exception{ 
 		   
 		return "surgery/update"; 
-		
-	}
-	
-	@GetMapping("scheduleList") 
-	public String surgeryScheduleList() throws Exception{ 
-		   
-		return "surgery/scheduleList"; 
 		
 	}
 	
