@@ -9,7 +9,7 @@
 	<br>
 <h2>비품 상세</h2>
 	<br><br>
-
+<h4>비품 정보</h4>
 <table class="table table-bordered" style="text-align: center;">
     <thead>
         <tr id="table-top">
@@ -27,12 +27,14 @@
     </tbody>
 </table>
     <br>
+<h4>비품 대여 내역</h4>
 <table class="table table-bordered" style="text-align: center;">
     <thead>
         <tr id="table-top">
             <th scope="col">대여자</th>
             <th scope="col">대여 날짜</th>
             <th scope="col">반납 날짜</th>
+            <th scope="col">반납 여부</th>
         </tr>
     </thead>
     <tbody>
@@ -40,7 +42,26 @@
             <tr>
                 <th scope="row">${equH.memName}</th>
                 <td>${equH.processedSdate}</td>
-                <td>${equH.processedRedate}</td>
+                <td>
+                    <c:choose>
+                        <c:when test="${equH.processedRedate=='9999년 12월 31일'}">
+                            무기한 대여 신청
+                        </c:when>
+                        <c:otherwise>
+                            ${equH.processedRedate}
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td>
+                    <c:choose>
+                        <c:when test="${equH.ehReturn=='0'}">
+                            반납 완료
+                        </c:when>
+                        <c:otherwise>
+                            대여 중
+                        </c:otherwise>
+                    </c:choose>
+                </td>
             </tr>
         </c:forEach>
     </tbody>
@@ -79,7 +100,7 @@
                         <div class="form-group row">
                             <label for="example-datetime-local-input" class="col-sm-12 col-md-2 col-form-label">구매날짜</label>
                             <div class="col-sm-12 col-md-10">
-                                <input class="form-control datetimepicker" placeholder="Choice Date and Time" type="text" name="">
+                                <input class="form-control datetimepicker" placeholder="Click to select Date and Time" type="text" name="" readonly style="background-color: white;">
                             </div>
                         </div>
                         <div class="clearfix mb-20">

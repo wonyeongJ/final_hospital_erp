@@ -67,7 +67,7 @@ public class EquipmentController {
 		List<CodeVO> categories = equipmentService.categoriesList();
 		model.addAttribute("categories", categories);
 		
-		// Date processedPdate = timeSetter.LocalDateTimetoDate(equipmentVO.getEquPdate());
+		// Date processedPdate = timeSetter.localDateTimetoDate(equipmentVO.getEquPdate());
 		
 		model.addAttribute("equipmentVO", equipmentVO);
 		model.addAttribute("codeVO", codeVO);
@@ -76,6 +76,7 @@ public class EquipmentController {
 		// model.addAttribute("processedPdate", processedPdate);
 		
 		return "equipment/data";
+		
 	}
 	
 	@GetMapping("list") 
@@ -97,6 +98,7 @@ public class EquipmentController {
 		model.addAttribute("categories", categories);
 		
 		return "equipment/list";
+		
 	}
 	
 	@ResponseBody
@@ -107,6 +109,7 @@ public class EquipmentController {
 		
 		String st = "list";
 		return st;
+		
 	}
 	
 	@ResponseBody
@@ -117,6 +120,7 @@ public class EquipmentController {
 		
 		String st = "list";
 		return st;
+		
 	}
 	
 	@ResponseBody
@@ -126,6 +130,7 @@ public class EquipmentController {
 		equipmentService.codeDelete(codeVO);
 		String st = "list";
 		return st;
+		
 	}
 	
 	@ResponseBody
@@ -140,13 +145,14 @@ public class EquipmentController {
 		equipmentVOforInsert.setCodeCd(codeVO.getCodeCd());
 		equipmentVOforInsert.setEquSnum(equipmentVO.getEquSnum());
 
-        LocalDateTime perchaseDate = timeSetter.DateTolocalDateTime(date);
+        LocalDateTime perchaseDate = timeSetter.dateTolocalDateTime(date);
        
         equipmentVOforInsert.setEquPdate(perchaseDate);
         
         equipmentService.equipmentInsert(equipmentVOforInsert);
 		
 		return "list";
+		
 	}
 	
 	@ResponseBody
@@ -157,6 +163,7 @@ public class EquipmentController {
 		
 		String st = String.valueOf(equipmentVO.getEquCd());
 		return st+" deleted";
+		
 	}
 	
 	@ResponseBody
@@ -166,11 +173,12 @@ public class EquipmentController {
 		// codeName으로 codeCd 조회 후 equipmentVO에 set
 		codeVO = equipmentService.equipmentCodeData(codeVO);
 		equipmentVO.setCodeCd(codeVO.getCodeCd());
-		equipmentVO.setEquPdate(timeSetter.DateTolocalDateTime(pDate));
+		equipmentVO.setEquPdate(timeSetter.dateTolocalDateTime(pDate));
 		
 		equipmentService.equipmentUpdate(equipmentVO);
 		
 		return Integer.toString(equipmentVO.getEquCd());
+		
 	}
 	
 	@GetMapping("historyInsert")  
@@ -190,14 +198,16 @@ public class EquipmentController {
 		model.addAttribute("equCd", equCd);
 		
 		return "equipment/historyInsert";
+		
 	}
 	
 	@PostMapping("historyInsert")  
 	public String equipmenthistoryInsert(EquipmentHistoryVO equipmentHistoryVO, Date reDate)throws Exception{
 		
-		equipmentHistoryVO.setEhRedate(timeSetter.DateTolocalDateTime(reDate));
+		equipmentHistoryVO.setEhRedate(timeSetter.dateTolocalDateTime(reDate));
 		equipmentService.equipmenthistoryInsert(equipmentHistoryVO);
 		
 		return "redirect:./list";
+		
 	}
 }

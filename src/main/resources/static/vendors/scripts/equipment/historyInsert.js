@@ -1,6 +1,15 @@
 $('#historyInsert-submit-btn').click(function(){
-	$('.date-picker').prop('disabled', false);
-	$('#history-insert-form').submit();
+	var check = confirm('대여 신청 하시겠습니까?')
+	
+	if(check){
+		let date = $('.date-picker').val()
+		if(date.length != 0){
+			$('.date-picker').prop('disabled', false);
+			$('#history-insert-form').submit();
+		}else{
+			alert('모든 항목은 필수 항목 입니다.')
+		}
+	}
 });
 
 $('#indefinite-btn').click(function(){
