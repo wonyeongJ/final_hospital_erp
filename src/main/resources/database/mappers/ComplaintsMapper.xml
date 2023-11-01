@@ -71,15 +71,16 @@
   	
   	
 <!-- 민원게시판 상세조회 -->
-<select id="complaintsData" parameterType="ComplaintsVO" resultMap="complaintsResultMap">
+<select id="complaintsData" parameterType="int" resultMap="complaintsResultMap">
 		SELECT
 			C.*, CF.* 
    		FROM
    			COMPLAINTS C
     	LEFT OUTER JOIN 
-    		BOARD_FILE CF ON C.COMP_CD = CF.BF_FK 
+    		BOARD_FILE CF 
+    	ON C.COMP_CD = CF.BF_FK 
     	WHERE
-    		C.COMP_CD = #{compCd}
+    		C.COMP_CD = #{value}
 </select>
 
 <!-- 민원게시판 파일 등록 -->
@@ -116,6 +117,21 @@
         <result property="bfRdate" column="BF_RDATE" />
     </collection>
 </resultMap>
+
+
+<!-- 공지사항 Update -->
+<update id="complaintsUpdate" parameterType="ComplaintsVO">
+  		UPDATE 
+  			COMPLAINTS
+	    SET
+	       	COMP_TITLE = #{compTitle},
+	        COMP_CONTENTS = #{compContents},
+	        CODE_CD = #{codeCd},
+	        COMP_SECRET = #{compSecret}
+	    WHERE 
+	    	COMP_CD = #{compCd}
+</update>
+
 
 
 </mapper>

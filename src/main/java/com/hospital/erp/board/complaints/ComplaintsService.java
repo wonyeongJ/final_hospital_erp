@@ -102,5 +102,36 @@ public class ComplaintsService {
 			    return fileList;
 			}
 		
+		
+		// 민원게시판 업데이트
+		public int complaintsUpdate(ComplaintsVO complaintsVO,MultipartFile[] files)throws Exception{
+			   int result = complaintsDAO.complaintsUpdate(complaintsVO);
+		       int compCd = complaintsVO.getCompCd();
+
+				
+				// 파일 업로드 및 파일 정보 저장
+		        for (MultipartFile file : files) {
+		            if (!file.isEmpty()) {
+		                ComplaintsFileVO complaintsFileVO = new ComplaintsFileVO();
+		                complaintsFileVO.setCodeCd(10); // 해당 민원게시판 카테고리 코드
+		                complaintsFileVO.setBfFk(compCd); // 민원게시판 등록 후 생성된 PK
+		                complaintsFileVO.setBfOname(file.getOriginalFilename());
+		                String FileName = fileManger.save(this.uploadPath+this.boardName, file);
+		                complaintsFileVO.setBfFname(FileName);
+		                complaintsFileVO.setBfPath(uploadPath);
+		                String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+		                complaintsFileVO.setBfExtension(extension);
+		                complaintsDAO.fileInsert(complaintsFileVO);
+		            }
+		        }
+
+				return result;
+			}
+		
+//		public int comUpdate(int compCd)throws Exception{
+//			
+//			return complaintsDAO.comUpdate(compCd);
+//		}
+
 
 }

@@ -67,7 +67,7 @@ public class ComplaintsController {
 	}
 	
 	@GetMapping("data/{compCd}")
-	public String noticeData(@PathVariable int compCd, Model model) throws Exception {
+	public String complaintseData(@PathVariable int compCd, Model model) throws Exception {
 	    // 민원게시판 상세 정보를 가져옵니다.
 	    ComplaintsVO complaintsVO = complaintsService.complaintsData(compCd);
 	    
@@ -91,9 +91,80 @@ public class ComplaintsController {
 	    }
 	}
 	
-	@GetMapping("update")
-	public String complainstUpdate() {
+	
+	// 민원게시판 업데이트
+	@GetMapping("update/{compCd}")
+	public String complainstUpdate(@PathVariable int compCd,Model model) throws Exception {
+		
+		
+		System.out.println(compCd);
+		
+		System.out.println("여기다");
+		
+		
+		
+		ComplaintsVO complaintsVO = complaintsService.complaintsData(compCd);
+		
+		log.info("===========complainVO {}=======", complaintsVO.toString());
+		
+		System.out.println("여긴 VO밑");
+		
+		// 민원게시판의 속하는 파일리스트를 가져온다
+		List<ComplaintsFileVO> fileList = complaintsService.fileData(compCd);
+		complaintsVO.setList(fileList);
+		
+		System.out.println("file");
+		log.info("=====fileList {}========", fileList.get(0).getBfOname());
+		log.info("=====fileList {}========", fileList.get(0).getBfCd());
+		log.info("=====fileList {}========", fileList.get(0).getBfFk());
+		log.info("=====fileList {}========", fileList.get(0).getBfRdate());
+		
+		model.addAttribute("data", fileList);
+		model.addAttribute("board", complaintsVO);
+		
+		
 		return "board/complaints/update";
 
 	}
+	
+	@PostMapping("update")
+	public String complaintsUpdate(ComplaintsVO complaintsVO,MultipartFile[] files,HttpSession session,Model model)throws Exception {
+		
+		int result = complaintsService.complaintsUpdate(complaintsVO, files);
+		
+		String message = "등록 실패";
+
+		if (result > 0) {
+			message = "등록 성공";
+		}
+		model.addAttribute("message", message);
+		model.addAttribute("url", "list");
+		return "commons/result";
+	}
+	
+	
+	
+	
+	
+	@GetMapping("fileDown/{compCd}")
+	public String fileDown(int compCd,ComplaintsFileVO complaintsFileVO, Model model)throws Exception{
+		
+		List<ComplaintsFileVO> fileList = complaintsService.fileData(compCd);
+		model.addAttribute("list", fileList);
+		
+		return "fileDownView";
+	}
 }
+	
+//	@GetMapping("update2")
+//	public String comUpdate()throws Exception{
+//		
+//		return "board/complaints/update";
+//	}
+//	
+//	@PostMapping("update2")
+//	public String comUpdate(int compCd)throws Exception{
+//		int result = complaintsService.comUpdate(compCd);
+//		return "";
+//	}
+//}

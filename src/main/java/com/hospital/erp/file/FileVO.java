@@ -8,6 +8,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class FileVO {
 	
 	// 파일테이블의 PK
@@ -32,5 +33,5 @@ public class FileVO {
 	private String bfExtension;
 	
 	// 파일의 등록날짜
-	private Date bfRdata;
+	private Date bfRdate;
 }

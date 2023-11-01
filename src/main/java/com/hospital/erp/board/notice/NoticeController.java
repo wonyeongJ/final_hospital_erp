@@ -125,7 +125,7 @@ public class NoticeController {
 	
 	//update	
 	@GetMapping("update/{notCd}")
-	public String getUpdate(@PathVariable int notCd,NoticeVO noticeVO, Model model)throws Exception{
+	public String noticeUpdate(@PathVariable int notCd,NoticeVO noticeVO, Model model)throws Exception{
 			
 		noticeVO = noticeService.noticeData(notCd);
 		
@@ -133,6 +133,8 @@ public class NoticeController {
         List<NoticeFileVO> fileList =noticeService.fileData(notCd);
         noticeVO.setList(fileList);
 
+        log.info("=======notice {}=========", fileList);
+        
 		
 		model.addAttribute("data",noticeVO);
 			
@@ -141,7 +143,7 @@ public class NoticeController {
 	
 	//update
 	@PostMapping("update")
-	public String getUpdate(NoticeVO noticeVO,MultipartFile[] files,HttpSession session, Model model)throws Exception{
+	public String noticeUpdate(NoticeVO noticeVO,MultipartFile[] files,HttpSession session, Model model)throws Exception{
 			 
 		int result = noticeService.noticeUpdate(noticeVO, files);
 		

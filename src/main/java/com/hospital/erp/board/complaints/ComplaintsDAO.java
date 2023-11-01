@@ -25,5 +25,10 @@ public interface ComplaintsDAO {
 	
 	// 파일 상세
 	public List<ComplaintsFileVO> fileData(int compCd)throws Exception;
+	
+	// 민원게시판 업데이트
+	public int complaintsUpdate(ComplaintsVO complaintsVO)throws Exception;
+	
+	//public int comUpdate(int compCd)throws Exception;
 		
 }
