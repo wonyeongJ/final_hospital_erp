@@ -3,10 +3,14 @@ package com.hospital.erp.member;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -80,5 +84,22 @@ public class MemberController {
 		  return "member/mypage";
 	  }
 	  
+	  // 패스워드 업데이트 요청 메서드
+	  @PostMapping("updatePassword")
+	  public String memberUpdatePassword(@ModelAttribute @Valid PasswordVO passwordVO, BindingResult bindingResult) throws Exception {
+		  // 시큐리티에서 유저정보 꺼내기
+		  Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		  UserDetails userDetails = (UserDetails)principal;
+		  log.info("================== 유저 정보 {}======== ", userDetails);
+		  log.info("===========principal 정보 {}============", principal);
+		  
+		  
+		  
+		  if(bindingResult.hasErrors()) {
+			  return "member/updatePassword";
+		  }
+		  
+		  return "member/updatePassword";
+	  }
 	 
 }
