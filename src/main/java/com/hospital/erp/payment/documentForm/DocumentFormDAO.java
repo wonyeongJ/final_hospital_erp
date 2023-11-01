@@ -10,8 +10,8 @@ public interface DocumentFormDAO {
 	public List<DocumentFormVO> documentFormList()throws Exception;
 	
 	public int documentFormInsert(DocumentFormVO documentFormVO)throws Exception;
+		
+	public int documentFormDelete(DocumentFormVO documentFormVO)throws Exception;
 	
 	public DocumentFormVO documentFormData(DocumentFormVO documentFormVO)throws Exception;
-	
-	public int documentFormDelete(DocumentFormVO documentFormVO)throws Exception;
 }

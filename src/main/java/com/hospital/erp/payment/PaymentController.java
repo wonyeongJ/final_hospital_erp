@@ -2,12 +2,19 @@ package com.hospital.erp.payment;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.hospital.erp.payment.documentForm.DocumentFormService;
+import com.hospital.erp.payment.documentForm.DocumentFormVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,6 +22,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/payment/*")
 public class PaymentController {
+	
+	@Autowired
+	private PaymentService paymentService;
+	
+	@Autowired
+	private DocumentFormService documentFormService;
 	
 	@GetMapping("allList")
 	public String paymentAllList()throws Exception{
@@ -29,22 +42,26 @@ public class PaymentController {
 	}
 	
 	@GetMapping("insert")
-	public String paymentInsert()throws Exception{
-		
-		return "payment/insert";
+	public String paymentInsert(HttpSession session, DocumentFormVO documentFormVO, Model model)throws Exception{
+		documentFormVO = documentFormService.documentFormData(documentFormVO);
+		model.addAttribute("documentFormVO", documentFormVO);
+		return "ajax.payment/insert";
 	}
 	
-	@GetMapping("formList")
-	public String paymentFormList()throws Exception{
+	@PostMapping("insert")
+	public String paymentInsert(PaymentVO paymentVO)throws Exception{
 		
-		return "payment/formList";
+		int result = paymentService.paymentInsert(paymentVO);
+		
+		return "";
 	}
 	
-	@GetMapping("formInsert")
-	public String paymentFormAdd()throws Exception{
-		
-		return "payment/formInsert";
-	}
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("formTest")
 	public String paymentFormTest()throws Exception{
