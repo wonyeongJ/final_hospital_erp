@@ -4,40 +4,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="spring" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<!-- Basic Page Info -->
-	<meta charset="utf-8">
-	<title>MYPAGE</title>
-
-	<!-- Site favicon -->
-	<link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png">
-
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-	<!-- Google Font -->
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="vendors/styles/core.css">
-	<link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css">
-	<link rel="stylesheet" type="text/css" href="src/plugins/cropperjs/dist/cropper.css">
-	<link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
-
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'UA-119386393-1');
-	</script>
-
-</head>
 <body>
 	<div>
 		<h1>MYPAGE</h1>
@@ -84,48 +50,46 @@
 			<button type="button" class="btn btn-primary" style="margin-right: 10px;">도장/사인 이미지 변경</button>
 			<a href="#" type="button" class="btn btn-primary ms-30" data-toggle="modal" data-target="#Medium-modal" >비밀번호 변경</a>
 			<div class="modal fade" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
-								<div class="modal-dialog modal-dialog-centered">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h4 class="text-center text-primary">Reset Password</h4>
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										</div>
-										<div class="modal-body">
-											<form id="UpdatePasswordFrm" action="./updatePassword" method="post" >
-												<div class="input-group custom">
-													<input type="text" class="form-control form-control-lg" name="newPassword" placeholder="New Password">
-													<div class="input-group-append custom">
-														<span class="input-group-text"><i class="dw dw-padlock1"></i></span>
-													</div>
-												</div>
-												<div class="input-group custom">
-													<input type="text" class="form-control form-control-lg" name="newPasswordConfirm" placeholder="Confirm New Password">
-													<div class="input-group-append custom">
-														<span class="input-group-text"><i class="dw dw-padlock1"></i></span>
-													</div>
-												</div>
-												<div class="row align-items-center">
-													<div class="col-5">
-														<div class="input-group mb-0">
-															<!--
-																use code for form submit
-																<input class="btn btn-primary btn-lg btn-block" type="submit" value="Submit">
-															-->
-															
-														</div>
-													</div>
-												</div>
-											</form>
-										</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-primary btn-lg btn-block" id="updatePasswordBtn">Submit</button>
-									</div>
-										
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="text-center text-primary">Reset Password</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						</div>
+						<div class="modal-body">
+							<form id="UpdatePasswordFrm" action="./updatePassword" method="post" >
+								<div class="input-group custom">
+									<input type="text" class="form-control form-control-lg" name="newPassword" placeholder="New Password">
+									<div class="input-group-append custom">
+										<span class="input-group-text"><i class="dw dw-padlock1"></i></span>
+									</div>
+								</div>
+								<div class="input-group custom">
+									<input type="text" class="form-control form-control-lg" name="newPasswordConfirm" placeholder="Confirm New Password">
+									<div class="input-group-append custom">
+										<span class="input-group-text"><i class="dw dw-padlock1"></i></span>
+									</div>
+								</div>
+								<div class="row align-items-center">
+									<div class="col-5">
+										<div class="input-group mb-0">
+											<!--
+												use code for form submit
+												<input class="btn btn-primary btn-lg btn-block" type="submit" value="Submit">
+											-->
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary btn-lg btn-block" id="updatePasswordBtn">Submit</button>
+						</div>
+										
 					</div>
 				</div>
-			
 			</div>
+		</div>
 	</div>
 	<br>
 

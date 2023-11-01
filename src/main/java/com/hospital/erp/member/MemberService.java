@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -119,9 +120,21 @@ public class MemberService implements UserDetailsService {
 		//비밀번호 생성 "-" 으로 앞 6자리 분리
 		String [] juminAr = memberVO.getMemRnum().split("-");
 		memberVO.setMemPw(passwordEncoder.encode(juminAr[0]));
-		
 	
 		return memberDAO.memberInsert(memberVO);
+	}
+	
+	// passwordUpdate
+	public int memberUpdatePassword(PasswordVO passwordVO) throws Exception{
+		// 시큐리티에서 유저정보 꺼내기
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		UserDetails userDetails = (UserDetails)principal;
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemCd(userDetails.getUsername());
+		memberVO.setMemPw(userDetails.getPassword());
+		
+		memberVO.setMemPw(passwordEncoder.encode(memberVO.getMemPw()));
+		return memberDAO.memberUpdatePassword(memberVO);
 	}
 	 
 }

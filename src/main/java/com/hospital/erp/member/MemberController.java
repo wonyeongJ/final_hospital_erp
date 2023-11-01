@@ -87,19 +87,16 @@ public class MemberController {
 	  // 패스워드 업데이트 요청 메서드
 	  @PostMapping("updatePassword")
 	  public String memberUpdatePassword(@ModelAttribute @Valid PasswordVO passwordVO, BindingResult bindingResult) throws Exception {
-		  // 시큐리티에서 유저정보 꺼내기
-		  Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
-		  UserDetails userDetails = (UserDetails)principal;
-		  log.info("================== 유저 정보 {}======== ", userDetails);
-		  log.info("===========principal 정보 {}============", principal);
-		  
-		  
 		  
 		  if(bindingResult.hasErrors()) {
+			  System.out.println("if문에서 에러");
 			  return "member/updatePassword";
+		  }else {
+			  System.out.println("else 문에서 에러");
+			  memberService.memberUpdatePassword(passwordVO);
+			  return "redirect:./mypage";
 		  }
 		  
-		  return "member/updatePassword";
 	  }
 	 
 }

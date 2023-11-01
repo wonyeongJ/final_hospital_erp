@@ -81,6 +81,7 @@
   			
   	</insert>
   	
+  	<!--  시큐리티 로그인 조회 쿼리 -->
   	<select id="memberFindByData" parameterType="String" resultType="MemberVO">
   		SELECT
   			*
@@ -88,5 +89,14 @@
   			MEMBER
   		WHERE MEM_CD = #{value}
   	</select>
+  	
+  	<update id="memberUpdatePassword" parameterType="MemberVO">
+  		UPDATE
+  			MEMBER	
+  		SET
+  			MEM_PW = #{memPw}
+  		WHERE
+  			MEM_CD = #{memCd}
+  	</update>
   	
 </mapper>
