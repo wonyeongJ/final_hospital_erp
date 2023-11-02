@@ -64,6 +64,7 @@ $('#schedule-insert-btn').click(function(){
 		let surgeryStart = Number($('.surgery-start').val());
 		let surgeryEnd = Number($('.surgery-end').val());
 		let surCd = Number($('#surCd').val());
+		let memCd = $('#memCd').val();
 		
 		if(surgeryStart >= surgeryEnd){
 			alert('예약 시간을 다시 확인해주세요.');
@@ -76,7 +77,8 @@ $('#schedule-insert-btn').click(function(){
 				 paramDate : date,
 				 sTime : surgeryStart,
 				 eTime : surgeryEnd,
-				 surCd : surCd
+				 surCd : surCd,
+				 memCd : memCd
 			},
 		    success : function(result) {
 				if(result=='x'){
