@@ -119,11 +119,10 @@
 			CODE_CD = #{codeCd}
   	</update>
   	
-  	<!-- 비품 카테고리 추가 : 추후 CODE_CD 오토인크리먼트로 변경하기 -->
-  	<insert id="codeInsert" parameterType="CodeVO">
+  	<!-- 비품 카테고리 추가 -->
+  	<insert id="codeInsert" parameterType="CodeVO" useGeneratedKeys="true" keyProperty="codeCd">
 	  	INSERT INTO 
 			CODE(
-				CODE_CD, 
 				CODE_NAME, 
 				CODE_GID, 
 				CODE_GNAME, 
@@ -132,7 +131,6 @@
 				)
 			VALUES 
 				(
-				25, 
 				#{codeName}, 
 				5, 
 				'CATEGORY', 
@@ -172,12 +170,11 @@
 			CODE_CD = #{codeCd}
   	</select>
   	
-	<!-- 비품 추가 : 추후 EQU_CD 오토인크리먼트로 변경하기 -->
-  	<insert id="equipmentInsert" parameterType="EquipmentVO">
+	<!-- 비품 추가 -->
+  	<insert id="equipmentInsert" parameterType="EquipmentVO" useGeneratedKeys="true" keyProperty="equCd">
 	  	INSERT INTO 
 			EQUIPMENT 
 				(
-				EQU_CD, 
 				CODE_CD, 
 				EQU_SNUM, 
 				EQU_DELETE, 
@@ -186,7 +183,6 @@
 				)
 			VALUES 
 				(
-				3, 
 				#{codeCd}, 
 				#{equSnum}, 
 				0, 
@@ -247,12 +243,11 @@
 			EQU_CD = #{equCd}
   	</update>
   	
-  	<!-- 비품 예약 추가 : 추후 EH_CD 오토인크리먼트로 변경하기 -->
-  	<insert id="equipmenthistoryInsert" parameterType="EquipmentHistoryVO">
+  	<!-- 비품 예약 추가 -->
+  	<insert id="equipmenthistoryInsert" parameterType="EquipmentHistoryVO" useGeneratedKeys="true" keyProperty="ehCd">
 		INSERT INTO 
 			EQUIPMENT_HISTORY 
 				(
-				EH_CD, 
 				MEM_CD, 
 				EQU_CD, 
 				EH_RETURN, 
@@ -262,7 +257,6 @@
 				)
 			VALUES 
 				(
-				5, 
 				#{memCd}, 
 				#{equCd}, 
 				1, 

@@ -27,13 +27,13 @@
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label" style="font-weight: bold; font-size: large; text-align: center;">대여자</label>
             <div>
-                <input class="form-control" type="text" value="박병웅" readonly>
+                <input class="form-control" type="text" value="${memberVO.memName}" readonly>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label" style="font-weight: bold; font-size: large; text-align: center;">사번</label>
             <div>
-                <input class="form-control" type="text" name="memCd" value="2303002" readonly>
+                <input class="form-control" type="text" name="memCd" value="${memberVO.memCd}" readonly>
             </div>
         </div>
         <div class="form-group row">

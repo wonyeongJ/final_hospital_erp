@@ -87,7 +87,11 @@ $('.equipment-insert-btn').click(function(){
 			check2 = true;
 		}
 		if(pDate.length != 0){
-			check3 = true;
+			var now = new Date();
+			let daten = Date.parse(pDate)
+			if(daten < now){
+				check3 = true;
+			}	
 		}
 		if(check1 && check2 && check3){
 			$.ajax({
@@ -104,7 +108,7 @@ $('.equipment-insert-btn').click(function(){
 			}
 	 		})
 		}else{
-			alert('모든 항목은 필수 항목 입니다.')
+			alert('모든 항목은 필수 항목 입니다. 혹은 등록하신 날짜가 현재 시간 이전이 맞는지 확인해주세요.')
 		}
 	}
 	

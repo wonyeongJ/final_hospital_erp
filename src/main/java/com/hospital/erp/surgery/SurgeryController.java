@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hospital.erp.member.MemberVO;
 import com.hospital.erp.schedule.ScheduleService;
 import com.hospital.erp.schedule.ScheduleVO;
 import com.hospital.erp.util.TimeSetter;
@@ -124,12 +127,17 @@ public class SurgeryController {
 //		List<SurgeryParticiantVO> surgeryParticiantList =  surgeryService.memberList();
 //		model.addAttribute("surgeryParticiantList", surgeryParticiantList);
 		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	    UserDetails userDetails = (UserDetails)principal;
+	    MemberVO memberVO = (MemberVO)userDetails;
+	    model.addAttribute("memberVO", memberVO);
+		
 		return "surgery/scheduleInsert"; 	
 	}
 	
 	@ResponseBody
 	@PostMapping("reservation")
-	public String surgeryReservationInsert(SurgeryReservationVO surgeryReservationVO, ScheduleVO scheduleVO)throws Exception{
+	public String surgeryReservationInsert(SurgeryReservationVO surgeryReservationVO, ScheduleVO scheduleVO, String memCd)throws Exception{
 		
 		Date date = timeSetter.stringToDate(surgeryReservationVO.getParamDate(), "yyyy년 MM월 dd일");
 		LocalDateTime localDateTime = timeSetter.dateTolocalDateTime(date);
@@ -137,7 +145,7 @@ public class SurgeryController {
 		scheduleVO.setSchEdate(localDateTime.plusHours(surgeryReservationVO.getETime()));
 		scheduleVO.setSchFk(surgeryReservationVO.getSurCd());
 		scheduleVO.setCodeCd(15);
-		scheduleVO.setMemCd("2303004");
+		scheduleVO.setMemCd(memCd);
 		List<ScheduleVO> checkResult = surgeryService.surgeryScheduleCheck(scheduleVO);
 		
 		String result;
@@ -157,8 +165,11 @@ public class SurgeryController {
 	public String surgeryScheduleList(ScheduleVO scheduleVO, Model model) throws Exception{ 
 		
 		scheduleVO.setCodeCd(15);
-		// 로그인 완성 되면 세션에서 가져오기
-		scheduleVO.setMemCd("2303004");
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	    UserDetails userDetails = (UserDetails)principal;
+	    MemberVO memberVO = (MemberVO)userDetails;
+	    model.addAttribute("memberVO", memberVO);
+		scheduleVO.setMemCd(memberVO.getMemCd());
 		
 		List<ScheduleVO> scheduleList = scheduleService.myScheduleList(scheduleVO);
 		
