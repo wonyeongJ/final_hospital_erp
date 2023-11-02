@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.erp.payment.PaymentDAO">
+	<insert id="paymentInsert" parameterType="PaymentVO">
+		INSERT INTO 
+			ELECTRONIC_PAYMENT
+				(
+				MEM_CD, 
+				DF_CD, 
+				EP_TITLE, 
+				EP_VTYPE, 
+				EP_OTYPE, 
+				EP_SDATE, 
+				EP_EDATE, 
+				EP_PRICE, 
+				EP_LOCATION, 
+				EP_INPUT1, 
+				EP_INPUT2, 
+				EP_INPUT3, 
+				EP_REASON,
+				EP_DSTATUS,
+				EP_FDATE, 
+				EP_RDATE
+				)
+		VALUES 
+			(
+			#{memCd}, 
+			#{dfCd}, 
+			#{epTitle}, 
+			#{epVType}, 
+			#{epOType}, 
+			#{epSDate}, 
+			#{epEDate}, 
+			#{epPrice}, 
+			#{epLocation}, 
+			#{epInput1}, 
+			#{epInput2}, 
+			#{epInput3}, 
+			#{epReason},
+			0,
+			#{epFDate}, 
+			NOW()
+			)
+		;
+	</insert>
+</mapper>

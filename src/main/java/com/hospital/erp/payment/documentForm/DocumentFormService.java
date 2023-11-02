@@ -14,8 +14,20 @@ public class DocumentFormService {
 	@Autowired
 	private DocumentFormDAO documentFormDAO;
 	
-	public List<DocumentFormVO> documentFormormList()throws Exception{
+	public List<DocumentFormVO> documentFormList()throws Exception{
 		
 		return documentFormDAO.documentFormList();
 	}
+	
+	public DocumentFormVO documentFormData(DocumentFormVO documentFormVO)throws Exception{
+		
+		return documentFormDAO.documentFormData(documentFormVO);
+	}
+	
+	public int documentFormInsert(DocumentFormVO documentFormVO)throws Exception{
+		
+		return documentFormDAO.documentFormInsert(documentFormVO);
+	}
+	
+	
 }
