@@ -89,8 +89,6 @@ public class MemberController {
 	  @PostMapping("updatePassword")
 	  public String memberUpdatePassword(@ModelAttribute @Valid PasswordVO passwordVO, BindingResult bindingResult) throws Exception {
 		  
-		 
-		  
 		  // 비밀번호 정규식패턴이 아닐경우
 		  if(bindingResult.hasErrors()) {
 			  return "member/mypage";

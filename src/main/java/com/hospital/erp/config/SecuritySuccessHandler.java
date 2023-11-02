@@ -1,16 +1,23 @@
 package com.hospital.erp.config;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+
+import com.hospital.erp.member.MemberVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,6 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 public class SecuritySuccessHandler implements AuthenticationSuccessHandler{
 	
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+	
+
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -29,7 +38,23 @@ public class SecuritySuccessHandler implements AuthenticationSuccessHandler{
 		log.info("==========RequestURI : {} ============", request.getRequestURI());
 		log.info("==========RequestURL : {} ============", request.getRequestURL());
 		
+		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		
+		// 권한에 따라 리디렉션 URL 설정
+       	for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().equals("ROLE_ADMIN")) {
+                // ADMIN 권한이 있는 경우
+            	new DefaultRedirectStrategy().sendRedirect(request, response, "/member/list");
+                return;
+            } else if (authority.getAuthority().equals("ROLE_DOCTOR")) {
+                // DOCTOR 권한이 있는 경우
+            	new DefaultRedirectStrategy().sendRedirect(request, response, "/schedule/personalList");
+                return;
+            } else if (authority.getAuthority().equals("ROLE_NURSE")) {
+            	new DefaultRedirectStrategy().sendRedirect(request, response, "/patient/list");
+            }
+        }
+
 		response.sendRedirect("/");
 	}
 	

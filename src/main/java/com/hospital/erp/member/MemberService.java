@@ -64,18 +64,22 @@ public class MemberService implements UserDetailsService {
 		
 		// 입사년도 기준으로 1월1일 이후의 데이터를 찾기위해 입사년도-01-01 date format 만들기
 		String yearStart = maxMemberVO.getMemHdate().toString().substring(0, 5); //2023-
+		String yearEnd = yearStart.concat("12-31"); //2023-12-31
 		yearStart = yearStart.concat("01-01"); //2023-01-01
-		log.info("===========MemberVO 0101로 변환 후 {}", memberVO);
 		// 형변환을 위해 java.sql.Date 타입 으로 변환
 		java.sql.Date firstDate = java.sql.Date.valueOf(yearStart);
+		java.sql.Date lastDate = java.sql.Date.valueOf(yearEnd);
 		maxMemberVO.setMemHdate(firstDate);
-		log.info("===========MemberVO 조회메서드실행 전 {}", memberVO);
+		log.info("=======firstDate {}",maxMemberVO.getMemHdate());
+		maxMemberVO.setMemRdate(lastDate);
+		log.info("=======lastDate {}",maxMemberVO.getMemRdate());
+		log.info("===========MemberVO 조회메서드실행 전 {}", maxMemberVO);
 		// 자신의 직무코드에 맞는 사번중 가장 높은 사번 조회 메서드
 		maxMemberVO = memberDAO.memberDataMaxMemCd(maxMemberVO);
 		log.info("===========MemberVO 조회메서드실행 후 {}", memberVO);
 		log.info("===========MaxMemberVO 조회메서드실행 후 {}", maxMemberVO);
 		// 위의 메서드를 통해 조회해온 사번이 NULL일 경우 실행 메서드
-		if(maxMemberVO==null) {
+		if (maxMemberVO == null) {
 			
 			String startMemCd = "001";
 			String jobCode = "";
@@ -83,7 +87,7 @@ public class MemberService implements UserDetailsService {
 			String year = memberVO.getMemHdate().toString().substring(2, 4);   // 23
 			
 			// 직무코드 3 0 -> 03, 4 -> 04 로만들기
-			if(memberVO.getJobCd() < 10) {
+			if (memberVO.getJobCd() < 10) {
 				String addZero = "0";
 				jobCode = addZero.concat(memberVO.getJobCd().toString());
 			}
@@ -102,18 +106,20 @@ public class MemberService implements UserDetailsService {
 			memThreeValue++;
 			log.info("===========memThreeValue {}===========", memThreeValue);
 			//10 이하일때 00 100이하일때 00 붙이기
-			if(memThreeValue < 10) {
+			if (memThreeValue < 10) {
 				String addZero = "00";
 				endThreeValue = addZero.concat(Integer.toString(memThreeValue));
 				log.info("===========startFourValue {}===========", endThreeValue);
 				startFourValue = startFourValue.concat(endThreeValue);
 				log.info("===========startFourValue {}===========", startFourValue);
-			}else if(memThreeValue < 100) {
+			} else if (memThreeValue < 100) {
 				String addZero = "0";
-				endThreeValue = endThreeValue.concat(addZero.concat(Integer.toString(memThreeValue)));
-				startFourValue.concat(endThreeValue);
-				log.info("===========startFourValue {}===========", startFourValue);
+				endThreeValue = addZero.concat(Integer.toString(memThreeValue));
+				log.info("===========endThreeVlaue elseif {}===========", endThreeValue);
+				startFourValue = startFourValue.concat(endThreeValue);
+				log.info("===========startFourValue elseif {}===========", startFourValue);
 			}
+			log.info("============memCD {}", startFourValue);
 			memberVO.setMemCd(startFourValue);
 		}
 		

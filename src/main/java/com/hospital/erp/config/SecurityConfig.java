@@ -16,6 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 	
+	@Autowired
+	private SecuritySuccessHandler securitySuccessHandler;
 	
 
 	@Bean
@@ -46,7 +48,7 @@ public class SecurityConfig {
 			//form 관련 설정
 			.formLogin()
 				.loginPage("/") //내장된 로그인폼을 사용하지 않고, 개발자가 만든 폼을 사용
-				.defaultSuccessUrl("/member/list")
+				.successHandler(securitySuccessHandler)
 				.loginProcessingUrl("/")
 				.failureUrl("/")
 				.usernameParameter("memCd")

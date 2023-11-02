@@ -35,22 +35,18 @@
   	
   	<!-- Member 테이블 Insert 전 사번 입력을위해 가장 마지막 사번 조회해오는 쿼리문 -->
   	<select id="memberDataMaxMemCd" resultType="MemberVO" parameterType="MemberVO">
-  		SELECT 
-  			*
+		<![CDATA[
+		SELECT 
+			MAX(MEM_CD) AS MEM_CD
 		FROM 
 			MEMBER
 		WHERE 
-			MEM_CD IN
-					(SELECT 
-						MAX(MEM_CD)
-					FROM 
-						MEMBER
-					GROUP BY 
-						JOB_CD 
-					HAVING 
-						JOB_CD = #{jobCd} AND 
-						MEM_HDATE > #{memHdate}
-					)
+			JOB_CD = #{jobCd} AND
+			MEM_HDATE >= #{memHdate} AND 
+			MEM_HDATE <= #{memRdate}
+		GROUP BY 
+			JOB_CD
+		]]>
 			   
   	</select>
   	
