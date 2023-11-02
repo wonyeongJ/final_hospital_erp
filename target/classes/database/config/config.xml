@@ -20,40 +20,31 @@
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<!-- 홍일-->
 		<typeAlias type="com.hospital.erp.equipment.EquipmentVO" alias="EquipmentVO"/>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<!-- 경묵 -->
-		<typeAlias type="com.hospital.erp.board.notice.NoticeVO" alias="NoticeVO"/>
-		<typeAlias type="com.hospital.erp.board.notice.NoticeFileVO" alias="NoticeFileVO"/>
-		
-		<typeAlias type="com.hospital.erp.board.complaints.ComplaintsVO" alias="ComplaintsVO"/>
-		<typeAlias type="com.hospital.erp.board.complaints.ComplaintsFileVO" alias="ComplaintsFileVO"/>
-		
-		<typeAlias type="com.hospital.erp.file.FileVO" alias="FileVO"/>
-		
+		<typeAlias type="com.hospital.erp.equipment.EquipmentHistoryVO" alias="EquipmentHistoryVO"/>
+		<typeAlias type="com.hospital.erp.common.CodeVO" alias="CodeVO"/>
+		<typeAlias type="java.lang.Integer" alias="Integer"/>
+		<typeAlias type="com.hospital.erp.surgery.SurgeryVO" alias="SurgeryVO"/>
+		<typeAlias type="com.hospital.erp.surgery.SurgeryParticiantVO" alias="SurgeryParticiantVO"/>
+		<typeAlias type="com.hospital.erp.schedule.ScheduleVO" alias="ScheduleVO"/>
 	</typeAliases>
 </configuration>	  

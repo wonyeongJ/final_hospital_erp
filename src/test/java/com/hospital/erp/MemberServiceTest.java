@@ -14,6 +14,10 @@ public class MemberServiceTest {
 		//현재 시간 timzone Asia/Seoul 기준으로 구하기
 		LocalDate now = LocalDate.now(ZoneId.of("Asia/Seoul"));
 		System.out.println(now);
+		String yearStart = now.toString().substring(0, 5);
+		
+		String startDate = yearStart.concat("01-01");
+		System.out.println(startDate);
 		//now 객체 String 타입 변환 후 뒤에 연도 두자리 잘라내기
 		String year = now.toString().substring(2, 4);
 		System.out.println(year);

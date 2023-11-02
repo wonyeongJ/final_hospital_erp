@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <link rel="stylesheet" href="/vendors/styles/equipment/list.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <h1>수술실/비품관리</h1>
 	<br>
@@ -18,16 +20,19 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">201호</th>
-            <td>2023.10.25</td>
-            <td>12:00</td>
-			<td>15:00</td>
-			<td>
-                <span class="badge badge-primary"><a onclick="location.href='scheduleUpdate'" id="a2">수정하기</a></span>
-				<span class="badge badge-primary"><a onclick="window.open('#', '수술실 예약 취소', 'width=100, height=100')" id="a2">취소하기</a></span>
-			</td>
-        </tr>
+        <c:forEach items="${scheduleList}" var="list">
+            <tr>
+                <th scope="row">${list.surNum}</th>
+                <td>${list.dateString}</td>
+                <td>${list.startNumString}</td>
+                <td>${list.endNumString}</td>
+                <td value="${list.schCd}">
+                    <span class="badge badge-primary"><a onclick="location.href='scheduleUpdate'" id="a2">수정하기</a></span>
+                    <span class="badge badge-primary"><a class="surgery-schedule-delete-btn" id="a2">취소하기</a></span>
+                </td>
+            </tr>
+        </c:forEach>
     </tbody>
 </table>
     <br>
+<script src="/vendors/scripts/surgery/scheduleList.js"></script>

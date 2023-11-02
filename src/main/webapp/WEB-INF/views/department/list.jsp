@@ -32,9 +32,12 @@
 								<th scope="row">${departmentVO.depCd}</th>
 								<td>${departmentVO.depName}</td>
 								<td>${departmentVO.depTnum}</td>
-								<td>${departmentVO.depDelete}</td>
+								<td>
+									<c:if test="${departmentVO.depDelete < 1}">운영중</c:if>
+									<c:if test="${departmentVO.depDelete == 1}">운영안함</c:if>
+								</td>
 								<td>${departmentVO.depRdate}</td>
-								<td><button type="button" class="btn btn-success">수정</button></td>
+								<td><button type="button" class="btn btn-success cdepartmentUpdateBtn">수정</button></td>
 							</tr>
 							</c:forEach>
 						</tbody>
@@ -44,7 +47,6 @@
 				</div>
 				</div>
 				<!-- Bordered table End -->
-				
 			</div>
 		</div>
 	

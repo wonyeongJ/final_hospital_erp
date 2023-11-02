@@ -15,7 +15,7 @@
 
 <body>
 	<!-- preloader -->
-	<tiles:insertAttribute name="preloader"/>
+<%-- 	<tiles:insertAttribute name="preloader"/> --%>
 	
 	<!-- Page Wrapper -->
     <div id="wrapper">

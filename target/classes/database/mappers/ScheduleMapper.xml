@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.hospital.erp.schedule.ScheduleDAO">
+
+	<!-- 일정 리스트 조회 -->
+	<select id="scheduleList" resultType="ScheduleVO" parameterType="ScheduleVO">
+		SELECT
+			S.*,
+			M.MEM_NAME
+		FROM
+			SCHEDULE S JOIN MEMBER M
+			ON S.MEM_CD = M.MEM_CD 
+		WHERE 
+			S.CODE_CD = #{codeCd} AND 
+			SCH_FK = #{schFk} AND 
+			SCH_SDATE BETWEEN #{schSdate} AND #{schEdate}
+  	</select>
+  	
+  	<!-- 나의 수술 리스트 조회 -->
+	<select id="myScheduleList" resultType="ScheduleVO" parameterType="ScheduleVO">
+		SELECT
+			SCH.*,
+			SUR.SUR_NUM 
+		FROM
+			SCHEDULE SCH JOIN SURGERY SUR
+			ON SCH.SCH_FK  = SUR_CD 
+		WHERE
+			MEM_CD = '2303004' AND
+			CODE_CD = 15
+		ORDER BY
+			SCH.SCH_SDATE DESC
+  	</select>
+  	
+  	<delete id="surgeryScheduleDelete" parameterType="scheduleVO">
+		  DELETE 
+			FROM SCHEDULE 
+		WHERE 
+			SCH_CD = #{schCd}
+	</delete>
+  	
+</mapper>
