@@ -1,9 +1,12 @@
 package com.hospital.erp.member;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,8 +42,8 @@ public class MemberVO implements UserDetails {
 	
 	private String depName; // memberListJoin 
 	private String codeName; // memberListJoin 성별 
-	private String jobName; //meberListJoin 직무
-	private String posname; // meberListJoin 직책
+	private String jobName; //meberLoginJoin 직무
+	private String posName; // meberLoginJoin 직책
 	
 	@Override
 	public String getUsername() {
@@ -56,8 +59,20 @@ public class MemberVO implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		if(this.jobName.equals("간호사")) {
+			authorities.add(new SimpleGrantedAuthority("ROLE_NURSE"));
+		}else if(this.jobName.equals("의사")) {
+			authorities.add(new SimpleGrantedAuthority("ROLE_DOCTOR"));
+		}else if(this.jobName.equals("사무직")) {
+			authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		}
+		
+		if(this.posName.equals("병원장")) {
+			authorities.add(new SimpleGrantedAuthority("ROLE_MASTER"));
+		}
+		
+		return authorities;
 	}
 
 	@Override

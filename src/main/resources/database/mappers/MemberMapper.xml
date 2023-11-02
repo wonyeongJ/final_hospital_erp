@@ -83,11 +83,22 @@
   	
   	<!--  시큐리티 로그인 조회 쿼리 -->
   	<select id="memberFindByData" parameterType="String" resultType="MemberVO">
-  		SELECT
-  			*
-  		FROM
-  			MEMBER
-  		WHERE MEM_CD = #{value}
+  		SELECT 
+			M.*, 
+			C.CODE_NAME AS JOB_NAME, 
+			C2.CODE_NAME AS POS_NAME, 
+			C3.CODE_NAME AS CODE_NAME, 
+			D.DEP_NAME 
+		FROM MEMBER AS M 
+			LEFT OUTER JOIN CODE AS C
+				ON M.JOB_CD = C.CODE_CD 
+			LEFT OUTER JOIN CODE C2
+				ON M.POS_CD = C2.CODE_CD 
+			LEFT OUTER JOIN CODE C3 
+				ON M.CODE_CD = C3.CODE_CD 
+			LEFT OUTER JOIN DEPARTMENT D
+				ON M.DEP_CD = D.DEP_CD 
+		WHERE M.MEM_CD = #{value}
   	</select>
   	
   	<update id="memberUpdatePassword" parameterType="MemberVO">

@@ -40,6 +40,7 @@ public class SecurityConfig {
 			.disable()
 			.authorizeHttpRequests()
 				.antMatchers("/","/member/insert").permitAll()
+				.antMatchers("/member/**","/department/**").hasRole("ADMIN")
 				.anyRequest().authenticated()
 				.and()
 			//form 관련 설정
@@ -52,6 +53,10 @@ public class SecurityConfig {
 				.passwordParameter("memPw")
 				.and()
 			.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/")
+				.invalidateHttpSession(true)
+				.deleteCookies("JSESSIONID")
 				.and()
 			.rememberMe()
 				.tokenValiditySeconds(60)
