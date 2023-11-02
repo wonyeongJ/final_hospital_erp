@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <!-- Datatable start -->
 <div class="card-box mb-30">
     <div class="pd-20">
@@ -33,35 +32,35 @@
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                       <td>
-						    <c:choose>
-						        <c:when test="${memCd eq complaints.memCd && depCd eq 1}">
-						            <a href="./data/${complaints.compCd}">
-						                <i class="icon-copy fa fa-lock" aria-hidden="true"></i> ${complaints.compTitle}
-						            </a>
-						        </c:when>
-						        <c:when test="${complaints.compSecret == 1}">
-						            <i class="icon-copy fa fa-lock" aria-hidden="true"></i> 비공개글입니다
-						        </c:when>
-						        <c:otherwise>
-						            <a href="./data/${complaints.compCd}">${complaints.compTitle}</a>
-						        </c:otherwise>
-						    </c:choose>
-						</td>
-
+                        <td>
+                            <c:choose>
+                                <c:when test="${(memCd eq complaints.memCd && complaints.compSecret eq 1) || depCd eq 1}">
+                                    <a href="./data/${complaints.compCd}">
+                                        <c:if test="${complaints.compSecret eq 1}">
+                                            <i class="icon-copy fa fa-lock" aria-hidden="true"></i>
+                                        </c:if>
+                                        ${complaints.compTitle}
+                                    </a>
+                                </c:when>
+                                <c:when test="${complaints.compSecret eq 1}">
+                                    <i class="icon-copy fa fa-lock" aria-hidden="true"></i> 비공개글입니다
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="./data/${complaints.compCd}">${complaints.compTitle}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                         <td>
                             <c:choose>
                                 <c:when test="${complaints.compSecret == 1}">
                                     <i class="icon-copy fa fa-lock" aria-hidden="true"></i> 비공개글입니다
                                 </c:when>
                                 <c:otherwise>
-                                  ${complaints.depName} : ${complaints.memName}
+                                    ${complaints.depName} : ${complaints.memName}
                                 </c:otherwise>
                             </c:choose>
                         </td>
                         <td>
-                        
-                        
                             <c:choose>
                                 <c:when test="${complaints.compSecret == 1}">
                                     <i class="icon-copy fa fa-lock" aria-hidden="true"></i> 비공개글입니다

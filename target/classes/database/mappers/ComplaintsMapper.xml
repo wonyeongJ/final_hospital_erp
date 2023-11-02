@@ -20,11 +20,26 @@
 		    M.MEM_NAME, 
 		    D.DEP_CD, 
 		    D.DEP_NAME 
-		FROM COMPLAINTS C
-		INNER JOIN CODE CO ON C.CODE_CD = CO.CODE_CD
-		INNER JOIN CODE CA ON C.CODE_CD_ACTION = CA.CODE_CD
-		LEFT JOIN MEMBER M ON C.MEM_CD = M.MEM_CD
-		LEFT JOIN DEPARTMENT D ON M.DEP_CD = D.DEP_CD;
+		FROM
+			COMPLAINTS C
+		INNER JOIN
+			CODE CO
+		ON
+			C.CODE_CD = CO.CODE_CD
+		INNER JOIN
+			CODE CA 
+		ON 
+			C.CODE_CD_ACTION = CA.CODE_CD
+		LEFT JOIN 
+			MEMBER M 
+		ON 
+			C.MEM_CD = M.MEM_CD
+		LEFT JOIN 
+			DEPARTMENT D 
+		ON 
+			M.DEP_CD = D.DEP_CD
+		WHERE 
+			C.COMP_DELETE = 0
 
 </select>
 
@@ -195,7 +210,7 @@
 </delete>
 
 <!-- 민원게시판 삭제 (삭제여부 업데이트를통해 논리삭제) -->
-<update id="complaintsDelete" parameterMap="Complaints">
+<update id="complaintsDelete" parameterType="ComplaintsVO">
 		UPDATE
 			COMPLAINTS
 		SET

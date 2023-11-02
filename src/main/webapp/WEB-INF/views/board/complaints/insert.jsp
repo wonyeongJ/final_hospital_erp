@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="/WEB-INF/views/layout/summernote.jsp"></c:import>
+<script src="/vendors/scripts/board/file.js"></script>
 
 <div class="container-fluid">
     <div class="row justify-content-center my-4">
@@ -27,7 +28,7 @@
             </div>
 
             <div class="pull-right">
-                <span class="input-group-text">작성자 : 홍길동</span>
+                <span class="input-group-text">${depName} : ${memName}</span>
             </div>
 
             <div class="mb-3">
@@ -37,12 +38,7 @@
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label for="iss" class="form-label">사번</label>
-                <div class="input-group">
-                    <input class="form-control" name="memCd" value="2305004">
-                </div>
-            </div>
+           <input class="form-control" name="memCd" value="${memCd}" style="display: none;">
 
             <!-- 썸머노트 에디터를 사용할 textarea -->
             <div class="mb-3">
@@ -53,11 +49,11 @@
             </div>
 
             <div class="mb-3">
-                <label for="files" class="form-label">첨부파일</label>
-                <input type="file" name="files" class="form-control" id="files" placeholder="+">
-            </div>
-
-            <div id="fileList" class="my-5"></div>
+			    <button type="button" class="btn btn-primary" id="insert">파일 추가 <i class="icon-copy fi-upload"></i></button>
+			</div>
+			<div id="fileList" class="my-5">
+			    <!-- 초기에는 아무 파일 입력 상자도 없습니다. -->
+			</div>
 
             <div class="mb-3">
                 <button class="my btn btn-primary" type="submit" id="btn">글쓰기</button>
@@ -69,6 +65,6 @@
 <script>
     // 썸머노트 초기화
     $('.summernote').summernote({
-        height: 150
+        height: 300
     });
 </script>

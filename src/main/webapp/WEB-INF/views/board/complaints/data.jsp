@@ -26,7 +26,7 @@
 			                <a href="../update/${data.compCd}" style="color: white;">글 수정</a>    
 			            </button>
 			            <button class="btn btn-primary action-button" id="btn-delete">
-			           <a href="../complaintsDelete/${data.compCd}" style="color: white;"> 글 삭제
+			           <a href="../delete/${data.compCd}" style="color: white;"> 글 삭제
 			           </button>
 			        </c:when>
 			

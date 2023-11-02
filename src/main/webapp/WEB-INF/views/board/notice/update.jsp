@@ -64,6 +64,6 @@
 <script>
     // 썸머노트 초기화
     $('.summernote').summernote({
-        height: 150
+        height: 300
     });
 </script>

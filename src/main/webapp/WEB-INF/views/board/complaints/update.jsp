@@ -13,7 +13,7 @@
     </div>
 
     <div class="row justify-content-center my-4">
-        <form class="col-md-7" action="./update" method="post" id="frm" enctype="multipart/form-data">
+        <form class="col-md-7" action="../update" method="post" id="frm" enctype="multipart/form-data">
             <input type="hidden" name="compCd" readonly="readonly"  value="${board.compCd}">
 
             <div class="form-check form-check-inline mb-3">
@@ -27,8 +27,8 @@
             <!-- 해당 글의 민원종류로 Selected -->
 					 <div>
 					 	 <div>
-		                  <label for="code_cd">민원종류 선택 :</label>
-						    <select id="code_cd" name="code_cd">
+		                  <label for="codeCd">민원종류 선택 :</label>
+						    <select id="codeCd" name="codeCd">
 						        <option value="19">환자민원</option>
 						        <option value="20">시설민원</option>
 						        <option value="21">사내민원</option>
@@ -76,6 +76,6 @@
 <script>
     // 썸머노트 초기화
     $('.summernote').summernote({
-        height: 150
+        height: 300
     });
 </script>

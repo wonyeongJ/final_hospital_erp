@@ -56,14 +56,26 @@ public class ComplaintsController {
 
     // 민원게시판 등록 화면
     @GetMapping("insert")
-    public String complaintsInsert() {
+    public String complaintsInsert(@AuthenticationPrincipal MemberVO memberVO,Model model) {
+    	
+    	model.addAttribute("memCd", memberVO.getMemCd());
+    	model.addAttribute("memName", memberVO.getMemName());
+    	model.addAttribute("depCd", memberVO.getDepCd());
+    	model.addAttribute("depName", memberVO.getDepName());
+    	
+    	
         return "board/complaints/insert";
     }
 
     // 민원게시판 등록 처리
     @PostMapping("insert")
-    public String complaintsInsert(ComplaintsVO complaintsVO, MultipartFile[] files, HttpSession session, Model model) throws Exception {
-        int result = complaintsService.complaintsInsert(complaintsVO, files);
+    public String complaintsInsert(@AuthenticationPrincipal MemberVO memberVO,ComplaintsVO complaintsVO, MultipartFile[] files, HttpSession session, Model model) throws Exception {
+       
+    	complaintsVO.setMemName(memberVO.getMemName());
+    	complaintsVO.setDepCd(memberVO.getDepCd());
+    	complaintsVO.setDepName(memberVO.getDepName());
+    	
+    	int result = complaintsService.complaintsInsert(complaintsVO, files);
 
         String message = "등록 실패";
 
@@ -177,22 +189,20 @@ public class ComplaintsController {
         return "redirect:/board/complaints/list";
     }
     
-    @GetMapping("/delete/{compCd}")
-    public String deleteComplaint(@PathVariable int compCd, Model model) {
-        try {
+    @GetMapping("delete/{compCd}")
+    public String deleteComplaint(@PathVariable int compCd, Model model) throws Exception {
+        
+    	
             int result = complaintsService.complaintsDelete(compCd);
+            String message = "삭제 실패";
 
             if (result > 0) {
-                model.addAttribute("message", "삭제가 완료되었습니다.");
-            } else {
-                model.addAttribute("message", "삭제에 실패했습니다.");
+                message = "삭제 성공";
             }
-        } catch (Exception e) {
-            model.addAttribute("message", "서버 오류로 삭제에 실패했습니다.");
-            e.printStackTrace();
-        }
-
-        return "commons/result"; // 결과 페이지로 이동
+            model.addAttribute("message", message);
+            model.addAttribute("url", "../list");
+            return "commons/result";
+        
     }
     
     

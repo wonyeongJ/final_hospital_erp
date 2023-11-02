@@ -158,7 +158,9 @@ public class ComplaintsService {
 		    complaintsVO.setCompCd(compCd);
 		    complaintsVO.setCompDelete(1); // 1은 삭제 플래그
 
-		    return complaintsDAO.complaintsDelete(complaintsVO);
+		    int result = complaintsDAO.complaintsDelete(complaintsVO);
+
+		    return result;
 		}
 		
 
