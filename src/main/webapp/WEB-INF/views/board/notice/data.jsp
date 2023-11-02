@@ -5,20 +5,24 @@
     	 	
  	<div class="containerBoard">
         <div class="author-info">
-            <span class="author-icon">작성자: ${data.memCd}</span>
+            <span class="author-icon">${data.depName} : ${data.memName}</span>
         </div>
         <div class="notHit">조회수: ${data.notHit}</div>
-        <h1 class="title">제목 : ${data.notTitle}</h1>
+        <h1 class="title">${data.notTitle}</h1>
         <div class="contents">${data.notContents}</div>
         <div>
             <c:forEach items="${data.list}" var="f">
-                <a href="./fileDown?bfCd=${f.bfCd}" class="file-link"><i class="icon-copy fi-download"></i>${f.bfOname}</a>
+                <a href="../fileDown?bfCd=${f.bfCd}" class="file-link"><i class="icon-copy fi-download"></i>${f.bfOname}</a>
             </c:forEach>
         </div>
         <div class="action-buttons">
             <a href="/board/notice/list" class="btn btn-primary action-button">목록</a>
+            <c:choose>
+        <c:when test="${member == 1}">
             <button class="btn btn-primary action-button"><a href="../update/${data.notCd}" style="color: white;">글 수정</a></button>
             <button class="btn btn-danger action-button" id="btn-delete" onclick="confirmDelete(${data.notCd})">글 삭제</button>
+        </c:when>
+    </c:choose>
         </div>
     </div>
 

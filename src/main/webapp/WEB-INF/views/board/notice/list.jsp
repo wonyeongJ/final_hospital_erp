@@ -15,6 +15,7 @@
                     <th>작성자</th>
                     <th>작성날짜</th>
                     <th>조회수</th>
+                   	
                 </tr>
             </thead>
             <tbody>
@@ -31,22 +32,26 @@
 			            </c:choose>
 			            </td>
                         <td><a href="./data/${notice.notCd}">${notice.notTitle}</a></td>
-                        <td>${notice.memCd}</td>
+                        <td>${notice.depName} : ${notice.memName}</td>
                         <td>${notice.notRdate}</td>
                         <td>${notice.notHit}</td>
+                        
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
         <c:choose>
-            <c:when test="${sessionScope.depCd == 2}">
-                <div>
-                    <button class="my btn btn-primary" type="button">
-                        <a href="./insert" style="color: white;">글쓰기</a>
-                    </button>
-                </div>
-            </c:when>
-        </c:choose>
+		    <c:when test="${member == 1}">
+		        <div>
+		            <button class="my btn btn-primary" type="button">
+		                <a href="./insert" style="color: white;">글쓰기</a>
+		            </button>
+		        </div>
+		    </c:when>
+		    <c:otherwise>
+		        <!-- DEP_CD가 1이 아닌 경우 버튼을 보이지 않도록 합니다. -->
+		    </c:otherwise>
+		</c:choose>
     </div>
 </div>
 <!-- Datatable End -->

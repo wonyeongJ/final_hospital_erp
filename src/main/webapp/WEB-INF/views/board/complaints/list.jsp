@@ -26,30 +26,36 @@
                         <td>
                             <c:choose>
                                 <c:when test="${complaints.compSecret == 1}">
-                                    <i class="icon-copy fa fa-lock" aria-hidden="true"></i>비공개글입니다
+                                    <i class="icon-copy fa fa-lock" aria-hidden="true"></i> 비공개글입니다
                                 </c:when>
                                 <c:otherwise>
                                     ${complaints.codeTypeName}
                                 </c:otherwise>
                             </c:choose>
                         </td>
+                       <td>
+						    <c:choose>
+						        <c:when test="${memCd eq complaints.memCd && depCd eq 1}">
+						            <a href="./data/${complaints.compCd}">
+						                <i class="icon-copy fa fa-lock" aria-hidden="true"></i> ${complaints.compTitle}
+						            </a>
+						        </c:when>
+						        <c:when test="${complaints.compSecret == 1}">
+						            <i class="icon-copy fa fa-lock" aria-hidden="true"></i> 비공개글입니다
+						        </c:when>
+						        <c:otherwise>
+						            <a href="./data/${complaints.compCd}">${complaints.compTitle}</a>
+						        </c:otherwise>
+						    </c:choose>
+						</td>
+
                         <td>
                             <c:choose>
                                 <c:when test="${complaints.compSecret == 1}">
-                                    <i class="icon-copy fa fa-lock" aria-hidden="true"></i>비공개글입니다
+                                    <i class="icon-copy fa fa-lock" aria-hidden="true"></i> 비공개글입니다
                                 </c:when>
                                 <c:otherwise>
-                                   <a href="./data/${complaints.compCd}"> ${complaints.compTitle}</a>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${complaints.compSecret == 1}">
-                                    <i class="icon-copy fa fa-lock" aria-hidden="true"></i>비공개글입니다
-                                </c:when>
-                                <c:otherwise>
-                                    ${complaints.memCd}
+                                  ${complaints.depName} : ${complaints.memName}
                                 </c:otherwise>
                             </c:choose>
                         </td>
@@ -58,7 +64,7 @@
                         
                             <c:choose>
                                 <c:when test="${complaints.compSecret == 1}">
-                                    <i class="icon-copy fa fa-lock" aria-hidden="true"></i>비공개글입니다
+                                    <i class="icon-copy fa fa-lock" aria-hidden="true"></i> 비공개글입니다
                                 </c:when>
                                 <c:otherwise>
                                     ${complaints.compRdate}

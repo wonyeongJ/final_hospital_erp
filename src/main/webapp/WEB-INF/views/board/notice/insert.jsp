@@ -25,14 +25,11 @@
 
             
             <div class="pull-right">
-                <span class="input-group-text">인사과 : 홍길동</span>
+                <span class="input-group-text">${depName} : ${memName}</span>
             </div>
-               <div class="mb-3">
-			    <label for="iss" class="form-label">사번</label>
-			    <div class="input-group">
-			        <input class="form-control" name="memCd" value="2304001">
-			    </div>
-		   </div>
+               
+			        <input class="form-control" name="memCd" value="${memCd}" style="display: none;">
+		
            <div class="mb-3">
 			    <label for="notTile" class="form-label">제목 (필수)</label>
 			    <div class="input-group">
@@ -66,7 +63,7 @@
 <script>
     // 썸머노트 초기화
     $('.summernote').summernote({
-        height: 150
+        height: 300
     });
 </script>
 

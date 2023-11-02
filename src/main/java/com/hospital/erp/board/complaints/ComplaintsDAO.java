@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.hospital.erp.board.notice.NoticeFileVO;
+import com.hospital.erp.file.FileVO;
 
 @Repository
 @Mapper
@@ -29,6 +30,18 @@ public interface ComplaintsDAO {
 	// 민원게시판 업데이트
 	public int complaintsUpdate(ComplaintsVO complaintsVO)throws Exception;
 	
-	//public int comUpdate(int compCd)throws Exception;
+	// 조치상태 업데이트 DAO
+	public int actionUpdate(ComplaintsVO complaintsVO)throws Exception;
+	
+	// 파일 다운로드
+	public FileVO fileDown(FileVO fileVO) throws Exception;
+	
+	// 파일 삭제
+	public int fileDelete(int bfCd) throws Exception;
+	
+	// 민원게시판 삭제 (논리삭제)
+	public int complaintsDelete(ComplaintsVO complaintsVO)throws Exception;
+	
+
 		
 }

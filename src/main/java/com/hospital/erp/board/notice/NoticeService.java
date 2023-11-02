@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.jni.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -40,10 +41,10 @@ public class NoticeService {
 	// 공지사항 상세
 	public NoticeVO noticeData(int notCd) throws Exception{
 		
-	        log.info("notCd {}번 공지사항 데이터 조회 시도 중", notCd);
+	        //log.info("notCd {}번 공지사항 데이터 조회 시도 중", notCd);
 	        NoticeVO noticeVO = noticeDAO.noticeData(notCd);
 	        if (noticeVO != null) {
-	            log.info("notCd {}번 공지사항 데이터를 성공적으로 조회했습니다: {}", notCd, noticeVO.toString());
+	         //   log.info("notCd {}번 공지사항 데이터를 성공적으로 조회했습니다: {}", notCd, noticeVO.toString());
 	        }
 	        return noticeVO;
 	    }
@@ -110,20 +111,20 @@ public class NoticeService {
 		}
 	
 	
+	
+	// 파일 다운로드
+	public FileVO fileDown(FileVO fileVO) throws Exception{
+		return noticeDAO.fileDown(fileVO);
+	}
 
 	
 	//fileDelete
-	public int fileDelete(int notCd,NoticeFileVO noticeFileVO,HttpSession session)throws Exception{
-			
-			noticeFileVO = (NoticeFileVO) noticeDAO.fileData(notCd);
-			boolean flag = fileManger.fileDelete(noticeFileVO, uploadPath, session);
-			
-			if(flag) {
-				//db삭제
-				return noticeDAO.fileDelete(notCd);
-			}
-			
-			return 0;
+	public int fileDelete(int bfCd)throws Exception{
+	
+		int result = noticeDAO.fileDelete(bfCd);
+        
+		return result;
+		
 	}
 	
 	// 공지사항 업데이트

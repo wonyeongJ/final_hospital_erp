@@ -12,20 +12,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.AbstractView;
 
+import com.hospital.erp.board.notice.NoticeDAO;
 import com.hospital.erp.board.notice.NoticeFileVO;
 import com.hospital.erp.file.FileVO;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Component
+@Slf4j
 public class FileManager extends AbstractView {
 	 	
 	    @Value("${app2.upload.nodeValue2}")
 	    private String uploadPath;
+	    
+	    @Autowired
+	    private NoticeDAO noticeDAO;
 
 		//file 저장 후 파일명 리턴
 		public String save(String path, MultipartFile multipartFile)throws Exception{
@@ -60,47 +68,40 @@ public class FileManager extends AbstractView {
 
 	
 
-    // 파일 삭제
-    public boolean fileDelete(NoticeFileVO noticeFileVO, String path, HttpSession session) {
-        // 1. 삭제할 폴더의 실제 경로
-        path = session.getServletContext().getRealPath(path);
+		public boolean fileDelete(FileVO fileVO, String path, HttpSession session) throws Exception {
+	        // 1. 파일을 저장할 실제 경로 가져오기
+	        path = session.getServletContext().getRealPath(path);
 
-        File file = new File(path, noticeFileVO.getBfFname());
+	        log.info("경로: " + path);
 
-        // 로그 추가
-        System.out.println("Deleting file: " + file.getAbsolutePath());
+	        if (fileVO != null && fileVO.getBfFname() != null) {
+	            // 2. 삭제할 파일의 경로 구성
+	            File file = new File(path, fileVO.getBfFname());
 
-        return file.delete();
-    }
+	            log.info("삭제할 파일: " + file.getAbsolutePath());
+
+	            if (file.exists()) {
+	                if (file.delete()) {
+	                    // 3. 파일 삭제 성공
+	                    log.info("파일을 성공적으로 삭제했습니다");
+
+	                    // 4. 데이터베이스에서도 삭제
+	                    noticeDAO.fileDelete(fileVO.getBfCd());
+
+	                    return true;
+	                } else {
+	                    log.error("파일을 삭제하지 못했습니다");
+	                }
+	            } else {
+	                log.error("파일이 존재하지 않습니다");
+	            }
+	        } else {
+	            log.error("올바르지 않은 파일 정보(fileVO) 또는 파일 이름입니다");
+	        }
+
+	        return false;
+	    }
+	    
 }
 
-//    // fileSave
-//    public String fileSave(String path, HttpSession session, MultipartFile multipartFile) throws Exception {
-//        // 파일의 정보를 이용해서 HDD에 파일을 저장
-//
-//        // 2. 실제 경로 알아오기
-//        // jsp: application
-//        // java: ServletContext
-//        String realPath = session.getServletContext().getRealPath(path);
-//        System.out.println(realPath);
-//
-//        File file = new File(realPath);
-//
-//        if (!file.exists()) {
-//            file.mkdirs();
-//        }
-//
-//        // 3. 어떤 이름으로 저장??
-//        // 2. API 사용
-//        String uId = UUID.randomUUID().toString();
-//        uId = uId + "_" + multipartFile.getOriginalFilename();
-//        System.out.println(uId);
-//        file = new File(file, uId);
-//
-//        // 4. 파일을 저장
-//        // B. MultipartFile의 transferTo 메서드
-//        multipartFile.transferTo(file);
-//
-//        return uId;
-//    }
-//}
+

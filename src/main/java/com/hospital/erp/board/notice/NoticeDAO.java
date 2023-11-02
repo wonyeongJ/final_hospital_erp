@@ -30,7 +30,7 @@ public interface NoticeDAO {
 	public List<NoticeFileVO> fileData(int notCd)throws Exception;
 	
 	// 파일 삭제
-	public int fileDelete(int notCd) throws Exception;		
+	public int fileDelete(int bfCd) throws Exception;		
 
 	// 공지사항 업데이트
 	public int noticeUpdate (NoticeVO notceVO)throws Exception;
@@ -43,4 +43,7 @@ public interface NoticeDAO {
 	
 	// 공지사항 삭제
 	public int noticeDelete(int notCd) throws Exception;
+	
+	// 파일 다운로드
+	public FileVO fileDown(FileVO fileVO) throws Exception;
 }

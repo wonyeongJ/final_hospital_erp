@@ -6,6 +6,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hospital.erp.file.FileVO;
+import com.hospital.erp.member.MemberVO;
 import com.hospital.erp.util.FileManager;
 
 import lombok.ToString;
@@ -34,12 +38,23 @@ public class NoticeController {
 	@Autowired
     private NoticeService noticeService;
 	
+	@ModelAttribute("board")
+	public String getBoard() {
+		return "notice";
+	}
+	
 
 	// 공지사항 리스트 출력
     @GetMapping("/board/notice/list")
-    public String noticeList(NoticeVO noticeVO, Model model) throws Exception {
+    public String noticeList (@AuthenticationPrincipal MemberVO memberVO,NoticeVO noticeVO, Model model) throws Exception {
     	
+    	
+    	model.addAttribute("member", memberVO.getDepCd());
+
+    
     	List<NoticeVO> data = noticeService.noticeList(noticeVO);
+    	
+    	
         // DataTables에 데이터 전달
         model.addAttribute("data", data);
 
@@ -47,42 +62,64 @@ public class NoticeController {
         return "board/notice/list"; // list.jsp로 이동
     }
 	
-    // 공지사항 등록
-	@GetMapping("insert")
-	public String noticeInsert(Model model) {
-		return "board/notice/insert";
-
-	}
-	
-	@PostMapping("insert")
-	public String noticeInsert(NoticeVO noticeVO,MultipartFile[] files, Model model) throws Exception{
-		
-
-		
-		 int result = noticeService.noticeInsert(noticeVO, files);
-		 
-		 if (result == -1) {
-	            // 중요 공지사항 제한에 도달했을 때 메시지 표시
-	            String message = "중요 공지사항은 3개까지 등록 가능합니다. 등록되어 있는 중요 공지사항을 일반 공지사항으로 수정 후 다시 등록해주세요.";
-	            model.addAttribute("message", message);
-	            model.addAttribute("url", "insert");
-	        } else {
-	            String message = "등록 실패";
-	            if (result > 0) {
-	                message = "등록 성공";
-	            }
-	            model.addAttribute("message", message);
-	            model.addAttribute("url", "list");
-	        }
-			
-			
-			return "commons/result";
+ // 공지사항 등록 페이지로 이동
+    @GetMapping("insert")
+    public String noticeInsert(@AuthenticationPrincipal MemberVO memberVO, Model model) {
+        // UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // MemberVO memberVO = (MemberVO) userDetails;
+        
+//    	System.out.println(memberVO.getMemCd());
+//    	System.out.println("depName : " + memberVO.getDepName());
+//        
+        model.addAttribute("memCd", memberVO.getMemCd());
+//        System.out.println(memberVO.getMemCd());
+        model.addAttribute("memName", memberVO.getMemName());
+        model.addAttribute("depCd", memberVO.getDepCd());
+//        System.out.println(memberVO.getDepName());
+        model.addAttribute("depName", memberVO.getDepName());
+        return "board/notice/insert";
     }
+
+    // 공지사항 등록 처리
+    @PostMapping("insert")
+    public String noticeInsert(@AuthenticationPrincipal MemberVO memberVO,NoticeVO noticeVO, MultipartFile[] files, Model model) throws Exception {
+//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        MemberVO memberVO = (MemberVO) userDetails;
+        noticeVO.setMemName(memberVO.getMemName());
+        noticeVO.setDepCd(memberVO.getDepCd());
+        noticeVO.setDepName(memberVO.getDepName());
+
+        int result = noticeService.noticeInsert(noticeVO, files);
+
+        if (result == -1) {
+            // 중요 공지사항 제한에 도달했을 때 메시지 표시
+            String message = "중요 공지사항은 3개까지 등록 가능합니다. 등록되어 있는 중요 공지사항을 일반 공지사항으로 수정 후 다시 등록해주세요.";
+            model.addAttribute("message", message);
+            model.addAttribute("url", "insert");
+        } else {
+            String message = "등록 실패";
+            if (result > 0) {
+                message = "등록 성공";
+            }
+            model.addAttribute("message", message);
+            model.addAttribute("url", "list");
+        }
+
+        return "commons/result";
+    }
+
 	
 	@GetMapping("data/{notCd}")
-	public String noticeData(@PathVariable int notCd, Model model) throws Exception {
-	    // 공지사항 상세 정보를 가져옵니다.
+	public String noticeData(@AuthenticationPrincipal MemberVO memberVO, @PathVariable int notCd, Model model) throws Exception {
+	    // 버튼 유무를 위해 세션에서 해당 계정 정보를 받아온다
+		model.addAttribute("member", memberVO.getDepCd());
+		
+		
+		// 공지사항 상세 정보를 가져옵니다.
 	    NoticeVO noticeVO = noticeService.noticeData(notCd);
+	  
+	    
+	     
 	    
 	    if (noticeVO != null) {
 	        // 공지사항 조회수 증가
@@ -105,19 +142,29 @@ public class NoticeController {
 	    }
 	}
 	
-	@GetMapping("fileDown/{bfCd}")
-	public String fileDown(int bfCd,NoticeFileVO noticeFileVO, Model model)throws Exception{
-		List<NoticeFileVO> fileList = noticeService.fileData(bfCd);
-		model.addAttribute("list", fileList);
-		return "fileDownView";
+	@GetMapping("fileDown")
+	public String fileDown(@RequestParam int bfCd,FileVO fileVO, Model model) throws Exception {
+	    System.out.println("Controller fileDown bfCd : " + bfCd);
+	 
+	    // 파일 상세조회
+	    fileVO = noticeService.fileDown(fileVO);
+		
+	    // 모델에 파일 정보를 추가
+	    model.addAttribute("fileVO", fileVO);
+
+	    // 다운로드 뷰로 이동
+	    return "fileDownView";
 	}
+	
 	
 	// FileDelete
 	@GetMapping("fileDelete")
-	public String fileDelete(int notCd,NoticeFileVO noticeFileVO,Model model,HttpSession session) throws Exception{
+	public String fileDelete(int bfCd,Model model,HttpSession session) throws Exception{
 		
-		int result = noticeService.fileDelete(notCd, noticeFileVO, session);
+		int result = noticeService.fileDelete(bfCd);
+		//System.out.println("이건 컨트롤"+bfCd);
 		model.addAttribute("result",result);
+		System.out.println("컨트롤러 리절" + result);
 		
 		return "commons/ajaxResult";
 	}
@@ -133,7 +180,7 @@ public class NoticeController {
         List<NoticeFileVO> fileList =noticeService.fileData(notCd);
         noticeVO.setList(fileList);
 
-        log.info("=======notice {}=========", fileList);
+       // log.info("=======notice {}=========", fileList);
         
 		
 		model.addAttribute("data",noticeVO);

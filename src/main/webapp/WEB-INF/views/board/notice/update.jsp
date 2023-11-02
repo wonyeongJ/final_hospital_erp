@@ -21,7 +21,7 @@
                 <input type="hidden" name="notImportant" value="0"> <!-- 기본값으로 0을 설정 -->
             </div>
             <div class="pull-right">
-                <span class="input-group-text">인사과: ${member.memName}</span>
+                <span class="input-group-text">인사과 : ${data.memName}</span>
             </div>
 
             <div class="mb-3">

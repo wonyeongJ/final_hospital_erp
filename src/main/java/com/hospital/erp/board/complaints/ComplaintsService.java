@@ -13,6 +13,7 @@ import com.hospital.erp.board.notice.NoticeDAO;
 import com.hospital.erp.board.notice.NoticeFileVO;
 import com.hospital.erp.board.notice.NoticeService;
 import com.hospital.erp.board.notice.NoticeVO;
+import com.hospital.erp.file.FileVO;
 import com.hospital.erp.util.FileManager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -128,10 +129,38 @@ public class ComplaintsService {
 				return result;
 			}
 		
-//		public int comUpdate(int compCd)throws Exception{
-//			
-//			return complaintsDAO.comUpdate(compCd);
-//		}
+
+		// 조치상태 업데이트
+		public int actionUpdate(ComplaintsVO complaintsVO)throws Exception{
+			int result = complaintsDAO.actionUpdate(complaintsVO);
+			
+			return result;
+		}
+		
+		// 파일 다운로드
+		public FileVO fileDown(FileVO fileVO) throws Exception{
+			return complaintsDAO.fileDown(fileVO);
+		}
+
+		
+		//fileDelete
+		public int fileDelete(int bfCd)throws Exception{
+		
+			int result = complaintsDAO.fileDelete(bfCd);
+	        
+			return result;
+			
+		}
+		
+		// 민원게시판 삭제 (논리삭제)
+		public int complaintsDelete(int compCd) throws Exception {
+		    ComplaintsVO complaintsVO = new ComplaintsVO();
+		    complaintsVO.setCompCd(compCd);
+		    complaintsVO.setCompDelete(1); // 1은 삭제 플래그
+
+		    return complaintsDAO.complaintsDelete(complaintsVO);
+		}
+		
 
 
 }

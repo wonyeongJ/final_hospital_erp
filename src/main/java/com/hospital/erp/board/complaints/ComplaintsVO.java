@@ -48,6 +48,15 @@ public class ComplaintsVO extends FileVO{
 	
 	private String codeTypeName; // 코드테이블의 CODE_NAME을 저장하는 필드
     private String actionTypeName; // 코드테이블의 CODE_NAME을 저장하는 필드
+    
+    // 멤버의 이름 (MEM_NAME 필드 추가)
+    private String memName;
+    
+    // 부서 코드 (DEP_CD 필드 추가)
+    private int depCd;
+    
+    private String depName;
+    
 
 	
 }

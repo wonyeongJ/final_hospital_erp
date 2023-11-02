@@ -11,9 +11,9 @@ function addDeleteEventListener(deleteElement) {
 
         if (check) {
             // GET 방식으로 파일 삭제 요청을 보냄
-            fetch(`./fileDelete?bfCd=${bfCd}&bfFname=${bfFname}`, { // 파일 번호와 파일 이름 모두 전달
-                method: "GET"
-            })
+           fetch(`../fileDelete?bfCd=${bfCd}`, {
+				    method: "GET"
+				})
                 .then((result) => {
                     return result.text();
                 })
@@ -23,8 +23,8 @@ function addDeleteEventListener(deleteElement) {
                         this.parentElement.remove();
                         location.reload();
                     } else {
-                        // 파일 삭제 실패 시 오류 처리
-                        alert("파일 삭제 실패");
+                     
+                        location.reload();
                     }
                 })
                 .catch((error) => {

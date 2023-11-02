@@ -40,7 +40,7 @@
             <div class="mb-3">
                 <label for="iss" class="form-label">사번</label>
                 <div class="input-group">
-                    <input class="form-control" name="memCd" value="2304001">
+                    <input class="form-control" name="memCd" value="2305004">
                 </div>
             </div>
 

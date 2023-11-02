@@ -38,6 +38,13 @@ public class NoticeVO extends FileVO{
 	// 공지사항 파일 리스트
 	private List<NoticeFileVO> list = new ArrayList<>();
 
+	// 멤버의 이름 (MEM_NAME 필드 추가)
+    private String memName;
+    
+    // 부서 코드 (DEP_CD 필드 추가)
+    private int depCd;
+    
+    private String depName;
 	
 	
 	

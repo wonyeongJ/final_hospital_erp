@@ -1,4 +1,4 @@
-//공지사항, 사내동호회
+// Notices, company clubs
 $(document).ready(function () {
     var table = $('.datatable').DataTable({
         'scrollCollapse': true,
@@ -14,12 +14,12 @@ $(document).ready(function () {
             }
         },
         'columnDefs': [
-            { 'type': 'num', 'targets': 0 } // 0번째 열에 문자열 정렬 적용 (한글)
+            { 'type': 'num', 'targets': 0 } // Apply string sorting to the 0th column (Korean)
         ],
-        'order': [0, 'desc'] // 0번째 열 (한글) 먼저 오름차순 정렬, 그 후 1번째 열 (숫자) 오름차순 정렬
+        'order': [0, 'desc'] // Sort the 0th column (Korean) in ascending order first, then sort the 1st column (numbers) in ascending order.
     });
 
-    // PDF와 인쇄 버튼 추가
+    // Add PDF, Print, Copy, and CSV buttons
     new $.fn.dataTable.Buttons(table, {
         buttons: [
             {
@@ -35,6 +35,20 @@ $(document).ready(function () {
                 exportOptions: {
                     columns: ':visible'
                 }
+            },
+            {
+                extend: 'copyHtml5',
+                text: 'Copy',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                text: 'CSV',
+                exportOptions: {
+                    columns: ':visible'
+                }
             }
         ]
     });
@@ -44,7 +58,7 @@ $(document).ready(function () {
 });
 
 
-// 민원게시판
+// Civil complaints bulletin board
 $(document).ready(function () {
     var table = $('.datatable2').DataTable({
         'scrollCollapse': true,
@@ -62,7 +76,7 @@ $(document).ready(function () {
         'order': [1, 'desc']
     });
 
-    // PDF와 인쇄 버튼 추가
+    // Add PDF, Print, Copy, and CSV buttons
     new $.fn.dataTable.Buttons(table, {
         buttons: [
             {
@@ -78,6 +92,20 @@ $(document).ready(function () {
                 exportOptions: {
                     columns: ':visible'
                 }
+            },
+            {
+                extend: 'copyHtml5',
+                text: 'Copy',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                text: 'CSV',
+                exportOptions: {
+                    columns: ':visible'
+                }
             }
         ]
     });
@@ -85,5 +113,6 @@ $(document).ready(function () {
     table.buttons().container()
         .appendTo($('.dataTables_wrapper .col-md-6:eq(0)'));
 });
+
 
 

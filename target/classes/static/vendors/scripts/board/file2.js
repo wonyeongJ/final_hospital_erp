@@ -1,59 +1,46 @@
-let idx=0;
+document.addEventListener("DOMContentLoaded", function () {
+        const insert = document.getElementById("fileinsert");
+        const fileList = document.getElementById("fileList");
 
-$("#fileinsert").click(function(){
+        let idx = 0;
 
-    let r = '<div class="mb-3" id="file"'+idx+'>';
+        insert.addEventListener("click", function () {
+            let r = '<div class="mb-3" id="files' + idx + '">';
+            r += '<label for="files" class="form-label">파일첨부</label>';
+            r += '<input type="file" class="form-control" size=30 id="files" name="files">';
+            r += '</div>';
+            r += '<span class="df" data-id="file' + idx + '">x</span>';
+            $("#fileList").append(r);
+            idx++;
+        });
 
-    r = r.concat('<label for="pic" class="form-label">파일첨부</label>');
+        $("#fileList").on("click", ".df", function () {
+            $(this).parent().remove();
+        });
 
-    r = r.concat('<input type="file" class="form-control" size=30 id="pic" name="files">');
-   
-    r = r.concat('</div>');
-
-    r= r.concat('<span class="df" data-id="file" '+ idx +'>x</span>')
-
-    $("#fileList").append(r);
-    idx++;
-})
-
-$("#fileList").on("click",".df", function(){
-    
-    $(this).parent().remove();
-    
-})
-
-
-
-$(".delets").each(function(i,e){
-
-    let num = this.getAttribute("data-delete-num");
-    
-    
-    $(e).click(function(){  
-        console.log(e);
-        console.log(num);
-
-        $.ajax({
-            type:'GET',
-            url: "./fileDelete",
-            data:{
-                fileNo:num
-            },
-            success:function(result){
-                if(result.trim()=='1'){
-
-                    $("#"+num).remove();
-                    $(e).remove();
-                    
-                }
-            },
-            error:function(){
-                console.log("error");
-            }
-        })
-    })
-})
-
+        $(".delets").each(function (i, e) {
+            let num = this.getAttribute("data-delete-num");
+            $(e).click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: "./fileDelete",
+                    data: {
+                        bfCd: num
+                    },
+                    success: function (result) {
+                        if (result.trim() == '1') {
+							alert("삭제하시면 복구할수없습니다")						
+                            $("#" + num).remove();
+                            $(e).remove();
+                        }
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                });
+            });
+        });
+    });
 $("#contents").summernote({
     height: 400,
     callbacks: {

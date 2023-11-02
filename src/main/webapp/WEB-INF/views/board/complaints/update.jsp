@@ -22,7 +22,7 @@
                 <input type="hidden" name="compSecret" value="0"> <!-- 기본값으로 0을 설정 -->
             </div>
             <div class="pull-right">
-                <span class="input-group-text">인사과: 홍길동</span>
+                <span class="input-group-text">${board.depName} : ${board.memName}</span>
             </div>
             <!-- 해당 글의 민원종류로 Selected -->
 					 <div>
