@@ -27,7 +27,8 @@
 			ON SCH.SCH_FK  = SUR_CD 
 		WHERE
 			MEM_CD = #{memCd} AND
-			CODE_CD = 15
+			CODE_CD = 15 AND
+			SCH_SDATE > NOW()
 		ORDER BY
 			SCH.SCH_SDATE DESC
   	</select>
