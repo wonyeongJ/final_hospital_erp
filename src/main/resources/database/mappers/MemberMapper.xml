@@ -35,22 +35,18 @@
   	
   	<!-- Member 테이블 Insert 전 사번 입력을위해 가장 마지막 사번 조회해오는 쿼리문 -->
   	<select id="memberDataMaxMemCd" resultType="MemberVO" parameterType="MemberVO">
-  		SELECT 
-  			*
+		<![CDATA[
+		SELECT 
+			MAX(MEM_CD) AS MEM_CD
 		FROM 
 			MEMBER
 		WHERE 
-			MEM_CD IN
-					(SELECT 
-						MAX(MEM_CD)
-					FROM 
-						MEMBER
-					GROUP BY 
-						JOB_CD 
-					HAVING 
-						JOB_CD = #{jobCd} AND 
-						MEM_HDATE > #{memHdate}
-					)
+			JOB_CD = #{jobCd} AND
+			MEM_HDATE >= #{memHdate} AND 
+			MEM_HDATE <= #{memRdate}
+		GROUP BY 
+			JOB_CD
+		]]>
 			   
   	</select>
   	
@@ -63,7 +59,7 @@
   			#{memCd},
   			#{jobCd},
   			1,
-  			3,
+  			6,
   			#{codeCd},
   			#{memName},
   			#{memRnum},
@@ -81,10 +77,33 @@
   			
   	</insert>
   	
+  	<!--  시큐리티 로그인 조회 쿼리 -->
   	<select id="memberFindByData" parameterType="String" resultType="MemberVO">
-  		SELECT *
-  			FROM MEMBER 
-  		WHERE MEM_CD = #{value}
+  		SELECT 
+			M.*, 
+			C.CODE_NAME AS JOB_NAME, 
+			C2.CODE_NAME AS POS_NAME, 
+			C3.CODE_NAME AS CODE_NAME, 
+			D.DEP_NAME 
+		FROM MEMBER AS M 
+			LEFT OUTER JOIN CODE AS C
+				ON M.JOB_CD = C.CODE_CD 
+			LEFT OUTER JOIN CODE C2
+				ON M.POS_CD = C2.CODE_CD 
+			LEFT OUTER JOIN CODE C3 
+				ON M.CODE_CD = C3.CODE_CD 
+			LEFT OUTER JOIN DEPARTMENT D
+				ON M.DEP_CD = D.DEP_CD 
+		WHERE M.MEM_CD = #{value}
   	</select>
+  	
+  	<update id="memberUpdatePassword" parameterType="MemberVO">
+  		UPDATE
+  			MEMBER	
+  		SET
+  			MEM_PW = #{memPw}
+  		WHERE
+  			MEM_CD = #{memCd}
+  	</update>
   	
 </mapper>
