@@ -16,6 +16,26 @@
 		
 		
 		
+
+		
+		
+		
+		
+		
+		
+		<!-- 병웅 -->
+		<typeAlias type="com.hospital.erp.payment.documentForm.DocumentFormVO" alias="DocumentFormVO"/>
+		<typeAlias type="com.hospital.erp.payment.PaymentVO" alias="PaymentVO"/>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -25,5 +45,33 @@
 		<typeAlias type="com.hospital.erp.equipment.EquipmentHistoryVO" alias="EquipmentHistoryVO"/>
 		<typeAlias type="com.hospital.erp.common.CodeVO" alias="CodeVO"/>
 		<typeAlias type="java.lang.Integer" alias="Integer"/>
+		<typeAlias type="com.hospital.erp.surgery.SurgeryVO" alias="SurgeryVO"/>
+		<typeAlias type="com.hospital.erp.surgery.SurgeryParticiantVO" alias="SurgeryParticiantVO"/>
+		<typeAlias type="com.hospital.erp.schedule.ScheduleVO" alias="ScheduleVO"/>
+		
+		
+		
+		<!-- 경묵 -->
+		<typeAlias type="com.hospital.erp.board.notice.NoticeVO" alias="NoticeVO"/>
+		<typeAlias type="com.hospital.erp.board.notice.NoticeFileVO" alias="NoticeFileVO"/>
+		
+		<typeAlias type="com.hospital.erp.board.complaints.ComplaintsVO" alias="ComplaintsVO"/>
+		<typeAlias type="com.hospital.erp.board.complaints.ComplaintsFileVO" alias="ComplaintsFileVO"/>
+		
+		<typeAlias type="com.hospital.erp.board.club.ClubVO" alias="ClubVO"/>
+		<typeAlias type="com.hospital.erp.board.club.ClubFileVO" alias="ClubFileVO"/>
+		<typeAlias type="com.hospital.erp.board.club.ClubMemberVO" alias="ClubMemberVO"/>
+		
+		
+		
+		<typeAlias type="com.hospital.erp.file.FileVO" alias="FileVO"/>
+		
+		
+		
+		
+		
+		
+		
+		
 	</typeAliases>
 </configuration>	  

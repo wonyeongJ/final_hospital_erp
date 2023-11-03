@@ -20,44 +20,34 @@ pageEncoding="UTF-8"%>
 	  font-weight:bold;overflow:hidden;padding:10px 5px;word-break:normal;}
 	</style>
 	
-	<div>
-		<input type="radio" id="pRadio1" name="pRadio">
-		<label for="pRadio1">기안->최종결재</label>
-	</div>
-	<div>
-		<input type="radio" id="pRadio2" name="pRadio">
-		<label for="pRadio2">기안->1차결재->최종결재</label>
-	</div>
-	<div>
-		<input type="radio" id="pRadio3" name="pRadio">
-		<label for="pRadio3">기안->1차결재->2차결재->최종결재</label>
-	</div>
 	
-	<div>
-		<input type="checkbox" id="checkVTab" />
-		<label for="checkVTab">휴가종류탭 비활성화</label>
-		
-		<input type="checkbox" id="checkOTab" />
-		<label for="checkOTab">출타종류탭 비활성화</label>
-		
-		<input type="checkbox" id="checkDTab" />
-		<label for="checkDTab">날짜탭 비활성화</label>
-		
-		<input type="checkbox" id="checkPTab" />
-		<label for="checkPTab">금액탭 비활성화</label>
-		
-		<input type="checkbox" id="checkI1Tab" />
-		<label for="checkI1Tab">Input1탭 비활성화</label>
-		
-		<input type="checkbox" id="checkI2Tab" />
-		<label for="checkI2Tab">Input2탭 비활성화</label>
-		
-		<input type="checkbox" id="checkI3Tab" />
-		<label for="checkI3Tab">Input3탭 비활성화</label>
-	</div>
+	<form action="insert" method="post" enctype="multipart/form-data">
+		<div>
+			<input type="checkbox" id="checkVTab" value="1" name="dfVTab" checked />
+			<label for="checkVTab">휴가종류탭 활성화</label>
+			
+			<input type="checkbox" id="checkOTab" value="1" name="dfOTab" checked />
+			<label for="checkOTab">출타종류탭 활성화</label>
+			
+			<input type="checkbox" id="checkDTab" value="1" name="dfDTab" checked />
+			<label for="checkDTab">날짜탭 활성화</label>
+			
+			<input type="checkbox" id="checkPTab" value="1" name="dfPTab" checked />
+			<label for="checkPTab">금액탭 활성화</label>
+			
+			<input type="checkbox" id="checkLTab" value="1" name="dfLTab" checked />
+			<label for="checkLTab">장소탭 활성화</label>
+			
+			<input type="checkbox" id="checkI1Tab" checked />
+			<label for="checkI1Tab">Input1탭 활성화</label>
+			
+			<input type="checkbox" id="checkI2Tab" checked />
+			<label for="checkI2Tab">Input2탭 활성화</label>
+			
+			<input type="checkbox" id="checkI3Tab" checked />
+			<label for="checkI3Tab">Input3탭 활성화</label>
+		</div>
 	
-	
-	<form>
 		<table class="tg">
 			<thead>
 			  	<tr>
@@ -69,7 +59,7 @@ pageEncoding="UTF-8"%>
 			<tbody>
 				<tr>
 					<td class="tg-baqh-r tg-baqh" colspan="5">
-						<input class="form-control" type="text" placeholder="문서양식의 이름을 입력하세요">
+						<input class="form-control" type="text" name="dfKind" placeholder="문서양식의 이름을 입력하세요">
 				    </td>
 				    
 				    <td class="tg-baqh-l tg-baqh" colspan="4">
@@ -125,7 +115,7 @@ pageEncoding="UTF-8"%>
 				    <td class="tg-baqh" colspan="2">
 				    	<input class="form-control" type="text" disabled="">
 				    </td>
-				    <td class="tg-baqh">내선번호</td>
+				    <td class="tg-baqh">연락처</td>
 				    <td class="tg-baqh" colspan="2">
 				    	<input class="form-control" type="text" disabled="">
 				    </td>
@@ -135,26 +125,26 @@ pageEncoding="UTF-8"%>
 			  	<tr id="vTab">
 				    <td class="tg-baqh">휴가종류</td>
 				    <td class="tg-baqh" colspan="8">
-				    	<input type="radio" id="vRadio1" name="vRadio">
+				    	<input type="radio" id="vRadio1" name="vRadio" disabled="">
 						<label for="vRadio1">연차</label>
-						<input type="radio" id="vRadio2" name="vRadio">
+						<input type="radio" id="vRadio2" name="vRadio" disabled="">
 						<label for="vRadio2">반차</label>
-						<input type="radio" id="vRadio3" name="vRadio">
+						<input type="radio" id="vRadio3" name="vRadio" disabled="">
 						<label for="vRadio3">병가</label>
-						<input type="radio" id="vRadio4" name="vRadio">
+						<input type="radio" id="vRadio4" name="vRadio" disabled="">
 						<label for="vRadio4">특별</label>
 				    </td>
 			  	</tr>
 			  	<tr id="oTab">
 				    <td class="tg-baqh">출타종류</td>
 				    <td class="tg-baqh" colspan="8">
-				    	<input type="radio" id="oRadio1" name="oRadio">
+				    	<input type="radio" id="oRadio1" name="oRadio" disabled="">
 						<label for="oRadio1">파견</label>
-						<input type="radio" id="oRadio2" name="oRadio">
+						<input type="radio" id="oRadio2" name="oRadio" disabled=""> 
 						<label for="oRadio2">출장</label>
-						<input type="radio" id="oRadio3" name="oRadio">
+						<input type="radio" id="oRadio3" name="oRadio" disabled="">
 						<label for="oRadio3">세미나</label>
-						<input type="radio" id="oRadio4" name="oRadio">
+						<input type="radio" id="oRadio4" name="oRadio" disabled="">
 						<label for="oRadio4">교육</label>
 				    </td>
 			  	</tr>
@@ -190,9 +180,15 @@ pageEncoding="UTF-8"%>
 				    	*금액은 '원'단위로 작성하여 주시기 바랍니다.
 				    </td>
 			  	</tr>
+			  	<tr id="lTab">
+				    <td class="tg-baqh">장소</td>
+				    <td class="tg-baqh" colspan="8">
+				    	<input class="form-control" type="text" disabled="">
+				    </td>
+			  	</tr>
 			  	<tr id="i1Tab">
 				    <td class="tg-baqh">
-				    	<input class="form-control" type="text" placeholder="항목 입력">
+				    	<input class="form-control" type="text" name="dfIn1Tab" placeholder="항목 입력">
 				    </td>
 				    <td class="tg-baqh" colspan="8">
 				    	<input class="form-control" type="text" disabled="">
@@ -200,7 +196,7 @@ pageEncoding="UTF-8"%>
 			  	</tr>
 			  	<tr id="i2Tab">
 				    <td class="tg-baqh">
-				    	<input class="form-control" type="text" placeholder="항목 입력">
+				    	<input class="form-control" type="text" name="dfIn2Tab" placeholder="항목 입력">
 				    </td>
 				    <td class="tg-baqh" colspan="8">
 				    	<input class="form-control" type="text" disabled="">
@@ -208,7 +204,7 @@ pageEncoding="UTF-8"%>
 			  	</tr>
 			  	<tr id="i3Tab">
 				    <td class="tg-baqh">
-				    	<input class="form-control" type="text" placeholder="항목 입력">
+				    	<input class="form-control" type="text" name="dfIn3Tab" placeholder="항목 입력">
 				    </td>
 				    <td class="tg-baqh" colspan="8">
 				    	<input class="form-control" type="text" disabled="">
@@ -222,7 +218,7 @@ pageEncoding="UTF-8"%>
 			  	</tr>
 			  	<tr>
 			    	<td class="tg-baqh" colspan="9">
-			    		<input class="form-control" type="text" placeholder="위와 같이 문서를 상신하오니 확인하여 주시기 바랍니다.">
+			    		<input class="form-control" type="text" name="dfContents" placeholder="위와 같이 문서를 상신하오니 확인하여 주시기 바랍니다.">
 			    	</td>
 			  	</tr>
 			  	<tr>
@@ -251,131 +247,96 @@ pageEncoding="UTF-8"%>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 
-	//휴가종류탭 비활성화
+	//휴가종류탭 활성화
 	$(document).ready(function () {
 	$("#checkVTab").on("click", function () {
   		if ($(this).prop("checked")) {
-    		console.log(this);
-    		$('#vTab').hide();
+    		$('#vTab').show();
   		}else {
-			$('#vTab').show();
+			$('#vTab').hide();
   		}
 	});
 	});
 	
-	//출타종류탭 비활성화
+	//출타종류탭 활성화
   	$(document).ready(function () {
     	$("#checkOTab").on("click", function () {
       		if ($(this).prop("checked")) {
-        		console.log(this);
-        		$('#oTab').hide();
+        		$('#oTab').show();
       		}else {
-    			$('#oTab').show();
+    			$('#oTab').hide();
       		}
     	});
   	});
 
-	//날짜탭 비활성화
+	//날짜탭 활성화
   	$(document).ready(function () {
     	$("#checkDTab").on("click", function () {
       		if ($(this).prop("checked")) {
-        		console.log(this);
-        		$('#dTab').hide();
+        		$('#dTab').show();
       		}else {
-    			$('#dTab').show();
+    			$('#dTab').hide();
       		}
     	});
   	});
   	
-  	//금액탭 비활성화
+  	//금액탭 활성화
   	$(document).ready(function () {
     	$("#checkPTab").on("click", function () {
       		if ($(this).prop("checked")) {
-        		console.log(this);
-        		$('#pTab').hide();
+        		$('#pTab').show();
       		}else {
-    			$('#pTab').show();
+    			$('#pTab').hide();
       		}
     	});
   	});
   	
-  	//input1탭 비활성화
+  	//장소탭 활성화
+  	$(document).ready(function () {
+    	$("#checkLTab").on("click", function () {
+      		if ($(this).prop("checked")) {
+        		$('#lTab').show();
+      		}else {
+    			$('#lTab').hide();
+      		}
+    	});
+  	});
+  	
+  	//input1탭 활성화
   	$(document).ready(function () {
     	$("#checkI1Tab").on("click", function () {
       		if ($(this).prop("checked")) {
-        		console.log(this);
-        		$('#i1Tab').hide();
+        		$('#i1Tab').show();
       		}else {
-    			$('#i1Tab').show();
+    			$('#i1Tab').hide();
       		}
     	});
   	});
   	
-  	//input2탭 비활성화
+  	//input2탭 활성화
   	$(document).ready(function () {
     	$("#checkI2Tab").on("click", function () {
       		if ($(this).prop("checked")) {
         		console.log(this);
-        		$('#i2Tab').hide();
+        		$('#i2Tab').show();
       		}else {
-    			$('#i2Tab').show();
+    			$('#i2Tab').hide();
       		}
     	});
   	});
   
-  	//input3탭 비활성화
+  	//input3탭 활성화
   	$(document).ready(function () {
     	$("#checkI3Tab").on("click", function () {
       		if ($(this).prop("checked")) {
         		console.log(this);
-        		$('#i3Tab').hide();
+        		$('#i3Tab').show();
       		}else {
-    			$('#i3Tab').show();
+    			$('#i3Tab').hide();
       		}
     	});
   	});
   	
-  	//기안->최종결재
-  	$(document).ready(function () {
-    	$("#pRadio1").on("click", function () {
-      		if ($(this).prop("checked")) {
-        		console.log(this);
-        		$('.1stPayment').hide();
-        		$('.2ndPayment').hide();
-      		}else {
-      			$('.1stPayment').show();
-        		$('.2ndPayment').show();
-      		}
-    	});
-  	});
-  	
-  	//기안->1차결재->최종결재
-  	$(document).ready(function () {
-    	$("#pRadio2").on("click", function () {
-      		if ($(this).prop("checked")) {
-        		console.log(this);
-        		$('.1stPayment').show();
-        		$('.2ndPayment').hide();
-      		}else {
-      			$('.1stPayment').show();
-        		$('.2ndPayment').show();
-      		}
-    	});
-  	});
-  	
-  	//기안->1차결재->2차결재->최종결재
-  	$(document).ready(function () {
-    	$("#pRadio3").on("click", function () {
-      		if ($(this).prop("checked")) {
-        		console.log(this);
-        		$('.1stPayment').show();
-        		$('.2ndPayment').show();
-      		}else {
-      			$('.1stPayment').show();
-        		$('.2ndPayment').show();
-      		}
-    	});
-  	});
   	
   	
 </script>

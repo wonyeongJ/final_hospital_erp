@@ -27,19 +27,19 @@
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label" style="font-weight: bold; font-size: large; text-align: center;">대여자</label>
             <div>
-                <input class="form-control" type="text" value="박병웅" readonly>
+                <input class="form-control" type="text" value="${memberVO.memName}" readonly>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label" style="font-weight: bold; font-size: large; text-align: center;">사번</label>
             <div>
-                <input class="form-control" type="text" name="memCd" value="2303002" readonly>
+                <input class="form-control" type="text" name="memCd" value="${memberVO.memCd}" readonly>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label" style="font-weight: bold; font-size: large; text-align: center;">대여 종료 날짜</label>
             <div>
-                <input class="form-control date-picker" placeholder="Select Return Date" type="text" name="reDate">
+                <input class="form-control date-picker" placeholder="Click to select Date" type="text" name="reDate" readonly style="background-color: white;">
                 <br>'무기한'대여&nbsp;<input type="checkbox" id="indefinite-btn" data-size="" data-color="#0099ff" data-switchery="true" style="color: rgb(0, 153, 255);">
                     <!-- checked="true" -->
             </div>

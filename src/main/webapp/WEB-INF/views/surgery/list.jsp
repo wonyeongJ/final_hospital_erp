@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <link rel="stylesheet" href="/vendors/styles/equipment/list.css">
 <link rel="stylesheet" href="/vendors/styles/surgery/list.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <h1>수술실/비품관리</h1>
 	<br>
@@ -21,36 +23,14 @@
 				<th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="대여자: activate to sort column ascending">예약하기</th>
 		</thead>
 		<tbody>
-			<tr role="row" class="">
-				<td>1</td>
-				<td>201</td>
-				<td>09:00 ~ 21:00</td>
-				<td><span class="badge badge-primary"><a onclick="location.href='scheduleInsert'" id="a2">예약하기</a></span></td>
-			</tr>
-			<tr role="row" class="">
-				<td>2</td>
-				<td>202</td>
-				<td>09:00 ~ 21:00</td>
-				<td><span class="badge badge-primary"><a onclick="location.href='scheduleInsert'" id="a2">예약하기</a></span></td>
-			</tr>
-			<tr role="row" class="">
-				<td>3</td>
-				<td>203</td>
-				<td>09:00 ~ 21:00</td>
-				<td><span class="badge badge-primary"><a onclick="location.href='scheduleInsert'" id="a2">예약하기</a></span></td>
-			</tr>
-			<tr role="row" class="">
-				<td>4</td>
-				<td>204</td>
-				<td>09:00 ~ 21:00</td>
-				<td><span class="badge badge-primary"><a onclick="location.href='scheduleInsert'" id="a2">예약하기</a></span></td>
-			</tr>
-			<tr role="row" class="">
-				<td>5</td>
-				<td>203</td>
-				<td>09:00 ~ 21:00</td>
-				<td><span class="badge badge-primary"><a onclick="location.href='scheduleInsert'" id="a2">예약하기</a></span></td>
-			</tr>
+			<c:forEach items="${allSurgeries}" var="list">
+				<tr role="row" class="">
+					<td>${list.surCd}</td>
+					<td>${list.surNum}</td>
+					<td>00:00 ~ 24:00</td>
+					<td><span class="badge badge-primary"><a onclick="location.href='scheduleInsert?surCd=${list.surCd}'" id="a2">예약하기</a></span></td>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 	<div class="collapse collapse-box" id="basic-table">
@@ -92,29 +72,25 @@
 					<div class="modal-body">
 						<table class="table table-bordered">
 							<tbody>
+								<c:forEach items="${allSurgeries}" var="list">
+									<tr role="row" class="">
+										<td>
+											<input type="hidden" value="${list.surCd}">
+											<input class="form-control" type="text" value="${list.surNum}">
+										</td>
+										<td>
+											<button class="btn btn-outline-primary surgery-update-btn">수정</button>
+											<button class="btn btn-outline-primary surgery-delete-btn">삭제</button>
+										</td>
+									</tr>
+								</c:forEach>
 								<tr>
-									<th scope="row"><input class="form-control" type="text" name="" value="201호"></th>
-									<td><button class="btn btn-outline-primary header-white">수정</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><input class="form-control" type="text" name="" value="202호"></th>
-									<td><button class="btn btn-outline-primary header-white">수정</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><input class="form-control" type="text" name="" value="203호"></th>
-									<td><button class="btn btn-outline-primary header-white">수정</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><input class="form-control" type="text" name="" value="204호"></th>
-									<td><button class="btn btn-outline-primary header-white">수정</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><input class="form-control" type="text" name="" value="205호"></th>
-									<td><button class="btn btn-outline-primary header-white">수정</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><input type="text" placeholder="호수 입력" class="form-control" style="width: 120px;"></th>
-									<td><button class="btn btn-outline-primary header-white">수술실 등록</button></td>
+									<th scope="row">
+										<input type="text" placeholder="호수 입력" class="form-control" style="width: 120px;">
+									</th>
+									<td>
+										<button class="btn btn-outline-primary surgery-insert-btn">수술실 등록</button>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -130,3 +106,4 @@
 
 
 <script src="/src/plugins/switchery/switchery.min.js"></script>
+<script src="/vendors/scripts/surgery/list.js"></script>

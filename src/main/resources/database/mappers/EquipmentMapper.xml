@@ -6,54 +6,68 @@
 	<!-- 전체 비품 리스트 조회 -->
 	<select id="equipmentList" resultMap="equipmentListResult">
 		SELECT
-			E.*,
-			MAX(EH_REDATE),
-			EH.*,
-			IFNULL(EH.EH_RETURN, 1),
+			T.*,
+			EH.MEM_CD,
+			EH.EH_RETURN,
+			EH.EH_SDATE,
+			EH.EH_REDATE,
+			EH.EH_RDATE,
 			M.MEM_NAME,
 			C.CODE_NAME,
 			C.CODE_USE
 		FROM 
-			EQUIPMENT E
-			LEFT OUTER JOIN EQUIPMENT_HISTORY EH
-			ON E.EQU_CD = EH.EQU_CD
-				LEFT OUTER JOIN MEMBER M
+			(SELECT
+				E.*,
+				MAX(EH.EH_CD) AS EH_CD
+			FROM
+				EQUIPMENT E 
+				LEFT OUTER JOIN EQUIPMENT_HISTORY EH
+				ON E.EQU_CD = EH.EQU_CD
+			GROUP BY 
+				EQU_CD
+			) T LEFT OUTER JOIN EQUIPMENT_HISTORY EH
+			ON T.EH_CD = EH.EH_CD
+			LEFT OUTER JOIN MEMBER M
 			ON EH.MEM_CD = M.MEM_CD 
 			LEFT OUTER JOIN CODE C
-			ON E.CODE_CD = C.CODE_CD
+			ON T.CODE_CD = C.CODE_CD
 		WHERE 
 			C.CODE_USE = 1 AND 
-			E.EQU_DELETE = 0 AND 
-			IFNULL(EH.EH_RETURN, 1) = 1
-		GROUP BY 
-			E.EQU_CD
+			T.EQU_DELETE = 0
   	</select>
   	
   	<!-- 카테고리 별 비품 리스트 조회 -->
 	<select id="equipmentListCategorySelected" parameterType="CodeVO" resultMap="equipmentListResult">
 		SELECT
-			E.*,
-			MAX(EH_REDATE),
-			EH.*,
-			IFNULL(EH.EH_RETURN, 1),
+			T.*,
+			EH.MEM_CD,
+			EH.EH_RETURN,
+			EH.EH_SDATE,
+			EH.EH_REDATE,
+			EH.EH_RDATE,
 			M.MEM_NAME,
 			C.CODE_NAME,
 			C.CODE_USE
 		FROM 
-			EQUIPMENT E
-			LEFT OUTER JOIN EQUIPMENT_HISTORY EH
-			ON E.EQU_CD = EH.EQU_CD
-				LEFT OUTER JOIN MEMBER M
+			(SELECT
+				E.*,
+				MAX(EH.EH_CD) AS EH_CD
+			FROM
+				EQUIPMENT E 
+				LEFT OUTER JOIN EQUIPMENT_HISTORY EH
+				ON E.EQU_CD = EH.EQU_CD
+			GROUP BY 
+				EQU_CD
+			) T LEFT OUTER JOIN EQUIPMENT_HISTORY EH
+			ON T.EH_CD = EH.EH_CD
+			LEFT OUTER JOIN MEMBER M
 			ON EH.MEM_CD = M.MEM_CD 
 			LEFT OUTER JOIN CODE C
-			ON E.CODE_CD = C.CODE_CD
-		WHERE
-			C.CODE_NAME = #{codeName} AND 
-			CODE_USE = 1 AND 
-			E.EQU_DELETE = 0 AND 
-			IFNULL(EH.EH_RETURN, 1) = 1
-		GROUP BY 
-			E.EQU_CD
+			ON T.CODE_CD = C.CODE_CD
+		WHERE 
+			C.CODE_NAME = #{codeName} AND
+			C.CODE_USE = 1 AND 
+			T.EQU_DELETE = 0
   	</select>
   	
 <!--  	<resultMap type="EquipmentVO" id="equipmentListResult">
@@ -105,7 +119,8 @@
 		FROM
 			CODE
 		WHERE 	
-			CODE_GID = 5 AND CODE_USE = 1
+			CODE_GID = 5 AND 
+			CODE_USE = 1
   	</select>
   	
   	<!-- 비품 카테고리 수정 -->
@@ -118,12 +133,24 @@
 			CODE_CD = #{codeCd}
   	</update>
   	
-  	<!-- 비품 카테고리 추가 : 추후 CODE_CD 오토인크리먼트로 변경하기 -->
-  	<insert id="codeInsert" parameterType="CodeVO">
+  	<!-- 비품 카테고리 추가 -->
+  	<insert id="codeInsert" parameterType="CodeVO" useGeneratedKeys="true" keyProperty="codeCd">
 	  	INSERT INTO 
-			CODE(CODE_CD, CODE_NAME, CODE_GID, CODE_GNAME, CODE_USE, CODE_RDATE)
-		VALUES 
-			(15, #{codeName}, 5, 'CATEGORY', 1, NOW())
+			CODE(
+				CODE_NAME, 
+				CODE_GID, 
+				CODE_GNAME, 
+				CODE_USE, 
+				CODE_RDATE
+				)
+			VALUES 
+				(
+				#{codeName}, 
+				5, 
+				'CATEGORY', 
+				1, 
+				NOW()
+				)
   	</insert>
   	
   	<!-- 비품 카테고리 논리삭제 -->
@@ -133,7 +160,8 @@
 		SET 
 			CODE_USE = 0
 		WHERE 
-			CODE_CD = #{codeCd} AND CODE_NAME = #{codeName}
+			CODE_CD = #{codeCd} AND 
+			CODE_NAME = #{codeName}
   	</update>
   	
   	<!-- codeName으로 (codeCd을 얻기 위해) CODE TABLE의 해당 인스턴스 1건 조회 -->
@@ -156,12 +184,25 @@
 			CODE_CD = #{codeCd}
   	</select>
   	
-	<!-- 비품 추가 : 추후 EQU_CD 오토인크리먼트로 변경하기 -->
-  	<insert id="equipmentInsert" parameterType="EquipmentVO">
+	<!-- 비품 추가 -->
+  	<insert id="equipmentInsert" parameterType="EquipmentVO" useGeneratedKeys="true" keyProperty="equCd">
 	  	INSERT INTO 
-			EQUIPMENT (EQU_CD, CODE_CD, EQU_SNUM, EQU_DELETE, EQU_PDATE, EQU_RDATE)
-		VALUES 
-			(3, #{codeCd}, #{equSnum}, 0, #{equPdate}, NOW())
+			EQUIPMENT 
+				(
+				CODE_CD, 
+				EQU_SNUM, 
+				EQU_DELETE, 
+				EQU_PDATE, 
+				EQU_RDATE
+				)
+			VALUES 
+				(
+				#{codeCd}, 
+				#{equSnum}, 
+				0, 
+				#{equPdate}, 
+				NOW()
+				)
   	</insert>
   	
   	<!-- equCd로 (codeCD를 얻기 위해) EQUIPMENT TABLE의 해당 인스턴스 1건 조회 -->
@@ -216,11 +257,61 @@
 			EQU_CD = #{equCd}
   	</update>
   	
-  	<!-- 비품 예약 추가 : 추후 EH_CD 오토인크리먼트로 변경하기 -->
-  	<insert id="equipmenthistoryInsert" parameterType="EquipmentHistoryVO">
+  	<!-- 비품 예약 추가 -->
+  	<insert id="equipmenthistoryInsert" parameterType="EquipmentHistoryVO" useGeneratedKeys="true" keyProperty="ehCd">
 		INSERT INTO 
-			EQUIPMENT_HISTORY (EH_CD, MEM_CD, EQU_CD, EH_RETURN, EH_SDATE, EH_REDATE, EH_RDATE)
-		VALUES 
-			(5, #{memCd}, #{equCd}, 1, NOW(), #{ehRedate}, NOW())
+			EQUIPMENT_HISTORY 
+				(
+				MEM_CD, 
+				EQU_CD, 
+				EH_RETURN, 
+				EH_SDATE, 
+				EH_REDATE, 
+				EH_RDATE
+				)
+			VALUES 
+				(
+				#{memCd}, 
+				#{equCd}, 
+				1, 
+				NOW(), 
+				#{ehRedate}, 
+				NOW()
+				)
   	</insert>
-</mapper>
+  	
+  	<!-- 비품 대여 내역 논리 삭제 -->
+  	<update id="historyDelete" parameterType="EquipmentHistoryVO">	
+		UPDATE 
+			EQUIPMENT_HISTORY
+		SET 
+			EH_RETURN = 0
+		WHERE 
+			EH_CD = #{ehCd}
+  	</update>
+  	
+  	<!-- 비품 대여 1건 조회 -->
+  	<select id="equipmentHistoryData" parameterType="EquipmentHistoryVO" resultType="EquipmentHistoryVO">	
+		SELECT
+			*
+		FROM
+			EQUIPMENT_HISTORY
+		WHERE 
+			EH_CD = #{ehCd}
+  	</select>
+  	
+  	<!-- 비품 대여 1건 조회 -->
+  	<select id="equipmentHistoryCheck" parameterType="EquipmentHistoryVO" resultType="EquipmentHistoryVO">	
+		SELECT
+			EH.*
+		FROM
+			(
+			SELECT
+				MAX(EH_CD) AS EH_CD
+			FROM
+				EQUIPMENT_HISTORY
+			WHERE 
+				EQU_CD = #{equCd}
+			) T JOIN EQUIPMENT_HISTORY EH 
+			ON T.EH_CD = EH.EH_CD
+  	</select></mapper>

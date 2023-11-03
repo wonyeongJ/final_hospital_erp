@@ -39,5 +39,11 @@ public interface EquipmentDAO {
 	 public void equipmentUpdate(EquipmentVO equipmentVO);
 
 	 public void equipmenthistoryInsert(EquipmentHistoryVO equipmentHistoryVO);
+
+	 public void historyDelete(EquipmentHistoryVO equipmentHistoryVO);
+
+	 public EquipmentHistoryVO equipmentHistoryData(EquipmentHistoryVO equipmentHistoryVO);
+
+	 public EquipmentHistoryVO equipmentHistoryCheck(EquipmentHistoryVO equipmentHistoryVO);
 	 
 }

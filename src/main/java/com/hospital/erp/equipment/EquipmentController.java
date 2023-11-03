@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,7 +69,7 @@ public class EquipmentController {
 		List<CodeVO> categories = equipmentService.categoriesList();
 		model.addAttribute("categories", categories);
 		
-		// Date processedPdate = timeSetter.LocalDateTimetoDate(equipmentVO.getEquPdate());
+		// Date processedPdate = timeSetter.localDateTimetoDate(equipmentVO.getEquPdate());
 		
 		model.addAttribute("equipmentVO", equipmentVO);
 		model.addAttribute("codeVO", codeVO);
@@ -76,6 +78,7 @@ public class EquipmentController {
 		// model.addAttribute("processedPdate", processedPdate);
 		
 		return "equipment/data";
+		
 	}
 	
 	@GetMapping("list") 
@@ -96,7 +99,13 @@ public class EquipmentController {
 		model.addAttribute("allEquipments", allEquipments);
 		model.addAttribute("categories", categories);
 		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	    UserDetails userDetails = (UserDetails)principal;
+	    MemberVO memberVO = (MemberVO)userDetails;
+	    model.addAttribute("memberVO", memberVO);
+		
 		return "equipment/list";
+		
 	}
 	
 	@ResponseBody
@@ -107,6 +116,7 @@ public class EquipmentController {
 		
 		String st = "list";
 		return st;
+		
 	}
 	
 	@ResponseBody
@@ -117,6 +127,7 @@ public class EquipmentController {
 		
 		String st = "list";
 		return st;
+		
 	}
 	
 	@ResponseBody
@@ -126,6 +137,7 @@ public class EquipmentController {
 		equipmentService.codeDelete(codeVO);
 		String st = "list";
 		return st;
+		
 	}
 	
 	@ResponseBody
@@ -140,13 +152,14 @@ public class EquipmentController {
 		equipmentVOforInsert.setCodeCd(codeVO.getCodeCd());
 		equipmentVOforInsert.setEquSnum(equipmentVO.getEquSnum());
 
-        LocalDateTime perchaseDate = timeSetter.DateTolocalDateTime(date);
+        LocalDateTime perchaseDate = timeSetter.dateTolocalDateTime(date);
        
         equipmentVOforInsert.setEquPdate(perchaseDate);
         
         equipmentService.equipmentInsert(equipmentVOforInsert);
 		
 		return "list";
+		
 	}
 	
 	@ResponseBody
@@ -157,6 +170,7 @@ public class EquipmentController {
 		
 		String st = String.valueOf(equipmentVO.getEquCd());
 		return st+" deleted";
+		
 	}
 	
 	@ResponseBody
@@ -166,15 +180,16 @@ public class EquipmentController {
 		// codeName으로 codeCd 조회 후 equipmentVO에 set
 		codeVO = equipmentService.equipmentCodeData(codeVO);
 		equipmentVO.setCodeCd(codeVO.getCodeCd());
-		equipmentVO.setEquPdate(timeSetter.DateTolocalDateTime(pDate));
+		equipmentVO.setEquPdate(timeSetter.dateTolocalDateTime(pDate));
 		
 		equipmentService.equipmentUpdate(equipmentVO);
 		
 		return Integer.toString(equipmentVO.getEquCd());
+		
 	}
 	
 	@GetMapping("historyInsert")  
-	public String equipmenthistoryInsert(EquipmentVO equipmentVO, EquipmentHistoryVO equipmentHistoryVO, HttpServletRequest request, Model model)throws Exception{
+	public String equipmentHistoryInsert(EquipmentVO equipmentVO, EquipmentHistoryVO equipmentHistoryVO, HttpServletRequest request, Model model)throws Exception{
 		
 		equipmentVO = equipmentService.equipmentData(equipmentVO);
 		String sNum = equipmentVO.getEquSnum();
@@ -189,15 +204,51 @@ public class EquipmentController {
 		model.addAttribute("codeName", codeName);
 		model.addAttribute("equCd", equCd);
 		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	    UserDetails userDetails = (UserDetails)principal;
+	    MemberVO memberVO = (MemberVO)userDetails;
+	    model.addAttribute("memberVO", memberVO);
+		
 		return "equipment/historyInsert";
+		
 	}
 	
 	@PostMapping("historyInsert")  
 	public String equipmenthistoryInsert(EquipmentHistoryVO equipmentHistoryVO, Date reDate)throws Exception{
 		
-		equipmentHistoryVO.setEhRedate(timeSetter.DateTolocalDateTime(reDate));
-		equipmentService.equipmenthistoryInsert(equipmentHistoryVO);
+		// 기존 비품 예약이 있는지 서버단에서 한번 더 검사
+		EquipmentHistoryVO ehCheck = equipmentService.equipmentHistoryCheck(equipmentHistoryVO);
+		if(ehCheck != null) {
+			if(ehCheck.getEhReturn()==0) {
+				equipmentHistoryVO.setEhRedate(timeSetter.dateTolocalDateTime(reDate));
+				equipmentService.equipmenthistoryInsert(equipmentHistoryVO);
+			}else {
+				System.out.println("대여 불가");
+			}
+		}else {
+			equipmentHistoryVO.setEhRedate(timeSetter.dateTolocalDateTime(reDate));
+			equipmentService.equipmenthistoryInsert(equipmentHistoryVO);
+		}
 		
 		return "redirect:./list";
+		
+	}
+	
+	@GetMapping("historyDelete")  
+	public String equipmentHistoryDelete(EquipmentHistoryVO equipmentHistoryVO, MemberVO memberVO)throws Exception{
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	    UserDetails userDetails = (UserDetails)principal;
+	    MemberVO memberVO2 = (MemberVO)userDetails;
+		
+	    int num = Integer.parseInt(memberVO2.getMemCd());
+		equipmentHistoryVO = equipmentService.equipmentHistoryData(equipmentHistoryVO);
+		if(num == equipmentHistoryVO.getMemCd()) {
+			// 비품 대여 내역 논리 삭제
+			equipmentService.historyDelete(equipmentHistoryVO);
+		}
+		
+		return "redirect:list";
+		
 	}
 }
