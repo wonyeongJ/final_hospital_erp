@@ -64,29 +64,43 @@ $('#schedule-insert-btn').click(function(){
 		let surgeryStart = Number($('.surgery-start').val());
 		let surgeryEnd = Number($('.surgery-end').val());
 		let surCd = Number($('#surCd').val());
+		let memCd = $('#memCd').val();	
 		
-		if(surgeryStart >= surgeryEnd){
-			alert('예약 시간을 다시 확인해주세요.');
-		}else{
-				$.ajax({
-		  	type : 'post',
-		    url : '/surgery/reservation',
-		    async: false,
-		    data : {
-				 paramDate : date,
-				 sTime : surgeryStart,
-				 eTime : surgeryEnd,
-				 surCd : surCd
-			},
-		    success : function(result) {
-				if(result=='x'){
-					alert('예약 시간을 다시 확인해주세요.');
-				}else{
-					window.location.replace(result)
-					alert('수술실 예약 완료되었습니다. (' + date +': '+surgeryStart+'시 ~ '+surgeryEnd+'시)')
+		var now = new Date();
+		let datesplit = date.split(' ')
+		let year = datesplit[0].slice(0, -1);
+		let month = datesplit[1].slice(0, -1);
+		let day = datesplit[2].slice(0, -1);
+		let datesum = year + '-' + month + '-' + day
+		let dateform = Date.parse(datesum)
+	
+	    if(dateform > now){
+			if(surgeryStart >= surgeryEnd){
+				alert('예약 시간을 다시 확인해주세요.');
+			}else{
+			$.ajax({
+			  	type : 'post',
+			    url : '/surgery/reservation',
+			    async: false,
+			    data : {
+					 paramDate : date,
+					 sTime : surgeryStart,
+					 eTime : surgeryEnd,
+					 surCd : surCd,
+					 memCd : memCd
+				},
+			    success : function(result) {
+					if(result=='x'){
+						alert('예약 시간을 다시 확인해주세요.');
+					}else{
+						window.location.replace(result)
+						alert('수술실 예약 완료되었습니다. (' + date +': '+surgeryStart+'시 ~ '+surgeryEnd+'시)')
+					}
 				}
-			}
-	 	})
+	 		})
+		}
+		}else{
+			alert('당일 예약은 불가능합니다.');
 		}
 	}
 });

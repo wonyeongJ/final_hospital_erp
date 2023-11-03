@@ -44,19 +44,17 @@
 			SUR_NUM = #{surNum}
   	</update>
   	
-  	<!-- 수술실 등록 : 추후 SUR_CD 오토인크리먼트로 변경하기 -->
-  	<insert id="surgeryInsert" parameterType="SurgeryVO">	
+  	<!-- 수술실 등록  -->
+  	<insert id="surgeryInsert" parameterType="SurgeryVO" useGeneratedKeys="true" keyProperty="surCd">	
 		INSERT INTO 
 			SURGERY
 				(
-				SUR_CD, 
 				SUR_NUM, 
 				SUR_RDATE, 
 				SUR_USE
 				)
 			VALUES 
 				(
-				6, 
 				#{surNum}, 
 				NOW(), 
 				1
@@ -90,12 +88,11 @@
 			)
   	</select>
   	
-  	<!-- 수술실 예약 등록 : 추후 pk 오토인크리먼트로 변경하기 -->
-  	<insert id="surgeryScheduleInsert" parameterType="scheduleVO">	
+  	<!-- 수술실 예약 등록 -->
+  	<insert id="surgeryScheduleInsert" parameterType="scheduleVO" useGeneratedKeys="true" keyProperty="schCd">	
 		INSERT INTO 
 			SCHEDULE
 				(
-				SCH_CD, 
 				MEM_CD, 
 				CODE_CD, 
 				SCH_FK, 
@@ -105,7 +102,6 @@
 				)
 			VALUES 
 				(
-				5, 
 				#{memCd}, 
 				#{codeCd}, 
 				#{schFk}, 
