@@ -5,18 +5,22 @@ $('.category-update-btn').click(function(){
 		let categoryToUpdate = $(this).parent().prev().children().val();
 		let codeToUpdate = Number($(this).parent().prev().prev().attr('value'));
 		
-	    $.ajax({
-		  	type : 'post',
-		    url : '/equipment/codeUpdate',
-		    async: false,
-		    data : {
-				codeName : categoryToUpdate,
-				codeCd : codeToUpdate
-			},
-		    success : function(result) {
-		    	window.location.replace(result)
-			}
-	 	})
+		if(categoryToUpdate.length != 0){
+			$.ajax({
+			  	type : 'post',
+			    url : '/equipment/codeUpdate',
+			    async: false,
+			    data : {
+					codeName : categoryToUpdate,
+					codeCd : codeToUpdate
+				},
+			    success : function(result) {
+			    	window.location.replace(result)
+				}
+	 		})
+		}else{
+			alert('변경할 항목의 이름을 작성해주세요.')
+		}
 	}
 });
 
@@ -26,17 +30,21 @@ $('.category-insert-btn').click(function(){
 	if(check){
 		let categoryToInsert = $(this).parent().prev().children().val();
 		
-	    $.ajax({
-		  	type : 'post',
-		    url : '/equipment/codeInsert',
-		    async: false,
-		    data : {
-				codeName : categoryToInsert
-			},
-		    success : function(result) {
-		    	window.location.replace(result)
-			}
-	 	})
+		if(categoryToInsert.length != 0){
+			$.ajax({
+			  	type : 'post',
+			    url : '/equipment/codeInsert',
+			    async: false,
+			    data : {
+					codeName : categoryToInsert
+				},
+			    success : function(result) {
+			    	window.location.replace(result)
+				}
+	 		})
+		}else{
+			alert('등록할 항목의 이름을 작성해주세요.');
+		}
 	}
 });
 
