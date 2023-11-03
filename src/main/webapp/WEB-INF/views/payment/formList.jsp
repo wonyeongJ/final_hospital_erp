@@ -5,7 +5,7 @@
 <h2>결재문서작성</h2>
 
 <div>
-	<a type="button" class="btn btn-danger" href="/payment/formInsert">문서양식추가</a>
+	<a type="button" class="btn btn-danger" href="/payment/documentForm/insert">문서양식추가</a>
 </div>
 
 <div>

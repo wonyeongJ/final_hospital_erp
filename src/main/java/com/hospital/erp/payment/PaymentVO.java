@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PaymentVO {
 	
-	private Integer codeCd;
+	private Integer epCd;
 	private String memCd;
 	private Integer dfCd;
 	private String epTitle;
@@ -31,6 +31,15 @@ public class PaymentVO {
 	private String epDStatus;
 	private LocalDateTime epFDate;
 	private LocalDateTime epRDate;
+	
+	//JOIN해서 가져오는 DATA
+	private String dfKind;
+	private Integer conStep;
+	private String conPStatus;
+	private String memName;
+	private String conmemName;
+	private String refmemName;
+	
 	
 
 }

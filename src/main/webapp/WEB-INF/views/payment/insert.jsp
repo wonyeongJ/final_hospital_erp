@@ -104,14 +104,14 @@ pageEncoding="UTF-8"%>
 				    	<input class="form-control" type="text" value="${memberVO.memName}" disabled="">
 				    </td>
 				    <td class="tg-baqh">연락처</td>
-				    <td class="tg-baqh" colspan="2">
+				    <td class="tg-baqh tg-baqh-r" colspan="3">
 				    	<input class="form-control" type="text" value="${memberVO.memPnum}" disabled="">
 				    </td>
-				    <td class="tg-baqh-r tg-baqh"></td>
-				    <td class="tg-baqh-l tg-baqh" colspan="2"></td>
+				    <td class="tg-baqh-r tg-baqh-l tg-baqh"></td>
+				    <td class="tg-baqh-l tg-baqh"></td>
 			  	</tr>
 			  	
-			  	<c:if test="${not empty documentFormVO.dfVTab}">
+			  	<c:if test="${documentFormVO.dfVTab eq '1'}">
 				  	<tr id="vTab">
 					    <td class="tg-baqh">휴가종류</td>
 					    <td class="tg-baqh" colspan="8">
@@ -127,7 +127,7 @@ pageEncoding="UTF-8"%>
 				  	</tr>
 				</c:if>
 			  	
-			  	<c:if test="${not empty documentFormVO.dfOTab}">
+			  	<c:if test="${documentFormVO.dfOTab  eq '1'}">
 				  	<tr id="oTab">
 					    <td class="tg-baqh">출타종류</td>
 					    <td class="tg-baqh" colspan="8">
@@ -143,7 +143,7 @@ pageEncoding="UTF-8"%>
 				  	</tr>
 				</c:if>
 			  	
-			  	<c:if test="${not empty documentFormVO.dfDTab}">
+			  	<c:if test="${documentFormVO.dfDTab  eq '1'}">
 				  	<tr id="dTab">
 					    <td class="tg-baqh">
 					    	<label>기간</label>
@@ -168,7 +168,7 @@ pageEncoding="UTF-8"%>
 				  	</tr>
 				</c:if>
 				  	
-				<c:if test="${not empty documentFormVO.dfPTab}">
+				<c:if test="${documentFormVO.dfPTab  eq '1'}">
 				  	<tr id="pTab">
 					    <td class="tg-baqh">금액</td>
 					    <td class="tg-baqh-r tg-baqh" colspan="3">
@@ -242,7 +242,8 @@ pageEncoding="UTF-8"%>
 		</table>
 		<div>
 			<button type="reset" class="btn btn-danger">다시작성</button>
-			<button type="submit" class="btn btn-success">기안상신</button>
+			<button type="submit" class="btn btn-danger" name="epDStatus" value="2">임시저장</button>
+			<button type="submit" class="btn btn-success" name="epDStatus" value="0">기안상신</button>
 		</div>
 	</form>
 
