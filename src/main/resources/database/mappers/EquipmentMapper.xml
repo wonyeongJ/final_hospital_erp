@@ -6,54 +6,68 @@
 	<!-- 전체 비품 리스트 조회 -->
 	<select id="equipmentList" resultMap="equipmentListResult">
 		SELECT
-			E.*,
-			MAX(EH_REDATE),
-			EH.*,
-			IFNULL(EH.EH_RETURN, 1),
+			T.*,
+			EH.MEM_CD,
+			EH.EH_RETURN,
+			EH.EH_SDATE,
+			EH.EH_REDATE,
+			EH.EH_RDATE,
 			M.MEM_NAME,
 			C.CODE_NAME,
 			C.CODE_USE
 		FROM 
-			EQUIPMENT E
-			LEFT OUTER JOIN EQUIPMENT_HISTORY EH
-			ON E.EQU_CD = EH.EQU_CD
-				LEFT OUTER JOIN MEMBER M
+			(SELECT
+				E.*,
+				MAX(EH.EH_CD) AS EH_CD
+			FROM
+				EQUIPMENT E 
+				LEFT OUTER JOIN EQUIPMENT_HISTORY EH
+				ON E.EQU_CD = EH.EQU_CD
+			GROUP BY 
+				EQU_CD
+			) T LEFT OUTER JOIN EQUIPMENT_HISTORY EH
+			ON T.EH_CD = EH.EH_CD
+			LEFT OUTER JOIN MEMBER M
 			ON EH.MEM_CD = M.MEM_CD 
 			LEFT OUTER JOIN CODE C
-			ON E.CODE_CD = C.CODE_CD
+			ON T.CODE_CD = C.CODE_CD
 		WHERE 
 			C.CODE_USE = 1 AND 
-			E.EQU_DELETE = 0 AND 
-			IFNULL(EH.EH_RETURN, 1) = 1
-		GROUP BY 
-			E.EQU_CD
+			T.EQU_DELETE = 0
   	</select>
   	
   	<!-- 카테고리 별 비품 리스트 조회 -->
 	<select id="equipmentListCategorySelected" parameterType="CodeVO" resultMap="equipmentListResult">
 		SELECT
-			E.*,
-			MAX(EH_REDATE),
-			EH.*,
-			IFNULL(EH.EH_RETURN, 1),
+			T.*,
+			EH.MEM_CD,
+			EH.EH_RETURN,
+			EH.EH_SDATE,
+			EH.EH_REDATE,
+			EH.EH_RDATE,
 			M.MEM_NAME,
 			C.CODE_NAME,
 			C.CODE_USE
 		FROM 
-			EQUIPMENT E
-			LEFT OUTER JOIN EQUIPMENT_HISTORY EH
-			ON E.EQU_CD = EH.EQU_CD
-				LEFT OUTER JOIN MEMBER M
+			(SELECT
+				E.*,
+				MAX(EH.EH_CD) AS EH_CD
+			FROM
+				EQUIPMENT E 
+				LEFT OUTER JOIN EQUIPMENT_HISTORY EH
+				ON E.EQU_CD = EH.EQU_CD
+			GROUP BY 
+				EQU_CD
+			) T LEFT OUTER JOIN EQUIPMENT_HISTORY EH
+			ON T.EH_CD = EH.EH_CD
+			LEFT OUTER JOIN MEMBER M
 			ON EH.MEM_CD = M.MEM_CD 
 			LEFT OUTER JOIN CODE C
-			ON E.CODE_CD = C.CODE_CD
-		WHERE
-			C.CODE_NAME = #{codeName} AND 
-			CODE_USE = 1 AND 
-			E.EQU_DELETE = 0 AND 
-			IFNULL(EH.EH_RETURN, 1) = 1
-		GROUP BY 
-			E.EQU_CD
+			ON T.CODE_CD = C.CODE_CD
+		WHERE 
+			C.CODE_NAME = #{codeName} AND
+			C.CODE_USE = 1 AND 
+			T.EQU_DELETE = 0
   	</select>
   	
 <!--  	<resultMap type="EquipmentVO" id="equipmentListResult">
@@ -265,4 +279,39 @@
 				NOW()
 				)
   	</insert>
-</mapper>
+  	
+  	<!-- 비품 대여 내역 논리 삭제 -->
+  	<update id="historyDelete" parameterType="EquipmentHistoryVO">	
+		UPDATE 
+			EQUIPMENT_HISTORY
+		SET 
+			EH_RETURN = 0
+		WHERE 
+			EH_CD = #{ehCd}
+  	</update>
+  	
+  	<!-- 비품 대여 1건 조회 -->
+  	<select id="equipmentHistoryData" parameterType="EquipmentHistoryVO" resultType="EquipmentHistoryVO">	
+		SELECT
+			*
+		FROM
+			EQUIPMENT_HISTORY
+		WHERE 
+			EH_CD = #{ehCd}
+  	</select>
+  	
+  	<!-- 비품 대여 1건 조회 -->
+  	<select id="equipmentHistoryCheck" parameterType="EquipmentHistoryVO" resultType="EquipmentHistoryVO">	
+		SELECT
+			EH.*
+		FROM
+			(
+			SELECT
+				MAX(EH_CD) AS EH_CD
+			FROM
+				EQUIPMENT_HISTORY
+			WHERE 
+				EQU_CD = #{equCd}
+			) T JOIN EQUIPMENT_HISTORY EH 
+			ON T.EH_CD = EH.EH_CD
+  	</select></mapper>
