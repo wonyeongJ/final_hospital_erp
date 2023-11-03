@@ -23,9 +23,9 @@
 		
 		
 		
-		
-		
-		
+		<!-- 병웅 -->
+		<typeAlias type="com.hospital.erp.payment.documentForm.DocumentFormVO" alias="DocumentFormVO"/>
+		<typeAlias type="com.hospital.erp.payment.PaymentVO" alias="PaymentVO"/>
 		
 		
 		

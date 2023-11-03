@@ -10,7 +10,7 @@
                 <put-attribute name="body" value="" />
         </definition>
         
-        <definition name="ajaxLayout" template="/WEB-INF/views/layout/loginLayout.jsp">
+        <definition name="ajaxLayout" template="/WEB-INF/views/layout/ajaxLayout.jsp">
                 <put-attribute name="body" value="" />
         </definition>
 

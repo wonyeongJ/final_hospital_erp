@@ -1,6 +1,7 @@
 package com.hospital.erp.payment;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,8 +29,8 @@ public class PaymentVO {
 	private String epInput3;
 	private String epReason;
 	private String epDStatus;
-	private Date epFDate;
-	private Date epRDate;
+	private LocalDateTime epFDate;
+	private LocalDateTime epRDate;
 	
 
 }
