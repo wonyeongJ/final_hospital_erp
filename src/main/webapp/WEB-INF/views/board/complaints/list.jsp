@@ -34,7 +34,7 @@
                         </td>
                         <td>
                             <c:choose>
-                                <c:when test="${(memCd eq complaints.memCd && complaints.compSecret eq 1) || depCd eq 1}">
+                                <c:when test="${(memCd eq complaints.memCd && complaints.compSecret eq 1) || depCd eq 2}">
                                     <a href="./data/${complaints.compCd}">
                                         <c:if test="${complaints.compSecret eq 1}">
                                             <i class="icon-copy fa fa-lock" aria-hidden="true"></i>

@@ -40,6 +40,12 @@
 		<typeAlias type="com.hospital.erp.board.complaints.ComplaintsVO" alias="ComplaintsVO"/>
 		<typeAlias type="com.hospital.erp.board.complaints.ComplaintsFileVO" alias="ComplaintsFileVO"/>
 		
+		<typeAlias type="com.hospital.erp.board.club.ClubVO" alias="ClubVO"/>
+		<typeAlias type="com.hospital.erp.board.club.ClubFileVO" alias="ClubFileVO"/>
+		<typeAlias type="com.hospital.erp.board.club.ClubMemberVO" alias="ClubMemberVO"/>
+		
+		
+		
 		<typeAlias type="com.hospital.erp.file.FileVO" alias="FileVO"/>
 		
 		

@@ -18,7 +18,7 @@
         <div class="action-buttons">
             <a href="/board/notice/list" class="btn btn-primary action-button">목록</a>
             <c:choose>
-        <c:when test="${member == 1}">
+        <c:when test="${member == 2}">
             <button class="btn btn-primary action-button"><a href="../update/${data.notCd}" style="color: white;">글 수정</a></button>
             <button class="btn btn-danger action-button" id="btn-delete" onclick="confirmDelete(${data.notCd})">글 삭제</button>
         </c:when>

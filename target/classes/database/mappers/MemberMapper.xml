@@ -83,8 +83,7 @@
   	
   	<select id="memberFindByData" parameterType="String" resultType="MemberVO">
   		SELECT *
-  			FROM MEMBER m JOIN DEPARTMENT d
-  				ON m.DEP_CD  = d.DEP_CD
+  			FROM MEMBER 
   		WHERE MEM_CD = #{value}
   	</select>
   	

@@ -23,46 +23,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>족구모임</td>
-                    <td>김아무개</td>
-                    <td>1/10</td>
-                    <td>모집중</td>
-                    <td>2023년10월11일</td>
-                    <td>31</td>
-                    
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>축구모임</td>
-                    <td>김유신</td>
-                    <td>1/11</td>
-                    <td>모집중</td>
-                    <td>2023년10월12일</td>
-                    <td>3</td>
-                    
-                </tr>
-                 <tr>
-                    <td>3</td>
-                    <td>야구모임</td>
-                    <td>김승엽</td>
-                    <td>1/12</td>
-                    <td>모집중</td>
-                    <td>2023년10월14일</td>
-                    <td>22</td>
-                    
-                </tr>
-                 <tr>
-                    <td>4</td>
-                    <td>삽겹살모임</td>
-                    <td>김돼지</td>
-                    <td>5/5</td>
-                    <td>모집완료</td>
-                    <td>2023년10월17일</td>
-                    <td>102</td>
-                    
-                </tr>
+                <c:forEach items="${data}" var="club" >
+				    <tr>
+				        <td>${club.clubCd}</td>
+				        <td>${club.clubTitle}</td>
+				        <td>${club.depName} : ${club.memName}</td>
+				       	<td>${club.currentMembers} / ${club.clubPersonnel}</td>
+				        <td>${club.clubStatus == 0 ? '모집 중' : '모집 완료'}</td>
+				        <td>${club.clubRdate}</td>
+				        <td>${club.clubHit}</td>
+				    </tr>
+				</c:forEach>
             </tbody>
         </table>
         <div><button class="my btn btn-primary" type="button"><a href="./insert" style="color: white;">글쓰기</a></button></div>

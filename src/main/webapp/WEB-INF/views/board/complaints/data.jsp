@@ -31,12 +31,12 @@
 			        </c:when>
 			
 			        
-				    <c:when test="${depCd eq 1 && data.codeCdAction eq 22}">
+				    <c:when test="${depCd eq 2 && data.codeCdAction eq 22}">
 				        <button class="btn btn-primary action-button" onclick="updateAction(${data.compCd}, 23)">조치중으로 변경</button>
 				    </c:when>
 				    
 				    
-				    <c:when test="${depCd eq 1 && data.codeCdAction eq 23}">
+				    <c:when test="${depCd eq 2 && data.codeCdAction eq 23}">
 				        <button class="btn btn-primary action-button" onclick="updateAction(${data.compCd}, 24)">조치완료로 변경</button>
 				    </c:when>
 				</c:choose>

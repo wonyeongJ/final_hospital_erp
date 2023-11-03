@@ -41,7 +41,7 @@
             </tbody>
         </table>
         <c:choose>
-		    <c:when test="${member == 1}">
+		    <c:when test="${member == 2}">
 		        <div>
 		            <button class="my btn btn-primary" type="button">
 		                <a href="./insert" style="color: white;">글쓰기</a>
