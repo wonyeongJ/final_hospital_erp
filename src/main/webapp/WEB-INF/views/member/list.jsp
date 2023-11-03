@@ -14,7 +14,7 @@
 						<h4 class="text-blue h4">직원목록(재직자)</h4>
 					</div>
 					<div class="pb-20">
-						<table class="table hover multiple-select-row data-table-export nowrap">
+						<table class="table hover multiple-select-row datatable nowrap">
 							<thead>
 								<tr>
 									<th class="table-plus datatable-nosort">No</th>

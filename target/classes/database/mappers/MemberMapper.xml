@@ -82,10 +82,8 @@
   	</insert>
   	
   	<select id="memberFindByData" parameterType="String" resultType="MemberVO">
-  		SELECT
-  			*
-  		FROM
-  			MEMBER
+  		SELECT *
+  			FROM MEMBER 
   		WHERE MEM_CD = #{value}
   	</select>
   	

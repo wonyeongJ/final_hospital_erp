@@ -1,63 +1,51 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%><%@ taglib prefix="c"
-	uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="path_to_summernote/summernote.css" rel="stylesheet">
-<script src="path_to_summernote/summernote.js"></script>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<link rel="stylesheet" href="/vendors/styles/board/board.css">
+    	 	
+ 	<div class="containerBoard">
+        <div class="author-info">
+            <span class="author-icon">${data.depName} : ${data.memName}</span>
+        </div>
+        <div class="notHit">조회수: ${data.notHit}</div>
+        <h1 class="title">${data.notTitle}</h1>
+        <div class="contents">${data.notContents}</div>
+        <div>
+            <c:forEach items="${data.list}" var="f">
+                <a href="../fileDown?bfCd=${f.bfCd}" class="file-link"><i class="icon-copy fi-download"></i>${f.bfOname}</a>
+            </c:forEach>
+        </div>
+        <div class="action-buttons">
+            <a href="/board/notice/list" class="btn btn-primary action-button">목록</a>
+            <c:choose>
+        <c:when test="${member == 2}">
+            <button class="btn btn-primary action-button"><a href="../update/${data.notCd}" style="color: white;">글 수정</a></button>
+            <button class="btn btn-danger action-button" id="btn-delete" onclick="confirmDelete(${data.notCd})">글 삭제</button>
+        </c:when>
+    </c:choose>
+        </div>
+    </div>
 
-	<div class="container-fluid">
-	
-		<div class="row justify-content-center my-4">
-			<h1 class="col-md-7 text-center">공지사항 상세</h1>
-		</div>
-		
-		<div class="row justify-content-center my-4">
-			<form class="col-md-7" action="./add" method="post" id="frm" enctype="multipart/form-data">
-			
-                
-	                
-	                <div class="form-check form-check-inline mb-3">
-					  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-					  <label class="form-check-label" for="inlineCheckbox1">중요공지여부</label>
-					 </div>
-					  <div class="pull-right">
-							<span class="input-group-text">인사과: ${member.mem_name}</span>					  
-					  </div>
-					
-                
-					
-					<div class="mb-3">
-					    <label for="not_title" class="form-label">제목 (필수)</label>
-					    <div class="input-group">
-					        <input type="text" name="not_title" class="form-control" id="not_title" placeholder="제목 입력">
-					    </div>
-					</div>
+    <script>
+        function confirmDelete(notCd) {
+            if (confirm("삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?")) {
+                $.ajax({
+                    type: "POST",
+                    url: "/board/notice/delete/" + notCd,
+                    data: { notCd: notCd },
+                    success: function (response) {
+                        if (response === "success") {
+                            alert("삭제가 완료되었습니다.");
+                            window.location.href = "/board/notice/list";
+                        } else {
+                            alert("삭제에 실패했습니다.");
+                        }
+                    },
+                    error: function () {
+                        alert("서버 오류로 삭제에 실패했습니다.");
+                    }
+                });
+            }
+        }
+    </script>
 
-
-					<!-- 내용 필수 조건 -->
-					<div class="mb-3">
-						<label for="not_contents" class="form-label">내용 (필수)</label>
-						<textarea name="proContents" class="form-control" id="not_contents" placeholder="내용 입력" rows="7"></textarea>
-					</div>
-	 				<div class="mb-3">
-	                    <label for="pic" class="form-label">첨부파일</label>
-	                    <input type="file" name="photos" class="form-control" id="pic" placeholder="+">
-	                </div>
-					
-               
-					<div id="fileList" class="my-5"></div>
-							
-					<div class="mb-3">
-						<button class="my btn btn-primary" type="button"><a href="./update">글수정</a></button>
-					</div>
-					<div class="mb-3">
-						<button class="my btn btn-primary" type="submit" id="btn-delete">글삭제</button>
-					</div>
-			
-			</form>
-		</div>
-	</div>
-
-
-
-	

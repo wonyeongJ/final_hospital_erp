@@ -33,6 +33,8 @@ public class MemberService implements UserDetailsService {
 		// TODO Auto-generated method stub
 		 log.info("=================== 테스트 =================== {}", memCd);
 		MemberVO memberVO = memberDAO.memberFindByData(memCd);
+		System.out.println("loaad depName : " + memberVO.getDepName());
+		
 		return memberVO;
 	}
 	 

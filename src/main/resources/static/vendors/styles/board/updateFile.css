@@ -1,0 +1,20 @@
+/* CSS 파일 내용을 추가하세요 */
+.file-item {
+    display: block;
+}
+
+.file-item .alert {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.file-item .delets {
+    display: inline-block;
+    cursor: pointer;
+    color: red;
+    margin-left: 5px;
+}
+
+#fileList .file-item:last-child {
+    margin-bottom: 0;
+}

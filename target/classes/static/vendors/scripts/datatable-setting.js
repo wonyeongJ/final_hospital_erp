@@ -1,97 +1,118 @@
-$('document').ready(function(){
-	$('.data-table').DataTable({
-		scrollCollapse: true,
-		autoWidth: false,
-		responsive: true,
-		columnDefs: [{
-			targets: "datatable-nosort",
-			orderable: false,
-		}],
-		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-		"language": {
-			"info": "_START_-_END_ of _TOTAL_ entries",
-			searchPlaceholder: "Search",
-			paginate: {
-				next: '<i class="ion-chevron-right"></i>',
-				previous: '<i class="ion-chevron-left"></i>'  
-			}
-		},
-	});
+// Notices, company clubs
+$(document).ready(function () {
+    var table = $('.datatable').DataTable({
+        'scrollCollapse': true,
+        'autoWidth': false,
+        'responsive': true,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "language": {
+            "info": "_START_-_END_ of _TOTAL_ entries",
+            searchPlaceholder: "Search",
+            paginate: {
+                next: '<i class="ion-chevron-right"></i>',
+                previous: '<i class="ion-chevron-left"></i>'
+            }
+        },
+        'columnDefs': [
+            { 'type': 'num', 'targets': 0 } // Apply string sorting to the 0th column (Korean)
+        ],
+        'order': [0, 'desc'] // Sort the 0th column (Korean) in ascending order first, then sort the 1st column (numbers) in ascending order.
+    });
 
-	$('.data-table-export').DataTable({
-		scrollCollapse: true,
-		autoWidth: false,
-		responsive: true,
-		columnDefs: [{
-			targets: "datatable-nosort",
-			orderable: false,
-		}],
-		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-		"language": {
-			"info": "_START_-_END_ of _TOTAL_ entries",
-			searchPlaceholder: "Search",
-			paginate: {
-				next: '<i class="ion-chevron-right"></i>',
-				previous: '<i class="ion-chevron-left"></i>'  
-			}
-		},
-		dom: 'Bfrtp',
-		buttons: [
-		'copy', 'csv', 'pdf', 'print'
-		]
-	});
+    // Add PDF, Print, Copy, and CSV buttons
+    new $.fn.dataTable.Buttons(table, {
+        buttons: [
+            {
+                extend: 'pdfHtml5',
+                text: 'PDF',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'print',
+                text: 'Print',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'copyHtml5',
+                text: 'Copy',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                text: 'CSV',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            }
+        ]
+    });
 
-	var table = $('.select-row').DataTable();
-	$('.select-row tbody').on('click', 'tr', function () {
-		if ($(this).hasClass('selected')) {
-			$(this).removeClass('selected');
-		}
-		else {
-			table.$('tr.selected').removeClass('selected');
-			$(this).addClass('selected');
-		}
-	});
-
-	var multipletable = $('.multiple-select-row').DataTable();
-	$('.multiple-select-row tbody').on('click', 'tr', function () {
-		$(this).toggleClass('selected');
-	});
-	var table = $('.checkbox-datatable').DataTable({
-		'scrollCollapse': true,
-		'autoWidth': false,
-		'responsive': true,
-		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-		"language": {
-			"info": "_START_-_END_ of _TOTAL_ entries",
-			searchPlaceholder: "Search",
-			paginate: {
-				next: '<i class="ion-chevron-right"></i>',
-				previous: '<i class="ion-chevron-left"></i>'  
-			}
-		},
-		'columnDefs': [{
-			'targets': 0,
-			'searchable': false,
-			'orderable': false,
-			'className': 'dt-body-center',
-			'render': function (data, type, full, meta){
-				return '<div class="dt-checkbox"><input type="checkbox" name="id[]" value="' + $('<div/>').text(data).html() + '"><span class="dt-checkbox-label"></span></div>';
-			}
-		}],
-		'order': [[1, 'asc']]
-	});
-
-	$('#example-select-all').on('click', function(){
-		var rows = table.rows({ 'search': 'applied' }).nodes();
-		$('input[type="checkbox"]', rows).prop('checked', this.checked);
-	});
-
-	$('.checkbox-datatable tbody').on('change', 'input[type="checkbox"]', function(){
-		if(!this.checked){
-			var el = $('#example-select-all').get(0);
-			if(el && el.checked && ('indeterminate' in el)){
-				el.indeterminate = true;
-			}
-		}
-	});
+    table.buttons().container()
+        .appendTo($('.dataTables_wrapper .col-md-6:eq(0)'));
 });
+
+
+// Civil complaints bulletin board
+$(document).ready(function () {
+    var table = $('.datatable2').DataTable({
+        'scrollCollapse': true,
+        'autoWidth': false,
+        'responsive': true,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "language": {
+            "info": "_START_-_END_ of _TOTAL_ entries",
+            searchPlaceholder: "Search",
+            paginate: {
+                next: '<i class="ion-chevron-right"></i>',
+                previous: '<i class="ion-chevron-left"></i>'
+            }
+        },
+        'order': [1, 'desc']
+    });
+
+    // Add PDF, Print, Copy, and CSV buttons
+    new $.fn.dataTable.Buttons(table, {
+        buttons: [
+            {
+                extend: 'pdfHtml5',
+                text: 'PDF',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'print',
+                text: 'Print',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'copyHtml5',
+                text: 'Copy',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                text: 'CSV',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            }
+        ]
+    });
+
+    table.buttons().container()
+        .appendTo($('.dataTables_wrapper .col-md-6:eq(0)'));
+});
+
+
+
