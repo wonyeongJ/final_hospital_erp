@@ -99,6 +99,11 @@ public class EquipmentController {
 		model.addAttribute("allEquipments", allEquipments);
 		model.addAttribute("categories", categories);
 		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	    UserDetails userDetails = (UserDetails)principal;
+	    MemberVO memberVO = (MemberVO)userDetails;
+	    model.addAttribute("memberVO", memberVO);
+		
 		return "equipment/list";
 		
 	}
@@ -184,7 +189,7 @@ public class EquipmentController {
 	}
 	
 	@GetMapping("historyInsert")  
-	public String equipmenthistoryInsert(EquipmentVO equipmentVO, EquipmentHistoryVO equipmentHistoryVO, HttpServletRequest request, Model model)throws Exception{
+	public String equipmentHistoryInsert(EquipmentVO equipmentVO, EquipmentHistoryVO equipmentHistoryVO, HttpServletRequest request, Model model)throws Exception{
 		
 		equipmentVO = equipmentService.equipmentData(equipmentVO);
 		String sNum = equipmentVO.getEquSnum();
@@ -211,10 +216,39 @@ public class EquipmentController {
 	@PostMapping("historyInsert")  
 	public String equipmenthistoryInsert(EquipmentHistoryVO equipmentHistoryVO, Date reDate)throws Exception{
 		
-		equipmentHistoryVO.setEhRedate(timeSetter.dateTolocalDateTime(reDate));
-		equipmentService.equipmenthistoryInsert(equipmentHistoryVO);
+		// 기존 비품 예약이 있는지 서버단에서 한번 더 검사
+		EquipmentHistoryVO ehCheck = equipmentService.equipmentHistoryCheck(equipmentHistoryVO);
+		if(ehCheck != null) {
+			if(ehCheck.getEhReturn()==0) {
+				equipmentHistoryVO.setEhRedate(timeSetter.dateTolocalDateTime(reDate));
+				equipmentService.equipmenthistoryInsert(equipmentHistoryVO);
+			}else {
+				System.out.println("대여 불가");
+			}
+		}else {
+			equipmentHistoryVO.setEhRedate(timeSetter.dateTolocalDateTime(reDate));
+			equipmentService.equipmenthistoryInsert(equipmentHistoryVO);
+		}
 		
 		return "redirect:./list";
+		
+	}
+	
+	@GetMapping("historyDelete")  
+	public String equipmentHistoryDelete(EquipmentHistoryVO equipmentHistoryVO, MemberVO memberVO)throws Exception{
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	    UserDetails userDetails = (UserDetails)principal;
+	    MemberVO memberVO2 = (MemberVO)userDetails;
+		
+	    int num = Integer.parseInt(memberVO2.getMemCd());
+		equipmentHistoryVO = equipmentService.equipmentHistoryData(equipmentHistoryVO);
+		if(num == equipmentHistoryVO.getMemCd()) {
+			// 비품 대여 내역 논리 삭제
+			equipmentService.historyDelete(equipmentHistoryVO);
+		}
+		
+		return "redirect:list";
 		
 	}
 }

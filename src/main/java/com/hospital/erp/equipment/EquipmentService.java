@@ -83,5 +83,19 @@ public class EquipmentService {
 	public void equipmenthistoryInsert(EquipmentHistoryVO equipmentHistoryVO) {
 		equipmentDAO.equipmenthistoryInsert(equipmentHistoryVO);
 	}
+
+	public void historyDelete(EquipmentHistoryVO equipmentHistoryVO) {
+		equipmentDAO.historyDelete(equipmentHistoryVO);
+	}
+
+	public EquipmentHistoryVO equipmentHistoryData(EquipmentHistoryVO equipmentHistoryVO) {
+		equipmentHistoryVO = equipmentDAO.equipmentHistoryData(equipmentHistoryVO);
+		return equipmentHistoryVO;
+	}
+
+	public EquipmentHistoryVO equipmentHistoryCheck(EquipmentHistoryVO equipmentHistoryVO) {
+		equipmentHistoryVO = equipmentDAO.equipmentHistoryCheck(equipmentHistoryVO);
+		return equipmentHistoryVO;
+	}
 	 
 }

@@ -29,14 +29,14 @@
         <tr>
             <th scope="row">선택한 날짜</th>
             <th>호수</th>
-            <th>예약자</th>
+            <th>예약자!!!</th>
         </tr>
         <tr id="table-top">
             <th scope="col" class="param-date" id="${ldt}">${ldt}</th>
             <th scope="col">${surgeryVO.surNum}</th>
             <th scope="col">${memberVO.memName}</th>
             <input id="surCd" type="hidden" value="${surgeryVO.surCd}">
-            <input id="memCd" type="hidden" value="${memberVO.memCd}"
+            <input id="memCd" type="hidden" value="${memberVO.memCd}">
         </tr>
     </table>
         <br><br><br>
