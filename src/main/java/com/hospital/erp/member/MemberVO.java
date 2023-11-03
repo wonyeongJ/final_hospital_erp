@@ -60,18 +60,21 @@ public class MemberVO implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		if(this.jobName.equals("간호사")) {
-			authorities.add(new SimpleGrantedAuthority("ROLE_NURSE"));
-		}else if(this.jobName.equals("의사")) {
-			authorities.add(new SimpleGrantedAuthority("ROLE_DOCTOR"));
-		}else if(this.jobName.equals("사무직")) {
-			authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		if (this.jobCd != null) {
+			if(this.jobCd == 3) {
+				authorities.add(new SimpleGrantedAuthority("ROLE_DOCTOR"));
+			}else if(this.jobCd == 4) {
+				authorities.add(new SimpleGrantedAuthority("ROLE_NURSE"));
+			}else if(this.jobCd == 5) {
+				authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+			}
+			
+			if(this.posName.equals("병원장")) {
+				authorities.add(new SimpleGrantedAuthority("ROLE_MASTER"));
+			}
+
 		}
-		
-		if(this.posName.equals("병원장")) {
-			authorities.add(new SimpleGrantedAuthority("ROLE_MASTER"));
-		}
-		
+				
 		return authorities;
 	}
 

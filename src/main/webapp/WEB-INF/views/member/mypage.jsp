@@ -143,7 +143,7 @@
 	<!-- js -->
 	
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script src="/js/mypage.js"></script>
+	<script src="/js/member/mypage.js"></script>
 	<script>
 		window.addEventListener('DOMContentLoaded', function () {
 			var image = document.getElementById('image');

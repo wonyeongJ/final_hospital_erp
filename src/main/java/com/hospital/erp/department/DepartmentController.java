@@ -53,5 +53,11 @@ public class DepartmentController {
 		return "department/update";
 	}
 	
+	//조직도 호출 메서드
+	@GetMapping("chart")
+	public String departmentListChart() throws Exception {
+		return "department/chart";
+	}
+	
 	
 }

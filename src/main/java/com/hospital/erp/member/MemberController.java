@@ -104,5 +104,14 @@ public class MemberController {
 			  }
 		  }
 	  }
+	  
+	  @ResponseBody
+	  @GetMapping("memberChart")
+	  public List<MemberVO> memberChart() throws Exception {
+		  List<MemberVO> memberVO = memberService.memberList();
+		  log.info("=============memberChart 실행");
+		  return memberVO;
+	  }
+	  
 	 
 }

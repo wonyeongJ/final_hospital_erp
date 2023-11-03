@@ -51,6 +51,7 @@ public class SecuritySuccessHandler implements AuthenticationSuccessHandler{
             	new DefaultRedirectStrategy().sendRedirect(request, response, "/schedule/personalList");
                 return;
             } else if (authority.getAuthority().equals("ROLE_NURSE")) {
+            	// NURSE 권한이 있는 경우
             	new DefaultRedirectStrategy().sendRedirect(request, response, "/patient/list");
             }
         }
