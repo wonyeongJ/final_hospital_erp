@@ -7,7 +7,7 @@
         <h4 class="text-blue h4">민원게시판</h4>
     </div>
     <div class="pb-20">
-        <table class="datatable table nowrap">
+        <table class="datatable2 table nowrap">
             <thead>
                 <tr>
                     <th>NO</th>

@@ -16,10 +16,11 @@
             <input type="hidden" name="notCd" readonly="readonly"  value="${data.notCd}">
 
             <div class="form-check form-check-inline mb-3">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="notImportant" value="1">
-                <label class="form-check-label" for="inlineCheckbox1">중요공지여부</label>
-                <input type="hidden" name="notImportant" value="0"> <!-- 기본값으로 0을 설정 -->
-            </div>
+			    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="notImportant" value="1" 
+			        ${data.notImportant == 1 ? 'checked' : ''}>
+			    <label class="form-check-label" for="inlineCheckbox1">중요공지여부</label>
+			    <input type="hidden" name="notImportant" value="${data.notImportant}">
+			</div>
             <div class="pull-right">
                 <span class="input-group-text">인사과 : ${data.memName}</span>
             </div>

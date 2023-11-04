@@ -66,6 +66,28 @@
         height: 300
     });
 </script>
+<script>
+    // 폼이 제출될 때 필수 입력을 확인하는 함수
+    function validateForm() {
+        var title = document.getElementById("notTitle").value;
+        var contents = $('.summernote').summernote('code');
+        
+        if (title.trim() === '') {
+            alert("제목을 입력해 주세요.");
+            return false; // 폼 제출을 막음
+        }
+        if (contents.trim() === '') {
+            alert("내용을 입력해 주세요.");
+            return false; // 폼 제출을 막음
+        }
+        
+        return true; // 필수 입력이 모두 완료되면 폼 제출을 허용
+    }
+
+    // 폼 제출 이벤트를 연결
+    document.getElementById("frm").onsubmit = validateForm;
+</script>
+
 
 
 
