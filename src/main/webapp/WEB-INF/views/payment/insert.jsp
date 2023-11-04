@@ -21,7 +21,8 @@ pageEncoding="UTF-8"%>
 	  font-weight:bold;overflow:hidden;padding:10px 5px;word-break:normal;}
 	</style>
 	
-	<form action="insert" method="post" enctype="multipart/form-data">
+	<form action="/payment/insert" method="post" enctype="multipart/form-data">
+		<input class="form-control" type="hidden" name="dfCd" value="${documentFormVO.dfCd}">
 		<div>
 			<input type="radio" id="pRadio1" name="pRadio">
 			<label for="pRadio1">기안->최종결재</label>
@@ -47,7 +48,6 @@ pageEncoding="UTF-8"%>
 				<tr>
 					<td class="tg-baqh-r tg-baqh" colspan="5">
 						<h2>${documentFormVO.dfKind}</h2>
-						<input class="form-control" type="text" name="dfCd">
 				    </td>
 				    
 				    <td class="tg-baqh-l tg-baqh" colspan="4">
@@ -87,87 +87,99 @@ pageEncoding="UTF-8"%>
 			  	<tr>
 				    <td class="tg-baqh">소속</td>
 				    <td class="tg-baqh" colspan="2">
-				    	<input class="form-control" type="text" disabled="">
+				    	<input class="form-control" type="text" value="${memberVO.depName}" disabled="">
 				    </td>
 				    <td class="tg-baqh">직무</td>
 				    <td class="tg-baqh" colspan="2">
-				    	<input class="form-control" type="text" disabled="">
+				    	<input class="form-control" type="text" value="${memberVO.jobCd}" disabled="">
 				    </td>
 				    <td class="tg-baqh">사번</td>
 				    <td class="tg-baqh" colspan="2">
-				    	<input class="form-control" type="text" name="memCd">
+				    	<input class="form-control" type="text" name="memCd" value="${memberVO.memCd}">
 				    </td>
 			  	</tr>
 			  	<tr>
 			    	<td class="tg-baqh">이름</td>
 				    <td class="tg-baqh" colspan="2">
-				    	<input class="form-control" type="text" disabled="">
+				    	<input class="form-control" type="text" value="${memberVO.memName}" disabled="">
 				    </td>
-				    <td class="tg-baqh">내선번호</td>
-				    <td class="tg-baqh" colspan="2">
-				    	<input class="form-control" type="text" disabled="">
+				    <td class="tg-baqh">연락처</td>
+				    <td class="tg-baqh tg-baqh-r" colspan="3">
+				    	<input class="form-control" type="text" value="${memberVO.memPnum}" disabled="">
 				    </td>
-				    <td class="tg-baqh-r tg-baqh"></td>
-				    <td class="tg-baqh-l tg-baqh" colspan="2"></td>
+				    <td class="tg-baqh-r tg-baqh-l tg-baqh"></td>
+				    <td class="tg-baqh-l tg-baqh"></td>
 			  	</tr>
-			  	<tr id="vTab">
-				    <td class="tg-baqh">휴가종류</td>
-				    <td class="tg-baqh" colspan="8">
-				    	<input type="radio" id="vRadio1" name="epVType" value="연차">
-						<label for="vRadio1">연차</label>
-						<input type="radio" id="vRadio2" name="epVType" value="반차">
-						<label for="vRadio2">반차</label>
-						<input type="radio" id="vRadio3" name="epVType" value="병가">
-						<label for="vRadio3">병가</label>
-						<input type="radio" id="vRadio4" name="epVType" value="특별">
-						<label for="vRadio4">특별</label>
-				    </td>
-			  	</tr>
-			  	<tr id="oTab">
-				    <td class="tg-baqh">출타종류</td>
-				    <td class="tg-baqh" colspan="8">
-				    	<input type="radio" id="oRadio1" name="epOType" value="파견">
-						<label for="oRadio1">파견</label>
-						<input type="radio" id="oRadio2" name="epOType" value="출장">
-						<label for="oRadio2">출장</label>
-						<input type="radio" id="oRadio3" name="epOType" value="세미나">
-						<label for="oRadio3">세미나</label>
-						<input type="radio" id="oRadio4" name="epOType" value="교육">
-						<label for="oRadio4">교육</label>
-				    </td>
-			  	</tr>
-			  	<tr id="dTab">
-				    <td class="tg-baqh">
-				    	<label>기간</label>
-				    </td>
-				    <td class="tg-baqh">
-				    	<label>시작날짜</label>
-				    </td>
-				    <td class="tg-baqh" colspan="2">
-				    	<input class="form-control" type="date" name="epSDate">
-				    </td>
-				    <td class="tg-baqh">
-				    	<label>종료날짜</label>
-				    </td>
-				    <td class="tg-baqh" colspan="2">
-				    	<input class="form-control" type="date" name="epEDate">
-				    </td>
-				    <td class="tg-baqh tg-baqh-r">
-				    	<input class="form-control" type="text">
-				    </td>
-				    <td class="tg-text-l tg-baqh-l" colspan="2">일</td>
-				    
-			  	</tr>
-			  	<tr id="pTab">
-				    <td class="tg-baqh">금액</td>
-				    <td class="tg-baqh-r tg-baqh" colspan="3">
-				    	<input class="form-control" type="text" name="epPrice">
-				    </td>
-				    <td class="tg-baqh-l tg-baqh tg-text-l">원</td>
-				    <td class="tg-baqh" colspan="4">
-				    	*금액은 '원'단위로 작성하여 주시기 바랍니다.
-				    </td>
-			  	</tr>
+			  	
+			  	<c:if test="${documentFormVO.dfVTab eq '1'}">
+				  	<tr id="vTab">
+					    <td class="tg-baqh">휴가종류</td>
+					    <td class="tg-baqh" colspan="8">
+					    	<input type="radio" id="vRadio1" name="epVType" value="연차">
+							<label for="vRadio1">연차</label>
+							<input type="radio" id="vRadio2" name="epVType" value="반차">
+							<label for="vRadio2">반차</label>
+							<input type="radio" id="vRadio3" name="epVType" value="병가">
+							<label for="vRadio3">병가</label>
+							<input type="radio" id="vRadio4" name="epVType" value="특별">
+							<label for="vRadio4">특별</label>
+					    </td>
+				  	</tr>
+				</c:if>
+			  	
+			  	<c:if test="${documentFormVO.dfOTab  eq '1'}">
+				  	<tr id="oTab">
+					    <td class="tg-baqh">출타종류</td>
+					    <td class="tg-baqh" colspan="8">
+					    	<input type="radio" id="oRadio1" name="epOType" value="파견">
+							<label for="oRadio1">파견</label>
+							<input type="radio" id="oRadio2" name="epOType" value="출장">
+							<label for="oRadio2">출장</label>
+							<input type="radio" id="oRadio3" name="epOType" value="세미나">
+							<label for="oRadio3">세미나</label>
+							<input type="radio" id="oRadio4" name="epOType" value="교육">
+							<label for="oRadio4">교육</label>
+					    </td>
+				  	</tr>
+				</c:if>
+			  	
+			  	<c:if test="${documentFormVO.dfDTab  eq '1'}">
+				  	<tr id="dTab">
+					    <td class="tg-baqh">
+					    	<label>기간</label>
+					    </td>
+					    <td class="tg-baqh tg-baqh-r">
+					    	<label>시작날짜</label>
+					    </td>
+					    <td class="tg-baqh tg-baqh-l" colspan="2">
+					    	<input class="form-control" type="date" name="epSDate">
+					    </td>
+					    <td class="tg-baqh tg-baqh-r">
+					    	<label>종료날짜</label>
+					    </td>
+					    <td class="tg-baqh tg-baqh-l" colspan="2">
+					    	<input class="form-control" type="date" name="epEDate">
+					    </td>
+					    <td class="tg-baqh tg-baqh-r">
+					    	<input class="form-control" type="text">
+					    </td>
+					    <td class="tg-text-l tg-baqh-l" colspan="2">일</td>
+				
+				  	</tr>
+				</c:if>
+				  	
+				<c:if test="${documentFormVO.dfPTab  eq '1'}">
+				  	<tr id="pTab">
+					    <td class="tg-baqh">금액</td>
+					    <td class="tg-baqh-r tg-baqh" colspan="3">
+					    	<input class="form-control" type="text" name="epPrice">
+					    </td>
+					    <td class="tg-baqh-l tg-baqh tg-text-l">원</td>
+					    <td class="tg-baqh" colspan="4">
+					    	*금액은 '원'단위로 작성하여 주시기 바랍니다.
+					    </td>
+				  	</tr>
+				</c:if>
 
 			  	<c:if test="${not empty documentFormVO.dfIn1Tab}">
 				  	<tr id="i1Tab">
@@ -219,7 +231,7 @@ pageEncoding="UTF-8"%>
 			  	<tr>
 			    	<td class="tg-text-r tg-baqh-r tg-baqh-b tg-baqh-t" colspan="7">성명 : </td>
 			    	<td class="tg-baqh-l tg-baqh-r tg-baqh tg-baqh-b tg-baqh-t" colspan="1">
-			    		<input class="form-control" type="text" disabled="">
+			    		<p>${memberVO.memName}</p>
 			    	</td>
 			    	<td class="tg-baqh-l tg-baqh-b tg-baqh-t tg-baqh" colspan="1">(인)</td>
 			  	</tr>
@@ -230,13 +242,13 @@ pageEncoding="UTF-8"%>
 		</table>
 		<div>
 			<button type="reset" class="btn btn-danger">다시작성</button>
-			<button type="submit" class="btn btn-success">기안상신</button>
+			<button type="submit" class="btn btn-danger" name="epDStatus" value="2">임시저장</button>
+			<button type="submit" class="btn btn-success" name="epDStatus" value="0">기안상신</button>
 		</div>
 	</form>
 
 
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
   	//기안->최종결재
   	$(document).ready(function () {

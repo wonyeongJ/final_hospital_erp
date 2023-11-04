@@ -5,15 +5,15 @@
 <h2>결재문서작성</h2>
 
 <div>
-	<c:forEach items="${list}" var="vo">
-		<input type="button" class="btn btn-success btn-formData" data-dfCd="${vo.dfCd}" id="${vo.dfCd}" value="${vo.dfKind}">
-		<a type="button" href="/payment/insert?dfCd=${vo.dfCd}">${vo.dfKind}</a>
-	</c:forEach>
+	<a type="button" class="btn btn-danger" href="/payment/documentForm/insert">문서양식추가</a>
 </div>
 
 <div>
-	<a type="button" class="btn btn-success" href="/payment/formInsert">문서양식추가</a>
+	<c:forEach items="${list}" var="vo">
+		<input type="button" class="btn btn-success btn-formData" data-dfCd="${vo.dfCd}" id="${vo.dfCd}" value="${vo.dfKind}">
+	</c:forEach>
 </div>
+
 
 <div id="ajaxResult">
 
@@ -23,12 +23,12 @@
 <script>
 $(document).ready(function () {
 		$(".btn-formData").on("click", function () {
-			dfCodeResult=$(this).attr('id')
-	        console.log(dfCodeResult)
-			console.log($(this).attr('id'))
-			console.log($(this).val())
-			console.log(this)
-			console.log($(this))
+			dfCodeResult=$(this).attr('id');
+	        console.log(dfCodeResult);
+			console.log($(this).attr('id'));
+			console.log($(this).val());
+			console.log(this);
+			console.log($(this));
 			$.ajax({
 			    type : 'get', // 타입 (get, post, put 등등)
 			    url : '/payment/insert?dfCd='+dfCodeResult, // 요청할 서버url

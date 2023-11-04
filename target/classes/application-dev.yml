@@ -5,7 +5,6 @@ spring:
     encoding: UTF-8
     basename: messages/message
     use-code-as-default-message: 'true'
-
     
 # view 파일(jsp) 관련 설정
   mvc:
@@ -13,6 +12,8 @@ spring:
       prefix: /WEB-INF/views/
       suffix: .jsp
     log-request-details: 'true'
+    converters:
+      preferred-json-mapper: gson
 # multipart(file) 관련 설정
   servlet:
     multipart:
@@ -52,7 +53,7 @@ logging:
     root: info
     org:
       springframework:
-        web: 
+        web: info
     com:
       zaxxer:
         hikari: 'OFF'

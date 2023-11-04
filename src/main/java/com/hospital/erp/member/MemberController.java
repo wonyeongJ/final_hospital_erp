@@ -3,10 +3,15 @@ package com.hospital.erp.member;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -78,6 +83,34 @@ public class MemberController {
 	  public String memberData() throws Exception {
 		  
 		  return "member/mypage";
+	  }
+	  
+	  // 패스워드 업데이트 요청 메서드
+	  @PostMapping("updatePassword")
+	  public String memberUpdatePassword(@ModelAttribute @Valid PasswordVO passwordVO, BindingResult bindingResult) throws Exception {
+		  
+		  // 비밀번호 정규식패턴이 아닐경우
+		  if(bindingResult.hasErrors()) {
+			  return "member/mypage";
+		  }else {
+			  // newPassword와 newPasswordConfirm 불일치시
+			  if(!passwordVO.getNewPassword().equals(passwordVO.getNewPasswordConfirm())) {
+				  bindingResult.rejectValue("newPasswordConfirm","newPasswordConfirm");
+				  return "member/mypage";
+			  }else{
+				  //패스워드 리셋 수행 메서드 호출
+				  memberService.memberUpdatePassword(passwordVO);
+				  return "redirect:./mypage";
+			  }
+		  }
+	  }
+	  
+	  @ResponseBody
+	  @GetMapping("memberChart")
+	  public List<MemberVO> memberChart() throws Exception {
+		  List<MemberVO> memberVO = memberService.memberList();
+		  log.info("=============memberChart 실행");
+		  return memberVO;
 	  }
 	  
 	 

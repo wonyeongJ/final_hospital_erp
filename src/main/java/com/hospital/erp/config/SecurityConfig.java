@@ -16,6 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 	
+	@Autowired
+	private SecuritySuccessHandler securitySuccessHandler;
 	
 
 	@Bean
@@ -39,19 +41,24 @@ public class SecurityConfig {
 			.csrf()
 			.disable()
 			.authorizeHttpRequests()
-				.antMatchers("/","/member/insert").permitAll()
+				.antMatchers("/","/member/insert","/member/memberChart").permitAll()
+				.antMatchers("/member/**","/department/**").hasRole("ADMIN")
 				.anyRequest().authenticated()
 				.and()
 			//form 관련 설정
 			.formLogin()
 				.loginPage("/") //내장된 로그인폼을 사용하지 않고, 개발자가 만든 폼을 사용
-				.defaultSuccessUrl("/member/list")
+				.successHandler(securitySuccessHandler)
 				.loginProcessingUrl("/")
 				.failureUrl("/")
 				.usernameParameter("memCd")
 				.passwordParameter("memPw")
 				.and()
 			.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/")
+				.invalidateHttpSession(true)
+				.deleteCookies("JSESSIONID")
 				.and()
 			.rememberMe()
 				.tokenValiditySeconds(60)
@@ -68,6 +75,7 @@ public class SecurityConfig {
 		return httpSecurity.build();
 	}
 	
+	//패스워드 암호화 객체
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

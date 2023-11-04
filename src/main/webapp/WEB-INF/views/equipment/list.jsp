@@ -65,6 +65,9 @@
 								<c:when test="${empty list.equipmentHistoryVO.memName}">
 									-
 								</c:when>
+								<c:when test="${list.equipmentHistoryVO.ehReturn eq 0}">
+									-
+								</c:when>
 								<c:otherwise>
 									${list.equipmentHistoryVO.memName}
 								</c:otherwise>
@@ -75,6 +78,14 @@
 								<c:when test="${list.equipmentHistoryVO.ehReturn eq 0}">
 									<span class="badge badge-primary">
 										<a class="history-insert-btn" id="a2" onclick="location.href='../equipment/historyInsert?equCd=${list.equCd}'">대여가능</a>
+									</span>
+								</c:when>
+								<c:when test="${list.equipmentHistoryVO.ehReturn eq 1 && memberVO.memCd eq list.equipmentHistoryVO.memCd}">
+									<span class="badge badge-success">
+										<input type="hidden" value="${list.equipmentHistoryVO.ehCd}">
+										<input type="hidden" value="${memberVO.memCd}">
+										<a class="history-delete-btn" id="a2" href="../equipment/historyDelete?ehCd=${list.equipmentHistoryVO.ehCd}&&memCd=${memberVO.memCd}" onclick='return confirm("해당 비품을 반납 하시겠습니까?");'>반납하기</a>
+										<!-- <a class="history-delete-btn" id="a2" onclick="location.href='../equipment/historyDelete?ehCd=${list.equipmentHistoryVO.ehCd}&&memCd=${memberVO.memCd}'">반납하기</a> -->
 									</span>
 								</c:when>
 								<c:otherwise>

@@ -115,7 +115,7 @@ pageEncoding="UTF-8"%>
 				    <td class="tg-baqh" colspan="2">
 				    	<input class="form-control" type="text" disabled="">
 				    </td>
-				    <td class="tg-baqh">내선번호</td>
+				    <td class="tg-baqh">연락처</td>
 				    <td class="tg-baqh" colspan="2">
 				    	<input class="form-control" type="text" disabled="">
 				    </td>

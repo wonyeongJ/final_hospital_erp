@@ -1,6 +1,7 @@
 package com.hospital.erp.payment;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PaymentVO {
 	
-	private Integer codeCd;
+	private Integer epCd;
 	private String memCd;
 	private Integer dfCd;
 	private String epTitle;
@@ -28,8 +29,17 @@ public class PaymentVO {
 	private String epInput3;
 	private String epReason;
 	private String epDStatus;
-	private Date epFDate;
-	private Date epRDate;
+	private LocalDateTime epFDate;
+	private LocalDateTime epRDate;
+	
+	//JOIN해서 가져오는 DATA
+	private String dfKind;
+	private Integer conStep;
+	private String conPStatus;
+	private String memName;
+	private String conmemName;
+	private String refmemName;
+	
 	
 
 }

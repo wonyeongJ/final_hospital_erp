@@ -25,7 +25,7 @@
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 						<a class="dropdown-item" href="/member/mypage"><i class="dw dw-user1"></i> My Page</a>
-						<a class="dropdown-item" href="/member/logout"><i class="dw dw-logout"></i> Log Out</a>
+						<a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i> Log Out</a>
 					</div>
 				</div>
 			</div>

@@ -29,7 +29,7 @@
         <tr>
             <th scope="row">선택한 날짜</th>
             <th>호수</th>
-            <th>예약자</th>
+            <th>예약자!!!</th>
         </tr>
         <tr id="table-top">
             <th scope="col" class="param-date" id="${ldt}">${ldt}</th>
