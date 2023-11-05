@@ -1,85 +1,75 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import url="/WEB-INF/views/layout/summernote.jsp"></c:import>
+<script src="/vendors/scripts/board/file.js"></script>
+<link rel="stylesheet" href="/vendors/styles/board/updateFile.css">
 
+<div class="container-fluid">
+    <div class="row justify-content-center my-4">
+        <h1 class="col-md-7 text-center">동호회 수정</h1>
+    </div>
 
-		<div class="container-fluid">
-		    <div class="row">
-			    <form class="col-md-12" action="./update" method="post" id="frm" enctype="multipart/form-data">
-			       <div>
-			       		<div class="col-md-7 pull-left">
-			            	<div class="mb-3">
-			                	<h3>동호회 정보</h3>
-			                	<span class="input-group-text">작성자 : 홍길동${member.memName}</span>
-			            	</div>
-			            		<div class="mb-3">
-			                		<label for="not_title" class="form-label">제목</label>
-			                		<div class="input-group">
-			                    		<input type="text" name="not_title" class="form-control" id="not_title" placeholder="제목 입력">
-			                		</div>
-			            		</div>
-			            	
-			            		<div>
-				            		<!-- 게시글 내용 -->
-						    		<div class="mb-3">
-						        		<h3>게시글 내용</h3>
-						        		<textarea name="proContents" class="form-control" id="not_contents" placeholder="내용입니다" rows="7"></textarea>
-						    		</div>
-						    		<div class="mb-3">
-									    <label for="maxParticipants" class="form-label">최대 모집 인원:</label>
-									    <div class="d-flex align-items-center">
-									        <button class="btn btn-outline-secondary" type="button" id="decrease">-</button>
-									        <input type="number" class="form-control" id="maxParticipants" name="maxParticipants" min="2" value="2" style="width: 70px">
-									        <button class="btn btn-outline-secondary" type="button" id="increase">+</button>
-									    </div>
-									</div>
-						    	</div>
-						    </div>
-						    		 <!-- 오른쪽 컬럼 - 모집 인원, 참가자, 더 보기 버튼, 참가하기 버튼 -->
-							        <div class="col-md-5 pull-right square-column">
-						            	<div class="mb-3 square-content">
-						                	<h3>모집 정보</h3>
-						                	<span class="input-group-text pull-right">모집인원: {모집인원수}</span>
-						            	</div>
-						            	<div class="mb-3 square-content">
-						                	<h4>참가자 목록</h4>
-					               		 <!-- 참가자 목록을 스크롤로 보여주는 영역 -->
-					                	<div id="participantList" class="square-scroll">
-					                   		<!-- 참가자 목록을 여기에 동적으로 추가 -->
-					                    	<div>
-					                    		<table>
-						                    		<tr>
-										                <td>김아무개</td>
-										            </tr>
-										            <tr>
-										                <td>김아무개2</td>
-										            </tr>
-										            <tr>
-										                <td>김아무개3</td>
-										            </tr>
-					                    		</table>
-						                    </div>
-						                </div>
-						                	<button class="btn btn-primary" type="button" id="loadMoreParticipants">더 보기</button>
-							            </div>
-							        </div>
-								</div>
-							</div>
-							<div class="mb-3">
-								<button class="my btn btn-primary" type="submit">수정완료</a></button>
-							</div>	
-					</div>
-				</form>
-		    </div>	
-    
+    <div class="row justify-content-center my-4">
+        <form class="col-md-7" action="../update" method="post" id="frm" enctype="multipart/form-data">
+            <input type="hidden" name="clubCd" readonly="readonly" value="${data.clubCd}">
+  
+            <div class="pull-right">
+                <span class="input-group-text">${data.depName} : ${data.memName}</span>
+            </div>
 
+            <div class="mb-3">
+                <label for="clubTitle" class="form-label">제목 (필수)</label>
+                <div class="input-group">
+                    <input type="text" name="clubTitle" class="form-control" id="clubTitle" value="${data.clubTitle}">
+                </div>
+            </div>
+
+            <!-- 썸머노트 에디터를 사용할 textarea -->
+            <div class="mb-3">
+                <label for="clubContents" class="form-label">내용 (필수)</label>
+                <div class="input-group">
+                    <textarea name="clubContents" class="summernote">${data.clubContents}</textarea>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="clubPersonnel" class="form-label">모집 인원 :</label>
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-outline-secondary" type="button" id="decrease">-</button>
+                    <input type="number" class="form-control" id="clubPersonnel" name="clubPersonnel" max="30" value="${data.clubPersonnel}" style="width: 70px">
+                    <button class="btn btn-outline-secondary" type="button" id="increase">+</button>
+                </div>
+                <input type="hidden" id="currentMembers" value="${data.currentMembers}">
+            </div>
+
+            <!-- 파일 -->
+            <div class="mb-3">
+                <button type="button" class="btn btn-primary" id="insert">파일 추가</button>
+            </div>
+            <div id="fileList" class="my-5">
+                <c:forEach items="${data.list}" var="f">
+                    <div class="file-item mb-2">
+                        <span class="alert alert-primary me-2" role="alert" id="${f.bfCd}">
+                            첨부파일: ${f.bfOname}
+                        </span>
+                        <span class="delets" data-delete-num="${f.bfCd}" data-file-name="${f.bfFname}">X</span>
+                    </div>
+                </c:forEach>
+            </div>
+
+            <div class="mb-3">
+                <button class="my btn btn-primary" type="button" id="btn-update">수정완료</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <script>
     // 썸머노트 초기화
     $('.summernote').summernote({
-        height: 150
+        height: 300
     });
-</script>		
-					
+</script>
+<script src="/vendors/scripts/board/ClubUpdate.js"></script>
+

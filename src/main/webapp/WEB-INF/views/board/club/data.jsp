@@ -1,112 +1,72 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%><%@ taglib prefix="c"
-	uri="http://java.sun.com/jsp/jstl/core" %>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="container-fluid">
+<div class="container">
     <div class="row">
-        <!-- 왼쪽 컬럼 - 동호회 정보 -->
-        <div class="col-md-7 pull-left">
-            <div class="mb-3">
-                <h3>동호회 정보</h3>
-                <span class="input-group-text">작성자: ${member.memName}</span>
-            </div>
-            <div class="mb-3">
-                <label for="not_title" class="form-label">제목 (필수)</label>
-                <div class="input-group">
-                    <input type="text" name="not_title" class="form-control" id="not_title" placeholder="제목 입력">
-                </div>
-            </div>
-            <!-- 게시글 내용 -->
-		    <div class="mb-3">
-		        <h3>게시글 내용</h3>
-		        <textarea name="proContents" class="form-control" id="not_contents" placeholder="내용입니다" rows="7"></textarea>
-		    </div>
-           <div class="mb-3">
-			    <button onclick="createCommentInput()">댓글 달기</button>
-			</div>
-			<!-- 댓글 목록 -->
-			<div id="commentList">
-			    <!-- 댓글 목록을 여기에 동적으로 추가 -->
-			</div>
-        </div>
+        <div class="col-md-7">
+            <div class="card mb-4">
+                <div class="card-body" style="display: flex; align-items: flex-start;">
+                    <div style="flex: 1;">
+                        <h1 class="title" style="font-size: 2.0rem; text-align: center;">${data.clubTitle}</h1>
+                        
+                        <!-- 줄 추가: 구분선 -->
+                        <hr>
 
-        <!-- 오른쪽 컬럼 - 모집 인원, 참가자, 더 보기 버튼, 참가하기 버튼 -->
-        <div class="col-md-5 pull-right square-column">
-            <div class="mb-3 square-content">
-                <h3>모집 정보</h3>
-                <span class="input-group-text pull-right">모집인원: {모집인원수}</span>
-            </div>
-            <div class="mb-3 square-content">
-                <h4>참가자 목록</h4>
-                <!-- 참가자 목록을 스크롤로 보여주는 영역 -->
-                <div id="participantList" class="square-scroll">
-                    <!-- 참가자 목록을 여기에 동적으로 추가 -->
-                    <div>
-                    	<table>
-                    		<tr>
-				                <td></td>
-				            </tr>
-                    	</table>
+                        <div class="contents" style="text-align: center; margin-top: 20px">${data.clubContents}</div>
+                        <div>
+                            <c:forEach items="${data.list}" var="f">
+                                <a href="../fileDown?bfCd=${f.bfCd}" class="file-link">
+                                    <li><i class="icon-copy fi-download"></i>${f.bfOname}</li>
+                                </a>
+                            </c:forEach>
+                        </div>
+                    </div>
+                    <div class="author-info" style="margin-left: auto; text-align: right;">
+                        <span class="author-icon">${data.depName} : ${data.memName}</span>
+                        <div class="author-icon">조회수: ${data.clubHit}</div>
                     </div>
                 </div>
-                <button class="btn btn-primary" type="button" id="loadMoreParticipants">더 보기</button>
             </div>
-            <div class="mb-3 square-content">
-                <button class="btn btn-primary pull-right square-button" type="button">참가하기</button>
+            <div style="display: flex; align-items: center;">
+                <textarea rows="3" cols="50" placeholder="댓글을 입력하세요" style="width: 950px; height: 80px;"></textarea>
+                <button id="addComment" class="btn btn-primary" style="height: 80px; width: 65px; font-size: 10px">댓글등록</button>
+            </div>
+            <div id="commentList">
+                <!-- 댓글 리스트가 여기에 동적으로 표시될 것입니다 -->
             </div>
         </div>
-        
-        			<!-- 글수정,삭제는 해당글을 작성한사람과 인사과만 버튼이 보여진다 -->	
-					<!-- <div class="mb-3">
-						<button class="my btn btn-primary" type="button"><a href="./update" style="color: white;">글수정</a></button>
-					</div> -->
-					
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">모집 현황</h4>
+                    <p class="card-text">현재: ${data.currentMembers} / 목표: ${data.clubPersonnel}</p>
+                    <h4 class="card-title">모집 상태</h4>
+                    <p class="card-text">${data.clubStatus == 0 ? '모집 중' : '모집 완료'}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>참가자 목록</strong></li>
+                    <c:forEach items="${data.memberList}" var="m">
+                        <li class="list-group-item">${m.depName} : ${m.memName}</li>
+                    </c:forEach>
+                </ul>
+                <div class="card-body">
+                    <button id="joinClub" class="btn btn-success">참가하기</button>
+                </div>
+                 
+                 	 <c:choose>
+			        
+			        <c:when test="${memCd eq data.memCd}">
+			            <button class="btn btn-primary action-button">
+			                <a href="../update/${data.clubCd}" style="color: white;">글 수정</a>    
+			            </button>
+			            <button class="btn btn-primary action-button" id="btn-delete">
+			           <a href="../delete/${data.clubCd}" style="color: white;"> 글 삭제
+			           </button>
+			        </c:when>
+			        </c:choose>
+                 
+            </div>
+        </div>
     </div>
 </div>
-
-<script>
-var commentInputVisible = false;
-
-function createCommentInput() {
-    if (!commentInputVisible) {
-        // 댓글 입력창 생성
-        var commentInput = document.createElement("input");
-        commentInput.type = "text";
-        commentInput.name = "comment";
-        commentInput.placeholder = "댓글 입력";
-
-        // 댓글 등록 버튼 생성
-        var submitButton = document.createElement("button");
-        submitButton.textContent = "댓글 등록";
-        submitButton.onclick = function() {
-            var commentText = commentInput.value;
-            if (commentText) {
-                addComment(commentText);
-                commentInput.value = '';
-            }
-        };
-
-        // 댓글 입력창과 댓글 등록 버튼을 묶어 주기 위한 div 생성
-        var inputContainer = document.createElement("div");
-        inputContainer.appendChild(commentInput);
-        inputContainer.appendChild(submitButton);
-
-        // 댓글 입력창을 댓글 리스트 위에 추가
-        var commentList = document.getElementById("commentList");
-        commentList.insertBefore(inputContainer, commentList.firstChild);
-
-        // 댓글 입력 버튼 숨김
-        var commentButton = document.querySelector('button');
-        commentButton.style.display = 'none';
-
-        // 상태 업데이트
-        commentInputVisible = true;
-    }
-}
-
-function addComment(commentText) {
-    // 여기에서 댓글을 추가하고 목록에 표시하는 로직을 구현합니다.
-}
-</script>
-
-	

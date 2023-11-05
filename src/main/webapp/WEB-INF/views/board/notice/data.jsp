@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <link rel="stylesheet" href="/vendors/styles/board/board.css">
+
     	 	
  	<div class="containerBoard">
         <div class="author-info">
@@ -12,7 +13,9 @@
         <div class="contents">${data.notContents}</div>
         <div>
             <c:forEach items="${data.list}" var="f">
-                <a href="../fileDown?bfCd=${f.bfCd}" class="file-link"><i class="icon-copy fi-download"></i>${f.bfOname}</a>
+                <a href="../fileDown?bfCd=${f.bfCd}" class="file-link">
+                	<li><i class="icon-copy fi-download"></i>${f.bfOname}</li>
+                </a>
             </c:forEach>
         </div>
         <div class="action-buttons">
@@ -25,27 +28,6 @@
     </c:choose>
         </div>
     </div>
-
-    <script>
-        function confirmDelete(notCd) {
-            if (confirm("삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?")) {
-                $.ajax({
-                    type: "POST",
-                    url: "/board/notice/delete/" + notCd,
-                    data: { notCd: notCd },
-                    success: function (response) {
-                        if (response === "success") {
-                            alert("삭제가 완료되었습니다.");
-                            window.location.href = "/board/notice/list";
-                        } else {
-                            alert("삭제에 실패했습니다.");
-                        }
-                    },
-                    error: function () {
-                        alert("서버 오류로 삭제에 실패했습니다.");
-                    }
-                });
-            }
-        }
-    </script>
+<script src="/vendors/scripts/board/NoticeDelete.js"></script>
+    
 

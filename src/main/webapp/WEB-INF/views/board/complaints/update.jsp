@@ -17,10 +17,12 @@
             <input type="hidden" name="compCd" readonly="readonly"  value="${board.compCd}">
 
             <div class="form-check form-check-inline mb-3">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="compSecret" value="1">
-                <label class="form-check-label" for="inlineCheckbox1">비밀글 (수정시 꼭 확인바람)</label>
-                <input type="hidden" name="compSecret" value="0"> <!-- 기본값으로 0을 설정 -->
-            </div>
+			    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="compSecret"
+			        value="1" ${board.compSecret == 1 ? 'checked' : ''} 
+			        onclick="updateHiddenInput(this)">
+			    <label class="form-check-label" for="inlineCheckbox1">비밀글</label>
+			    <input type="hidden" id="compSecretHidden" name="compSecret" value="${board.compSecret}">
+			</div>
             <div class="pull-right">
                 <span class="input-group-text">${board.depName} : ${board.memName}</span>
             </div>
@@ -79,3 +81,5 @@
         height: 300
     });
 </script>
+
+<script src="/vendors/scripts/board/ComplaintsUpdate.js"></script>

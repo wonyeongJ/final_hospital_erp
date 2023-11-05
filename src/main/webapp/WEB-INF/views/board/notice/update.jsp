@@ -70,13 +70,4 @@
         height: 300
     });
 </script>
-<script>
-function updateHiddenInput(checkbox) {
-    const hiddenInput = document.getElementById('notImportantHidden');
-    if (checkbox.checked) {
-        hiddenInput.value = 1;
-    } else {
-        hiddenInput.value = 0;
-    }
-}
-</script>
+<script src="/vendors/scripts/board/NoticeUpdate.js"></script>

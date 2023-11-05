@@ -32,6 +32,74 @@
 
 </select>
 
+<select id="clubData" parameterType="int" resultMap="clubResultMap">
+		SELECT
+		    C.*,
+		    CF.*,
+		    M.MEM_NAME,
+		    M.DEP_CD,
+		    D.DEP_NAME,
+		    (
+		        SELECT COUNT(CM.CM_CD)
+		        FROM CLUB_MEMBER CM
+		        WHERE C.CLUB_CD = CM.CLUB_CD
+		    ) AS CURRENT_MEMBERS
+		FROM
+		    CLUB C
+		LEFT JOIN
+		    CLUB_MEMBER CM ON C.CLUB_CD = CM.CLUB_CD
+		LEFT OUTER JOIN 
+		    BOARD_FILE CF ON C.CLUB_CD = CF.BF_FK
+		LEFT JOIN
+		    MEMBER M ON C.MEM_CD = M.MEM_CD
+		LEFT JOIN
+		    DEPARTMENT D ON M.DEP_CD = D.DEP_CD
+		WHERE
+		    C.CLUB_CD = #{clubCd};
+</select>
+
+<select id="clubMemberList" parameterType="clubMemberVO">
+		SELECT 
+		    M.MEM_NAME,
+		    M.DEP_CD,
+		    D.DEP_NAME
+		FROM 
+		    MEMBER M
+		INNER JOIN 
+		    CLUB_MEMBER CM 
+		ON 
+		    M.MEM_CD = CM.MEM_CD
+		INNER JOIN
+		    DEPARTMENT D
+		ON
+		    M.DEP_CD = D.DEP_CD
+		WHERE CM.CLUB_CD = #{clubCd};
+</select>
+
+<resultMap id="clubResultMap" type="ClubVO">
+   <id property="clubCd" column="CLUB_CD" />
+    <result property="memCd" column="MEM_CD" />
+    <result property="clubTitle" column="CLUB_TITLE" />
+    <result property="clubContents" column="CLUB_CONTENTS" />
+    <result property="clubPersonnel" column="CLUB_PERSONNEL" />
+    <result property="clubStatus" column="CLUB_STATUS" />
+    <result property="clubHit" column="CLUB_HIT" />
+    <result property="clubRdate" column="CLUB_RDATE" />
+    <result property="memName" column="MEM_NAME" />
+    <result property="depCd" column="DEP_CD" />
+    <result property="depName" column="DEP_NAME" />
+    <result property="currentMembers" column="CURRENT_MEMBERS" />
+    <collection property="list" ofType="ClubFileVO" javaType="list">
+        <id column="bfCd" property="bfCd" />
+        <result column="codeCd" property="codeCd" />
+        <result column="bfFk" property="bfFk" />
+        <result column="bfOname" property="bfOname" />
+        <result column="bfFname" property="bfFname" />
+        <result column="bfPath" property="bfPath" />
+        <result column="bfExtension" property="bfExtension" />
+        <result column="bfRdata" property="bfRdata" />
+    </collection>
+</resultMap>
 
 <!-- 동호회 등록 -->
 <insert id="clubInsert" parameterType="ClubVO" useGeneratedKeys="true" keyProperty="clubCd">
@@ -61,20 +129,24 @@
     		LAST_INSERT_ID()
 </select>
 
-<!-- CLUB_MEMBER 테이블에 등록자 추가 -->
-<insert id="clubMemberInsert" parameterType="ClubMemberVO">
-	    INSERT 
-	    	INTO 
-	    CLUB_MEMBER (
-	    	MEM_CD, 
-	    	CLUB_CD, 
-	    	CM_RDATE
-	    	)
-	    VALUES (
-	    	#{memCd}, 
-	    	#{clubCd}, 
-	    	NOW())
-</insert>
+<update id="clubUpdate" parameterType="ClubVO">
+		UPDATE 
+  			CLUB
+	    SET
+	        CLUB_TITLE = #{clubTitle},
+	        CLUB_CONTENTS = #{clubContents},
+	        CLUB_PERSONNEL = #{clubPersonnel}
+	    WHERE CLUB_CD = #{clubCd}
+</update>
+<update id="clubStatusUpdate" parameterType="ClubVO">
+		UPDATE
+			CLUB
+		SET
+			CLUB_STATUS = #{clubStatus}
+		WHERE
+			CLUB_CD = #{clubCD}
+</update>
+
 
 <!-- 파일 업로드 쿼리문 -->
 <insert id="fileInsert" parameterType="ClubFileVO">

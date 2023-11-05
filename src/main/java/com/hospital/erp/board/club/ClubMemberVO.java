@@ -21,6 +21,11 @@ public class ClubMemberVO {
 	// 모임 생성날짜
 	private Date cmRdate;
 	
+	private String memName;
+	
+	private int depCd;
+	private String depName;
+	
 	
 
 }
