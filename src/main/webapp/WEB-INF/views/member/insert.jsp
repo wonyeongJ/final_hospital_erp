@@ -2,10 +2,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert</title>
-</head>
 <body>
 	<h1>직원등록</h1>
 	<br>
@@ -84,7 +80,7 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">주소</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="memAddress">
+				<input class="form-control" id="address_kakao" type="text" name="memAddress" readonly>
 			</div>
 		</div>
 		<div style="display: flex; justify-content: flex-end;">
@@ -92,4 +88,17 @@
 		</div>
 	</form>
 </body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+window.onload = function(){
+    document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+        //카카오 지도 발생
+        new daum.Postcode({
+            oncomplete: function(data) { //선택시 입력값 세팅
+                document.getElementById("address_kakao").value = data.address; // 주소 넣기
+            }
+        }).open();
+    });
+}
+</script>
 </html>

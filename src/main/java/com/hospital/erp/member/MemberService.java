@@ -142,5 +142,9 @@ public class MemberService implements UserDetailsService {
 		memberVO.setMemPw(passwordEncoder.encode(memberVO.getMemPw()));
 		return memberDAO.memberUpdatePassword(memberVO);
 	}
-	 
+	
+	// chartList
+	public List<MemberVO> memberListChart() throws Exception {
+		return memberDAO.memberListChart();
+	}
 }

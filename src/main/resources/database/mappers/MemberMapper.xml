@@ -8,18 +8,24 @@
 		SELECT 
 			M.MEM_CD,
 			M.MEM_NAME,
+			M.POS_CD,
+			M.DEP_CD,
+			M.JOB_CD,
 			D.DEP_NAME,
-			C.CODE_NAME,
+			C.CODE_NAME AS JOB_NAME,
 			M.MEM_HDATE,
-			M.MEM_ANNUAL
+			M.MEM_ANNUAL,
+			C2.CODE_NAME AS POS_NAME
 		FROM 
 			MEMBER AS M
-				LEFT OUTER JOIN CODE AS C
+				JOIN CODE AS C
 					ON M.JOB_CD = C.CODE_CD
 				LEFT OUTER JOIN COMMUTE AS COM
 					ON M.MEM_CD = COM.MEM_CD
-				LEFT OUTER JOIN	DEPARTMENT D
+				JOIN DEPARTMENT D
 					ON M.DEP_CD = D.DEP_CD
+				JOIN CODE AS C2
+					ON M.POS_CD = C2.CODE_CD
 		ORDER BY M.MEM_CD
 	</select> 	
   	
@@ -30,7 +36,7 @@
 		FROM
 			MEMBER
 		WHERE
-			MEM_CD = #{memCd}  	
+			MEM_CD = #{memCd}
   	</select>
   	
   	<!-- Member 테이블 Insert 전 사번 입력을위해 가장 마지막 사번 조회해오는 쿼리문 -->
@@ -42,8 +48,8 @@
 			MEMBER
 		WHERE 
 			JOB_CD = #{jobCd} AND
-			MEM_HDATE >= #{memHdate} AND 
-			MEM_HDATE <= #{memRdate}
+			(MEM_HDATE >= #{memHdate} AND 
+			MEM_HDATE <= #{memRdate})
 		GROUP BY 
 			JOB_CD
 		]]>
@@ -86,13 +92,13 @@
 			C3.CODE_NAME AS CODE_NAME, 
 			D.DEP_NAME 
 		FROM MEMBER AS M 
-			LEFT OUTER JOIN CODE AS C
+			JOIN CODE AS C
 				ON M.JOB_CD = C.CODE_CD 
-			LEFT OUTER JOIN CODE C2
+			JOIN CODE C2
 				ON M.POS_CD = C2.CODE_CD 
-			LEFT OUTER JOIN CODE C3 
+			JOIN CODE C3 
 				ON M.CODE_CD = C3.CODE_CD 
-			LEFT OUTER JOIN DEPARTMENT D
+			JOIN DEPARTMENT D
 				ON M.DEP_CD = D.DEP_CD 
 		WHERE M.MEM_CD = #{value}
   	</select>
@@ -105,5 +111,32 @@
   		WHERE
   			MEM_CD = #{memCd}
   	</update>
+  	
+  	
+  	<select id="memberListChart" resultType="MemberVO">
+  		SELECT 
+			M.MEM_CD,
+			M.MEM_NAME,
+			M.POS_CD,
+			M.DEP_CD,
+			M.JOB_CD,
+			D.DEP_NAME,
+			C.CODE_NAME AS JOB_NAME,
+			M.MEM_HDATE,
+			M.MEM_ANNUAL,
+			C2.CODE_NAME AS POS_NAME
+		FROM 
+			MEMBER AS M
+				JOIN CODE AS C
+					ON M.JOB_CD = C.CODE_CD
+				LEFT OUTER JOIN COMMUTE AS COM
+					ON M.MEM_CD = COM.MEM_CD
+				JOIN DEPARTMENT D
+					ON M.DEP_CD = D.DEP_CD
+				JOIN CODE AS C2
+					ON M.POS_CD = C2.CODE_CD
+		WHERE NOT M.DEP_CD = 1 
+		ORDER BY M.MEM_CD
+  	</select>
   	
 </mapper>

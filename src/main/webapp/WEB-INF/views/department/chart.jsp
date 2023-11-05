@@ -21,5 +21,5 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/3.8.0/js/jquery.orgchart.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/3.8.0/js/jquery.orgchart.min.js.map"></script>
 	<script type="text/javascript" src="/js/department/chart.js"></script>
-  
+	
 </body>
