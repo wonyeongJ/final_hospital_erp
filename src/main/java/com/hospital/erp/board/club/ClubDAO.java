@@ -50,5 +50,14 @@ public interface ClubDAO {
 	// 사내동호회 조회수 업데이트
 	public int clubHitCount(int clubCd)throws Exception;
 	
+	// 사내동호회 삭제
+	public int clubDelete(int clubCd) throws Exception;
+	
+	// 가입여부 확인
+	public int clubMemberCk(ClubMemberVO clubMemberVO)throws Exception;
+	
+	// 모임 탈퇴
+	public int clubMemberDrop(ClubMemberVO clubMemberVO)throws Exception;
+	
 
 }

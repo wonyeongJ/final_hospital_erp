@@ -58,7 +58,7 @@
 		    C.CLUB_CD = #{clubCd};
 </select>
 
-<select id="clubMemberList" parameterType="clubMemberVO">
+<select id="clubMemberList" parameterType="ClubMemberVO">
 		SELECT 
 		    M.MEM_NAME,
 		    M.DEP_CD,
@@ -75,6 +75,29 @@
 		    M.DEP_CD = D.DEP_CD
 		WHERE CM.CLUB_CD = #{clubCd};
 </select>
+
+<select id="clubMemberCk" parameterType="ClubMemberVO" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM 
+			CLUB_MEMBER
+		WHERE 
+			CLUB_CD = #{clubCd} 
+		AND 
+			MEM_CD = #{memCd}
+		
+</select>
+
+<delete id="clubMemberDrop" parameterType="ClubMemberVO">
+		DELETE 
+		FROM 
+			CLUB_MEMBER
+   		WHERE 
+   			CLUB_CD = #{clubCd}
+    	AND 
+    		MEM_CD = #{memCd}
+
+</delete>
 
 <resultMap id="clubResultMap" type="ClubVO">
    <id property="clubCd" column="CLUB_CD" />
@@ -123,11 +146,20 @@
 	    	0, 
 	    	NOW())
 </insert>
-<!-- 방금 추가한 동호회의 CLUB_CD 가져오기 -->
-<select id="lastInsertedClubCd" resultType="int">
-    	SELECT 
-    		LAST_INSERT_ID()
-</select>
+<!-- CLUB_MEMBER 테이블에 등록자 추가 -->
+<insert id="clubMemberInsert" parameterType="ClubMemberVO">
+	    INSERT 
+	    	INTO 
+	    CLUB_MEMBER (
+	    	MEM_CD, 
+	    	CLUB_CD, 
+	    	CM_RDATE
+	    	)
+	    VALUES (
+	    	#{memCd}, 
+	    	#{clubCd}, 
+	    	NOW())
+</insert>
 
 <update id="clubUpdate" parameterType="ClubVO">
 		UPDATE 
@@ -181,6 +213,8 @@
   			BOARD_FILE
   		WHERE 
   			BF_FK=#{clubCd}
+  		AND 
+  			CODE_CD = 11	
 </select>
 
 
@@ -202,6 +236,7 @@
 		BOARD_FILE
 		WHERE
 			BF_CD = #{bfCd}
+			
 </delete>
 
 <!-- 사내모임 조회수 -->
@@ -214,6 +249,14 @@
 			CLUB_CD = #{clubCd}
 </update>
 
+
+<delete id="clubDelete" parameterType="int">
+    	DELETE
+    		FROM
+    	CLUB
+    		WHERE 
+    	CLUB_CD = #{clubCd}
+</delete>
 
 
 </mapper>

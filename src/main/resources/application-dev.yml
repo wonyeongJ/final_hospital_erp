@@ -27,8 +27,9 @@ app:
     nodeValue: C:/GDJ68/upload/
     mapping: file:///C:/GDJ68/upload/
   board:
-    qna: qna
     notice: notice
+    complaints: complaints
+    club: club
   url:
     path: /files/**
     

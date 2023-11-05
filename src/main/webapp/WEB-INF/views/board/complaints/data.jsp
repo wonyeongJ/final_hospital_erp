@@ -9,8 +9,10 @@
             <span class="author-icon">${data.depName} : ${data.memName}</span>
             <div class="author-icon">조치상태 : ${data.actionTypeName}</div>
         </div>
-        <h1 class="title" style="font-size: 2.0rem;">${data.compTitle}</h1>
-        <div class="contents">${data.compContents}</div>
+        <h1 class="title" style="font-size: 2.0rem; margin-top: 20px;">${data.compTitle}</h1>
+         <!-- 줄 추가: 구분선 -->
+                        <hr>
+        <div class="contents" style="font-size: 1.2rem;">${data.compContents}</div>
         <div>
             <c:forEach items="${data.list}" var="f">
                 <a href="../fileDown?bfCd=${f.bfCd}" class="file-link">

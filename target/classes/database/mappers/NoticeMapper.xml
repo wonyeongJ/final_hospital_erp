@@ -133,6 +133,8 @@
   			BOARD_FILE
   		WHERE 
   			BF_FK=#{notCd}
+  		AND 
+  			CODE_CD = 9	
 </select>
 
 <!-- 공지사항 Update -->

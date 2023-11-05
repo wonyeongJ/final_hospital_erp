@@ -30,8 +30,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FileManager extends AbstractView {
 	 	
+		// 맥용 저장경로
 	    @Value("${app2.upload.nodeValue2}")
 	    private String uploadPath;
+	    
+	    // 윈도우용 저장경로
+//	    @Value("${app.upload.nodeValue}")
+//	    privte Strinf uploadPath;
 	    
 	    @Autowired
 	    private NoticeDAO noticeDAO;

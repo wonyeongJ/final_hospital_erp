@@ -59,7 +59,7 @@
             </div>
 
             <div class="mb-3">
-                <button class="my btn btn-primary" type="button" id="btn-update">수정완료</button>
+                <button class="my btn btn-primary" type="submit" id="btn-update">수정완료</button>
             </div>
         </form>
     </div>

@@ -133,6 +133,8 @@
   			BOARD_FILE
   		WHERE 
   			BF_FK=#{compCd}
+  		AND 
+  			CODE_CD = 10		
 </select>
 
 <!-- COMPLAINTS 테이블의 complaintsResultMap -->

@@ -28,6 +28,10 @@ public class NoticeService {
 	@Value("${app2.upload.nodeValue2}")
 	private String uploadPath;
 	
+	 // 윈도우용 저장경로
+//    @Value("${app.upload.nodeValue}")
+//    privte Strinf uploadPath;
+	
 	@Value("${app2.board.notice}")
 	private String boardName;
 

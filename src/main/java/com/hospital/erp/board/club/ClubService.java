@@ -31,6 +31,10 @@ public class ClubService {
 	@Value("${app2.upload.nodeValue2}")
 	private String uploadPath;
 	
+	 // 윈도우용 저장경로
+//    @Value("${app.upload.nodeValue}")
+//    privte Strinf uploadPath;
+	
 	@Value("${app2.board.club}")
 	private String boardName;
 	
@@ -63,7 +67,7 @@ public class ClubService {
         for (MultipartFile file : files) {
             if (!file.isEmpty()) {
                 ClubFileVO clubFileVO = new ClubFileVO();
-                clubFileVO.setCodeCd(11); // 해당 공지사항 카테고리 코드
+                clubFileVO.setCodeCd(11); // 해당 게시판 카테고리 코드
                 clubFileVO.setBfFk(clubCd); // 사내동호회 등록 후 생성된 PK
                 clubFileVO.setBfOname(file.getOriginalFilename());
                 String FileName = fileManger.save(this.uploadPath+this.boardName, file);
@@ -141,22 +145,41 @@ public class ClubService {
 	
 
 	public int clubMemberInsert(ClubMemberVO clubMemberVO)throws Exception{
-		return 0;
+		int result = clubDAO.clubMemberInsert(clubMemberVO);
+		
+		return result;
+	}
+	// 가입여부 확인
+	public boolean clubMemberCk(int clubCd, String memCd) throws Exception {
+	     ClubMemberVO clubMemberVO = new ClubMemberVO();
+	     clubMemberVO.setClubCd(clubCd);
+	     clubMemberVO.setMemCd(memCd);
+
+	     int count = clubDAO.clubMemberCk(clubMemberVO);
+	     return count > 0;
 	}
 	
+	// 모임 탈퇴
+	public int clubMemberDrop(ClubMemberVO clubMemberVO)throws Exception{
+		
+		return clubDAO.clubMemberDrop(clubMemberVO);
+		
+	}
+		
+	
 	// 파일 다운로드
-			public FileVO fileDown(FileVO fileVO) throws Exception{
-				return clubDAO.fileDown(fileVO);
-			}
+	public FileVO fileDown(FileVO fileVO) throws Exception{
+		return clubDAO.fileDown(fileVO);
+	}
 
 			
 	//fileDelete
-		public int fileDelete(int bfCd)throws Exception{
+	public int fileDelete(int bfCd)throws Exception{
 			
-				int result = clubDAO.fileDelete(bfCd);
+		int result = clubDAO.fileDelete(bfCd);
 		        
-				return result;
-		}
+		return result;
+	}
 				
 	
 	// 썸머노트 사진 등록
@@ -181,6 +204,10 @@ public class ClubService {
 			return clubDAO.clubHitCount(clubCd);
 		}
 		
+	//사내동호회 삭제 
+	public int clubDelete(int clubCd) throws Exception{
+		return clubDAO.clubDelete(clubCd);
+	}	
 
 
 }
