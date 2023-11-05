@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.hospital.erp.board.CommentVO;
 import com.hospital.erp.board.notice.NoticeFileVO;
 import com.hospital.erp.board.notice.NoticeVO;
 import com.hospital.erp.file.FileVO;
@@ -58,6 +59,19 @@ public interface ClubDAO {
 	
 	// 모임 탈퇴
 	public int clubMemberDrop(ClubMemberVO clubMemberVO)throws Exception;
+	
+	
+	
+	// 댓글
+	
+	// 댓글 리스트
+	public List<CommentVO> commentList(int clubCd)throws Exception;
+	
+	// 댓글 부모글 조회
+	public CommentVO commentData(CommentVO commentVO)throws Exception;
+	
+	// 댓글 등록
+	public int commentInsert(CommentVO commentVO)throws Exception;
 	
 
 }

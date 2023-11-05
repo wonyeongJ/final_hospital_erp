@@ -32,6 +32,8 @@
 
 </select>
 
+
+<!-- 사내동호회 상세조회 -->
 <select id="clubData" parameterType="int" resultMap="clubResultMap">
 		SELECT
 		    C.*,
@@ -58,6 +60,8 @@
 		    C.CLUB_CD = #{clubCd};
 </select>
 
+
+<!-- 해당동호회의 멤버 리스트  -->
 <select id="clubMemberList" parameterType="ClubMemberVO">
 		SELECT 
 		    M.MEM_NAME,
@@ -76,6 +80,8 @@
 		WHERE CM.CLUB_CD = #{clubCd};
 </select>
 
+
+<!-- 해당 동호회 참여를 위한 가입되었는지 여부를 판단하는 메서드 -->
 <select id="clubMemberCk" parameterType="ClubMemberVO" resultType="int">
 		SELECT 
 			COUNT(*) 
@@ -88,6 +94,7 @@
 		
 </select>
 
+<!-- 탈퇴 메서드 -->
 <delete id="clubMemberDrop" parameterType="ClubMemberVO">
 		DELETE 
 		FROM 
@@ -161,6 +168,7 @@
 	    	NOW())
 </insert>
 
+<!--  사내동호회 업데이트  -->
 <update id="clubUpdate" parameterType="ClubVO">
 		UPDATE 
   			CLUB
@@ -170,13 +178,15 @@
 	        CLUB_PERSONNEL = #{clubPersonnel}
 	    WHERE CLUB_CD = #{clubCd}
 </update>
+
+<!-- 동호회 모집상태 업데이트 -->
 <update id="clubStatusUpdate" parameterType="ClubVO">
 		UPDATE
 			CLUB
 		SET
 			CLUB_STATUS = #{clubStatus}
 		WHERE
-			CLUB_CD = #{clubCD}
+			CLUB_CD = #{clubCd}
 </update>
 
 
@@ -249,7 +259,7 @@
 			CLUB_CD = #{clubCd}
 </update>
 
-
+<!-- 동호회 삭제 메서드 -->
 <delete id="clubDelete" parameterType="int">
     	DELETE
     		FROM
@@ -257,6 +267,74 @@
     		WHERE 
     	CLUB_CD = #{clubCd}
 </delete>
+
+
+
+
+<!-- 댓글 -->
+
+<!-- 댓글 리스트 -->
+<select id="commentList" parameterType="CommentVO">
+    SELECT
+        C.COMM_CD,
+        C.CLUB_CD,
+        C.MEM_CD,
+        C.COMM_CONTENTS,
+        C.COMM_RDATE,
+        M.MEM_NAME,
+        M.DEP_CD,
+        D.DEP_NAME
+    FROM
+        COMMENT C
+    INNER JOIN
+        MEMBER M ON C.MEM_CD = M.MEM_CD
+    LEFT JOIN
+        DEPARTMENT D ON M.DEP_CD = D.DEP_CD
+    WHERE
+        C.CLUB_CD = #{clubCd}
+    ORDER BY
+        C.COMM_RDATE ASC;
+</select>
+
+<!-- 댓글 상세정보 조회 -->
+<select id="commentData" parameterType="int" resultType="CommentVO">
+    SELECT
+        C.COMM_CD,
+        C.CLUB_CD,
+        C.MEM_CD,
+        C.COMM_CONTENTS,
+        C.COMM_RDATE,
+        M.MEM_NAME,
+        M.DEP_CD,
+        D.DEP_NAME
+    FROM
+        COMMENT C
+    INNER JOIN
+        MEMBER M ON C.MEM_CD = M.MEM_CD
+    LEFT JOIN
+        DEPARTMENT D ON M.DEP_CD = D.DEP_CD
+    WHERE
+        C.COMM_CD = #{commCd}
+</select>
+
+<!-- 댓글 등록 -->
+<insert id="commentInsert" parameterType="CommentVO">
+		INSERT 
+			INTO 
+		COMMENT (
+			CLUB_CD, 
+			MEM_CD, 
+			COMM_CONTENTS,
+			COMM_RDATE
+			)
+    	VALUES (
+    		#{clubCd}, 
+    		#{memCd}, 
+    		#{commContents},
+    		NOW()
+    		)
+</insert>
+
 
 
 </mapper>

@@ -1,6 +1,8 @@
 package com.hospital.erp.board.club;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hospital.erp.board.CommentVO;
 import com.hospital.erp.board.complaints.ComplaintsFileVO;
 import com.hospital.erp.board.complaints.ComplaintsVO;
 import com.hospital.erp.board.notice.NoticeService;
@@ -140,6 +143,11 @@ public class ClubController {
         // 사내동호회에 속하는 파일 리스트를 가져옵니다.
 		List<ClubFileVO> fileList = clubService.fileData(clubCd);
 		clubVO.setList(fileList);
+		
+		CommentVO commentVO = new CommentVO();
+		List<CommentVO> commentList = clubService.commentList(clubCd);
+		
+		model.addAttribute("commentList",commentList);
 
 		// 로그로 데이터 확인 (옵션)
 		log.info("List 데이터: {}", clubVO.getList());
@@ -240,6 +248,59 @@ public class ClubController {
 		
 		return "commons/ajaxResult";
 	}
+	
+	
+	
+	//댓글
+	
+//	// 댓글 리스트
+//	@GetMapping("commentList")
+//	public String commentList(CommentVO commentVO,Model model) throws Exception {
+//		int clubCd = commentVO.getClubCd();
+//		List<CommentVO> commentList = clubService.commentList(commentVO);
+//		model.addAttribute("commentList",commentList);
+//		
+//		System.out.println("댓글 목록: " + commentList);
+//		// 댓글 목록 데이터를 모델에 담고, 뷰 페이지로 이동
+//	    return "board/club/data"; // 댓글 목록 데이터가 포함된 뷰 페이지로 리턴
+//	}
 
-			
+	// 댓글 등록
+	@PostMapping("commentInsert")
+	@ResponseBody
+	public Map<String, Object> commentInsert(@RequestParam("clubCd") int clubCd, CommentVO commentVO, @AuthenticationPrincipal MemberVO memberVO) throws Exception {
+	    Map<String, Object> response = new HashMap<>();
+	    
+	    commentVO.setMemCd(memberVO.getMemCd());
+	    commentVO.setDepCd(memberVO.getDepCd());
+	    commentVO.setMemName(memberVO.getMemName());
+	    commentVO.setDepName(memberVO.getDepName());
+	    commentVO.setClubCd(clubCd);
+	    
+	    int result = clubService.commentInsert(commentVO);
+	    
+	    response.put("result", result);
+	    
+	    return response;
+	}
+	
+	// 사내동호회 모집상태 업데이트
+	@PostMapping("/clubStatusUpdate")
+    public ResponseEntity<String> clubStatusUpdate(@RequestParam("clubCd") int clubCd, @RequestParam("clubStatus") int clubStatus) {
+        try {
+            ClubVO clubVO = new ClubVO();
+            clubVO.setClubCd(clubCd);
+            clubVO.setClubStatus(clubStatus);
+
+            int result = clubService.clubStatusUpdate(clubVO);
+
+            if (result > 0) {
+                return new ResponseEntity<>("모집 상태가 업데이트되었습니다.", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("모집 상태 업데이트에 실패했습니다.", HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("오류 발생: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

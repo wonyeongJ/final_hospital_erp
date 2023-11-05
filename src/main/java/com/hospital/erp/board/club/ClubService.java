@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hospital.erp.board.CommentVO;
 import com.hospital.erp.board.complaints.ComplaintsFileVO;
 import com.hospital.erp.board.complaints.ComplaintsVO;
 import com.hospital.erp.board.notice.NoticeDAO;
@@ -209,5 +210,20 @@ public class ClubService {
 		return clubDAO.clubDelete(clubCd);
 	}	
 
+	
+	
+	// 댓글
+	
+	// 댓글 리스트 조회
+	public List<CommentVO> commentList(int clubCd) throws Exception {
+	    return clubDAO.commentList(clubCd);
+	}
+	
+	
+	
+	// 댓글 등록
+	public int commentInsert(CommentVO commentVO) throws Exception {
+	    return clubDAO.commentInsert(commentVO);
+	}
 
 }
