@@ -15,12 +15,14 @@
         <form class="col-md-7" action="../update" method="post" id="frm" enctype="multipart/form-data">
             <input type="hidden" name="notCd" readonly="readonly"  value="${data.notCd}">
 
-            <div class="form-check form-check-inline mb-3">
-			    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="notImportant" value="1" 
-			        ${data.notImportant == 1 ? 'checked' : ''}>
+           <div class="form-check form-check-inline mb-3">
+			    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="notImportant"
+			        value="1" ${data.notImportant == 1 ? 'checked' : ''} 
+			        onclick="updateHiddenInput(this)">
 			    <label class="form-check-label" for="inlineCheckbox1">중요공지여부</label>
-			    <input type="hidden" name="notImportant" value="${data.notImportant}">
+			    <input type="hidden" id="notImportantHidden" name="notImportant" value="${data.notImportant}">
 			</div>
+
             <div class="pull-right">
                 <span class="input-group-text">인사과 : ${data.memName}</span>
             </div>
@@ -67,4 +69,14 @@
     $('.summernote').summernote({
         height: 300
     });
+</script>
+<script>
+function updateHiddenInput(checkbox) {
+    const hiddenInput = document.getElementById('notImportantHidden');
+    if (checkbox.checked) {
+        hiddenInput.value = 1;
+    } else {
+        hiddenInput.value = 0;
+    }
+}
 </script>

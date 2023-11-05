@@ -44,13 +44,7 @@
                     <div>
                     	<table>
                     		<tr>
-				                <td>김아무개</td>
-				            </tr>
-				            <tr>
-				                <td>김아무개2</td>
-				            </tr>
-				            <tr>
-				                <td>김아무개3</td>
+				                <td></td>
 				            </tr>
                     	</table>
                     </div>

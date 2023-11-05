@@ -66,7 +66,7 @@ public class NoticeService {
 	public boolean contentsImgDelete(NoticeFileVO noticeFileVO, HttpSession session) throws Exception {
 	   
 		noticeFileVO.setBfFname(this.boardName.substring(this.boardName.lastIndexOf("/") + 1));
-	    return fileManger.fileDelete(noticeFileVO, uploadPath, session);
+	    return fileManger.fileDelete(noticeFileVO, uploadPath, session, null);
 	}
 
 	
@@ -122,7 +122,9 @@ public class NoticeService {
 	public int fileDelete(int bfCd)throws Exception{
 	
 		int result = noticeDAO.fileDelete(bfCd);
-        
+		
+		fileManger.fileDelete(null, uploadPath, null, null);
+	 
 		return result;
 		
 	}
@@ -130,13 +132,18 @@ public class NoticeService {
 	// 공지사항 업데이트
 	public int noticeUpdate (NoticeVO noticeVO,MultipartFile[] files)throws Exception{
 		
-		int importantCount = noticeImportantCount(1); // 중요 공지사항 개수 조회
-        if (noticeVO.getNotImportant() == 1 && importantCount >= 3) {
-            return -1; // 중요 공지사항 제한에 도달함
-        }
+		int notCd = noticeVO.getNotCd();
+		
+		// 글이 원래 중요공지였던 애들이 수정이 안되는 문제 어떻게 해결할지 고민 
+		if (noticeVO.getNotImportant() == 1) {
+	        int importantCount = noticeImportantCount(1); // 중요 공지사항 개수 조회
+	        if (importantCount >= 3) {
+	            return -1; // 중요 공지사항 제한에 도달함
+	        }
+	    }
 
        int result = noticeDAO.noticeUpdate(noticeVO);
-       int notCd = noticeVO.getNotCd();
+       
 
 		
 		// 파일 업로드 및 파일 정보 저장

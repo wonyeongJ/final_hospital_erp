@@ -40,16 +40,18 @@ public class ClubService {
 	public int clubInsert(ClubVO clubVO,MultipartFile[] files)throws Exception{
 		
 		// 클럽 등록
-        int result = clubDAO.clubInsert(clubVO);
-
-        // 클럽 등록 후 반환된 CLUB_CD 가져오기
-        int clubCd = clubDAO.lastInsertedClubCd();
-
-        // CLUB_MEMBER 테이블에 회원 추가
-        ClubMemberVO clubMemberVO = new ClubMemberVO();
-        clubMemberVO.setMemCd(clubVO.getMemCd());
-        clubMemberVO.setClubCd(clubCd);
-        clubDAO.clubMemberInsert(clubMemberVO);
+		int result = clubDAO.clubInsert(clubVO);
+	
+		// 클럽 등록 후 반환된 CLUB_CD 가져오기
+	    int clubCd = clubVO.getClubCd();
+		
+	    if (result > 0) {  
+		    // CLUB_MEMBER 테이블에 회원 추가
+		    ClubMemberVO clubMemberVO = new ClubMemberVO();
+		    clubMemberVO.setMemCd(clubVO.getMemCd());
+		    clubMemberVO.setClubCd(clubCd);
+		    clubDAO.clubMemberInsert(clubMemberVO);
+		}
         
         
 
@@ -93,7 +95,7 @@ public class ClubService {
 		public boolean contentsImgDelete(NoticeFileVO noticeFileVO, HttpSession session) throws Exception {
 		   
 			noticeFileVO.setBfFname(this.boardName.substring(this.boardName.lastIndexOf("/") + 1));
-		    return fileManger.fileDelete(noticeFileVO, uploadPath, session);
+		    return fileManger.fileDelete(noticeFileVO, uploadPath, session, null);
 		}
 
 		// 사내동호회 조회수 업데이트

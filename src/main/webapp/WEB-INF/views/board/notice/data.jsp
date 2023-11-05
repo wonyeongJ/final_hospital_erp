@@ -8,7 +8,7 @@
             <span class="author-icon">${data.depName} : ${data.memName}</span>
         </div>
         <div class="notHit">조회수: ${data.notHit}</div>
-        <h1 class="title">${data.notTitle}</h1>
+        <h1 class="title" style="font-size: 2.0rem;">${data.notTitle}</h1>
         <div class="contents">${data.notContents}</div>
         <div>
             <c:forEach items="${data.list}" var="f">

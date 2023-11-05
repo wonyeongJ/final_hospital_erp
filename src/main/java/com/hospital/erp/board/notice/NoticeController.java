@@ -114,16 +114,17 @@ public class NoticeController {
 	    // 버튼 유무를 위해 세션에서 해당 계정 정보를 받아온다
 		model.addAttribute("member", memberVO.getDepCd());
 		
+		// 공지사항 조회수 증가
+        noticeService.noticeHitCount(notCd);
+	     
 		
 		// 공지사항 상세 정보를 가져옵니다.
 	    NoticeVO noticeVO = noticeService.noticeData(notCd);
 	  
-	    
-	     
+	  
 	    
 	    if (noticeVO != null) {
-	        // 공지사항 조회수 증가
-	        noticeService.noticeHitCount(notCd);
+	       
 
 	        // 공지사항에 속하는 파일 리스트를 가져옵니다.
 	        List<NoticeFileVO> fileList =noticeService.fileData(notCd);

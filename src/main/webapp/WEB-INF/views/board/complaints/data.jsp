@@ -9,7 +9,7 @@
             <span class="author-icon">${data.depName} : ${data.memName}</span>
             <div class="author-icon">조치상태 : ${data.actionTypeName}</div>
         </div>
-        <h1 class="title">${data.compTitle}</h1>
+        <h1 class="title" style="font-size: 2.0rem;">${data.compTitle}</h1>
         <div class="contents">${data.compContents}</div>
         <div>
             <c:forEach items="${data.list}" var="f">
