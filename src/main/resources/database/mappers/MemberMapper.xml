@@ -26,7 +26,7 @@
 					ON M.DEP_CD = D.DEP_CD
 				JOIN CODE AS C2
 					ON M.POS_CD = C2.CODE_CD
-		ORDER BY M.MEM_CD
+		ORDER BY M.MEM_CD DESC
 	</select> 	
   	
   	<!-- 직원 상세 조회 쿼리 -->
@@ -41,19 +41,14 @@
   	
   	<!-- Member 테이블 Insert 전 사번 입력을위해 가장 마지막 사번 조회해오는 쿼리문 -->
   	<select id="memberDataMaxMemCd" resultType="MemberVO" parameterType="MemberVO">
-		<![CDATA[
 		SELECT 
-			MAX(MEM_CD) AS MEM_CD
+			MAX(MEM_CD)+1  AS MEM_CD
 		FROM 
 			MEMBER
 		WHERE 
-			JOB_CD = #{jobCd} AND
-			(MEM_HDATE >= #{memHdate} AND 
-			MEM_HDATE <= #{memRdate})
-		GROUP BY 
-			JOB_CD
-		]]>
-			   
+			MEM_CD LIKE #{memCd}
+		GROUP BY JOB_CD
+
   	</select>
   	
   	<!-- MEMBER 테이블 INSERT 쿼리 -->

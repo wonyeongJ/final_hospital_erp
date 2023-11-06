@@ -72,6 +72,9 @@ $(document).ready(function(){
 	console.log(typeof datasource);
 	console.log(chartList);
 	console.log(typeof chartList);
+	
+
+	
 
 })
 
@@ -79,86 +82,87 @@ $(document).ready(function(){
 
 
 let datasource3 = {
- "name": "서동휘",
- "title": "병원장",
- "children": [
-  {
-   "name": "외과  박병웅",
-   "title": "팀장",
-   "depCd": 3,
-   "children": [
-    {
-     "name": "외과  테스트2",
-     "title": "팀원",
-     "depCd": 3,
-     "children": []
-    },
-    {
-     "name": "외과  테스트123",
-     "title": "팀원",
-     "depCd": 3,
-     "children": []
-    },
-    {
-     "name": "외과  테스트1234",
-     "title": "팀원",
-     "depCd": 3,
-     "children": []
-    }
-   ]
-  },
-  {
-   "name": "인사과  최경묵",
-   "title": "팀장",
-   "depCd": 2,
-   "children": [
-    {
-     "name": "인사과  전원영",
-     "title": "팀원",
-     "depCd": 2,
-     "children": []
-    },
-    {
-     "name": "인사과  컴포즈",
-     "title": "팀원",
-     "depCd": 2,
-     "children": []
-    },
-    {
-     "name": "인사과  사무직이면서기안자",
-     "title": "팀원",
-     "depCd": 2,
-     "children": []
-    },
-    {
-     "name": "인사과  최경묵",
-     "title": "팀원",
-     "depCd": 2,
-     "children": []
-    },
-    {
-     "name": "인사과  인사과1",
-     "title": "팀원",
-     "depCd": 2,
-     "children": []
-    },
-    {
-     "name": "인사과  인사과테스트계정",
-     "title": "팀원",
-     "depCd": 2,
-     "children": []
-    }
-   ]
-  }
- ]
-}
+			 "name": "서동휘",
+			 "title": "병원장",
+			 "children": [
+			  {
+			   "name": "외과  박병웅",
+			   "title": "팀장",
+			   "depCd": 3,
+			   "children": [
+			    {
+			     "name": "외과  테스트2",
+			     "title": "팀원",
+			     "depCd": 3,
+			     "children": []
+			    },
+			    {
+			     "name": "외과  테스트123",
+			     "title": "팀원",
+			     "depCd": 3,
+			     "children": []
+			    },
+			    {
+			     "name": "외과  테스트1234",
+			     "title": "팀원",
+			     "depCd": 3,
+			     "children": []
+			    }
+			   ]
+			  },
+			  {
+			   "name": "인사과  최경묵",
+			   "title": "팀장",
+			   "depCd": 2,
+			   "children": [
+			    {
+			     "name": "인사과  전원영",
+			     "title": "팀원",
+			     "depCd": 2,
+			     "children": []
+			    },
+			    {
+			     "name": "인사과  컴포즈",
+			     "title": "팀원",
+			     "depCd": 2,
+			     "children": []
+			    },
+			    {
+			     "name": "인사과  사무직이면서기안자",
+			     "title": "팀원",
+			     "depCd": 2,
+			     "children": []
+			    },
+			    {
+			     "name": "인사과  최경묵",
+			     "title": "팀원",
+			     "depCd": 2,
+			     "children": []
+			    },
+			    {
+			     "name": "인사과  인사과1",
+			     "title": "팀원",
+			     "depCd": 2,
+			     "children": []
+			    },
+			    {
+			     "name": "인사과  인사과테스트계정",
+			     "title": "팀원",
+			     "depCd": 2,
+			     "children": []
+			    }
+			   ]
+			  }
+			 ]
+			}
 
-
-
-$('#chart-container').orgchart({
-	'data' : datasource,
-	'nodeContent': 'title'
-});
+		$('#chart-container').orgchart({
+			'data' : chartList,
+			'nodeContent': 'title'
+		});		
 	
+
+
+
 	
 

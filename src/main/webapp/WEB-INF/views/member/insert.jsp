@@ -15,8 +15,10 @@
 		</div>
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">주민등록번호</label>
-			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="memRnum" placeholder="940908-1234567">
+			<div class="col-sm-12 col-md-10" style="text-align: center; margin: 0 auto;">
+				<input class="form-control" type="text" name="memRnum" placeholder="940908-1234567" style="display: inline-block;">
+				<div style="display: inline-block;">-</div>
+				<input class="form-control" type="text" name="memRnum" placeholder="940908-1234567" style="display: inline-block;">
 			</div>
 		</div>
 		<div class="form-group row">
@@ -88,17 +90,19 @@
 		</div>
 	</form>
 </body>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" ></script>
 <script>
-window.onload = function(){
-    document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
-        //카카오 지도 발생
-        new daum.Postcode({
-            oncomplete: function(data) { //선택시 입력값 세팅
-                document.getElementById("address_kakao").value = data.address; // 주소 넣기
-            }
-        }).open();
-    });
-}
+
+	window.onload = function(){
+	    document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+	        //카카오 지도 발생
+	        new daum.Postcode({
+	            oncomplete: function(data) { //선택시 입력값 세팅
+	                document.getElementById("address_kakao").value = data.address; // 주소 넣기
+	            }
+	        }).open();
+	    });
+	}
+
 </script>
 </html>

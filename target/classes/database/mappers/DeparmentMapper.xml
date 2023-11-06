@@ -25,6 +25,19 @@
 	   		#{depDelete},
 	   		NOW()
 	   		)
-	</insert>  	
+	</insert>
+	
+	<!-- Department Update -->
+	<update id="departmentUpdate" parameterType="DepartmentVO">
+		UPDATE 
+			DEPARTMENT
+		SET 
+			DEP_NAME = #{depName},
+			DEP_TNUM = #{depTnum}
+		WHERE
+			DEP_CD = #{depCd}
+			
+	</update>
+	
   	
 </mapper>

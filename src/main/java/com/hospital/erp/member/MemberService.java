@@ -60,26 +60,20 @@ public class MemberService implements UserDetailsService {
 		maxMemberVO.setMemHdate(memberVO.getMemHdate());
 		maxMemberVO.setJobCd(memberVO.getJobCd());
 		
-		// 등록 당시 연도에 입사자가 없을경우를 대비해 해당연도 XXXX-01-01 로 비교해 값을 가져온다.
-		// 현재 시간 timzone Asia/Seoul 기준으로 구하기
-		LocalDate now = LocalDate.now(ZoneId.of("Asia/Seoul")); //2023-10-25 format
+		// ex) 2303 LIKE에 들어갈 연도 + 직무코드 만들기
+		String yearStart = maxMemberVO.getMemHdate().toString().substring(2, 4); //23
+		String selectjobCode = "";
+		if (maxMemberVO.getJobCd() < 10) {
+			String addZero = "0";
+			selectjobCode = addZero.concat(memberVO.getJobCd().toString());
+		}
+		// 조회용으로쓰는 maxMemberVO에 위에서만든 ex) 2303% 값 넣기
+		maxMemberVO.setMemCd(yearStart.concat(selectjobCode.concat("%")));
+		log.info("========maxMemberVO memCd 설정값===={}=========",maxMemberVO);
 		
-		// 입사년도 기준으로 1월1일 이후의 데이터를 찾기위해 입사년도-01-01 date format 만들기
-		String yearStart = maxMemberVO.getMemHdate().toString().substring(0, 5); //2023-
-		String yearEnd = yearStart.concat("12-31"); //2023-12-31
-		yearStart = yearStart.concat("01-01"); //2023-01-01
-		// 형변환을 위해 java.sql.Date 타입 으로 변환
-		java.sql.Date firstDate = java.sql.Date.valueOf(yearStart);
-		java.sql.Date lastDate = java.sql.Date.valueOf(yearEnd);
-		maxMemberVO.setMemHdate(firstDate);
-		log.info("=======firstDate {}",maxMemberVO.getMemHdate());
-		maxMemberVO.setMemRdate(lastDate);
-		log.info("=======lastDate {}",maxMemberVO.getMemRdate());
-		log.info("===========MemberVO 조회메서드실행 전 {}", maxMemberVO);
 		// 자신의 직무코드에 맞는 사번중 가장 높은 사번 조회 메서드
 		maxMemberVO = memberDAO.memberDataMaxMemCd(maxMemberVO);
-		log.info("===========MemberVO 조회메서드실행 후 {}", memberVO);
-		log.info("===========MaxMemberVO 조회메서드실행 후 {}", maxMemberVO);
+		log.info("========maxMemberVO  조회해온값===={}=========",maxMemberVO);
 		// 위의 메서드를 통해 조회해온 사번이 NULL일 경우 실행 메서드
 		if (maxMemberVO == null) {
 			
@@ -97,32 +91,11 @@ public class MemberService implements UserDetailsService {
 			startMemCd = year.concat(jobCode.concat(startMemCd));
 			//memberVO에 사번 대입
 			memberVO.setMemCd(startMemCd);
-			log.info("===============MemberVO {} =========", memberVO);
+			log.info("===============MemberVO 쿼리NULL실행 {} =========", memberVO);
 			
 		}else { // 조회해온 사번이 NULL 이 아닐 경우 실행
-			// 사번중 가장 마지막 자리 3자리 202303001 일 경우 001 가져오기 00년도의 입사의경우 데이터가 달라질수있기때문에 뒤에 3자리만조회
-			String endThreeValue = maxMemberVO.getMemCd().substring(4);
-			log.info("===========endT {}===========", endThreeValue);
-			String startFourValue = maxMemberVO.getMemCd().substring(0,4);
-			int memThreeValue = Integer.parseInt(endThreeValue);
-			memThreeValue++;
-			log.info("===========memThreeValue {}===========", memThreeValue);
-			//10 이하일때 00 100이하일때 00 붙이기
-			if (memThreeValue < 10) {
-				String addZero = "00";
-				endThreeValue = addZero.concat(Integer.toString(memThreeValue));
-				log.info("===========startFourValue {}===========", endThreeValue);
-				startFourValue = startFourValue.concat(endThreeValue);
-				log.info("===========startFourValue {}===========", startFourValue);
-			} else if (memThreeValue < 100) {
-				String addZero = "0";
-				endThreeValue = addZero.concat(Integer.toString(memThreeValue));
-				log.info("===========endThreeVlaue elseif {}===========", endThreeValue);
-				startFourValue = startFourValue.concat(endThreeValue);
-				log.info("===========startFourValue elseif {}===========", startFourValue);
-			}
-			log.info("============memCD {}", startFourValue);
-			memberVO.setMemCd(startFourValue);
+			log.info("======maxMemberVO 쿼리 NULL아닐때 {} ", maxMemberVO);
+			memberVO.setMemCd(maxMemberVO.getMemCd()); 
 		}
 		
 		//비밀번호 생성 "-" 으로 앞 6자리 분리
