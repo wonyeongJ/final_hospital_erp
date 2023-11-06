@@ -157,7 +157,7 @@ let datasource3 = {
 			}
 
 		$('#chart-container').orgchart({
-			'data' : chartList,
+			'data' : datasource3,
 			'nodeContent': 'title'
 		});		
 	
