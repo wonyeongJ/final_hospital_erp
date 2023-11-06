@@ -1,45 +1,45 @@
-$("#btn").on("click", function () {
-    const notTitle = $("#notTitle").val();
-    const notContents = $("#notContents").val();
-    const notImportant = $("#notImportant").is(":checked") ? 1 : 0;
+ // 폼 제출 전 필수 조건 확인
+ document.getElementById('frm').addEventListener('submit', function (event) {
+ 
+ 	const notTitle = document.querySelector('input[name="notTitle"]');        
+ 	const notContents = document.querySelector('textarea[name="notContents"]');        
+ 
+ if (notTitle.value.trim() === '') {            
+	 event.preventDefault();            
+	 	alert('제목을 입력해야 합니다.');        
+	 	}        
+ if (notContents.value.trim() === '') {            
+	 event.preventDefault();            
+	 alert('내용을 입력해야 합니다.');        
+	 }    
+});
+$("#inlineCheckbox1").on("change", function() {
+    var isChecked = $(this).is(":checked");
 
-    if (notTitle === "") {
-        alert("제목을 입력해야 합니다.");
-        return false;
-    }
-    if (notContents === "") {
-        alert("내용을 입력해야 합니다.");
-        return false;
-    }
-
-    // 중요 공지사항인 경우에만 서버로 요청을 보냅니다
-    if (notImportant === 1) {
-        const requestData = {
-            notTitle: notTitle,
-            notContents: notContents,
-            notImportant: notImportant,
-        };
-
+    // 중요 공지 여부 체크되었을 때
+    if (isChecked) {
+        // Ajax 요청 보내기
         $.ajax({
             type: "POST",
-            url: "/board/notice/noticeImportantCount",
-            data: JSON.stringify(requestData),
-            contentType: "application/json; charset=utf-8",
-            success: function (result) {
-                if (result == 0) {
-                    alert("중요 공지사항은 3개 이상 등록할 수 없습니다.");
-                } else {
-                    $("#frm").submit();
+            url: "noticeImportantCount", // 컨트롤러의 URL
+            data: {
+                notImportant: 1 // 중요 공지사항 체크
+            },
+            success: function(response) {
+                if (response === "success") {
+                    // 중요 공지사항 등록 성공
+                } else if (response === "failure") {
+                    // 중요 공지사항 3개 이상 등록된 경우
+                    alert("중요 공지사항은 3개까지 등록 가능합니다. 등록되어 있는 중요 공지사항을 일반 공지사항으로 수정 후 다시 등록해주세요.");
+                    $("#inlineCheckbox1").prop("checked", false); // 체크박스 체크 해제
                 }
             },
-            error: function (e) {
-                console.log("error: ", e);
+            error: function() {
+                alert("오류가 발생했습니다.");
+                $("#inlineCheckbox1").prop("checked", false); // 체크박스 체크 해제
             }
         });
     } else {
-        // 중요 공지사항이 아닌 경우에는 서버로 요청을 보내지 않고 바로 submit 합니다
-        $("#frm").submit();
+        // 중요 공지 여부 체크 해제될 때의 처리 (여기에 필요한 코드 추가)
     }
-
-    return false;
 });

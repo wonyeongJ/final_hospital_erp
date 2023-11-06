@@ -1,6 +1,8 @@
 package com.hospital.erp.board.notice;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -79,7 +81,7 @@ public class NoticeService {
 	public int noticeInsert(NoticeVO noticeVO, MultipartFile[] files) throws Exception {
 		
 		
-		int importantCount = noticeImportantCount(1); // 중요 공지사항 개수 조회
+		int importantCount = noticeDAO.noticeImportantCount(1); // 중요 공지사항 개수 조회
         if (noticeVO.getNotImportant() == 1 && importantCount >= 3) {
             return -1; // 중요 공지사항 제한에 도달함
         }
@@ -139,12 +141,12 @@ public class NoticeService {
 		int notCd = noticeVO.getNotCd();
 		
 		// 글이 원래 중요공지였던 애들이 수정이 안되는 문제 어떻게 해결할지 고민 
-		if (noticeVO.getNotImportant() == 1) {
-	        int importantCount = noticeImportantCount(1); // 중요 공지사항 개수 조회
-	        if (importantCount >= 3) {
-	            return -1; // 중요 공지사항 제한에 도달함
-	        }
-	    }
+//		if (noticeVO.getNotImportant() == 1) {
+//	        int importantCount = noticeImportantCount(1); // 중요 공지사항 개수 조회
+//	        if (importantCount >= 3) {
+//	            return -1; // 중요 공지사항 제한에 도달함
+//	        }
+//	    }
 
        int result = noticeDAO.noticeUpdate(noticeVO);
        
@@ -184,5 +186,8 @@ public class NoticeService {
 	public int noticeDelete(int notCd) throws Exception{
 		return noticeDAO.noticeDelete(notCd);
 	}
-
+	
+	public int noticeChangeStatus(NoticeVO noticeVO) throws Exception {
+		return noticeDAO.noticeChangeStatus(noticeVO.getNotCd(), noticeVO.getNotImportant());
+    }
 }

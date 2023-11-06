@@ -28,7 +28,7 @@
             WHEN N.NOT_IMPORTANT = 1 THEN 1
             ELSE 2
         END,
-        N.NOT_RDATE DESC
+        N.NOT_RDATE ASC
 </select>
 
 <!-- 공지사항 insert 쿼리문 -->
@@ -196,6 +196,14 @@
   		WHERE 
   			BF_CD=#{bfCd}
 </select>
-
+<!-- 공지사항 상태변경 -->
+<update id="noticeChangeStatus" parameterType="NoticeVO">
+	    UPDATE 
+	    	NOTICE
+	    SET 
+	    	NOT_IMPORTANT = #{notImportant}
+	    WHERE 
+	    	NOT_CD = #{notCd}
+</update>
   	
 </mapper>

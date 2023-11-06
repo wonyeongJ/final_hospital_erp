@@ -15,7 +15,7 @@ $(document).ready(function () {
         },
         'columnDefs': [
             { 'type': 'num', 'targets': 0 },
-            { 'targets': [1, 2, 3, 4], 'orderable': false } // 열 인덱스 [1, 2, 3, 4]에 해당하는 열에 대해 소팅 비활성화 // Apply string sorting to the 0th column (Korean)
+            { 'targets': [1, 2, 3, 4, 5], 'orderable': false } // 열 인덱스 [1, 2, 3, 4]에 해당하는 열에 대해 소팅 비활성화 // Apply string sorting to the 0th column (Korean)
         ],
         'order': [0, 'desc'] // Sort the 0th column (Korean) in ascending order first, then sort the 1st column (numbers) in ascending order.
     });

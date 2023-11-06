@@ -55,7 +55,7 @@
 
          
             <div class="mb-3">
-                <input class="my btn btn-primary" type="button" id="btn" value="글쓰기">
+                <input class="my btn btn-primary" type="submit" id="btn" value="글쓰기">
             </div>
         </form>
     </div>

@@ -81,7 +81,7 @@ public class NoticeController {
 
     // 공지사항 등록 처리
     @PostMapping("insert")
-    public String noticeInsert(@AuthenticationPrincipal MemberVO memberVO,@RequestBody NoticeVO noticeVO, MultipartFile[] files, Model model) throws Exception {
+    public String noticeInsert(@AuthenticationPrincipal MemberVO memberVO,NoticeVO noticeVO, MultipartFile[] files, Model model) throws Exception {
        
     	
     	
@@ -95,23 +95,15 @@ public class NoticeController {
 
         int result = noticeService.noticeInsert(noticeVO, files);
 
-        if (result == -1) {
-            // 중요 공지사항 제한에 도달했을 때 메시지 표시
-            String message = "중요 공지사항은 3개까지 등록 가능합니다. 등록되어 있는 중요 공지사항을 일반 공지사항으로 수정 후 다시 등록해주세요.";
-            model.addAttribute("message", message);
-            model.addAttribute("url", "insert");
-        } else {
-            String message = "등록 실패";
-            if (result > 0) {
-                message = "등록 성공";
-            }
-            model.addAttribute("message", message);
-            model.addAttribute("url", "list");
-        }
+        String message = "등록 실패";
 
+        if (result > 0) {
+            message = "등록 성공";
+        }
+        model.addAttribute("message", message);
+        model.addAttribute("url", "list");
         return "commons/result";
     }
-
 	
 	@GetMapping("data/{notCd}")
 	public String noticeData(@AuthenticationPrincipal MemberVO memberVO, @PathVariable int notCd, Model model) throws Exception {
@@ -199,21 +191,15 @@ public class NoticeController {
 			 
 		int result = noticeService.noticeUpdate(noticeVO, files);
 		
-		if (result == -1) {
-            // 중요 공지사항 제한에 도달했을 때 메시지 표시
-            String message = "중요 공지사항은 3개까지 등록 가능합니다. 등록되어 있는 중요 공지사항을 일반 공지사항으로 수정 후 다시 등록해주세요.";
-            model.addAttribute("message", message);
-            model.addAttribute("url", "list");
-        } else {
-            String message = "등록 실패";
-            if (result > 0) {
-                message = "등록 성공";
-            }
-            model.addAttribute("message", message);
-            model.addAttribute("url", "list");
+		String message = "등록 실패";
+
+        if (result > 0) {
+            message = "등록 성공";
         }
-		return "commons/result";
-		}
+        model.addAttribute("message", message);
+        model.addAttribute("url", "list");
+        return "commons/result";
+    }
 	
 	
 	/// Delete
@@ -231,26 +217,46 @@ public class NoticeController {
 	
 	// 중요공지사항 글 조회
 	@PostMapping("noticeImportantCount")
-	public String noticeImportantCount(NoticeVO noticeVO,Model model) throws Exception {
-		int result = noticeService.noticeImportantCount(noticeVO);
-		
-		if (result == 0) {
-            // 중요 공지사항 제한에 도달했을 때 메시지 표시
-            String message = "중요 공지사항은 3개까지 등록 가능합니다. 등록되어 있는 중요 공지사항을 일반 공지사항으로 수정 후 다시 등록해주세요.";
-            model.addAttribute("message", message);
-            model.addAttribute("url", "insert");
-        } else {
-            String message = "등록 실패";
-            if (result > 0) {
-                message = "등록 성공";
-            }
-            model.addAttribute("message", message);
-            model.addAttribute("url", "list");
-        }
+	@ResponseBody
+	public String noticeImportantCount(@RequestParam int notImportant, Model model) throws Exception {
+	    // 여기서 중요 공지사항이 3개 이상 등록되었는지 확인하는 로직을 작성
+	    int importantCount = noticeService.noticeImportantCount(notImportant);
 
-        return "commons/result";
-    }
-		
+	    if (importantCount >= 3) {
+	        // 중요 공지사항이 3개 이상인 경우
+	        return "failure";
+	    } else {
+	        // 중요 공지사항 등록 가능한 경우
+	        return "success";
+	    }
+	}
+	
+	// 중요여부 업데이트
+	@PostMapping("noticeChangeStatus")
+	@ResponseBody
+	public String changeStatus(@RequestParam("notCd") int notCd, @RequestParam("notImportant") int notImportant) throws Exception {
+	    NoticeVO noticeVO = new NoticeVO();
+	    noticeVO.setNotCd(notCd);
+	    noticeVO.setNotImportant(notImportant);
+
+	    // 중요 공지사항 카운트
+	    int importantCount = noticeService.noticeImportantCount(notImportant);
+
+	    // notImportant = 1일 때 중요 공지사항이 3개 이상이면 업데이트 실패
+	    if (notImportant == 1 && importantCount >= 3) {
+	        return "failure";
+	    }
+
+	    int result = noticeService.noticeChangeStatus(noticeVO);
+
+	    System.err.println(result);
+	    if (result > 0) {
+	        return "success";
+	    } else {
+	        // 업데이트 실패 시 처리
+	        return "failure";
+	    }
+	}
 }
 	
 
