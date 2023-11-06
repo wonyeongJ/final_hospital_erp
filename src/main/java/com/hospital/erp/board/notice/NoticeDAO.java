@@ -39,7 +39,7 @@ public interface NoticeDAO {
 	public int noticeHitCount(int notCd)throws Exception;
 		
 	// 중요 공지사항 카운트
-	public int noticeImportantCount(int notImportant) throws Exception;
+	public int noticeImportantCount(NoticeVO noticeVO) throws Exception;
 	
 	// 공지사항 삭제
 	public int noticeDelete(int notCd) throws Exception;

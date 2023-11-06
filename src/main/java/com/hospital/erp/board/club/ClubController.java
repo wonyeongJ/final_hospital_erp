@@ -106,6 +106,7 @@ public class ClubController {
 	    clubMemberVO.setMemCd(memberVO.getMemCd());
 	    clubMemberVO.setDepCd(memberVO.getDepCd());
 	    clubMemberVO.setDepName(memberVO.getDepName());
+	    
 
 	    int result = clubService.clubMemberInsert(clubMemberVO);
 

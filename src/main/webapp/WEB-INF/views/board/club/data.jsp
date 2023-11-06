@@ -34,11 +34,17 @@
                 <input type="hidden" name="memCd" value="${memCd}">
                 <input type="hidden" name="clubCd" value="${data.clubCd}">
             </div>
-            <div id="commentList">
-                <c:forEach items="${commentList}" var="com">
-                    <p>${com.commContents}</p>
-                </c:forEach>
-            </div>
+           <div id="commentList" style="height: 700px; overflow-y: scroll;">
+			    <c:forEach items="${commentList}" var="com">
+			        <div class="card mb-2">
+			            <div class="card-body" style="height: 110px">
+			                <h5 class="card-title">댓글</h5>
+			                <p class="card-text">${com.commContents}</p>
+			                <p class="card-subtitle text-muted">${com.memName} | 작성 시간: ${com.commRdate}</p>
+			            </div>
+			        </div>
+			    </c:forEach>
+			</div>
         </div>
         <div class="col-md-5">
             <div class="card">

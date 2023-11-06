@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${data}" var="notice">
+                <c:forEach items="${data}" var="notice" varStatus="loop">
                     <tr>
                         <td>
                         <c:choose>
@@ -27,7 +27,7 @@
 			                   <span style="color: red;">중요 <i class="icon-copy ion-alert" style="color: red"></i></span>
 			                </c:when>
 			                <c:otherwise>
-			                   ${notice.notCd}
+			                   ${loop.index + (-2)}
 			                </c:otherwise>
 			            </c:choose>
 			            </td>

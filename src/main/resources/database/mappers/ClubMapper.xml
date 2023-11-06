@@ -77,7 +77,8 @@
 		    DEPARTMENT D
 		ON
 		    M.DEP_CD = D.DEP_CD
-		WHERE CM.CLUB_CD = #{clubCd};
+		WHERE 
+			CM.CLUB_CD = #{clubCd};
 </select>
 
 
@@ -293,7 +294,7 @@
     WHERE
         C.CLUB_CD = #{clubCd}
     ORDER BY
-        C.COMM_RDATE ASC;
+        C.COMM_RDATE DESC;
 </select>
 
 <!-- 댓글 상세정보 조회 -->

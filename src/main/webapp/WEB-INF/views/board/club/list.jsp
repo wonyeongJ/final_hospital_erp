@@ -23,9 +23,9 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${data}" var="club" >
+                <c:forEach items="${data}" var="club" varStatus="loop">
 				    <tr>
-				        <td>${club.clubCd}</td>
+				        <td>${loop.index + 1}</td>
 				        <td><a href="./data/${club.clubCd}">${club.clubTitle}</td>
 				        <td>${club.depName} : ${club.memName}</td>
 				       	<td>${club.currentMembers} / ${club.clubPersonnel}</td>

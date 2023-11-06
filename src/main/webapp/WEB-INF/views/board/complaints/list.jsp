@@ -19,9 +19,9 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${data}" var="complaints">
+                <c:forEach items="${data}" var="complaints" varStatus="loop">
                     <tr>
-                        <td>${complaints.compCd}</td>
+                        <td>${loop.index + 1}</td>
                         <td>
                             <c:choose>
                                 <c:when test="${complaints.compSecret == 1}">
