@@ -25,5 +25,5 @@ public interface MemberDAO {
 	 //
 	 public int memberUpdatePassword(MemberVO memberVO) throws Exception;
 	 
-	 
+	 public List<MemberVO> memberListChart() throws Exception;
 }

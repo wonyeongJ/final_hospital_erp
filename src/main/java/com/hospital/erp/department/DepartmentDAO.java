@@ -17,5 +17,7 @@ public interface DepartmentDAO {
 	// Department DB Insert 메서드
 	public int departmentInsert(DepartmentVO departmentVO) throws Exception;
 	
+	// Department Update 메서드
+	public int departmentUpdate(DepartmentVO departmentVO) throws Exception;
 	
 }
