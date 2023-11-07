@@ -7,7 +7,7 @@
 <body>
 	<h1>직원등록</h1>
 	<br>
-	<form action="insert" method="post" id="memberInsertFrm" class="card-box pd-20 mb-30 ">
+	<form:form modelAttribute="memberVO" action="insert" method="post" id="memberInsertFrm" class="card-box pd-20 mb-30 ">
 	
 		<div class="form-group row ">
 			<label class="col-sm-12 col-md-2 col-form-label">이름</label>
@@ -115,7 +115,7 @@
 		<div style="display: flex; justify-content: flex-end;">
 			<button type="button" id="insertBtn" class="btn btn-primary">직원등록</button>
 		</div>
-	</form>
+	</form:form>
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="/js/member/insert.js"></script> 

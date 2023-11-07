@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,15 +27,21 @@ import lombok.ToString;
 public class MemberVO implements UserDetails {
 	
 	private String memCd;
+	@NotNull
 	private Integer jobCd;
 	private Integer depCd;
 	private Integer posCd;
+	@NotNull
 	private Integer codeCd;
+	@Pattern(regexp = "^[가-힣]*$", message = "이름은 한글만 입력 가능합니다.")
 	private String memName;
+	@Pattern(regexp = "^\\d{6}-(1|2|3|4)\\d{6}$", message = "주민등록번호 형식이 올바르지 않습니다.")
 	private String memRnum;
 	private String memPw;
+	@Pattern(regexp = "^01[0-9]-\\d{4}-\\d{4}$", message = "휴대폰 번호 형식이 올바르지 않습니다.")
 	private String memPnum;
 	private String memAddress;
+	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "올바른 이메일 형식이 아닙니다.")
 	private String memEmail;
 	private Date memHdate;
 	private Integer memSalary;

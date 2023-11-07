@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 
 	<h1>직원상세(재직자)</h1>
 	<h3></h3>
@@ -39,19 +41,31 @@
 			<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">연봉</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="number" value="${memberVO.memSalary}" readonly>
+				<input class="form-control" type="number" value="${memberVO.memSalary}">
 			</div>
 		</div>
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">부서</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="memDepCd" value="${memberVO.depCd}">
+				<select name="depCd" class="custom-select">
+					<c:forEach items="${departmentAr}" var="departmentVO">
+						<c:choose>
+							<c:when test="${departmentVO.depCd eq memberVO.depCd}">
+								<option value="${departmentVO.depCd }" selected="selected">${departmentVO.depName }</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${departmentVO.depCd }" >${departmentVO.depName }</option>
+							</c:otherwise>
+						</c:choose>
+			
+					</c:forEach>
+				</select>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">연차</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="number" value="${memberVO.memAnnual}" readonly>
+				<input class="form-control" type="number" value="${memberVO.memAnnual}">
 			</div>
 		</div>
 			<div class="form-group row">

@@ -61,8 +61,9 @@ $(document).ready(function() {
         // validValue는 false를 찾아서 값이 있으면 true를 넣어주기때문에 false일때가 정상적으로 검증이 끝났을 때다
         if(!validValue){
             $("#memRnum").val(memRnumValue);
-            $("#memPnumValue").val(memPnumValue);
-            $("#memEmailValue").val(memEmailValue);
+            $("#memPnum").val(memPnumValue);
+            $("#memEmail").val(memEmailValue);
+
             $("#memberInsertFrm").submit();
         }
 

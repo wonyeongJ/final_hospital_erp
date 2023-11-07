@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hospital.erp.department.DepartmentService;
+import com.hospital.erp.department.DepartmentVO;
+
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -34,6 +37,9 @@ public class MemberController {
 	
 	  @Autowired 
 	  private MemberService memberService;
+	  
+	  @Autowired
+	  private DepartmentService departmentService;
 	    
 	
 	  // 로그인 요청 메서드
@@ -54,21 +60,30 @@ public class MemberController {
 	  @GetMapping("data")
 	  public String memberData(MemberVO memberVO, Model model) throws Exception {
 		  memberVO = memberService.memberData(memberVO);
+		  List<DepartmentVO> departmentAr = departmentService.departmentList();
 		  model.addAttribute("memberVO", memberVO);
+		  model.addAttribute("departmentAr", departmentAr);
 		  return "member/data";
 	  }
 	  
 	  // 직원 등록 폼 메서드
 	  @GetMapping("insert")
-	  public String memberInsert() throws Exception {
+	  public String memberInsert(@ModelAttribute MemberVO memberVO) throws Exception {
 		  return "member/insert";
 	  }
 	  
 	  // 직원 등록 요청 메서드
 	  @PostMapping("insert")
-	  public String memberInsert(MemberVO memberVO) throws Exception {
-		  int result = memberService.memberInsert(memberVO);
-		  return "member/insert";
+	  public String memberInsert(@Valid MemberVO memberVO, BindingResult bindingResult) throws Exception {
+		  if(bindingResult.hasErrors()) {
+			  log.info("=========memberVO {}=========",memberVO);
+			  log.info("==========binding result 에러 {}=========", bindingResult);
+			  return "member/insert";
+		  }else {
+			  int result = memberService.memberInsert(memberVO);
+			  return "member/insert";
+		  }
+		  
 	  }
 	  
 	 

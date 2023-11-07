@@ -57,7 +57,7 @@
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						</div>
 						<div class="modal-body">
-							<form:form modelAttribute="passwordVO" name="updatePasswordForm" id="updatePasswordFrm" action="./updatePassword" method="post" >
+							<form:form modelAttribute="passwordVO" id="updatePasswordFrm" action="./updatePassword" method="post" >
 								<div class="input-group custom">
 									<input type="text" class="form-control form-control-lg" name="newPassword" placeholder="New Password">
 									<div class="input-group-append custom">

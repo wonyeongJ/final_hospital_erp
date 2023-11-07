@@ -31,7 +31,7 @@
 						<tbody>
 							<c:forEach items="${departmentList}" var="departmentVO"> 
 								<tr>
-									<th scope="row">${departmentVO.depCd}</th>
+									<th scope="row" class="departmentUpdate">${departmentVO.depCd}</th>
 									<td class="updateBro">${departmentVO.depName}</td>
 									<td class="updateBro">${departmentVO.depTnum}</td>
 									<td class="updateBro">
