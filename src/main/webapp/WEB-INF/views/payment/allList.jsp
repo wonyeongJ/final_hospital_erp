@@ -11,7 +11,7 @@
 					</div>
 					<div class="pb-20">
 						<div id="DataTables_Table_2_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-							<table class="table hover multiple-select-row data-table-export nowrap dataTable no-footer dtr-inline" id="DataTables_Table_2" role="grid">
+							<table class="datatable table nowrap" id="DataTables_Table_2" role="grid">
 							
 							<thead>
 								<tr role="row">

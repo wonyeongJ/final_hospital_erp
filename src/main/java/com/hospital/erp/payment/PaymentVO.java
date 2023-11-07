@@ -22,12 +22,14 @@ public class PaymentVO {
 	private String epOType;
 	private Date epSDate;
 	private Date epEDate;
+	private Integer epDays;
 	private Integer epPrice;
 	private String epLocation;
 	private String epInput1;
 	private String epInput2;
 	private String epInput3;
 	private String epReason;
+	private String epContents;
 	private String epDStatus;
 	private LocalDateTime epFDate;
 	private LocalDateTime epRDate;

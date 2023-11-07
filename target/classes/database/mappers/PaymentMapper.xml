@@ -11,13 +11,15 @@
 				EP_VTYPE, 
 				EP_OTYPE, 
 				EP_SDATE, 
-				EP_EDATE, 
+				EP_EDATE,
+				EP_DAYS, 
 				EP_PRICE, 
 				EP_LOCATION, 
 				EP_INPUT1, 
 				EP_INPUT2, 
 				EP_INPUT3, 
 				EP_REASON,
+				EP_CONTENTS,
 				EP_DSTATUS,
 				EP_FDATE, 
 				EP_RDATE
@@ -31,12 +33,14 @@
 			#{epOType}, 
 			#{epSDate}, 
 			#{epEDate}, 
+			#{epDays},
 			#{epPrice}, 
 			#{epLocation}, 
 			#{epInput1}, 
 			#{epInput2}, 
 			#{epInput3}, 
 			#{epReason},
+			#{epContents},
 			#{epDStatus},
 			#{epFDate}, 
 			NOW()
@@ -74,11 +78,32 @@
 	
 	<select id="paymentList" parameterType="PaymentVO">
 		SELECT
-			*
+			EP.EP_CD AS EP_CD,
+			EP.EP_RDATE AS EP_RDATE,
+			EP.EP_TITLE AS EP_TITLE,
+			EP.EP_DSTATUS AS EP_DSTATUS, 
+			DF.DF_KIND AS DF_KIND,
+			CON.CON_STEP AS CON_STEP,
+			CON.CON_PSTATUS AS CON_PSTATUS,
+			MEM.MEM_NAME AS MEM_NAME,
+			CONMEM.MEM_NAME AS CONMEM_NAME,
+			REFMEM.MEM_NAME AS REFMEM_NAME
 		FROM
-			ELECTRONIC_PAYMENT
+			ELECTRONIC_PAYMENT AS EP 
+			LEFT JOIN DOCUMENT_FORM AS DF
+				ON EP.DF_CD = DF.DF_CD
+			LEFT JOIN CONFIRM AS CON
+				ON EP.EP_CD = CON.EP_CD
+			LEFT JOIN MEMBER AS CONMEM
+				ON CON.MEM_CD = CONMEM.MEM_CD
+			LEFT JOIN REFERENCE AS REF
+				ON EP.EP_CD = REF.EP_CD
+			LEFT JOIN MEMBER AS REFMEM
+				ON REF.MEM_CD = REFMEM.MEM_CD
+			LEFT JOIN MEMBER AS MEM
+				ON EP.MEM_CD = MEM.MEM_CD
 		WHERE
-			MEM_CD = #{memCd}
+			MEM.MEM_CD = #{memCd}
 	</select>
 	
 </mapper>
