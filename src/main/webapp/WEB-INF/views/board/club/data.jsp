@@ -37,7 +37,7 @@
            <div id="commentList" style="height: 700px; overflow-y: scroll;">
 			    <c:forEach items="${commentList}" var="com">
 			        <div class="card mb-2">
-			            <div class="card-body" style="height: 110px">
+			            <div class="card-body" style="height: auto">
 			                <h5 class="card-title">댓글</h5>
 			                <p class="card-text">${com.commContents}</p>
 			                <p class="card-subtitle text-muted">${com.memName} | 작성 시간: ${com.commRdate}</p>
