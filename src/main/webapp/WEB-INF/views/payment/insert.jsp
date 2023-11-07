@@ -37,6 +37,53 @@ pageEncoding="UTF-8"%>
 			<input type="radio" id="pRadio3" name="pRadio" checked>
 			<label for="pRadio3">기안->1차결재->2차결재->최종결재</label>
 		</div>
+		
+		<div>
+			<!-- 결재라인 modal -->
+			<div class="col-md-2 col-sm-12 mb-30">
+				<div class="pd-20 card-box height-100-p">
+										
+					<a href="#" class="btn-block" data-toggle="modal" data-target="#Medium-modal" type="button">
+						<h5 class="h4" alt="modal">결재라인추가</h5>
+					</a>
+					<div class="modal fade" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title" id="myLargeModalLabel">결재라인추가</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								</div>
+								<div class="modal-body">
+									<div>
+										<h5>기안</h5>
+										<p>${memberVO.memName}</p>
+									</div>
+
+									<div class="1stPayment">
+										<h5>1차결재</h5>
+										<p>
+									</div>
+
+									<div class="2ndPayment">
+										<h5>2차결재</h5>
+										<p>
+									</div>
+									
+									<div>
+										<h5>최종결재</h5>
+										<p>
+									</div>
+									
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<table class="tg">
 			<thead>
@@ -89,25 +136,25 @@ pageEncoding="UTF-8"%>
 			  	<tr>
 				    <td class="tg-baqh">소속</td>
 				    <td class="tg-baqh" colspan="2">
-				    	<input class="form-control" type="text" value="${memberVO.depName}" disabled="">
+				    	<input class="form-control" type="text" value="${memberVO.depName}" readonly>
 				    </td>
 				    <td class="tg-baqh">직무</td>
 				    <td class="tg-baqh" colspan="2">
-				    	<input class="form-control" type="text" value="${memberVO.jobCd}" disabled="">
+				    	<input class="form-control" type="text" value="${memberVO.jobCd}" readonly>
 				    </td>
 				    <td class="tg-baqh">사번</td>
 				    <td class="tg-baqh" colspan="2">
-				    	<input class="form-control" type="text" name="memCd" value="${memberVO.memCd}">
+				    	<input class="form-control" type="text" name="memCd" value="${memberVO.memCd}" readonly>
 				    </td>
 			  	</tr>
 			  	<tr>
 			    	<td class="tg-baqh">이름</td>
 				    <td class="tg-baqh" colspan="2">
-				    	<input class="form-control" type="text" value="${memberVO.memName}" disabled="">
+				    	<input class="form-control" type="text" value="${memberVO.memName}" readonly>
 				    </td>
 				    <td class="tg-baqh">연락처</td>
 				    <td class="tg-baqh tg-baqh-r" colspan="3">
-				    	<input class="form-control" type="text" value="${memberVO.memPnum}" disabled="">
+				    	<input class="form-control" type="text" value="${memberVO.memPnum}" readonly>
 				    </td>
 				    <td class="tg-baqh-r tg-baqh-l tg-baqh"></td>
 				    <td class="tg-baqh-l tg-baqh"></td>
@@ -163,7 +210,7 @@ pageEncoding="UTF-8"%>
 					    	<input class="form-control" type="date" name="epEDate">
 					    </td>
 					    <td class="tg-baqh tg-baqh-r">
-					    	<input class="form-control" type="text" name='epDays'>
+					    	<input class="form-control" type="text" name="epDays">
 					    </td>
 					    <td class="tg-text-l tg-baqh-l" colspan="2">일</td>
 				
@@ -221,12 +268,6 @@ pageEncoding="UTF-8"%>
 				    <td class="tg-baqh" colspan="8">
 				    	<input class="form-control" type="text" name="epReason">
 				    </td>
-			  	</tr>
-			  	
-			  	<tr>
-			  		<td class="tg-baqh" colspan="9">
-			  			
-			  		</td>
 			  	</tr>
 			  	
 			  	
@@ -350,7 +391,7 @@ pageEncoding="UTF-8"%>
 	</form>
 
 
-
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
   	//기안->최종결재
   	$(document).ready(function () {

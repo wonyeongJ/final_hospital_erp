@@ -53,7 +53,7 @@
 					</div>
 					<div class="pb-20">
 						<div id="DataTables_Table_2_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-							<table class="datatable table nowrap" id="DataTables_Table_2" role="grid">
+							<table class="datatable2 table nowrap" id="DataTables_Table_2" role="grid">
 							
 							<thead>
 								<tr role="row">
