@@ -50,7 +50,9 @@ public class DepartmentController {
 	//부서 업데이트 메서드
 	@PostMapping("update")
 	public String departmentUpdate(DepartmentVO departmentVO) throws Exception {
-		return "department/update";
+		log.info("=============dpeartment update 실행 =================");
+		int result = departmentService.departmentUpdate(departmentVO);
+		return "redirect:./";
 	}
 	
 	//조직도 호출 메서드
