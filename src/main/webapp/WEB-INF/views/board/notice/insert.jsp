@@ -6,6 +6,7 @@
 <script src="/vendors/scripts/board/file.js"></script>
 
 
+
 <div class="container-fluid">
     <div class="row justify-content-center my-4">
         <h1 class="col-md-7 text-center">공지사항 등록</h1>
@@ -54,7 +55,7 @@
 
          
             <div class="mb-3">
-                <button class="my btn btn-primary" type="submit" id="btn">글쓰기</button>
+                <input class="my btn btn-primary" type="submit" id="btn" value="글쓰기">
             </div>
         </form>
     </div>
@@ -66,6 +67,5 @@
         height: 300
     });
 </script>
-
-
+<script src="/vendors/scripts/board/NoticeInsert.js"></script>
 

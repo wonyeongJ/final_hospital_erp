@@ -9,9 +9,11 @@ import com.hospital.erp.file.FileVO;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class NoticeVO extends FileVO{
 	
 	// 공지사항 PK

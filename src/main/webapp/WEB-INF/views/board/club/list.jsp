@@ -9,7 +9,7 @@
         <h4 class="text-blue h4">사내동호회게시판</h4>
     </div>
     <div class="pb-20">
-        <table class="datatable table nowrap">
+        <table class="datatable2 table nowrap">
             <thead>
                 <tr>
                     <th>NO</th>
@@ -23,10 +23,10 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${data}" var="club" >
+                <c:forEach items="${data}" var="club" varStatus="loop">
 				    <tr>
-				        <td>${club.clubCd}</td>
-				        <td>${club.clubTitle}</td>
+				        <td>${loop.index + 1}</td>
+				        <td><a href="./data/${club.clubCd}">${club.clubTitle}</td>
 				        <td>${club.depName} : ${club.memName}</td>
 				       	<td>${club.currentMembers} / ${club.clubPersonnel}</td>
 				        <td>${club.clubStatus == 0 ? '모집 중' : '모집 완료'}</td>

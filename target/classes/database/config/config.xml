@@ -61,6 +61,8 @@
 		<typeAlias type="com.hospital.erp.board.club.ClubVO" alias="ClubVO"/>
 		<typeAlias type="com.hospital.erp.board.club.ClubFileVO" alias="ClubFileVO"/>
 		<typeAlias type="com.hospital.erp.board.club.ClubMemberVO" alias="ClubMemberVO"/>
+		<typeAlias type="com.hospital.erp.board.CommentVO" alias="CommentVO"/>
+		
 		
 		
 		

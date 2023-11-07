@@ -40,6 +40,9 @@ public class ClubVO extends FileVO{
 	// 사내동호회 파일 리스트
 	List<ClubFileVO> list = new ArrayList<>();
 	
+	// 사내동호회 멤버 리스트
+	List<ClubMemberVO> memberList = new ArrayList<>();
+	
 	// 멤버의 이름 (MEM_NAME 필드 추가)
     private String memName;
     
@@ -50,4 +53,10 @@ public class ClubVO extends FileVO{
     
     // 현재인원
     private int currentMembers;
+    
+//    // 작성자 이름
+//    private String writerName;
+//
+//    // 현재 가입 멤버들의 이름 목록 (쉼표로 구분된 문자열)
+//    private String clubMembers;
 }

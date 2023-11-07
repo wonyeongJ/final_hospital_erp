@@ -4,9 +4,11 @@ import java.sql.Date;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class ClubMemberVO {
 	
 	// 모임의 PK
@@ -20,6 +22,11 @@ public class ClubMemberVO {
 	
 	// 모임 생성날짜
 	private Date cmRdate;
+	
+	private String memName;
+	
+	private int depCd;
+	private String depName;
 	
 	
 
