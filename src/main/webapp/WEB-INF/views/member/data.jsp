@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<body>
+
 	<h1>직원상세(재직자)</h1>
 	<h3></h3>
 	<form action="update" method="post">
@@ -76,5 +76,3 @@
 			<button type="submit" class="btn btn-primary">수정완료</button>
 		</div>
 	</form>
-</body>
-</html>

@@ -27,12 +27,12 @@ public class NoticeService {
 	@Autowired
 	private FileManager fileManger;
 	
-	@Value("${app2.upload.nodeValue2}")
-	private String uploadPath;
+//	@Value("${app2.upload.nodeValue2}")
+//	private String uploadPath;
 	
-	 // 윈도우용 저장경로
-//    @Value("${app.upload.nodeValue}")
-//    privte Strinf uploadPath;
+//	  윈도우용 저장경로
+    @Value("${app.upload.nodeValue}")
+    private String uploadPath;
 	
 	@Value("${app2.board.notice}")
 	private String boardName;

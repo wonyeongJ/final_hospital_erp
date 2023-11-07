@@ -68,10 +68,6 @@ public class MemberVO implements UserDetails {
 			}else if(this.jobCd == 5) {
 				authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 			}
-			
-			if(this.posName.equals("병원장")) {
-				authorities.add(new SimpleGrantedAuthority("ROLE_MASTER"));
-			}
 
 		}
 				

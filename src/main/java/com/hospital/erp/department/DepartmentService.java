@@ -26,4 +26,8 @@ public class DepartmentService {
 		return departmentDAO.departmentInsert(departmentVO);
 	}
 	
+	// Department update 메서드
+	public int departmentUpdate(DepartmentVO departmentVO) throws Exception {
+		return departmentDAO.departmentUpdate(departmentVO);
+	}
 }
