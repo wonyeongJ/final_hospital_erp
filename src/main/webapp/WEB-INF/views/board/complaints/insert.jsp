@@ -68,3 +68,4 @@
         height: 300
     });
 </script>
+<script src="/vendors/scripts/board/ComplaintsInsert.js"></script>

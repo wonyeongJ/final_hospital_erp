@@ -1,4 +1,4 @@
-// Notices, company clubs
+// Notices
 $(document).ready(function () {
     var table = $('.datatable').DataTable({
         'scrollCollapse': true,
@@ -14,7 +14,8 @@ $(document).ready(function () {
             }
         },
         'columnDefs': [
-            { 'type': 'num', 'targets': 0 } // Apply string sorting to the 0th column (Korean)
+            { 'type': 'num', 'targets': 0 },
+            { 'targets': [1, 2, 3, 4, 5], 'orderable': false } // 열 인덱스 [1, 2, 3, 4]에 해당하는 열에 대해 소팅 비활성화 // Apply string sorting to the 0th column (Korean)
         ],
         'order': [0, 'desc'] // Sort the 0th column (Korean) in ascending order first, then sort the 1st column (numbers) in ascending order.
     });
@@ -58,7 +59,7 @@ $(document).ready(function () {
 });
 
 
-// Civil complaints bulletin board
+// Civil complaints bulletin board,company clubs
 $(document).ready(function () {
     var table = $('.datatable2').DataTable({
         'scrollCollapse': true,
@@ -73,7 +74,7 @@ $(document).ready(function () {
                 previous: '<i class="ion-chevron-left"></i>'
             }
         },
-        'order': [1, 'desc']
+        'order': [0, 'desc']
     });
 
     // Add PDF, Print, Copy, and CSV buttons

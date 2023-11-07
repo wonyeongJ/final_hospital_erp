@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.AbstractView;
@@ -29,12 +30,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FileManager extends AbstractView {
 	 	
+		// 맥용 저장경로
 	    @Value("${app2.upload.nodeValue2}")
 	    private String uploadPath;
+	    
+	    // 윈도우용 저장경로
+//	    @Value("${app.upload.nodeValue}")
+//	    privte Strinf uploadPath;
 	    
 	    @Autowired
 	    private NoticeDAO noticeDAO;
 
+	    
 		//file 저장 후 파일명 리턴
 		public String save(String path, MultipartFile multipartFile)throws Exception{
 			//어디에?, 어떤파일을?
@@ -68,9 +75,11 @@ public class FileManager extends AbstractView {
 
 	
 
-		public boolean fileDelete(FileVO fileVO, String path, HttpSession session) throws Exception {
-	        // 1. 파일을 저장할 실제 경로 가져오기
-	        path = session.getServletContext().getRealPath(path);
+		public boolean fileDelete(FileVO fileVO, String path, HttpSession session,Map<String, Object> model) throws Exception {
+	       
+			String board = (String) model.get("board");
+			
+			path = fileVO.getBfPath()+board;
 
 	        log.info("경로: " + path);
 

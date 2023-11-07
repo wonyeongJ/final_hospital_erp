@@ -1,11 +1,15 @@
 package com.hospital.erp.board.notice;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,65 +70,57 @@ public class NoticeController {
  // 공지사항 등록 페이지로 이동
     @GetMapping("insert")
     public String noticeInsert(@AuthenticationPrincipal MemberVO memberVO, Model model) {
-        // UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        // MemberVO memberVO = (MemberVO) userDetails;
-        
-//    	System.out.println(memberVO.getMemCd());
-//    	System.out.println("depName : " + memberVO.getDepName());
-//        
+       
         model.addAttribute("memCd", memberVO.getMemCd());
-//        System.out.println(memberVO.getMemCd());
         model.addAttribute("memName", memberVO.getMemName());
         model.addAttribute("depCd", memberVO.getDepCd());
-//        System.out.println(memberVO.getDepName());
         model.addAttribute("depName", memberVO.getDepName());
+        
         return "board/notice/insert";
     }
 
     // 공지사항 등록 처리
     @PostMapping("insert")
     public String noticeInsert(@AuthenticationPrincipal MemberVO memberVO,NoticeVO noticeVO, MultipartFile[] files, Model model) throws Exception {
-//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        MemberVO memberVO = (MemberVO) userDetails;
+       
+    	
+    	
+    	
         noticeVO.setMemName(memberVO.getMemName());
         noticeVO.setDepCd(memberVO.getDepCd());
         noticeVO.setDepName(memberVO.getDepName());
+        
+        
+        System.out.println(noticeVO.toString());
 
         int result = noticeService.noticeInsert(noticeVO, files);
 
-        if (result == -1) {
-            // 중요 공지사항 제한에 도달했을 때 메시지 표시
-            String message = "중요 공지사항은 3개까지 등록 가능합니다. 등록되어 있는 중요 공지사항을 일반 공지사항으로 수정 후 다시 등록해주세요.";
-            model.addAttribute("message", message);
-            model.addAttribute("url", "insert");
-        } else {
-            String message = "등록 실패";
-            if (result > 0) {
-                message = "등록 성공";
-            }
-            model.addAttribute("message", message);
-            model.addAttribute("url", "list");
-        }
+        String message = "등록 실패";
 
+        if (result > 0) {
+            message = "등록 성공";
+        }
+        model.addAttribute("message", message);
+        model.addAttribute("url", "list");
         return "commons/result";
     }
-
 	
 	@GetMapping("data/{notCd}")
 	public String noticeData(@AuthenticationPrincipal MemberVO memberVO, @PathVariable int notCd, Model model) throws Exception {
 	    // 버튼 유무를 위해 세션에서 해당 계정 정보를 받아온다
 		model.addAttribute("member", memberVO.getDepCd());
 		
+		// 공지사항 조회수 증가
+        noticeService.noticeHitCount(notCd);
+	     
 		
 		// 공지사항 상세 정보를 가져옵니다.
 	    NoticeVO noticeVO = noticeService.noticeData(notCd);
 	  
-	    
-	     
+	  
 	    
 	    if (noticeVO != null) {
-	        // 공지사항 조회수 증가
-	        noticeService.noticeHitCount(notCd);
+	       
 
 	        // 공지사항에 속하는 파일 리스트를 가져옵니다.
 	        List<NoticeFileVO> fileList =noticeService.fileData(notCd);
@@ -194,21 +191,15 @@ public class NoticeController {
 			 
 		int result = noticeService.noticeUpdate(noticeVO, files);
 		
-		if (result == -1) {
-            // 중요 공지사항 제한에 도달했을 때 메시지 표시
-            String message = "중요 공지사항은 3개까지 등록 가능합니다. 등록되어 있는 중요 공지사항을 일반 공지사항으로 수정 후 다시 등록해주세요.";
-            model.addAttribute("message", message);
-            model.addAttribute("url", "list");
-        } else {
-            String message = "등록 실패";
-            if (result > 0) {
-                message = "등록 성공";
-            }
-            model.addAttribute("message", message);
-            model.addAttribute("url", "list");
+		String message = "등록 실패";
+
+        if (result > 0) {
+            message = "등록 성공";
         }
-		return "commons/result";
-		}
+        model.addAttribute("message", message);
+        model.addAttribute("url", "list");
+        return "commons/result";
+    }
 	
 	
 	/// Delete
@@ -223,7 +214,49 @@ public class NoticeController {
 	        return "failure";
 	    }
 	}
-		
+	
+	// 중요공지사항 글 조회
+	@PostMapping("noticeImportantCount")
+	@ResponseBody
+	public String noticeImportantCount(@RequestParam int notImportant, Model model) throws Exception {
+	    // 여기서 중요 공지사항이 3개 이상 등록되었는지 확인하는 로직을 작성
+	    int importantCount = noticeService.noticeImportantCount(notImportant);
+
+	    if (importantCount >= 3) {
+	        // 중요 공지사항이 3개 이상인 경우
+	        return "failure";
+	    } else {
+	        // 중요 공지사항 등록 가능한 경우
+	        return "success";
+	    }
+	}
+	
+	// 중요여부 업데이트
+	@PostMapping("noticeChangeStatus")
+	@ResponseBody
+	public String changeStatus(@RequestParam("notCd") int notCd, @RequestParam("notImportant") int notImportant) throws Exception {
+	    NoticeVO noticeVO = new NoticeVO();
+	    noticeVO.setNotCd(notCd);
+	    noticeVO.setNotImportant(notImportant);
+
+	    // 중요 공지사항 카운트
+	    int importantCount = noticeService.noticeImportantCount(notImportant);
+
+	    // notImportant = 1일 때 중요 공지사항이 3개 이상이면 업데이트 실패
+	    if (notImportant == 1 && importantCount >= 3) {
+	        return "failure";
+	    }
+
+	    int result = noticeService.noticeChangeStatus(noticeVO);
+
+	    System.err.println(result);
+	    if (result > 0) {
+	        return "success";
+	    } else {
+	        // 업데이트 실패 시 처리
+	        return "failure";
+	    }
+	}
 }
 	
 
