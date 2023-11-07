@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 	<!-- Site favicon -->
 	<link rel="apple-touch-icon" sizes="180x180" href="/vendors/images/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/vendors/images/favicon-32x32.png">

@@ -14,6 +14,7 @@ import com.hospital.erp.file.FileVO;
 @Mapper
 public interface NoticeDAO {
 	
+	
 	// 공지사항 리스트
 	public List<NoticeVO> noticeList(NoticeVO noticeVO) throws Exception;
 	
@@ -46,4 +47,7 @@ public interface NoticeDAO {
 	
 	// 파일 다운로드
 	public FileVO fileDown(FileVO fileVO) throws Exception;
+	
+	// 중요여부 업데이트
+	public int noticeChangeStatus(int notCd,int notImportant)throws Exception;
 }

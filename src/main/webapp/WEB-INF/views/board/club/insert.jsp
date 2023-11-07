@@ -10,8 +10,6 @@
 
     <div class="row justify-content-center my-4">
         <form class="col-md-7" action="./insert" method="post" id="frm" enctype="multipart/form-data">
-            
-
             <div class="pull-right">
                 <span class="input-group-text">${depName} : ${memName}</span>
             </div>
@@ -23,7 +21,7 @@
                 </div>
             </div>
 
-           <input class="form-control" name="memCd" value="${memCd}" style="display: none;">
+            <input class="form-control" name="memCd" value="${memCd}" style="display: none;">
 
             <!-- 썸머노트 에디터를 사용할 textarea -->
             <div class="mb-3">
@@ -32,23 +30,20 @@
                     <textarea name="clubContents" class="summernote"></textarea>
                 </div>
             </div>
-			<div class="mb-3">
-					    <label for="clubPersonnel" class="form-label">모집 인원 :</label>
-					    <div class="d-flex align-items-center">
-					        <button class="btn btn-outline-secondary" type="button" id="decrease">-</button>
-					        <input type="number" class="form-control" id="clubPersonnel" name="clubPersonnel" min="2" value="2" style="width: 70px">
-					        <button class="btn btn-outline-secondary" type="button" id="increase">+</button>
-					    </div>
-			</div>
-			
-
             <div class="mb-3">
-			    <button type="button" class="btn btn-primary" id="insert">파일 추가 <i class="icon-copy fi-upload"></i></button>
-			</div>
-			<div id="fileList" class="my-5">
-			    <!-- 초기에는 아무 파일 입력 상자도 없습니다. -->
-			</div>
-
+                <label for="clubPersonnel" class="form-label">모집 인원 :</label>
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-outline-secondary" type="button" id="decrease">-</button>
+                    <input type="number" class="form-control" id="clubPersonnel" name="clubPersonnel" min="2" max="30" value="2" style="width: 70px">
+                    <button class="btn btn-outline-secondary" type="button" id="increase">+</button>
+                </div>
+            </div>
+            <div class="mb-3">
+                <button type="button" class="btn btn-primary" id="insert">파일 추가 <i class="icon-copy fi-upload"></i></button>
+            </div>
+            <div id="fileList" class="my-5">
+                <!-- 초기에는 아무 파일 입력 상자도 없습니다. -->
+            </div>
             <div class="mb-3">
                 <button class="my btn btn-primary" type="submit" id="btn">글쓰기</button>
             </div>
@@ -63,20 +58,4 @@
     });
 </script>
 
-
-<script>
-		    // JavaScript를 사용하여 모집 인원 조절 버튼을 제어
-		    const maxParticipantsInput = document.getElementById("clubPersonnel");
-		    const decreaseButton = document.getElementById("decrease");
-		    const increaseButton = document.getElementById("increase");
-		
-		    decreaseButton.addEventListener("click", () => {
-		        if (maxParticipantsInput.value > 2) {
-		            maxParticipantsInput.value = parseInt(maxParticipantsInput.value) - 1;
-		        }
-		    });
-		
-		    increaseButton.addEventListener("click", () => {
-		        maxParticipantsInput.value = parseInt(maxParticipantsInput.value) + 1;
-		    });
-</script>
+<script src="/vendors/scripts/board/ClubInsert.js"></script>
