@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<link rel="stylesheet" href="/vendors/styles/board/clubData.css">
 <div class="container">
     <div class="row">
         <div class="col-md-7">
             <div class="card mb-4">
-                <div class="card-body" style="display: flex; align-items: flex-start;">
+                <div class="card-body" style=" align-items: flex-start;">
                     <div style="flex: 1;">
                         <h1 class="title" style="font-size: 2.0rem; text-align: center;">${data.clubTitle}</h1>
+                        <div class="author-info" style="margin-left: auto; text-align: right;">
+                        <span class="author-icon">${data.depName} : ${data.memName}</span>
+                        <div class="author-icon">조회수: ${data.clubHit}</div>
+                    	</div>
 
                         <!-- 줄 추가: 구분선 -->
                         <hr>
@@ -21,10 +25,7 @@
                             </c:forEach>
                         </div>
                     </div>
-                    <div class="author-info" style="margin-left: auto; text-align: right;">
-                        <span class="author-icon">${data.depName} : ${data.memName}</span>
-                        <div class="author-icon">조회수: ${data.clubHit}</div>
-                    </div>
+                    
                 </div>
             </div>
             <div style="display: flex; align-items: center;">
