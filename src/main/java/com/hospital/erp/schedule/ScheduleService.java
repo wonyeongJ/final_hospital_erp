@@ -24,5 +24,10 @@ public class ScheduleService {
 	public void surgeryScheduleDelete(ScheduleVO scheduleVO) throws Exception {
 		surgeryDAO.surgeryScheduleDelete(scheduleVO);
 	}
+
+	public ScheduleVO surgeryScheduleData(ScheduleVO scheduleVO) throws Exception {
+		scheduleVO = surgeryDAO.surgeryScheduleData(scheduleVO);
+		return scheduleVO;
+	}
 	
 }

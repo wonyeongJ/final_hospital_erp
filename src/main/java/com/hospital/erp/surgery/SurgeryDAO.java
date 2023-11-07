@@ -25,6 +25,10 @@ public interface SurgeryDAO {
 
 	public SurgeryVO surgeryCheck(SurgeryVO surgeryVO) throws Exception;
 
+	public List<ScheduleVO> surgeryScheduleCheck2(ScheduleVO scheduleVO) throws Exception;
+
+	public void surgeryScheduleDelete(ScheduleVO scheduleVO) throws Exception;
+
 //	public List<SurgeryParticiantVO> memberList() throws Exception;
 
 }

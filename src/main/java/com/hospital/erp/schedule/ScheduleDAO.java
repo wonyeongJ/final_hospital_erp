@@ -11,6 +11,8 @@ public interface ScheduleDAO {
 
 	List<ScheduleVO> myScheduleList(ScheduleVO scheduleVO) throws Exception;
 
-	void surgeryScheduleDelete(ScheduleVO scheduleVO)throws Exception;
+	void surgeryScheduleDelete(ScheduleVO scheduleVO) throws Exception;
+
+	ScheduleVO surgeryScheduleData(ScheduleVO scheduleVO) throws Exception;
 
 }

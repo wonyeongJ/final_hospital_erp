@@ -215,9 +215,90 @@ public class SurgeryController {
 	}
 	
 	@GetMapping("scheduleUpdate") 
-	public String surgeryscheduleUpdate() throws Exception{ 
-		   
+	public String surgeryscheduleUpdate(ScheduleVO scheduleVO, SurgeryVO surgeryVO, Model model, String paramDate) throws Exception{ 
+		
+		scheduleVO = scheduleService.surgeryScheduleData(scheduleVO);
+		model.addAttribute("scheduleVO", scheduleVO);
+		surgeryVO.setSurCd(scheduleVO.getSchFk());
+		surgeryVO = surgeryService.surgeryData(surgeryVO);
+		model.addAttribute("surgeryVO", surgeryVO);
+		
+		if(paramDate != null) {
+			String stringDate = timeSetter.stringDateChanger(paramDate);
+	        SimpleDateFormat formatter = new SimpleDateFormat("dd MM yyyy");
+	        Date date = formatter.parse(stringDate);    
+	        LocalDate localDate = timeSetter.dateToLocalDate(date);
+	        LocalDateTime localDateTime = localDate.atStartOfDay();
+			String ldt = timeSetter.localDateTimeToString(localDateTime, "yyyy년 MM월 dd일");
+			// view에 보여주기용 데이터
+			model.addAttribute("ldt", ldt);
+			
+			LocalDateTime localDateTimeL = localDate.atTime(LocalTime.MAX);//(날짜 + 23:59:59:9999999)
+			
+			scheduleVO.setSchSdate(localDateTime);
+			scheduleVO.setSchEdate(localDateTimeL);
+		}else {
+			LocalDateTime localDateTime = scheduleVO.getSchSdate();
+			String ldt = timeSetter.localDateTimeToString(localDateTime, "yyyy년 MM월 dd일");
+			// view에 보여주기용 데이터
+			model.addAttribute("ldt", ldt);
+			
+			String[] ldtArray = ldt.split(" ");		
+			int year = Integer.parseInt(ldtArray[0].substring(0, 4)); 
+			int month = Integer.parseInt(ldtArray[1].substring(0, 2));
+			int dayOfMonth = Integer.parseInt(ldtArray[2].substring(0, 2));
+			localDateTime = LocalDateTime.of(year, month, dayOfMonth, 0, 0, 0);
+			LocalDateTime localDateTimeL = localDateTime.toLocalDate().atTime(LocalTime.MAX);		
+			scheduleVO.setSchSdate(localDateTime);
+			scheduleVO.setSchEdate(localDateTimeL);
+		}
+		
+		scheduleVO.setCodeCd(15);
+		
+		// 해당 날짜에 해당하는 (surgery) schedule을 조회
+		List<ScheduleVO> list = scheduleService.scheduleList(scheduleVO);
+		
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).setStartNum(Integer.parseInt(timeSetter.localDateTimeToString(list.get(i).getSchSdate(), "HHmm"))); 
+			list.get(i).setEndNum(Integer.parseInt(timeSetter.localDateTimeToString(list.get(i).getSchEdate(), "HHmm")));	
+		};
+		
+		model.addAttribute("list", list);
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	    UserDetails userDetails = (UserDetails)principal;
+	    MemberVO memberVO = (MemberVO)userDetails;
+	    model.addAttribute("memberVO", memberVO);
+		
 		return "surgery/scheduleUpdate"; 
 		
+	}
+	
+	@ResponseBody
+	@PostMapping("reservationUpdate")
+	public String surgeryReservationUpdate(SurgeryReservationVO surgeryReservationVO, ScheduleVO scheduleVO, String memCd)throws Exception{
+		
+		Date date = timeSetter.stringToDate(surgeryReservationVO.getParamDate(), "yyyy년 MM월 dd일");
+		LocalDateTime localDateTime = timeSetter.dateTolocalDateTime(date);
+		scheduleVO.setSchSdate(localDateTime.plusHours(surgeryReservationVO.getSTime()));
+		scheduleVO.setSchEdate(localDateTime.plusHours(surgeryReservationVO.getETime()));
+		scheduleVO.setSchFk(surgeryReservationVO.getSurCd());
+		scheduleVO.setCodeCd(15);
+		scheduleVO.setMemCd(memCd);
+		scheduleVO.setSchCd(surgeryReservationVO.getSchCd());
+		List<ScheduleVO> checkResult = surgeryService.surgeryScheduleCheck2(scheduleVO);
+		
+		String result;
+		if(checkResult.size()==0) {
+			// 등록가능
+			surgeryService.surgeryScheduleDelete(scheduleVO);
+			surgeryService.surgeryScheduleInsert(scheduleVO);
+			result = "o";
+			return result;
+		}else {
+			// 등록 불가능
+			result = "x";
+			return result;
+		}
 	}
 }

@@ -39,5 +39,14 @@
 		WHERE 
 			SCH_CD = #{schCd}
 	</delete>
+	
+	<select id="surgeryScheduleData" parameterType="ScheduleVO" resultType="ScheduleVO">
+		SELECT
+			*
+		FROM
+			SCHEDULE
+		WHERE 
+			SCH_CD = #{schCd}
+	</select>
   	
 </mapper>

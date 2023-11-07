@@ -13,4 +13,5 @@ public class SurgeryReservationVO {
 	private int sTime; 
 	private int eTime; 
 	private int surCd;
+	private int schCd;
 }

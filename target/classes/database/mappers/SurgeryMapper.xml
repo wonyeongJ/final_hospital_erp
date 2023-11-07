@@ -121,4 +121,28 @@
 			SUR_NUM = #{surNum}
   	</select>
   	
+  	<select id="surgeryScheduleCheck2" resultType="ScheduleVO" parameterType="ScheduleVO">
+		SELECT
+			*
+		FROM 
+			SCHEDULE
+		WHERE 
+			SCH_CD NOT IN (#{schCd}) AND
+			CODE_CD = #{codeCd} AND 
+			SCH_FK = #{schFk} AND 
+			(
+			(#{schSdate} <![CDATA[<=]]> SCH_SDATE AND #{schEdate} <![CDATA[>]]> SCH_SDATE) OR
+			(#{schSdate} <![CDATA[<]]> SCH_EDATE AND #{schEdate} <![CDATA[>=]]> SCH_EDATE)
+			)
+  	</select>
+  	
+  	<delete id="surgeryScheduleDelete" parameterType="ScheduleVO">
+		DELETE 
+			FROM SCHEDULE 
+		WHERE 
+			SCH_CD = #{schCd}
+		;
+
+  	</delete>
+  	
 </mapper>
