@@ -29,6 +29,11 @@ table, tr, th{
 	left: 42%;
 }
 
+#schedule-update-btn{
+	position: relative; 
+	left: 39%;
+}
+
 label{
 	font-size: large;
 }

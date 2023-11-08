@@ -84,7 +84,9 @@
 			SCH_FK = #{schFk} AND 
 			(
 			(#{schSdate} <![CDATA[<=]]> SCH_SDATE AND #{schEdate} <![CDATA[>]]> SCH_SDATE) OR
-			(#{schSdate} <![CDATA[<]]> SCH_EDATE AND #{schEdate} <![CDATA[>=]]> SCH_EDATE)
+			(#{schSdate} <![CDATA[<]]> SCH_EDATE AND #{schEdate} <![CDATA[>=]]> SCH_EDATE) OR
+			(#{schSdate} <![CDATA[>=]]> SCH_SDATE AND #{schSdate} <![CDATA[<]]> SCH_EDATE) OR
+			(#{schEdate} <![CDATA[>]]> SCH_SDATE AND #{schEdate} <![CDATA[<=]]> SCH_EDATE)
 			)
   	</select>
   	
@@ -132,7 +134,9 @@
 			SCH_FK = #{schFk} AND 
 			(
 			(#{schSdate} <![CDATA[<=]]> SCH_SDATE AND #{schEdate} <![CDATA[>]]> SCH_SDATE) OR
-			(#{schSdate} <![CDATA[<]]> SCH_EDATE AND #{schEdate} <![CDATA[>=]]> SCH_EDATE)
+			(#{schSdate} <![CDATA[<]]> SCH_EDATE AND #{schEdate} <![CDATA[>=]]> SCH_EDATE) OR
+			(#{schSdate} <![CDATA[>=]]> SCH_SDATE AND #{schSdate} <![CDATA[<]]> SCH_EDATE) OR
+			(#{schEdate} <![CDATA[>]]> SCH_SDATE AND #{schEdate} <![CDATA[<=]]> SCH_EDATE)
 			)
   	</select>
   	
