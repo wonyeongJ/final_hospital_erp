@@ -62,7 +62,7 @@ public class ClubService {
 		}
         
         
-
+	    if (files1 != null) {
 		
 		// 파일 업로드 및 파일 정보 저장
         for (MultipartFile file : files1) {
@@ -79,6 +79,7 @@ public class ClubService {
                 clubDAO.fileInsert(clubFileVO);
             }
         }
+	    }
 
 		return result;
 	}
@@ -115,6 +116,7 @@ public class ClubService {
 		int result = clubDAO.clubUpdate(clubVO);
 	    int clubCd = clubVO.getClubCd();
 	    
+	    if (files1 != null) {
 	 // 파일 업로드 및 파일 정보 저장
         for (MultipartFile file : files1) {
             if (!file.isEmpty()) {
@@ -130,7 +132,7 @@ public class ClubService {
                 clubDAO.fileInsert(clubFileVO);
             }
         }
-
+	    }
 		return result;
 	}
 	

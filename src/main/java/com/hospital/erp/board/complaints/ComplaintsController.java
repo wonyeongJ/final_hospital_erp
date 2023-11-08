@@ -75,6 +75,7 @@ public class ComplaintsController {
     	complaintsVO.setDepCd(memberVO.getDepCd());
     	complaintsVO.setDepName(memberVO.getDepName());
     	
+    	System.out.println(files1);
     	int result = complaintsService.complaintsInsert(complaintsVO, files1);
 
         String message = "등록 실패";

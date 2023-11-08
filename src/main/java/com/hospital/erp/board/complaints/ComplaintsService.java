@@ -62,11 +62,13 @@ public class ComplaintsService {
 
 	        int result = complaintsDAO.complaintsInsert(complaintsVO);
 	        int compCd = complaintsVO.getCompCd();
-
+	        System.out.println("eeeeeeeeee");
 			
+	        if (files1 != null) {
 			// 파일 업로드 및 파일 정보 저장
 	        for (MultipartFile file : files1) {
 	            if (!file.isEmpty()) {
+	            	
 	                ComplaintsFileVO complaintsFileVO = new ComplaintsFileVO();
 	                complaintsFileVO.setCodeCd(10); // 해당 민원게시판 카테고리 코드
 	                complaintsFileVO.setBfFk(compCd); // 민원게시판 등록 후 생성된 PK
@@ -78,6 +80,7 @@ public class ComplaintsService {
 	                complaintsFileVO.setBfExtension(extension);
 	                complaintsDAO.fileInsert(complaintsFileVO);
 	            }
+	        }
 	        }
 
 			return result;
@@ -113,7 +116,7 @@ public class ComplaintsService {
 			   int result = complaintsDAO.complaintsUpdate(complaintsVO);
 		       int compCd = complaintsVO.getCompCd();
 
-				
+		       if (files1 != null) {
 				// 파일 업로드 및 파일 정보 저장
 		        for (MultipartFile file : files1) {
 		            if (!file.isEmpty()) {
@@ -129,6 +132,7 @@ public class ComplaintsService {
 		                complaintsDAO.fileInsert(complaintsFileVO);
 		            }
 		        }
+		       }
 
 				return result;
 			}

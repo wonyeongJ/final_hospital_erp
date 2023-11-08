@@ -78,7 +78,7 @@ public class NoticeService {
 	
 	
 	// 공지사항 등록
-	public int noticeInsert(NoticeVO noticeVO, MultipartFile[] files) throws Exception {
+	public int noticeInsert(NoticeVO noticeVO, MultipartFile[] files1) throws Exception {
 		
 		
 		int importantCount = noticeDAO.noticeImportantCount(1); // 중요 공지사항 개수 조회
@@ -89,9 +89,9 @@ public class NoticeService {
         int result = noticeDAO.noticeInsert(noticeVO);
         int notCd = noticeVO.getNotCd();
 
-		
+        if (files1 != null) {
 		// 파일 업로드 및 파일 정보 저장
-        for (MultipartFile file : files) {
+        for (MultipartFile file : files1) {
             if (!file.isEmpty()) {
                 NoticeFileVO noticeFileVO = new NoticeFileVO();
                 noticeFileVO.setCodeCd(9); // 해당 공지사항 카테고리 코드
@@ -104,6 +104,7 @@ public class NoticeService {
                 noticeFileVO.setBfExtension(extension);
                 noticeDAO.fileInsert(noticeFileVO);
             }
+        }
         }
 
 		return result;
@@ -151,7 +152,7 @@ public class NoticeService {
        int result = noticeDAO.noticeUpdate(noticeVO);
        
 
-		
+       if (files1 != null) {
 		// 파일 업로드 및 파일 정보 저장
         for (MultipartFile file : files1) {
             if (!file.isEmpty()) {
@@ -167,6 +168,7 @@ public class NoticeService {
                 noticeDAO.fileInsert(noticeFileVO);
             }
         }
+       }
 
 		return result;
 	}
