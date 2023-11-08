@@ -136,7 +136,7 @@ public class NoticeService {
 	}
 	
 	// 공지사항 업데이트
-	public int noticeUpdate (NoticeVO noticeVO,MultipartFile[] files)throws Exception{
+	public int noticeUpdate (NoticeVO noticeVO,MultipartFile[] files1)throws Exception{
 		
 		int notCd = noticeVO.getNotCd();
 		
@@ -153,7 +153,7 @@ public class NoticeService {
 
 		
 		// 파일 업로드 및 파일 정보 저장
-        for (MultipartFile file : files) {
+        for (MultipartFile file : files1) {
             if (!file.isEmpty()) {
                 NoticeFileVO noticeFileVO = new NoticeFileVO();
                 noticeFileVO.setCodeCd(9); // 해당 공지사항 카테고리 코드

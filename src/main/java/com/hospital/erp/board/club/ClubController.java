@@ -79,13 +79,13 @@ public class ClubController {
 	
 	
 	@PostMapping("insert")
-	public String clubInsert(@AuthenticationPrincipal MemberVO memberVO,ClubVO clubVO, MultipartFile[] files, Model model) throws Exception {
+	public String clubInsert(@AuthenticationPrincipal MemberVO memberVO,ClubVO clubVO, MultipartFile[] files1, Model model) throws Exception {
 		
 		clubVO.setMemName(memberVO.getMemName());
 		clubVO.setDepCd(memberVO.getDepCd());
 		clubVO.setDepName(memberVO.getDepName());
 		
-		int result = clubService.clubInsert(clubVO, files);
+		int result = clubService.clubInsert(clubVO, files1);
         if (result > 0) {
             model.addAttribute("message", "사내동호회 등록이 완료되었습니다.");
             model.addAttribute("url", "list");
@@ -175,9 +175,9 @@ public class ClubController {
 	}
 	
 	@PostMapping("update")
-	public String clubUpdata(ClubVO clubVO,MultipartFile[] files,HttpSession session,Model model)throws Exception{
+	public String clubUpdata(ClubVO clubVO,MultipartFile[] files1,HttpSession session,Model model)throws Exception{
 		
-		 int result = clubService.clubUpdate(clubVO, files);
+		 int result = clubService.clubUpdate(clubVO, files1);
 
 	        String message = "등록 실패";
 

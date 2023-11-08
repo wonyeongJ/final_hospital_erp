@@ -45,7 +45,7 @@ public class ClubService {
 	} 
 	
 	// 사내동호회 등록
-	public int clubInsert(ClubVO clubVO,MultipartFile[] files)throws Exception{
+	public int clubInsert(ClubVO clubVO,MultipartFile[] files1)throws Exception{
 		
 		// 클럽 등록
 		int result = clubDAO.clubInsert(clubVO);
@@ -65,7 +65,7 @@ public class ClubService {
 
 		
 		// 파일 업로드 및 파일 정보 저장
-        for (MultipartFile file : files) {
+        for (MultipartFile file : files1) {
             if (!file.isEmpty()) {
                 ClubFileVO clubFileVO = new ClubFileVO();
                 clubFileVO.setCodeCd(11); // 해당 게시판 카테고리 코드
@@ -110,13 +110,13 @@ public class ClubService {
 	}
 	
 	// 사내동호회 업데이트
-	public int clubUpdate(ClubVO clubVO,MultipartFile[] files)throws Exception{
+	public int clubUpdate(ClubVO clubVO,MultipartFile[] files1)throws Exception{
 		
 		int result = clubDAO.clubUpdate(clubVO);
 	    int clubCd = clubVO.getClubCd();
 	    
 	 // 파일 업로드 및 파일 정보 저장
-        for (MultipartFile file : files) {
+        for (MultipartFile file : files1) {
             if (!file.isEmpty()) {
                 ClubFileVO clubFileVO = new ClubFileVO();
                 clubFileVO.setCodeCd(11); // 해당 공지사항 카테고리 코드

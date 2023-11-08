@@ -58,14 +58,14 @@ public class ComplaintsService {
     }
 	
 	// 민원게시판 등록
-		public int complaintsInsert(ComplaintsVO complaintsVO, MultipartFile[] files) throws Exception {
+		public int complaintsInsert(ComplaintsVO complaintsVO, MultipartFile[] files1) throws Exception {
 
 	        int result = complaintsDAO.complaintsInsert(complaintsVO);
 	        int compCd = complaintsVO.getCompCd();
 
 			
 			// 파일 업로드 및 파일 정보 저장
-	        for (MultipartFile file : files) {
+	        for (MultipartFile file : files1) {
 	            if (!file.isEmpty()) {
 	                ComplaintsFileVO complaintsFileVO = new ComplaintsFileVO();
 	                complaintsFileVO.setCodeCd(10); // 해당 민원게시판 카테고리 코드
@@ -109,13 +109,13 @@ public class ComplaintsService {
 		
 		
 		// 민원게시판 업데이트
-		public int complaintsUpdate(ComplaintsVO complaintsVO,MultipartFile[] files)throws Exception{
+		public int complaintsUpdate(ComplaintsVO complaintsVO,MultipartFile[] files1)throws Exception{
 			   int result = complaintsDAO.complaintsUpdate(complaintsVO);
 		       int compCd = complaintsVO.getCompCd();
 
 				
 				// 파일 업로드 및 파일 정보 저장
-		        for (MultipartFile file : files) {
+		        for (MultipartFile file : files1) {
 		            if (!file.isEmpty()) {
 		                ComplaintsFileVO complaintsFileVO = new ComplaintsFileVO();
 		                complaintsFileVO.setCodeCd(10); // 해당 민원게시판 카테고리 코드
