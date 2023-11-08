@@ -48,5 +48,46 @@
 		WHERE 
 			SCH_CD = #{schCd}
 	</select>
+	
+	<select id="personalScheduleList" parameterType="MemberVO" resultType="ScheduleVO">
+		SELECT
+			*
+		FROM
+			SCHEDULE
+		WHERE 
+			MEM_CD = #{memCd}
+	</select>
+	
+	<select id="codeData" parameterType="int" resultType="CodeVO">
+		SELECT
+			*
+		FROM
+			CODE
+		WHERE 
+			CODE_CD = #{codeCd}
+	</select>
+	
+	<select id="scheduleData" parameterType="ScheduleVO" resultType="ScheduleVO">
+		SELECT
+			*
+		FROM
+			SCHEDULE
+		WHERE 
+			SCH_CD = #{schCd}
+	</select>
+	
+	<insert id="personalScheduleInsert" parameterType="ScheduleVO" useGeneratedKeys="true" keyProperty="schCd">
+		INSERT INTO 
+			SCHEDULE (MEM_CD, CODE_CD, SCH_FK, SCH_SDATE, SCH_EDATE, SCH_DESC, SCH_RDATE)
+		VALUES 
+			(#{memCd}, #{codeCd}, #{schFk}, #{schSdate}, #{schEdate}, #{schDesc}, NOW())
+	</insert>
+	
+	<delete id="personalScheduleDelete" parameterType="ScheduleVO">
+		DELETE 
+			FROM SCHEDULE 
+		WHERE 
+			SCH_CD = #{schCd}
+	</delete>
   	
 </mapper>

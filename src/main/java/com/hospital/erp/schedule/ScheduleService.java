@@ -5,29 +5,57 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hospital.erp.common.CodeVO;
+import com.hospital.erp.member.MemberVO;
+
 @Service
 public class ScheduleService {
 	
 	@Autowired
-	private ScheduleDAO surgeryDAO;
+	private ScheduleDAO scheduleDAO;
+
 
 	public List<ScheduleVO> scheduleList(ScheduleVO scheduleVO) throws Exception {
-		List<ScheduleVO> list = surgeryDAO.scheduleList(scheduleVO);
+		List<ScheduleVO> list = scheduleDAO.scheduleList(scheduleVO);
 		return list;
 	}
 
 	public List<ScheduleVO> myScheduleList(ScheduleVO scheduleVO) throws Exception {
-		List<ScheduleVO> list = surgeryDAO.myScheduleList(scheduleVO);
+		List<ScheduleVO> list = scheduleDAO.myScheduleList(scheduleVO);
 		return list;
 	}
 
 	public void surgeryScheduleDelete(ScheduleVO scheduleVO) throws Exception {
-		surgeryDAO.surgeryScheduleDelete(scheduleVO);
+		scheduleDAO.surgeryScheduleDelete(scheduleVO);
 	}
 
 	public ScheduleVO surgeryScheduleData(ScheduleVO scheduleVO) throws Exception {
-		scheduleVO = surgeryDAO.surgeryScheduleData(scheduleVO);
+		scheduleVO = scheduleDAO.surgeryScheduleData(scheduleVO);
 		return scheduleVO;
+	}
+
+	public List<ScheduleVO> personalScheduleList(MemberVO memberVO) throws Exception {
+		List<ScheduleVO> list = scheduleDAO.personalScheduleList(memberVO);
+		return list;
+	}
+
+	public CodeVO codeData(int codeCd) throws Exception {
+		CodeVO codeVO = scheduleDAO.codeData(codeCd);
+		return codeVO;
+	}
+
+	public ScheduleVO scheduleData(ScheduleVO scheduleVO) throws Exception {
+		scheduleVO = scheduleDAO.scheduleData(scheduleVO);
+		return scheduleVO;
+	}
+
+	public void personalScheduleInsert(ScheduleVO scheduleVO) throws Exception {
+		scheduleDAO.personalScheduleInsert(scheduleVO);
+	}
+
+	public void personalScheduleDelete(ScheduleVO scheduleVO) throws Exception {
+		scheduleDAO.personalScheduleDelete(scheduleVO);
+		
 	}
 	
 }
