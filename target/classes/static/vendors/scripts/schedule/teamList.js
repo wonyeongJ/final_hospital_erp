@@ -24,7 +24,7 @@ $(document).ready(function(){
 			end = parseInt( endNum / 100 ) + 1;
 		}
 		
-		let time = startNum.slice(0,-2) + ':' + startNum.slice(-2) + ' ~ ' + endNum.slice(0,-2) + ':' + endNum.slice(-2)
+		let time = startNum.slice(0,-2) + ':' + startNum.slice(-2) + '~' + endNum.slice(0,-2) + ':' + endNum.slice(-2)
 		
 		if(codeCd == 26){
 			$('.'+ memCd).attr('id', 'on');
@@ -84,7 +84,7 @@ $('.filter-btn').click(function(){
 $('.bottom').hover(
 	function() { 
 		let time = $(this).attr('time');
-    	$( this ).append($( "<span style=\"font-size: 10px;\">" + time + "</span>" ))
+    	$( this ).append($( "<span style=\"font-size: 9px;\">" + time + "</span>" ))
  	}, function() {
     	$( this ).find( "span" ).last().remove()
   }
