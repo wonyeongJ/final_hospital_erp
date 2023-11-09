@@ -7,7 +7,7 @@
 	<head>
 		<!-- Basic Page Info -->
 		<meta charset="utf-8">
-		<title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
+		<title>ERP_Hospital ForgotPassword</title>
 	
 		<!-- Site favicon -->
 		<link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
@@ -65,31 +65,20 @@
 							<h2 class="text-center text-primary">Forgot Password</h2>
 						</div>
 						<h6 class="mb-20">Enter your email address to reset your password</h6>
-						<form>
+						<form action="forgotPassword" method="post">
 							<div class="input-group custom">
-								<input type="text" class="form-control form-control-lg" placeholder="Email">
+								<input type="text" class="form-control form-control-lg" name="email" placeholder="Email">
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
 								</div>
 							</div>
 							<div class="row align-items-center">
 								<div class="col-5">
-									<div class="input-group mb-0">
-										<!--
-											use code for form submit
-											<input class="btn btn-primary btn-lg btn-block" type="submit" value="Submit">
-										-->
-										<a class="btn btn-primary btn-lg btn-block" href="index.html">Submit</a>
+									<div class="input-group mb-0">	
+											<button class="btn btn-primary" type="submit">Submit</button>
 									</div>
 								</div>
-								<div class="col-2">
-									<div class="font-16 weight-600 text-center" data-color="#707373" style="color: rgb(112, 115, 115);">OR</div>
-								</div>
-								<div class="col-5">
-									<div class="input-group mb-0">
-										<a class="btn btn-outline-primary btn-lg btn-block" href="login.html">Login</a>
-									</div>
-								</div>
+								
 							</div>
 						</form>
 					</div>
