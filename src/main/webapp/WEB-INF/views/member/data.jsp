@@ -9,6 +9,11 @@
 	<h3></h3>
 	<form action="update" method="post">
 		<div class="form-group row">
+			<div class="col-sm-12 col-md-10">
+				<input class="form-control" type="text" name="memCd" value="${memberVO.memCd}" hidden>
+			</div>
+		</div>
+		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">이름</label>
 			<div class="col-sm-12 col-md-10">
 				<input class="form-control" type="text" name="memName" value="${memberVO.memName}" >
@@ -17,7 +22,7 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">주민등록번호</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="memRnum" value="${memberVO.memRnum}" >
+				<input class="form-control" type="text"  value="${memberVO.memRnum}" readonly >
 			</div>
 		</div>
 		<div class="form-group row">
@@ -29,7 +34,7 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">직무</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="memJobCd" value="${memberVO.jobCd}">
+				<input class="form-control" type="text" value="${memberVO.jobName}" readonly>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -41,7 +46,7 @@
 			<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">연봉</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="number" value="${memberVO.memSalary}">
+				<input class="form-control" type="number" name="memSalary" value="${memberVO.memSalary}">
 			</div>
 		</div>
 		<div class="form-group row">
@@ -65,7 +70,7 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">연차</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="number" value="${memberVO.memAnnual}">
+				<input class="form-control" type="number" name="memAnnual" value="${memberVO.memAnnual}">
 			</div>
 		</div>
 			<div class="form-group row">
@@ -77,7 +82,20 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">직책</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="memPosCd" value="${memberVO.posCd}">
+				<select name="posCd" class="custom-select">
+					<c:forEach items="${codeAr}" var="codeVO">
+						<c:if test="${codeVO.codeGname eq 'POSITION'}">
+							<c:choose>
+								<c:when test="${codeVO.codeCd eq memberVO.posCd}">
+									<option value="${codeVO.codeCd }" selected="selected">${codeVO.codeName }</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${codeVO.codeCd }" >${codeVO.codeName }</option>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+					</c:forEach>
+				</select>
 			</div>
 		</div>
 		<div class="form-group row">

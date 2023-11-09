@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.hospital.erp.common.CodeVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,7 +41,6 @@ public class MemberService implements UserDetailsService {
 	}
 	 
 	
-	  
 	//직원 리스트 조회 메서드
 	public List<MemberVO> memberList() throws Exception {
 		return memberDAO.memberList();
@@ -112,12 +112,24 @@ public class MemberService implements UserDetailsService {
 		UserDetails userDetails = (UserDetails)principal;
 		MemberVO memberVO = (MemberVO)userDetails;
 		
-		memberVO.setMemPw(passwordEncoder.encode(memberVO.getMemPw()));
+		log.info("=========service passwordVOconfirm ====  {}",passwordVO);
+		memberVO.setMemPw(passwordEncoder.encode(passwordVO.getNewPasswordConfirm()));
+		log.info("=========service passwordVOconfirm ====  {}",memberVO.getMemPw());
 		return memberDAO.memberUpdatePassword(memberVO);
 	}
 	
 	// chartList
 	public List<MemberVO> memberListChart() throws Exception {
 		return memberDAO.memberListChart();
+	}
+	
+	// codeList
+	public List<CodeVO> codeList() throws Exception {
+		return memberDAO.codeList();
+	}
+	
+	// member 업데이트
+	public int memberUpdate(MemberVO memberVO) throws Exception {
+		return memberDAO.memberUpdate(memberVO);
 	}
 }

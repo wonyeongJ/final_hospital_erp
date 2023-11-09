@@ -59,21 +59,19 @@
 						<div class="modal-body">
 							<form:form modelAttribute="passwordVO" id="updatePasswordFrm" action="./updatePassword" method="post" >
 								<div class="input-group custom">
-									<input type="text" class="form-control form-control-lg" name="newPassword" placeholder="New Password">
+									<input type="password" class="form-control form-control-lg" id="newPassword" name="newPassword" placeholder="New Password">
 									<div class="input-group-append custom">
 										<span class="input-group-text"><i class="dw dw-padlock1"></i></span>
 									</div>
-									<form:errors path="newPassword"></form:errors>
+									
 								</div>
 								<div class="input-group custom">
-									<input type="text" class="form-control form-control-lg" name="newPasswordConfirm" placeholder="Confirm New Password">
+									<input type="password" class="form-control form-control-lg" id="newPasswordConfirm"  name="newPasswordConfirm" placeholder="Confirm New Password">
 									<div class="input-group-append custom">
 										<span class="input-group-text"><i class="dw dw-padlock1"></i></span>
 									</div>
 								</div>
-									<div>
-										<form:errors path="newPasswordConfirm"></form:errors>
-									</div>
+									
 								<div class="row align-items-center">
 									<div class="col-5">
 										<div class="input-group mb-0">

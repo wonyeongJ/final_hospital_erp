@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hospital.erp.common.CodeVO;
 import com.hospital.erp.department.DepartmentService;
 import com.hospital.erp.department.DepartmentVO;
 
@@ -61,8 +62,10 @@ public class MemberController {
 	  public String memberData(MemberVO memberVO, Model model) throws Exception {
 		  memberVO = memberService.memberData(memberVO);
 		  List<DepartmentVO> departmentAr = departmentService.departmentList();
+		  List<CodeVO> codeAr = memberService.codeList();
 		  model.addAttribute("memberVO", memberVO);
 		  model.addAttribute("departmentAr", departmentAr);
+		  model.addAttribute("codeAr",codeAr);
 		  return "member/data";
 	  }
 	  
@@ -90,7 +93,9 @@ public class MemberController {
 	  // 업데이트 요청 메서드
 	  @PostMapping("update")
 	  public String memberUpdate(MemberVO memberVO) throws Exception {
-		  return "redirect:./data";
+		  log.info("=======memberVO update {}=======",memberVO);
+		  int result = memberService.memberUpdate(memberVO);
+		  return "redirect:./data?memCd="+memberVO.getMemCd();
 	  }
 	 
 	  // 마이페이지 요청 메서드
@@ -114,6 +119,7 @@ public class MemberController {
 				  return "member/mypage";
 			  }else{
 				  //패스워드 리셋 수행 메서드 호출
+				  log.info("===Password 변경 실행 {} ======= ", passwordVO);
 				  memberService.memberUpdatePassword(passwordVO);
 				  return "redirect:./mypage";
 			  }

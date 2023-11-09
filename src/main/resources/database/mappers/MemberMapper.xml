@@ -32,11 +32,20 @@
   	<!-- 직원 상세 조회 쿼리 -->
   	<select id="memberData" parameterType="MemberVO" resultType="MemberVO">
 		SELECT
-			*
+			M.*, C.CODE_NAME AS JOBNAME
 		FROM
-			MEMBER
+			MEMBER AS M
+				JOIN CODE AS C
+				ON M.JOB_CD = C.CODE_CD
 		WHERE
 			MEM_CD = #{memCd}
+  	</select>
+  	
+  	<select id="codeList" resultType="CodeVO">
+  		SELECT
+  			*
+  		FROM
+  			CODE  
   	</select>
   	
   	<!-- Member 테이블 Insert 전 사번 입력을위해 가장 마지막 사번 조회해오는 쿼리문 -->
@@ -97,6 +106,18 @@
 				ON M.DEP_CD = D.DEP_CD 
 		WHERE M.MEM_CD = #{value}
   	</select>
+  	
+  	<update id="memberUpdate" parameterType="MemberVO">
+  		UPDATE
+			MEMBER
+		SET MEM_NAME = #{memName},
+			MEM_EMAIL = #{memEmail},
+			MEM_SALARY = #{memSalary},
+			DEP_CD = #{depCd},
+			MEM_ANNUAL = #{memAnnual},
+			POS_CD = #{posCd}
+		WHERE MEM_CD = #{memCd}
+  	</update>
   	
   	<update id="memberUpdatePassword" parameterType="MemberVO">
   		UPDATE
