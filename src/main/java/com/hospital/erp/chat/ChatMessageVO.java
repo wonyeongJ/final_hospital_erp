@@ -7,10 +7,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class RoomVO {
+public class ChatMessageVO {
+	
+	private Long roomnum;
+	private String message;
+	private String sender;
+	
+	
+	
 
-	
-	int roomNumber;
-	
-	String roomName;
 }
