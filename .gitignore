@@ -157,3 +157,5 @@ application-db.yml
 application-dev.yml
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,eclipse,java,macos
+src/main/resources/static/application-dev.yml
+target/classes/static/application-dev.yml
