@@ -24,6 +24,8 @@ $(document).ready(function(){
 			end = parseInt( endNum / 100 ) + 1;
 		}
 		
+		let time = startNum.slice(0,-2) + ':' + startNum.slice(-2) + ' ~ ' + endNum.slice(0,-2) + ':' + endNum.slice(-2)
+		
 		if(codeCd == 26){
 			$('.'+ memCd).attr('id', 'on');
 			for(var j = 0; j < 24; j++){
@@ -35,6 +37,7 @@ $(document).ready(function(){
 		    case 15: // 수술 일정
 				for(var j = start; j < end; j++){
 					$('#'+ memCd + '-' + String(j+1)).attr('class', 'g')
+					$('#'+ memCd + '-' + String(j+1)).attr('time', time)
 				};
 		    break;
 		    case 16: // 연차
@@ -45,11 +48,13 @@ $(document).ready(function(){
 			case 18: // 환자 진료 일정
 		    	for(var j = start; j < end; j++){
 					$('#'+ memCd + '-' + String(j+1)).attr('class', 'y')
+					$('#'+ memCd + '-' + String(j+1)).attr('time', time)
 				};
 			break;
 			case 25: // 개인 일정
 		    	for(var j = start; j < end; j++){
 					$('#'+ memCd + '-' + String(j+1)).attr('class', 'p')
+					$('#'+ memCd + '-' + String(j+1)).attr('time', time)
 				};
 		    break;
 		    
@@ -76,6 +81,11 @@ $('.filter-btn').click(function(){
 	}
 });
 
-$('.bottom').hover(function(){
-	 
-});
+$('.bottom').hover(
+	function() { 
+		let time = $(this).attr('time');
+    	$( this ).append($( "<span style=\"font-size: 10px;\">" + time + "</span>" ))
+ 	}, function() {
+    	$( this ).find( "span" ).last().remove()
+  }
+);

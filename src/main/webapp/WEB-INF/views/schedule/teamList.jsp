@@ -44,15 +44,15 @@
         <table class="time-table-1">
             <tr>
                 <th class="" rowspan="3"><span style="color: dimgrey; font-size: smaller;">${member.depName}</span><br><span class="${member.memCd}" id="off">${member.memName}</span></th>
-                <th class="topper">1</th>
-                <th class="topper">2</th>
-                <th class="topper">3</th>
-                <th class="topper">4</th>
-                <th class="topper">5</th>
-                <th class="topper">6</th>
-                <th class="topper">7</th>
-                <th class="topper">8</th>
-                <th class="topper">9</th>
+                <th class="topper">01</th>
+                <th class="topper">02</th>
+                <th class="topper">03</th>
+                <th class="topper">04</th>
+                <th class="topper">05</th>
+                <th class="topper">06</th>
+                <th class="topper">07</th>
+                <th class="topper">08</th>
+                <th class="topper">09</th>
                 <th class="topper">10</th>
                 <th class="topper">11</th>
                 <th class="topper">12</th>
@@ -70,30 +70,30 @@
                 <th class="topper">24</th>
             </tr>
             <tr>
-                <th id="${member.memCd}-1" time="1" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-2" time="2" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-3" time="3" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-4" time="4" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-5" time="5" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-6" time="6" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-7" time="7" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-8" time="8" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-9" time="9" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-10" time="10" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-11" time="11" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-12" time="12" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-13" time="13" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-14" time="14" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-15" time="15" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-16" time="16" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-17" time="17" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-18" time="18" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-19" time="19" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-20" time="20" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-21" time="21" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-22" time="22" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-23" time="23" class="bottom n" rowspan="2"></th>
-                <th id="${member.memCd}-24" time="24" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-1" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-2" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-3" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-4" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-5" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-6" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-7" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-8" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-9" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-10" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-11" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-12" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-13" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-14" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-15" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-16" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-17" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-18" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-19" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-20" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-21" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-22" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-23" time="" class="bottom n" rowspan="2"></th>
+                <th id="${member.memCd}-24" time="" class="bottom n" rowspan="2"></th>
             </tr>
             <tr>
             </tr>
