@@ -1,5 +1,10 @@
 package com.hospital.erp.schedule;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hospital.erp.common.CodeVO;
+import com.hospital.erp.department.DepartmentVO;
 import com.hospital.erp.member.MemberVO;
 import com.hospital.erp.surgery.SurgeryVO;
 import com.hospital.erp.util.TimeSetter;
@@ -172,9 +178,75 @@ public class ScheduleController {
 	}
 	
 	@GetMapping("teamList") 
-	public String scheduleTeamList() throws Exception{ 
-		   
+	public String scheduleTeamList(String depCd, Model model, String paramDate) throws Exception{ 
+		
+		List<DepartmentVO> departmentVOList = scheduleService.departmentList();
+		model.addAttribute("teams", departmentVOList);
+				
+		List<ScheduleVO> scheduleVOList = new ArrayList<ScheduleVO>();
+		List<MemberVO> memberVOList = new ArrayList<MemberVO>();
+		
+		if(depCd == null) {
+			memberVOList = scheduleService.memberList2();
+			model.addAttribute("members", memberVOList);
+			model.addAttribute("total", memberVOList.size());
+			model.addAttribute("department", "전체 팀");
+		}
+		else {
+			memberVOList = scheduleService.memberList(Integer.parseInt(depCd));
+			model.addAttribute("members", memberVOList);
+			model.addAttribute("total", memberVOList.size());
+			DepartmentVO departmentVO = scheduleService.departmentData(Integer.parseInt(depCd));
+			model.addAttribute("department", departmentVO.getDepName());
+		}
+		
+		for(int i = 0; i < memberVOList.size(); i++) {
+			
+			ScheduleVO scheduleVO = new ScheduleVO();
+			
+			if(paramDate != null) {	
+				String stringDate = timeSetter.stringDateChanger(paramDate);
+		        SimpleDateFormat formatter = new SimpleDateFormat("dd MM yyyy");
+		        Date date = formatter.parse(stringDate); 
+		        LocalDate localDate = timeSetter.dateToLocalDate(date);
+		        LocalDateTime localDateTime = localDate.atStartOfDay();
+				String ldt = timeSetter.localDateTimeToString(localDateTime, "yyyy년 MM월 dd일");
+				// view에 보여주기용 데이터
+				model.addAttribute("ldt", ldt);
+				
+				LocalDateTime localDateTimeL = localDate.atTime(LocalTime.MAX);//(날짜 + 23:59:59:9999999)
+				
+				scheduleVO.setSchSdate(localDateTime);
+				scheduleVO.setSchEdate(localDateTimeL);
+			}else {
+				LocalDate localDate = timeSetter.currentLocalDate();
+				LocalDateTime localDateTime = localDate.atStartOfDay();
+				
+				String ldt = timeSetter.localDateTimeToString(localDateTime, "yyyy년 MM월 dd일");
+				// view에 보여주기용 데이터
+				model.addAttribute("ldt", ldt);
+				
+				LocalDateTime localDateTimeL = localDate.atTime(LocalTime.MAX);//(날짜 + 23:59:59:9999999)
+			
+				scheduleVO.setSchSdate(localDateTime);
+				scheduleVO.setSchEdate(localDateTimeL);
+			}
+		
+			scheduleVO.setMemCd(memberVOList.get(i).getMemCd());
+							
+			List<ScheduleVO> personalscheduleVOList = scheduleService.teamScheduleList(scheduleVO);
+			
+			for (int j = 0; j < personalscheduleVOList.size(); j++) {
+				personalscheduleVOList.get(j).setStartNum(Integer.parseInt(timeSetter.localDateTimeToString(personalscheduleVOList.get(j).getSchSdate(), "HHmm")));
+				personalscheduleVOList.get(j).setEndNum(Integer.parseInt(timeSetter.localDateTimeToString(personalscheduleVOList.get(j).getSchEdate(), "HHmm")));
+			};
+			
+			scheduleVOList.addAll(personalscheduleVOList);
+		}
+		
+		model.addAttribute("scheduleList", scheduleVOList);
+		
 		return "schedule/teamList"; 
 	}
-	
 }
+	

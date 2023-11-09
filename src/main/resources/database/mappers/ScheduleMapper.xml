@@ -78,9 +78,26 @@
 	
 	<insert id="personalScheduleInsert" parameterType="ScheduleVO" useGeneratedKeys="true" keyProperty="schCd">
 		INSERT INTO 
-			SCHEDULE (MEM_CD, CODE_CD, SCH_FK, SCH_SDATE, SCH_EDATE, SCH_DESC, SCH_RDATE)
-		VALUES 
-			(#{memCd}, #{codeCd}, #{schFk}, #{schSdate}, #{schEdate}, #{schDesc}, NOW())
+			SCHEDULE 
+				(
+				MEM_CD, 
+				CODE_CD, 
+				SCH_FK, 
+				SCH_SDATE, 
+				SCH_EDATE, 
+				SCH_DESC, 
+				SCH_RDATE
+				)
+			VALUES 
+				(
+				#{memCd}, 
+				#{codeCd}, 
+				#{schFk}, 
+				#{schSdate}, 
+				#{schEdate}, 
+				#{schDesc}, 
+				NOW()
+				)
 	</insert>
 	
 	<delete id="personalScheduleDelete" parameterType="ScheduleVO">
@@ -89,5 +106,68 @@
 		WHERE 
 			SCH_CD = #{schCd}
 	</delete>
+	
+	<select id="departmentList" resultType="DepartmentVO">
+		SELECT
+			*
+		FROM
+			DEPARTMENT
+		WHERE 
+			DEP_NAME NOT IN ('가발령')
+	</select>
+	
+	<select id="memberList" resultType="MemberVO" parameterType="int">
+		SELECT
+			M.*,
+			D.DEP_NAME
+		FROM
+			MEMBER M JOIN DEPARTMENT D
+			ON M.DEP_CD = D.DEP_CD
+		WHERE 
+			M.DEP_CD = #{depCd}
+		ORDER BY 
+			M.DEP_CD, 
+			M.MEM_NAME
+	</select>
+	
+	<select id="memberList2" resultType="MemberVO">
+		SELECT
+			M.*,
+			D.DEP_NAME
+		FROM
+			MEMBER M JOIN DEPARTMENT D
+			ON M.DEP_CD = D.DEP_CD 
+		WHERE
+			M.DEP_CD NOT IN (1)
+		ORDER BY 
+			M.DEP_CD, 
+			M.MEM_NAME
+	</select>
+	
+	<select id="teamScheduleList" parameterType="ScheduleVO" resultType="ScheduleVO">
+		SELECT
+			*
+		FROM
+			SCHEDULE
+		WHERE 
+			MEM_CD = #{memCd} AND
+			(
+			(SCH_SDATE BETWEEN #{schSdate} AND #{schEdate}) OR
+			(SCH_EDATE BETWEEN #{schSdate} AND #{schEdate}) OR
+			(#{schSdate} BETWEEN SCH_SDATE AND SCH_EDATE) OR
+			(#{schEdate} BETWEEN SCH_SDATE AND SCH_EDATE)
+			)
+		ORDER BY 
+			CODE_CD DESC
+	</select>
+	
+	<select id="departmentData" parameterType="int" resultType="DepartmentVO">
+		SELECT
+			*
+		FROM
+			DEPARTMENT
+		WHERE 
+			DEP_CD = ${value}
+	</select>
   	
 </mapper>

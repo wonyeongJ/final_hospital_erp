@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hospital.erp.common.CodeVO;
+import com.hospital.erp.department.DepartmentVO;
 import com.hospital.erp.member.MemberVO;
 
 @Service
@@ -56,6 +57,31 @@ public class ScheduleService {
 	public void personalScheduleDelete(ScheduleVO scheduleVO) throws Exception {
 		scheduleDAO.personalScheduleDelete(scheduleVO);
 		
+	}
+
+	public List<DepartmentVO> departmentList() throws Exception {
+		List<DepartmentVO> departmentVOList = scheduleDAO.departmentList();
+		return departmentVOList;
+	}
+
+	public List<MemberVO> memberList(int depCd) throws Exception {
+		List<MemberVO> memberVOList = scheduleDAO.memberList(depCd);
+		return memberVOList;
+	}
+
+	public List<MemberVO> memberList2() throws Exception {
+		List<MemberVO> memberVOList = scheduleDAO.memberList2();
+		return memberVOList;
+	}
+
+	public List<ScheduleVO> teamScheduleList(ScheduleVO scheduleVO) throws Exception {
+		List<ScheduleVO> scheduleVOList = scheduleDAO.teamScheduleList(scheduleVO);
+		return scheduleVOList;
+	}
+
+	public DepartmentVO departmentData(int depCd) throws Exception {
+		DepartmentVO departmentVO = scheduleDAO.departmentData(depCd);
+		return departmentVO;
 	}
 	
 }

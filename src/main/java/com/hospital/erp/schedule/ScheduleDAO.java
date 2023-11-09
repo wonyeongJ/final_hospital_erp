@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.hospital.erp.common.CodeVO;
+import com.hospital.erp.department.DepartmentVO;
 import com.hospital.erp.member.MemberVO;
 
 @Mapper
@@ -27,5 +28,15 @@ public interface ScheduleDAO {
 	void personalScheduleInsert(ScheduleVO scheduleVO) throws Exception;
 
 	void personalScheduleDelete(ScheduleVO scheduleVO) throws Exception;
+
+	List<DepartmentVO> departmentList() throws Exception;
+
+	List<MemberVO> memberList(int depCd) throws Exception;
+
+	List<MemberVO> memberList2() throws Exception;
+
+	List<ScheduleVO> teamScheduleList(ScheduleVO scheduleVO) throws Exception;
+
+	DepartmentVO departmentData(int depCd) throws Exception;
 
 }

@@ -1,15 +1,17 @@
-table, tr, th{
+table, tr, th, td{
 	border: 2px solid #bcbcbc;
 	width: 720px;
 	height: 30px;
+	border-radius: 8px;
+	border-collapse: separate;
 }
 
 .t{
-	background-color: rgb(142, 255, 148);
+	background-color: rgb(132, 248, 203);
 }
 
 .f{
-	background-color: rgb(255, 112, 108);
+	background-color: rgb(255, 169, 226);
 }
 
 .time-table-1{
@@ -39,11 +41,11 @@ label{
 }
 
 .green-dot{
-	color: chartreuse;
+	color: rgb(132, 248, 203);
 }
 
 .red-dot{
-	color: red;
+	color: rgb(255, 169, 226);
 }
 
 #schedule-insert-all-component{
