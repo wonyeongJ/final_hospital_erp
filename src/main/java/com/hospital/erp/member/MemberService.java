@@ -1,5 +1,6 @@
 package com.hospital.erp.member;
 
+import java.security.spec.EncodedKeySpec;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hospital.erp.common.CodeVO;
+import com.hospital.erp.util.EmailService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +30,9 @@ public class MemberService implements UserDetailsService {
 	 
 	 @Autowired
 	 private PasswordEncoder passwordEncoder;
+ 
+	@Autowired
+	private EmailService emailService;
 	 
 	//로그인처리 하는 메서드
 	 @Override
@@ -132,4 +137,16 @@ public class MemberService implements UserDetailsService {
 	public int memberUpdate(MemberVO memberVO) throws Exception {
 		return memberDAO.memberUpdate(memberVO);
 	}
+	
+	// forgotPassword 로 사번 이메일 받아서 해당하는 
+	public int memberUpdateForgotPassword(MemberVO memberVO) throws Exception {
+		// 이메일로 임시비밀번호 보내기
+		String temporaryPassword = emailService.sendEmail(memberVO.getMemEmail());
+		log.info("=========서비스단에서 임시번호 인코딩전 ==========={}",temporaryPassword);
+		memberVO.setMemPw(passwordEncoder.encode(temporaryPassword));
+		// update 쿼리이기때문에 성공시 1 실패시 0 성공인 경우 해당하는 사번과 email이 있다는 것 
+		int result = memberDAO.memberUpdateForgotPassword(memberVO); 
+		return result;
+	}
+	
 }

@@ -16,7 +16,8 @@
 							<h4 class="text-blue h4">부서 목록</h4>
 						</div>
 					</div>
-			
+					
+						
 					<table class="table table-bordered">
 						<thead>
 							<tr>
@@ -29,16 +30,16 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${departmentList}" var="departmentVO"> 
+							<c:forEach items="${departmentList}" var="departmentVO" varStatus="i"> 
 								<tr>
-									<th scope="row" class="departmentUpdate">${departmentVO.depCd}</th>
+									<th scope="row" class="departmentUpdateCd" data-depCd="${departmentVO.depCd}">${departmentVO.depCd}</th>
 									<td class="updateBro">${departmentVO.depName}</td>
 									<td class="updateBro">${departmentVO.depTnum}</td>
-									<td class="updateBro">
+									<td class="updateBro" id="updateRadio">
 										<c:if test="${departmentVO.depDelete < 1}">운영중</c:if>
 										<c:if test="${departmentVO.depDelete == 1}">운영안함</c:if>
 									</td>
-									<td class="updateBro">${departmentVO.depRdate}</td>
+									<td class="">${departmentVO.depRdate}</td>
 									<td><button id="departmentListUpdateBtn" type="button" class="btn btn-success cdepartmentUpdateBtn">수정</button></td>
 								</tr>
 							</c:forEach>

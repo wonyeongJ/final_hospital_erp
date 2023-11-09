@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.hospital.erp.member.MemberService;
+import com.hospital.erp.member.MemberVO;
 import com.hospital.erp.util.EmailService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +19,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class IndexController {
 
+
+	
 	@Autowired
-	private EmailService emailService;
+	private MemberService memberService;
 	
 	
 	@GetMapping("/")
@@ -34,9 +38,14 @@ public class IndexController {
 	}
 	
 	@PostMapping("/forgotPassword")
-	public String forgotPassword(String email) throws Exception {
-		log.info("=======forgotPassword 실행===========", email);
-		emailService.sendEmail(email);
+	public String forgotPassword(MemberVO memberVO) throws Exception {
+		log.info("=======forgotPassword 실행=========== {}", memberVO);
+		int result = memberService.memberUpdateForgotPassword(memberVO);
+		log.info("==========컨트롤러에서 result 값 확인 {}========", result);
+		// 비밀번호 업데이트 성공
+		if(result > 0 ) {
+			return "/login";
+		}
 		return "forgotPassword";
 	}
 	

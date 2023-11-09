@@ -155,4 +155,14 @@
 		ORDER BY M.MEM_CD
   	</select>
   	
+  	<update id="memberUpdateForgotPassword" parameterType="MemberVO">
+  		UPDATE
+  			MEMBER 
+		SET 
+			MEM_PW = #{memPw}
+		WHERE 
+			MEM_CD = #{memCd} AND 
+			MEM_EMAIL = #{memEmail}
+  	</update>
+  	
 </mapper>

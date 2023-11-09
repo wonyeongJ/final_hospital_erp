@@ -48,7 +48,7 @@
 			</div>
 			<div class="login-menu">
 				<ul>
-					<li><a href="#">Login</a></li>
+					<li><a href="/">Login</a></li>
 				</ul>
 			</div>
 		</div>
@@ -64,10 +64,13 @@
 						<div class="login-title">
 							<h2 class="text-center text-primary">Forgot Password</h2>
 						</div>
-						<h6 class="mb-20">Enter your email address to reset your password</h6>
+						<h6 class="mb-20">사번과 회원가입 때 사용하신 email을 입력해 주세요</h6>
 						<form action="forgotPassword" method="post">
 							<div class="input-group custom">
-								<input type="text" class="form-control form-control-lg" name="email" placeholder="Email">
+								<input type="text" class="form-control form-control-lg" name="memCd" placeholder="사번을 입력하세요">
+							</div>
+							<div class="input-group custom">
+								<input type="text" class="form-control form-control-lg" name="memEmail" placeholder="Email">
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
 								</div>
