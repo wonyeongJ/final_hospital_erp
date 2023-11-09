@@ -63,7 +63,9 @@
 		<typeAlias type="com.hospital.erp.board.club.ClubMemberVO" alias="ClubMemberVO"/>
 		<typeAlias type="com.hospital.erp.board.CommentVO" alias="CommentVO"/>
 		
-		<typeAlias type="com.hospital.erp.chat.ChatMemberVO" alias="ChatMemberVO"/>
+		<typeAlias type="com.hospital.erp.chat.ChatMessageVO" alias="ChatMessageVO"/>
+		<typeAlias type="com.hospital.erp.chat.RoomVO" alias="RoomVO"/>
+		
 		
 		
 		

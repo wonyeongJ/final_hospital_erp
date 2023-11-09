@@ -3,17 +3,41 @@
   
 <mapper namespace="com.hospital.erp.chat.ChatDAO">
 
-  	<insert id="createRoom" parameterType="ChatMemberVO" useGeneratedKeys="true" keyProperty="roomNo">
-  		INSERT INTO CHATROOM VALUES (#{roomNo}, #{user1}, #{user2})
-  	</insert>
-  	
-  	<select id="getRoom" parameterType="ChatMemberVO" resultType="ChatMemberVO">
-  		SELECT * FROM CHATROOM 
-  		WHERE 
-  			USER1=#{user1} and USER2=#{user2}
-  			OR
-  			USER1=#{user2} and USER2=#{user1}
-  	</select>
-  	
-  	
+  	<select id="getChatList" parameterType="String" resultType="MemberVO">
+		SELECT MEM_CD, MEM_NAME	
+		 FROM MEMBER 
+		WHERE MEM_CD != #{memCd}
+	</select>
+	
+	<select id="getSearch" parameterType="String" resultType="MemberVO">
+		SELECT * FROM MEMBER
+		WHERE MEM_NAME LIKE CONCAT('%',#{memName},'%')
+	</select>
+	
+	<select id="roomCheck" parameterType="RoomVO" resultType="RoomVO">
+		SELECT * FROM ROOM
+		WHERE USER1=#{user1} AND USER2=#{user2}
+		   OR USER1=#{user2} AND USER2=#{user1}
+	</select>
+	
+	<insert id="createRoom" parameterType="RoomVO">
+		INSERT INTO ROOM (ROOMNUM, USER1, USER2)
+		VALUES (NULL, #{user1}, #{user2})
+	</insert>
+	
+	<insert id="messageAdd" parameterType="ChatMessageVO">
+		INSERT INTO CHAT (CHATNUM, ROOMNUM, SENDER, RECEIVER, MESSAGE, CHATDATE)
+		VALUES (NULL, #{roomNum}, #{sender}, #{receiver}, #{message}, #{chatDate})
+	</insert>
+	
+	<select id="chatMessageList" parameterType="RoomVO" resultType="ChatMessageVO">
+		SELECT CHATNUM, ROOMNUM, SENDER, RECEIVER, MESSAGE, left(CHATDATE,16) AS CHATDATE FROM CHAT
+		WHERE ROOMNUM = #{roomNum}
+	</select>
+	
+	<select id="getSomeone" parameterType="MemberVO" resultType="MemberVO">
+	 	SELECT *
+	 	FROM MEMBER
+	 	WHERE MEM_CD=#{memCd}
+	</select>
   </mapper>
