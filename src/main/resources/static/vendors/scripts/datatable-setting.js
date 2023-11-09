@@ -20,39 +20,7 @@ $(document).ready(function () {
         'order': [0, 'desc'] // Sort the 0th column (Korean) in ascending order first, then sort the 1st column (numbers) in ascending order.
     });
 
-    // Add PDF, Print, Copy, and CSV buttons
-    new $.fn.dataTable.Buttons(table, {
-        buttons: [
-            {
-                extend: 'pdfHtml5',
-                text: 'PDF',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'print',
-                text: 'Print',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'copyHtml5',
-                text: 'Copy',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'csvHtml5',
-                text: 'CSV',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            }
-        ]
-    });
+   
 
     table.buttons().container()
         .appendTo($('.dataTables_wrapper .col-md-6:eq(0)'));
