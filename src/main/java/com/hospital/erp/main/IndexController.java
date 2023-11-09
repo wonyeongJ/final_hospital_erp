@@ -19,6 +19,11 @@ public class IndexController {
 		return "login";
 	}
 	
+	@GetMapping("/forgotPassword")
+	public String forgotPassword() throws Exception {
+		return "forgotPassword";
+	}
+	
 
 	
 }
