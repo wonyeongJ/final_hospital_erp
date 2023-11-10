@@ -104,19 +104,20 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 		getSomeone(memCd);
 		
 		let chatDate = getTodayDate();
-	    let enterMsg={"type" : "ENTER","roomNum":roomNum,"receiver":memCd,"message":"233333","chatDate":chatDate};
+	    let enterMsg={"type" : "ENTER","roomNum":roomNum,"receiver":memCd,"message":"","chatDate":chatDate};
 	    socket.send(JSON.stringify(enterMsg));
 	}
 	
-	function send(roomNum, memCd){
-		console.log(memCd);
-	    let content=document.querySelector('#msg').value;
+	function send(roomNum, memCd) {
+    let content = document.querySelector('#msg').value.trim(); // trim()을 사용하여 앞뒤 공백 제거
+    if (content !== '') { // 공백이 아닌 경우에만 전송
+        console.log(memCd);
         let chatDate = getTodayDate();
-        let talkMsg={"type" : "TALK","roomNum":roomNum, "receiver":memCd,"message":content,"chatDate":chatDate};
+        let talkMsg = {"type": "TALK", "roomNum": roomNum, "receiver": memCd, "message": content, "chatDate": chatDate};
         socket.send(JSON.stringify(talkMsg));
-	    msg.value = '';
-	   
-	}
+        document.querySelector('#msg').value = ''; // 전송 후 입력 필드 초기화
+    }
+}
 	
 	//방나가기  function quit(){
 	
