@@ -36,7 +36,7 @@ public class ScheduleController {
 	private ScheduleService scheduleService;
 	
 	@Autowired
-	private com.hospital.erp.surgery.SurgeryService SurgeryService;
+	private com.hospital.erp.surgery.SurgeryService surgeryService;
 	
 	@Autowired
 	private TimeSetter timeSetter;
@@ -65,7 +65,7 @@ public class ScheduleController {
 	    	if(scheduleVO.getCodeCd()==15) {
 	    		SurgeryVO surgeryVO = new SurgeryVO();
 	    		surgeryVO.setSurCd(scheduleVO.getSchFk());
-	    		surgeryVO = SurgeryService.surgeryData(surgeryVO);
+	    		surgeryVO = surgeryService.surgeryData(surgeryVO);
 	    		scheduleVO.setSchDesc("수술실: " + surgeryVO.getSurNum() + "호"); 		
 	    	}
 	    	model.addAttribute("scheduleVO", scheduleVO);	
@@ -132,16 +132,26 @@ public class ScheduleController {
 	    UserDetails userDetails = (UserDetails)principal;
 	    MemberVO memberVO = (MemberVO)userDetails;
 		
-		ScheduleVO scheduleVO = new ScheduleVO();
-		scheduleVO.setSchSdate(timeSetter.dateTolocalDateTime(schSdate));
-		scheduleVO.setSchEdate(timeSetter.dateTolocalDateTime(schEdate));
-		scheduleVO.setSchDesc(schDesc);
-		scheduleVO.setMemCd(memberVO.getMemCd());
-		scheduleVO.setCodeCd(25);
-		scheduleVO.setSchFk(0);
-		scheduleService.personalScheduleInsert(scheduleVO);
-
-		return "1";
+		ScheduleVO scheduleVO2 = new ScheduleVO();
+		scheduleVO2.setSchSdate(timeSetter.dateTolocalDateTime(schSdate));
+		scheduleVO2.setSchEdate(timeSetter.dateTolocalDateTime(schEdate));
+		scheduleVO2.setMemCd(memberVO.getMemCd());
+		List<ScheduleVO> checkResult = surgeryService.surgeryScheduleCheck3(scheduleVO2);
+		
+		if(checkResult.size() == 0) {
+			ScheduleVO scheduleVO = new ScheduleVO();
+			scheduleVO.setSchSdate(timeSetter.dateTolocalDateTime(schSdate));
+			scheduleVO.setSchEdate(timeSetter.dateTolocalDateTime(schEdate));
+			scheduleVO.setSchDesc(schDesc);
+			scheduleVO.setMemCd(memberVO.getMemCd());
+			scheduleVO.setCodeCd(25);
+			scheduleVO.setSchFk(0);
+			scheduleService.personalScheduleInsert(scheduleVO);
+			return "1";
+		}
+		
+		return "0";
+		
 	}
 	
 	@ResponseBody
@@ -152,20 +162,32 @@ public class ScheduleController {
 	    UserDetails userDetails = (UserDetails)principal;
 	    MemberVO memberVO = (MemberVO)userDetails;
 	    
-	    ScheduleVO scheduleVO = new ScheduleVO();
-	    scheduleVO.setSchCd(schCd);
-	    scheduleService.personalScheduleDelete(scheduleVO);
+	    ScheduleVO scheduleVO3 = new ScheduleVO();
+		scheduleVO3.setSchSdate(timeSetter.dateTolocalDateTime(schSdate));
+		scheduleVO3.setSchEdate(timeSetter.dateTolocalDateTime(schEdate));
+		scheduleVO3.setMemCd(memberVO.getMemCd());
+		scheduleVO3.setSchCd(schCd);
+		List<ScheduleVO> checkResult = scheduleService.personalScheduleCheck(scheduleVO3);
 	    
-	    ScheduleVO scheduleVO2 = new ScheduleVO();
-	    scheduleVO2.setSchSdate(timeSetter.dateTolocalDateTime(schSdate));
-		scheduleVO2.setSchEdate(timeSetter.dateTolocalDateTime(schEdate));
-		scheduleVO2.setSchDesc(schDesc);
-		scheduleVO2.setMemCd(memberVO.getMemCd());
-		scheduleVO2.setCodeCd(25);
-		scheduleVO2.setSchFk(0);
-		scheduleService.personalScheduleInsert(scheduleVO2);
+		if(checkResult.size() == 0) {
+			ScheduleVO scheduleVO = new ScheduleVO();
+		    scheduleVO.setSchCd(schCd);
+		    scheduleService.personalScheduleDelete(scheduleVO);
+		    
+		    ScheduleVO scheduleVO2 = new ScheduleVO();
+		    scheduleVO2.setSchSdate(timeSetter.dateTolocalDateTime(schSdate));
+			scheduleVO2.setSchEdate(timeSetter.dateTolocalDateTime(schEdate));
+			scheduleVO2.setSchDesc(schDesc);
+			scheduleVO2.setMemCd(memberVO.getMemCd());
+			scheduleVO2.setCodeCd(25);
+			scheduleVO2.setSchFk(0);
+			scheduleService.personalScheduleInsert(scheduleVO2);
 
-		return "1";
+			return "1";
+		}
+	    
+		return "0";
+		
 	}
 	
 	@ResponseBody

@@ -90,6 +90,21 @@
 			)
   	</select>
   	
+  	<select id="surgeryScheduleCheck3" resultType="ScheduleVO" parameterType="ScheduleVO">
+		SELECT
+			*
+		FROM 
+			SCHEDULE
+		WHERE 
+			MEM_CD = #{memCd} AND 
+			(
+			(#{schSdate} <![CDATA[<=]]> SCH_SDATE AND #{schEdate} <![CDATA[>]]> SCH_SDATE) OR
+			(#{schSdate} <![CDATA[<]]> SCH_EDATE AND #{schEdate} <![CDATA[>=]]> SCH_EDATE) OR
+			(#{schSdate} <![CDATA[>=]]> SCH_SDATE AND #{schSdate} <![CDATA[<]]> SCH_EDATE) OR
+			(#{schEdate} <![CDATA[>]]> SCH_SDATE AND #{schEdate} <![CDATA[<=]]> SCH_EDATE)
+			)
+  	</select>
+  	
   	<!-- 수술실 예약 등록 -->
   	<insert id="surgeryScheduleInsert" parameterType="scheduleVO" useGeneratedKeys="true" keyProperty="schCd">	
 		INSERT INTO 

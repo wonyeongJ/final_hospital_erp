@@ -83,5 +83,10 @@ public class ScheduleService {
 		DepartmentVO departmentVO = scheduleDAO.departmentData(depCd);
 		return departmentVO;
 	}
+
+	public List<ScheduleVO> personalScheduleCheck(ScheduleVO scheduleVO) throws Exception {
+		List<ScheduleVO> scheduleList = scheduleDAO.personalScheduleCheck(scheduleVO);
+		return scheduleList;
+	}
 	
 }

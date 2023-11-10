@@ -40,6 +40,12 @@ public class SurgeryController {
 
 		List<SurgeryVO> allSurgeries = surgeryService.surgeryList();
 		model.addAttribute("allSurgeries", allSurgeries);
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	    UserDetails userDetails = (UserDetails)principal;
+	    MemberVO memberVO = (MemberVO)userDetails;
+	    model.addAttribute("memberVO", memberVO);
+	    
 		return "surgery/list";
 		
 	}
@@ -152,10 +158,16 @@ public class SurgeryController {
 		scheduleVO.setSchFk(surgeryReservationVO.getSurCd());
 		scheduleVO.setCodeCd(15);
 		scheduleVO.setMemCd(memCd);
-		List<ScheduleVO> checkResult = surgeryService.surgeryScheduleCheck(scheduleVO);
+		List<ScheduleVO> checkResult1 = surgeryService.surgeryScheduleCheck(scheduleVO);
+		
+		ScheduleVO scheduleVO2 = new ScheduleVO();
+		scheduleVO2.setSchSdate(localDateTime.plusHours(surgeryReservationVO.getSTime()));
+		scheduleVO2.setSchEdate(localDateTime.plusHours(surgeryReservationVO.getETime()));
+		scheduleVO2.setMemCd(memCd);
+		List<ScheduleVO> checkResult2 = surgeryService.surgeryScheduleCheck3(scheduleVO);
 		
 		String result;
-		if(checkResult.size()==0) {
+		if(checkResult1.size() == 0 && checkResult2.size() == 0) {
 			// 등록가능
 			surgeryService.surgeryScheduleInsert(scheduleVO);
 			result = "scheduleInsert?surCd="+surgeryReservationVO.getSurCd();

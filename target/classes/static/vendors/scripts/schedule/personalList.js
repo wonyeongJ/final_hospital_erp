@@ -76,7 +76,12 @@ $('#personal-schedule-insert').click(function(){
 				schDesc : desc
 			},
 		    success : function(result) {
-		    	location.reload();
+				if(result == 1){
+					alert('일정이 등록 되었습니다.')
+					location.reload();
+				}else{
+					alert('수술 일정 및 진료 예약 등의 일정과 시간이 겹칠 수 없습니다.')
+				}
 			}
 	 		})
 		}else{

@@ -54,7 +54,12 @@ $('#personal-schedule-update').click(function(){
 				schCd : schCd
 			},
 		    success : function(result) {
-		    	location.replace('personalList')
+				if(result == 1){
+					alert('일정이 수정 되었습니다.')
+					location.replace('personalList')
+				}else{
+					alert('수술 일정 및 진료 예약 등의 일정과 시간이 겹칠 수 없습니다.')
+				}
 			}
 	 		})
 		}else{

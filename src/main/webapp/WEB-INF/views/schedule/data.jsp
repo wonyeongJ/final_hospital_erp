@@ -68,7 +68,7 @@
                                             </div>
                                             <div class="clearfix mb-20">
                                                 <div class="pull-right">
-                                                    <input type="button" class="btn btn-outline-primary" id="personal-schedule-update" value="등록">
+                                                    <input type="button" class="btn btn-outline-primary" id="personal-schedule-update" value="수정">
                                                 </div>
                                             </div>
                                     </div>

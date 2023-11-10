@@ -169,5 +169,21 @@
 		WHERE 
 			DEP_CD = ${value}
 	</select>
+	
+	<select id="personalScheduleCheck" resultType="ScheduleVO" parameterType="ScheduleVO">
+		SELECT
+			*
+		FROM 
+			SCHEDULE
+		WHERE 
+			SCH_CD NOT IN (#{schCd}) AND
+			MEM_CD = #{memCd} AND 
+			(
+			(#{schSdate} <![CDATA[<=]]> SCH_SDATE AND #{schEdate} <![CDATA[>]]> SCH_SDATE) OR
+			(#{schSdate} <![CDATA[<]]> SCH_EDATE AND #{schEdate} <![CDATA[>=]]> SCH_EDATE) OR
+			(#{schSdate} <![CDATA[>=]]> SCH_SDATE AND #{schSdate} <![CDATA[<]]> SCH_EDATE) OR
+			(#{schEdate} <![CDATA[>]]> SCH_SDATE AND #{schEdate} <![CDATA[<=]]> SCH_EDATE)
+			)
+  	</select>
   	
 </mapper>

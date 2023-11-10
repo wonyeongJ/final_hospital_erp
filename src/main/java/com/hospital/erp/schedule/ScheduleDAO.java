@@ -39,4 +39,6 @@ public interface ScheduleDAO {
 
 	DepartmentVO departmentData(int depCd) throws Exception;
 
+	List<ScheduleVO> personalScheduleCheck(ScheduleVO scheduleVO) throws Exception;
+
 }
