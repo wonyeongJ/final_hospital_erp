@@ -49,6 +49,7 @@ public class MemberVO implements UserDetails {
 	private Date memQdate;
 	private Integer memDelete;
 	private Date memRdate;
+	private Integer memIspwch;
 	
 	private String depName; // memberListJoin 
 	private String codeName; // memberListJoin 성별 

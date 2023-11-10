@@ -22,10 +22,13 @@ $("#updatePasswordBtn").on("click",function(){
         }
 
     }
-    
-    
-
 })
+
+$(document).ready(function() {
+    if($("#memIspwch").text().trim()<1){
+        alert("비밀번호를 변경해주세요!")
+    }
+});
 
 
 

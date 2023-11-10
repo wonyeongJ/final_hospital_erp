@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <body>
 	<div>
@@ -24,26 +25,29 @@
 	</div>
 	<div class="profile-info card-box">
 		<h3 class="mb-20 h5 text-blue">내 정보</h3>
+		<div id="memIspwch" style="display: none;">
+			<sec:authentication property="principal.memIspwch" />
+		</div>
 		<ul>
 			<li>
 				<span>이름</span>
-				홍길동
+				<sec:authentication property="principal.memName" />
 			</li>
 			<li>
 				<span>사번</span>
-				1801001
+				<sec:authentication property="principal.memCd" />
 			</li>
 			<li>
 				<span>과</span>
-				외과
+				<sec:authentication property="principal.depName" />
 			</li>
 			<li>
 				<span>직무</span>
-				의사
+				<sec:authentication property="principal.jobName" />
 			</li>
 			<li>
-				<span>내선번호</span>
-				02-218-3648
+				<span>전화번호</span>
+				<sec:authentication property="principal.memPnum" />
 			</li>
 		</ul>
 		<div style="display: flex; justify-content: flex-end;">

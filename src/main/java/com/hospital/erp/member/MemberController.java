@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -42,12 +43,6 @@ public class MemberController {
 	  @Autowired
 	  private DepartmentService departmentService;
 	    
-	
-	  // 로그인 요청 메서드
-	  @GetMapping("login")
-	  public String getLogin() throws Exception {
-		  return "member/login";
-	  }
 	  
 	  // 직원 리스트 요청 메서드
 	  @GetMapping("list")
@@ -101,7 +96,7 @@ public class MemberController {
 	  // 마이페이지 요청 메서드
 	  @GetMapping("mypage")
 	  public String memberData() throws Exception {
-		  
+
 		  return "member/mypage";
 	  }
 	  
@@ -121,7 +116,7 @@ public class MemberController {
 				  //패스워드 리셋 수행 메서드 호출
 				  log.info("===Password 변경 실행 {} ======= ", passwordVO);
 				  memberService.memberUpdatePassword(passwordVO);
-				  return "redirect:./mypage";
+				  return "redirect:/logout";
 			  }
 		  }
 	  }

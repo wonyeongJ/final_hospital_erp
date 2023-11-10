@@ -27,7 +27,7 @@ public class IndexController {
 	
 	@GetMapping("/")
 	public String getIndex(HttpSession session)throws Exception{
-
+		
 		
 		return "login";
 	}
@@ -44,9 +44,11 @@ public class IndexController {
 		log.info("==========컨트롤러에서 result 값 확인 {}========", result);
 		// 비밀번호 업데이트 성공
 		if(result > 0 ) {
-			return "/login";
+			return "redirect:/";
+		}else {
+			
+			return "forgotPassword";
 		}
-		return "forgotPassword";
 	}
 	
 

@@ -82,7 +82,8 @@
   			15,
   			NULL,
   			0,
-  			NOW()
+  			NOW(),
+  			0
   			)
   			
   	</insert>
@@ -123,7 +124,8 @@
   		UPDATE
   			MEMBER	
   		SET
-  			MEM_PW = #{memPw}
+  			MEM_PW = #{memPw},
+  			MEM_ISPWCH = 1
   		WHERE
   			MEM_CD = #{memCd}
   	</update>
@@ -159,7 +161,8 @@
   		UPDATE
   			MEMBER 
 		SET 
-			MEM_PW = #{memPw}
+			MEM_PW = #{memPw},
+			MEM_ISPWCH = 0
 		WHERE 
 			MEM_CD = #{memCd} AND 
 			MEM_EMAIL = #{memEmail}
