@@ -38,4 +38,7 @@ public interface MemberDAO {
 	 
 	 // 패스워드 재설정 전 입력한 값에 맞는 data 있는지 조회 해오는 메서드
 	 public int memberUpdateForgotPassword(MemberVO memberVO) throws Exception;
+	 
+	 // member profile insert 메서드
+	 public int memberProfileInsert(MemberFileVO memberFileVO) throws Exception;
 }

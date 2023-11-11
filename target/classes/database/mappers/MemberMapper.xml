@@ -168,4 +168,19 @@
 			MEM_EMAIL = #{memEmail}
   	</update>
   	
+  	<insert id="memberProfileInsert" parameterType="MemberFileVO">
+  		INSERT INTO  			
+  			MEMBER_FILE
+  		VALUES
+  			(
+  			 NULL,
+  			 27,
+  			 #{memCd},
+  			 #{mfOname},
+  			 #{mfFname},
+  			 #{mfPath},
+  			 #{mfExtention},
+  			 NOW()
+  			)
+  	</insert>
 </mapper>

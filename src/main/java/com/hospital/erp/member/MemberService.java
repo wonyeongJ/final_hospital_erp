@@ -8,15 +8,18 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hospital.erp.common.CodeVO;
 import com.hospital.erp.util.EmailService;
+import com.hospital.erp.util.FileManager;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +36,14 @@ public class MemberService implements UserDetailsService {
  
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private FileManager fileManager;
+	
+    private String uploadPath = "/static/upload/";
+	
+	@Value("${app.member.profile}")
+    private String profile;
 	 
 	//로그인처리 하는 메서드
 	 @Override
@@ -146,6 +157,38 @@ public class MemberService implements UserDetailsService {
 		memberVO.setMemPw(passwordEncoder.encode(temporaryPassword));
 		// update 쿼리이기때문에 성공시 1 실패시 0 성공인 경우 해당하는 사번과 email이 있다는 것 
 		int result = memberDAO.memberUpdateForgotPassword(memberVO); 
+		return result;
+	}
+	
+	// memberProfile Insert 메서드
+	public int memberProfileInsert(MemberVO memberVO,MultipartFile multipartFile) throws Exception {
+		log.info("서비스 진입 memberVO {} ==============",memberVO);
+		int result = 0;
+		
+		
+		
+		// file이 없지 않다면
+//		if(!multipartFile.isEmpty()) {
+//			MemberFileVO memberFIleVO = new MemberFileVO();
+//			// 파일 저장하는 사람 사번 넣기
+//			memberFIleVO.setMemCd(memberVO.getMemCd());
+//			log.info("사번 넣기 부분 memberVO {} ==============",memberVO);
+//			// 파일의 원본이름 가져와서 MemberFileVO 에 넣기
+//			memberFIleVO.setMfOname(multipartFile.getOriginalFilename());
+//			// UUID 넣어서 filename 만들기
+//			String FileName = fileManager.save(this.uploadPath+this.profile, multipartFile);
+//			// 만든 fileName을 MemeberFileVO 에 넣기
+//			memberFIleVO.setMfFname(FileName);
+//			// 업로드 경로 넣어주기
+//			memberFIleVO.setMfPath(uploadPath+this.profile);
+//            // 확장자명 추출해서 넣기 
+//			String extension = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
+//			memberFIleVO.setMfExtention(extension);
+//			log.info("끝나고나서 memberFileVO {} ==============",memberFIleVO);
+//			// DAO에 넣기
+//			result = memberDAO.memberProfileInsert(memberFIleVO);
+//		}
+		
 		return result;
 	}
 	

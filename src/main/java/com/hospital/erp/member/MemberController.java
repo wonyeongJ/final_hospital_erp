@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hospital.erp.common.CodeVO;
 import com.hospital.erp.department.DepartmentService;
@@ -127,6 +128,13 @@ public class MemberController {
 		  List<MemberVO> memberVO = memberService.memberListChart();
 		  log.info("=============memberChart 실행");
 		  return memberVO;
+	  }
+	  
+	  @PostMapping("profileInsert")
+	  public String memberProfileInsert(@AuthenticationPrincipal MemberVO memberVO,MultipartFile multipartFile) throws Exception {
+		  
+		  int result = memberService.memberProfileInsert(memberVO,multipartFile);
+		  return "redirect:./mypage";
 	  }
 	  
 	 

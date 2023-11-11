@@ -11,6 +11,8 @@
 		<typeAlias type="com.hospital.erp.patient.PatientVO" alias="PatientVO"/>
 		<typeAlias type="com.hospital.erp.reservation.ReservationVO" alias="ReservationVO"/>
 		<typeAlias type="com.hospital.erp.commute.CommuteVO" alias="CommuteVO"/>
+		<typeAlias type="com.hospital.erp.member.MemberFileVO" alias="MemberFileVO"/>
+			
 		
 		
 		

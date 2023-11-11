@@ -71,7 +71,7 @@ public class MemberVO implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		if (this.jobCd != null) {
+		if (this.jobCd != null && this.depCd != 1) {
 			if(this.jobCd == 3) {
 				authorities.add(new SimpleGrantedAuthority("ROLE_DOCTOR"));
 			}else if(this.jobCd == 4) {

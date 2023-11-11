@@ -24,9 +24,14 @@ $("#updatePasswordBtn").on("click",function(){
     }
 })
 
+$("#profileBtn").on("click",function(){
+    $("#profileInsertFrm").submit();
+    
+})
+
 $(document).ready(function() {
     if($("#memIspwch").text().trim()<1){
-        alert("비밀번호를 변경해주세요!")
+        alert("비밀번호를 변경해주세요!");
     }
 });
 

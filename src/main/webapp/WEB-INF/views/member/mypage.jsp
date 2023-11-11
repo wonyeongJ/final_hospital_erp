@@ -15,11 +15,30 @@
 	<div class="col-lg-2 col-md-6 col-sm-12 mb-30" style="float:left;">
 		<div class="da-card">
 			<div class="da-card-photo">
-				<img src="/vendors/images/photo1.jpg" alt="">
+				<img src="C:/GDJ68/upload/profile/d0026cae-3b7b-4d0b-a081-56f0136a9ab2_2c2c60b20cb817a80afd381ae23dab05.jpg" alt="">
 			</div>
 			<div class="da-card-content" style="display: flex; justify-content: center;">
-				
-				<button type="button" class="btn btn-primary" >프로필 변경</button>
+				<a href="#" type="button" class="btn btn-primary ms-30" data-toggle="modal" data-target="#profile-modal" >프로필사진 변경</a>
+				<div class="modal fade" id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="text-center text-primary">프로필 사진 변경</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							</div>
+							
+							<div class="modal-body">
+								<form action="profileInsert" method="post" id="profileInsertFrm" enctype="multipart/form-data">
+									<input type="file" class="form-control" name="multipartFile">
+								</form>
+							</div>
+							<div class="modal-footer">
+								<a type="button" id="profileBtn" class="btn btn-primary btn-lg btn-block">Submit</a>
+							</div>
+											
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
