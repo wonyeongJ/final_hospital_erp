@@ -1,3 +1,4 @@
+// 비밀번호 변경 이벤트
 $("#updatePasswordBtn").on("click",function(){
     
     let newPassword =  $("#newPassword").val();
@@ -24,18 +25,25 @@ $("#updatePasswordBtn").on("click",function(){
     }
 })
 
+// 프로필 변경 event
 $("#profileBtn").on("click",function(){
     $("#profileInsertFrm").submit();
     
 })
 
+// 비밀번호 변경하지 않고 mypage 접속 시
 $(document).ready(function() {
     if($("#memIspwch").text().trim()<1){
         alert("비밀번호를 변경해주세요!");
     }
 });
 
+// 근태 출근버튼 클릭시 이벤트
+$("#commuteInsert").on("click",function(){
+    console.log("출근버튼 클릭");
 
+    
+})
 
 // $("#resetPasswordbtn").on("click",function(){
 //     console.log("ssss");
