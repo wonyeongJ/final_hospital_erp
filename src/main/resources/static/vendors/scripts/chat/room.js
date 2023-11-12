@@ -2,6 +2,7 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 	
 	let user = $('#my').attr("data-user");
 	let name = $('#my').attr("data-name");
+	let listBoxCh = $('#listBox').children();
 	
 	socket.onopen = function (e) {
 		console.log('open server!');
@@ -13,15 +14,21 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 		send(roomNum, num);
 	});
 	
-	$("#listBox").on("click", ".chatList", function(){
-		//회원번호
-		let memCd=$(this).attr("data-empNum");
-		let name=$(this).attr("data-name");
-		
-		$('#someone').attr("data-name", name);
-		//db에서 방있는지 확인!
-		roomCheck(memCd);
-		return false;	
+	$("#listBox").on("click", ".chatList", function () {
+    let memCd = $(this).attr("data-empNum");
+    let name = $(this).text();  // 수정된 부분
+
+    $('#someone').attr("data-name", name);
+
+    roomCheck(memCd);
+    return false;
+	});
+	$("#msg").on("keyup", function(event) {
+	    if (event.key === "Enter") {
+	        let roomNum = $('#button-send').attr("data-room");
+	        let num = $('#button-send').attr("data-receiver");
+	        send(roomNum, num);
+	    }
 	});
 
 	
@@ -34,32 +41,45 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
         console.log(e);
     };
 	
-	socket.onmessage=function(msg){
-		let jsonObj = JSON.parse(msg.data);
-		let one = $('#someone').attr("data-name");
-		console.log("dddd",user);
-		console.log(jsonObj);
-		
-		// sender, message, chatdate
-		let msgTag = "";
-		if(user==jsonObj.sender){
-			msgTag = '<div class="alert alert-primary msg" role="alert"><div>'
-					 +name+'</div><div>'
-					 +jsonObj.message+'</div></div><div id="chatDate">'+jsonObj.chatDate+'</div>';
-		}else{
-			console.log("상대방"+one);
-			msgTag = '<div style="background-color:white;" class="alert msg" role="alert"><div>'
-						 +one+'</div><div>'
-						 +jsonObj.message+'</div></div><div id="chatDate">'+jsonObj.chatDate+'</div>';
-		}
-		
-		$('#msgArea').append(msgTag);
+	socket.onmessage = function (msg) {
+    let jsonObj = JSON.parse(msg.data);
+    let one = $('#someone').attr("data-name");
 
-		// 보내온 값에서 방번호를 보내기 버튼의 속성에 저장해줌
-		$('#button-send').attr("data-room",jsonObj.roomNum);
-		$('#button-send').attr("data-receiver",jsonObj.receiver);
-	};
+    // sender, message, chatdate
+    let msgTag = "";
+    if (user == jsonObj.sender) {
+        msgTag = '<div class="alert alert-primary myMsg msg text-end" role="alert" style="text-align: right;"><div>' +
+            '나' + '</div><div>' +
+            jsonObj.message + '</div><div id="chatDate" style="text-align: right;">' + jsonObj.chatDate + '</div></div>';
+    } else {
+        console.log("상대방" + one);
+        msgTag = '<div style="background-color:white;" class="alert yourMsg msg text-start" role="alert" style="text-align: left;"><div>' +
+            one + '님의 메세지</div><div>' +
+            jsonObj.message + '</div><div id="chatDate" style="text-align: left;">' + jsonObj.chatDate + '</div></div>';
+    }
+
+    $('#msgArea').append(msgTag);
+
+    // 보내온 값에서 방번호를 보내기 버튼의 속성에 저장해줌
+    $('#button-send').attr("data-room", jsonObj.roomNum);
+    $('#button-send').attr("data-receiver", jsonObj.receiver);
+};
+
 	
+	$("#searchName").on("keyup", function(event) {
+	    if (event.key === "Enter") {
+	       
+	       let memName = $("#searchName").val();
+		
+			console.log(memName);
+			$('#listBox').empty();
+			getSearch(memName);
+
+	
+
+	    }
+	});
+
 	$('#search').click(function(){
 		
 		//socket.close();
@@ -102,6 +122,10 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 		$('#msgArea').empty();
 		//대상의 사진, 이름, 직책을 가져옴
 		getSomeone(memCd);
+		
+		$('#listBox').empty();
+		
+		$('#listBox').append(listBoxCh);
 		
 		let chatDate = getTodayDate();
 	    let enterMsg={"type" : "ENTER","roomNum":roomNum,"receiver":memCd,"message":"","chatDate":chatDate};
@@ -165,37 +189,37 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 	    return dateString;
 	}
 	
-	function getSearch(memName){
-		
-			$.ajax({
-			type:"get",
-			url:"./search",
-			data:{
-				"memName":memName
-			},
-			success:function(response){
-				                	
-				
-				if (response.list != null) {
-				console.log("list 가져옴");
-												
-				searchList = response.list;
-				
-				$.each(searchList, function( index, value ) {
-                	let a = '<a href="#" class="chatList" data-empNum="'+value.memCd+'">'+value.memName+'</a><br>'
+	function getSearch(memName) {
+    $.ajax({
+        type: "get",
+        url: "./search",
+        data: {
+            "memName": memName
+        },
+        success: function (response) {
+            if (response.list != null) {
+                console.log("list 가져옴");
 
-                    $('#listBox').append(a);
-                });
-				} else {
-				console.log("list 가져오기 실패");
-				}
-				
-			},
-			error:function(){
-				console.log("ajax 실패");
-			}
-			})	
-	}
+                searchList = response.list;
+
+                
+                
+                $('#listBox').empty();  // 이 부분이 수정되었습니다.
+              
+
+               $.each(searchList, function (index, value) {
+				    let a = '<a href="#" class="chatList" data-empNum="' + value.memCd + '">' + value.depName + " (" + value.jobName + ") : " + value.memName + '</a><br>';
+				    $('#listBox').append(a);
+				});
+            } else {
+                console.log("list 가져오기 실패");
+            }
+        },
+        error: function () {
+            console.log("ajax 실패");
+        }
+    })
+}
 	
 	function getSomeone(memCd){
 		console.log("someone",memCd);
@@ -210,7 +234,7 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 				if (response != null) {
 				console.log("대상정보 가져옴"+ response.one.memCd);
 						
-				$('#someone').text(response.one.memCd);
+				$('#someone').text(response.one.memName+" 님의 채팅");
 				
 				} else {
 				console.log("list 가져오기 실패");

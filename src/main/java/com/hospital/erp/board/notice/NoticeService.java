@@ -30,7 +30,7 @@ public class NoticeService {
 //	@Value("${app2.upload.nodeValue2}")
 //	private String uploadPath;
 	
-//	  윈도우용 저장경로
+//	 윈도우용 저장경로
     @Value("${app.upload.nodeValue}")
     private String uploadPath;
 	
@@ -105,7 +105,7 @@ public class NoticeService {
                 noticeDAO.fileInsert(noticeFileVO);
             }
         }
-        }
+     }
 
 		return result;
 	}
