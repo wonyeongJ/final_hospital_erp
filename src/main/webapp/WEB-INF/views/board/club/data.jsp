@@ -74,7 +74,7 @@
                         </c:when>
                         <c:otherwise>
                            <c:choose>
-							    <c:when test="${!userIsParticipant && data.clubStatus == 0}">
+							    <c:when test="${!userIsParticipant && data.clubStatus == 0 && data.currentMembers < data.clubPersonnel}">
 							        <!-- 첫 번째 조건: 가입되어 있지 않고 모집 중인 경우 -->
 							        <button id="joinClub" class="btn btn-success">참가하기</button>
 							    </c:when>
