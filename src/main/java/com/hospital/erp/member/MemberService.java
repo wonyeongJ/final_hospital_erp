@@ -170,56 +170,36 @@ public class MemberService implements UserDetailsService {
 		int result = 0;
 		// file이 없지 않다면
 		if(!multipartFile.isEmpty()) {
-			// MemberVO profile 이 null일 경우 insert
-			if(memberVO.getMemPath() == null) {
-				// 이미지 파일만 넣기
-				String[] allowedExtensions = {"jpg", "jpeg", "png", "gif"};
-				// 파일 확장자 추출
-				String extension = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
-				// 이미지파일 확장자일 경우에만 넣기
-				for (String allowExtension : allowedExtensions) {
-					if(allowExtension.equals(extension)) {
-						// 파일의 원본이름 가져와서 MemberVO 에 넣기
-						memberVO.setMemOname(multipartFile.getOriginalFilename());
-						// 확장자명 추출해서 넣기 
-						memberVO.setMemExtention(extension);
-						// UUID 넣어서 filename 만들기
-						String fileName = s3Uploader.getUuid(multipartFile);
-						memberVO.setMemFname(fileName);
-						//S3에 업로드
-						String S3Url = s3Uploader.upload(multipartFile, "member",fileName);
-						memberVO.setMemPath(S3Url);
-						log.info("===========fileVO {}========");
-						result = memberDAO.memberProfileUpdate(memberVO);
-						log.info("===============memberVO {} ========",memberVO);
+			// 이미지 파일만 넣기
+			String[] allowedExtensions = {"jpg", "jpeg", "png", "gif"};
+			// 파일 확장자 추출
+			String extension = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
+			// 이미지파일 확장자일 경우에만 넣기
+			for (String allowExtension : allowedExtensions) {
+				if(allowExtension.equals(extension)) {
+					//memberVO 의 memPath 값이 null 아니라면 즉 이미 파일이 올라가있으면
+					if(memberVO.getMemPath() != null) {
+						s3Uploader.deleteFile("member/"+memberVO.getMemFname());
 					}
+					// 파일의 원본이름 가져와서 MemberVO 에 넣기
+					memberVO.setMemOname(multipartFile.getOriginalFilename());
+					// 확장자명 추출해서 넣기 
+					memberVO.setMemExtention(extension);
+					// UUID 넣어서 filename 만들기
+					String fileName = s3Uploader.getUuid(multipartFile);
+					memberVO.setMemFname(fileName);
+					//S3에 업로드
+					String S3Url = s3Uploader.upload(multipartFile, "member",fileName);
+					memberVO.setMemPath(S3Url);
+					log.info("===========fileVO {}========");
+					result = memberDAO.memberProfileUpdate(memberVO);
+					log.info("===============memberVO {} ========",memberVO);
 				}
+					
+				
 			}
 		}
-		
-		
-		// file이 없지 않다면
-//		if(!multipartFile.isEmpty()) {
-//			MemberFileVO memberFIleVO = new MemberFileVO();
-//			// 파일 저장하는 사람 사번 넣기
-//			memberFIleVO.setMemCd(memberVO.getMemCd());
-//			log.info("사번 넣기 부분 memberVO {} ==============",memberVO);
-//			// 파일의 원본이름 가져와서 MemberFileVO 에 넣기
-//			memberFIleVO.setMfOname(multipartFile.getOriginalFilename());
-//			// UUID 넣어서 filename 만들기
-//			String FileName = fileManager.save(this.uploadPath+this.profile, multipartFile);
-//			// 만든 fileName을 MemeberFileVO 에 넣기
-//			memberFIleVO.setMfFname(FileName);
-//			// 업로드 경로 넣어주기
-//			memberFIleVO.setMfPath(uploadPath+this.profile);
-//            // 확장자명 추출해서 넣기 
-//			String extension = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
-//			memberFIleVO.setMfExtention(extension);
-//			log.info("끝나고나서 memberFileVO {} ==============",memberFIleVO);
-//			// DAO에 넣기
-//			result = memberDAO.memberProfileInsert(memberFIleVO);
-//		}
-		
+
 		return result;
 	}
 	

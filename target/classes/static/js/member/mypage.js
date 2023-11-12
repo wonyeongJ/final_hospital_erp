@@ -41,7 +41,45 @@ $(document).ready(function() {
 // 근태 출근버튼 클릭시 이벤트
 $("#commuteInsert").on("click",function(){
     console.log("출근버튼 클릭");
+    let memCd = $("#memCd").text();
+    console.log(memCd)
+	$.ajax({
+				url: "/commute/insert",
+				type: "post",
+				data : {
+					memCd: memCd
+				},
+				success: function() {
+					
+					document.location.reload();
 
+				}
+			});
+    
+})
+
+$("#commuteUpdate").on("click",function(){
+    console.log("퇴근버튼 클릭");
+    let updateCheck = confirm("정말 퇴근 하시겠습니까");
+    let memCd = $("#memCd").text();
+     console.log(memCd);
+    if(updateCheck){
+		$.ajax({
+				url: "/commute/update",
+				type: "post",
+				data : {
+					memCd: memCd
+				},
+				success: function() {
+					
+					document.location.reload();
+
+				}
+			});
+	}
+    
+   
+	
     
 })
 

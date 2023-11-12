@@ -8,29 +8,29 @@
 <body>
 	<div>
 		<h1>MYPAGE</h1>
+		<c:if test="${commuteVO.comWork eq null }">
 		<div style="display: flex; justify-content: flex-end; margin-right: 1%;">
 			<button type="button" id="commuteInsert"class="btn btn-danger col-sm-1 col-md-1 mb-20">출근</button>
 		</div>
+		</c:if>
+		<c:if test="${commuteVO.comWork eq 0 }">
+		<div style="display: none; justify-content: flex-end; margin-right: 1%;">
+			<button type="button" id=""class="btn btn-danger col-sm-1 col-md-1 mb-20" style="display: none;">출근</button>
+		</div>
+		</c:if>
+		<c:if test="${commuteVO.comWork eq 1 }">
 		<div style="display: flex; justify-content: flex-end; margin-right: 1%;">
 			<button type="button" id="commuteUpdate"class="btn btn-danger col-sm-1 col-md-1 mb-20">퇴근</button>
 		</div>
-		<div style="display: flex; justify-content: flex-end; margin-right: 1%;">
-			<button type="button" id="commuteInsert"class="btn btn-danger col-sm-1 col-md-1 mb-20">출근</button>
-		</div>
+		</c:if>
+		
 	</div>
 	<div class="col-lg-2 col-md-6 col-sm-12 mb-30" style="float:left;">
 		<div class="da-card">
 			<c:set var="memPath" value="<sec:authentication property='principal.memPath' />" />
-			<c:if test="${empty memPath}">
-			    <div class="da-card-photo">
-			        <img src="/vendors/images/photo1.jpg" alt="">
-			    </div>
-			</c:if>
-			<c:if test="${memPath ne null}">
-			<div class="da-card-photo">
-				<img src="<sec:authentication property="principal.memPath" />" alt="">
-			</div>
-			</c:if>
+	         <div class="da-card-photo">
+	            <img src="<sec:authentication property="principal.memPath" />" alt="">
+	         </div>
 			<div class="da-card-content" style="display: flex; justify-content: center;">
 				<a href="#" type="button" class="btn btn-primary ms-30" data-toggle="modal" data-target="#profile-modal" >프로필사진 변경</a>
 				<div class="modal fade" id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
@@ -68,7 +68,7 @@
 			</li>
 			<li>
 				<span>사번</span>
-				<sec:authentication property="principal.memCd" />
+				<div id="memCd"><sec:authentication property="principal.memCd" /></div>
 			</li>
 			<li>
 				<span>과</span>

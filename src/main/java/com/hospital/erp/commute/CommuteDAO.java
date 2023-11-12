@@ -6,4 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 public interface CommuteDAO {
 
 	public int commuteInsert(CommuteVO commuteVO) throws Exception;
+	
+	public CommuteVO commuteData(CommuteVO commuteVO) throws Exception;
+	
+	public int commuteUpdate(CommuteVO commuteVO) throws Exception;
+	
 }

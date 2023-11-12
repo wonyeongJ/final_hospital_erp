@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hospital.erp.common.CodeVO;
+import com.hospital.erp.commute.CommuteService;
+import com.hospital.erp.commute.CommuteVO;
 import com.hospital.erp.department.DepartmentService;
 import com.hospital.erp.department.DepartmentVO;
 
@@ -43,6 +45,9 @@ public class MemberController {
 	  
 	  @Autowired
 	  private DepartmentService departmentService;
+	  
+	  @Autowired
+	  private CommuteService commuteService;
 	    
 	  
 	  // 직원 리스트 요청 메서드
@@ -96,8 +101,10 @@ public class MemberController {
 	 
 	  // 마이페이지 요청 메서드
 	  @GetMapping("mypage")
-	  public String memberData() throws Exception {
-
+	  public String memberData(Model model,@AuthenticationPrincipal MemberVO memberVO) throws Exception {
+		  CommuteVO commuteVO = commuteService.commuteData(memberVO);
+		  log.info("======= commutVO {} ==========",commuteVO);
+		  model.addAttribute("commuteVO", commuteVO);
 		  return "member/mypage";
 	  }
 	  
