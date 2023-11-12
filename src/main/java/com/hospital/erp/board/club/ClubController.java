@@ -252,19 +252,7 @@ public class ClubController {
 	
 	
 	
-	//댓글
 	
-//	// 댓글 리스트
-//	@GetMapping("commentList")
-//	public String commentList(CommentVO commentVO,Model model) throws Exception {
-//		int clubCd = commentVO.getClubCd();
-//		List<CommentVO> commentList = clubService.commentList(commentVO);
-//		model.addAttribute("commentList",commentList);
-//		
-//		System.out.println("댓글 목록: " + commentList);
-//		// 댓글 목록 데이터를 모델에 담고, 뷰 페이지로 이동
-//	    return "board/club/data"; // 댓글 목록 데이터가 포함된 뷰 페이지로 리턴
-//	}
 
 	// 댓글 등록
 	@PostMapping("commentInsert")
@@ -304,4 +292,20 @@ public class ClubController {
             return new ResponseEntity<>("오류 발생: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+	
+	// 댓글 업데이트
+	@PostMapping("commentUpdate")
+	public String commentUpdate(CommentVO commentVO,HttpSession session,Model model)throws Exception{
+		
+		 int result = clubService.commentUpdate(commentVO);
+
+	        String message = "수정 실패";
+
+	        if (result > 0) {
+	            message = "수정 성공";
+	        }
+	        model.addAttribute("message", message);
+	        model.addAttribute("url", "list");
+	        return "commons/result";
+	}
 }

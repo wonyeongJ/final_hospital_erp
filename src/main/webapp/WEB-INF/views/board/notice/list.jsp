@@ -34,44 +34,46 @@
                     </c:choose>
                 </tr>
             </thead>
-            <tbody>
-                <c:forEach items="${data}" var="notice" varStatus="loop">
-                    <tr>
-                        <td>
-                            <c:choose>
-                                <c:when test="${notice.notImportant eq 1}">
-                                    <span style="color: red;">중요 <i class="icon-copy ion-alert" style="color: red"></i></span>
-                                </c:when>
-                                <c:otherwise>
-                                    ${loop.index + (-2)}
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                        <td><a href="./data/${notice.notCd}">${notice.notTitle}</a></td>
-                        <td>${notice.depName} : ${notice.memName}</td>
-                        <td>${notice.notRdate}</td>
-                        <td>${notice.notHit}</td>
-
-                        <!-- 멤버가 2일 때만 보여질 <td> -->
-                        <c:if test="${member == 2}">
-                            <td>
-                                <c:choose>
-                                    <c:when test="${notice.notImportant eq 1}">
-                                        <button class="my btn btn-primary" type="button" id="btn" data-notcd="${notice.notCd}" data-notimportant="0" style="color: white;">
-                                           (일반)상태변경
-                                        </button>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <button class="my btn btn-danger" type="button" id="btn" data-notcd="${notice.notCd}" data-notimportant="1" style="color: white;">
-                                           (중요)상태변경
-                                        </button>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                        </c:if>
-                    </tr>
-                </c:forEach>
-            </tbody>
+           <tbody>
+			    <c:forEach items="${data}" var="notice" varStatus="loop">
+			        <tr style="${notice.notImportant eq 1 ? 'background-color: #f9f9f8;' : ''}">
+			            <td>
+			                <c:choose>
+			                    <c:when test="${notice.notImportant eq 1}">
+			                        <span style="border: 2px solid #ffc6c9;
+											    background-color: #ffe3e4;
+											    color: #ff4e59;">  중요공지  </span>
+			                    </c:when>
+			                    <c:otherwise>
+			                        ${loop.index + (-2)}
+			                    </c:otherwise>
+			                </c:choose>
+			            </td>
+			            <td><a style="color: black;" href="./data/${notice.notCd}">${notice.notTitle}</a></td>
+			            <td>${notice.depName} : ${notice.memName}</td>
+			            <td>${notice.notRdate}</td>
+			            <td>${notice.notHit}</td>
+			
+			            <!-- 멤버가 2일 때만 보여질 <td> -->
+			            <c:if test="${member == 2}">
+			                <td>
+			                    <c:choose>
+			                        <c:when test="${notice.notImportant eq 1}">
+			                            <button class="my btn btn-primary" type="button" id="btn" data-notcd="${notice.notCd}" data-notimportant="0" style="color: white;">
+			                                (일반)상태변경
+			                            </button>
+			                        </c:when>
+			                        <c:otherwise>
+			                            <button class="my btn btn-danger" type="button" id="btn" data-notcd="${notice.notCd}" data-notimportant="1" style="color: white;">
+			                                (중요)상태변경
+			                            </button>
+			                        </c:otherwise>
+			                    </c:choose>
+			                </td>
+			            </c:if>
+			        </tr>
+			    </c:forEach>
+			</tbody>
         </table>
         <c:choose>
             <c:when test="${member == 2}">

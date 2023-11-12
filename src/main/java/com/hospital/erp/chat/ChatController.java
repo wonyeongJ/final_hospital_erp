@@ -43,7 +43,6 @@ public class ChatController {
 	
 	@GetMapping("room")
 	public String chatList(Model model) throws Exception{
-		log.info("메신저 시작");
 		
 		SecurityContext context = SecurityContextHolder.getContext();
 		org.springframework.security.core.Authentication b = context.getAuthentication();
@@ -51,7 +50,6 @@ public class ChatController {
 		//직원 테이블에서 이름과 직급을 리스트로 가져옴 (자신 제외)
 		List<MemberVO> list = chatService.getChatList(b.getName());
 		
-		log.info("list {}",list);
 		model.addAttribute("list", list);
 		return "chat/room";
 	}
@@ -59,18 +57,14 @@ public class ChatController {
 	@PostMapping("createRoom")
 	@ResponseBody//방을 만들었으면 해당 방으로 가야지.
     public int createRoom(Model model, RoomVO roomVO) throws Exception{
-		log.info("방생성 중");
 		
 		SecurityContext context = SecurityContextHolder.getContext();
 		org.springframework.security.core.Authentication b = context.getAuthentication();
 		roomVO.setUser1(Long.valueOf(b.getName()));
-		log.info("user1 : {}", roomVO.getUser1());
-		log.info("user2 : {}", roomVO.getUser2());
 		
 		//방 db 저장하기 위해 서비스로
 		int result = chatService.createRoom(roomVO);
-		System.out.println(result);
-        //model.addAttribute("result",result);
+		
         
         return result;  //만든사람이 채팅방 1빠로 들어가게 됩니다
     }
@@ -79,13 +73,10 @@ public class ChatController {
 	@ResponseBody
 	public Long roomCheck(Model model, RoomVO roomVO)throws Exception{
 		//자신의 아이디도 넣어줌
-		System.out.println("룸체크 진입");
 		SecurityContext context = SecurityContextHolder.getContext();
 		org.springframework.security.core.Authentication b = context.getAuthentication();
 		roomVO.setUser1(Long.valueOf(b.getName()));
-		log.info(roomVO);
 		roomVO=chatService.roomCheck(roomVO);
-		log.info("=========2",roomVO);
 		
 		Long result = 0L;
 		
@@ -101,10 +92,8 @@ public class ChatController {
 	@GetMapping("search")
 	@ResponseBody
 	public Object getString(String memName) throws Exception{
-		log.info("search");
 		List<MemberVO> list = chatService.getSearch(memName);
 	
-		log.info("========list {}",list);
 		Map<String, Object> listMap = new HashMap<>();
 		listMap.put("list", list);
 
@@ -114,7 +103,6 @@ public class ChatController {
 	@GetMapping("getsomeone")
 	@ResponseBody
 	public Object getSomeone(MemberVO memberVO) throws Exception{
-		log.info("someone");
 		memberVO = chatService.getSomeone(memberVO);
 		
 		Map<String, Object> map = new HashMap<>();

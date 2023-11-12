@@ -146,7 +146,7 @@ public class ClubService {
 	
 		
 	
-
+	// 클럽 멤버 등록
 	public int clubMemberInsert(ClubMemberVO clubMemberVO)throws Exception{
 		int result = clubDAO.clubMemberInsert(clubMemberVO);
 		
@@ -226,6 +226,14 @@ public class ClubService {
 	// 댓글 등록
 	public int commentInsert(CommentVO commentVO) throws Exception {
 	    return clubDAO.commentInsert(commentVO);
+	}
+	
+	// 댓글 수정
+	public int commentUpdate(CommentVO commentVO)throws Exception{
+		
+		int result = clubDAO.commentUpdate(commentVO);
+		
+		return result;
 	}
 
 }

@@ -41,39 +41,32 @@ public class ChatHandler extends TextWebSocketHandler{
 	
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
       String payload = message.getPayload();
-      log.info("payload : {}", payload);
       
       ChatMessageVO chatMessage = objectMapper.readValue(payload, ChatMessageVO.class);
       
      
       RoomVO room = chatService.findRoomById(chatMessage.getRoomNum());
-      log.info("방 번호 : {}", room.getRoomNum());
       
       Long name = Long.valueOf(session.getPrincipal().getName());//sender
       chatMessage.setSender(String.valueOf(name));
       
-      log.info("sender1 : {}",chatMessage.getSender());
 
 
       if(chatMessage.getType().equals(ChatMessageVO.MessageType.ENTER)) {
     	  // 방에 유저가 맞는지 확인
     	  if(room.getUser1().equals(name)) {
     		  
-    		  log.info("user1 맵에 담음:"+room.getUser1());
     		  sessions.put(name, session);
     		  
     	  }else {
     		  if(room.getUser2().equals(name)) {
     			  
-    			  log.info("user2 맵에 담음:"+room.getUser2());
     			  sessions.put(name, session);
     		  }else {
-    			  log.info("방에 들어올 수 없는 회원 입니다.");
     		  }
     	  }
     	  
-    	  chatMessage.setMessage(name + "님이 입장했습니다.");  //TALK일 경우 msg가 있을 거고, 실제 보이지는 않게함
-    	  System.out.println("들어왔어요"+name);
+    	  chatMessage.setMessage( "채팅방에 입장 했습니다.");  //TALK일 경우 msg가 있을 거고, 실제 보이지는 않게함
     	  sendToEachSocket(chatMessage, new TextMessage(objectMapper.writeValueAsString(chatMessage)), room, name);
     	  
     	  //이전 메세지들을 list에 넣음
@@ -84,7 +77,6 @@ public class ChatHandler extends TextWebSocketHandler{
     	  for(ChatMessageVO c : list) {
 
     		  c.setType(ChatMessageVO.MessageType.ENTER);
-    		  System.out.println("이라라라라라라라===="+name);
     		  sendToEachSocket(c, new TextMessage(objectMapper.writeValueAsString(c)), room, name);
     	  }
     	  
@@ -102,22 +94,16 @@ public class ChatHandler extends TextWebSocketHandler{
   }
 
 	private void sendToEachSocket(ChatMessageVO chatMessageVO, TextMessage textMessage,RoomVO room, Long name) throws Exception {
-		System.out.println("여기도 들어왔어요"+name);
 		//set에 넣어 주기 (enter 타입일 경우 자신한테만 보내줌)
 		Set<WebSocketSession> chatMember = new HashSet<>();
 		
 		//보낼때 DB에 바로 저장
 		if(chatMessageVO.getType().equals(ChatMessageVO.MessageType.ENTER)){
 			//자신만 set에 넣음 (sender이 자신)
-				log.info("sender2 : ", name);
-				System.out.println("샌더 if 문 = "+name);
 			if(room.getUser1().equals(name)){
-				System.out.println("샌더 if 안 if 문 = "+name);
 				chatMember.add(sessions.get(name));
-				log.info("set1에 {}가 담김", room.getUser1());
 			}else {
 				chatMember.add(sessions.get(name));
-				log.info("set2에 {}가 담김", room.getUser2());
 			}
 			
 		}else {
@@ -127,7 +113,6 @@ public class ChatHandler extends TextWebSocketHandler{
 			}else {
 				
 				chatMember.add(sessions.get(room.getUser1()));
-				log.info("User1:"+room.getUser1());
 			}
 			
 			if(sessions.get(room.getUser2())==null) {
@@ -135,7 +120,6 @@ public class ChatHandler extends TextWebSocketHandler{
 			}else {
 				
 				chatMember.add(sessions.get(room.getUser2()));
-				log.info("User2:"+room.getUser2());
 			}
 			
 			int result = chatService.messageAdd(chatMessageVO);

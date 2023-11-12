@@ -48,7 +48,7 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
     // sender, message, chatdate
     let msgTag = "";
     if (user == jsonObj.sender) {
-        msgTag = '<div class="alert alert-primary myMsg msg text-end" role="alert" style="text-align: right;"><div>' +
+        msgTag = '<div class="alert alert-primary myMsg msg text-end" role="alert" style="text-align: rigth;"><div>' +
             '나' + '</div><div>' +
             jsonObj.message + '</div><div id="chatDate" style="text-align: right;">' + jsonObj.chatDate + '</div></div>';
     } else {
