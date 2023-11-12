@@ -117,8 +117,8 @@ public class ClubController {
 	    }
 	}
 	// 사내동호회 상세
-	@GetMapping("data/{clubCd}")
-    public String clubData(@AuthenticationPrincipal MemberVO memberVO,@PathVariable int clubCd, Model model) throws Exception {
+	@GetMapping("data")
+    public String clubData(@AuthenticationPrincipal MemberVO memberVO,@RequestParam("clubCd") int clubCd, Model model) throws Exception {
     	model.addAttribute("memCd",memberVO.getMemCd());
     	model.addAttribute("memName",memberVO.getMemName());
         model.addAttribute("depCd",memberVO.getDepCd());
@@ -296,7 +296,7 @@ public class ClubController {
 	
 	// 댓글 업데이트
 	@PostMapping("commentUpdate")
-	public String commentUpdate(CommentVO commentVO,HttpSession session,Model model)throws Exception{
+	public String commentUpdate(@RequestParam("commCd") int commCd,CommentVO commentVO,HttpSession session,Model model)throws Exception{
 		
 		 int result = clubService.commentUpdate(commentVO);
 
