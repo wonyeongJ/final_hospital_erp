@@ -9,12 +9,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class FileMappingConfig implements WebMvcConfigurer {
 	
 	//local file 위치
-//	@Value("${app2.upload.mapping2}")
-//	private String filePath;
+	@Value("${app2.upload.mapping2}")
+	private String filePath;
 	
 	//local file 위치 (윈도우)
-	@Value("${app.upload.mapping}")
-	private String filePath;
+//	@Value("${app.upload.mapping}")
+//	private String filePath;
 		
 	
 	//요청 URL 경로

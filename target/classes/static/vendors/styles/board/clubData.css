@@ -15,3 +15,15 @@
     flex-grow: 1;
     max-width: 100%; /* 내용의 최대 넓이를 100%로 설정 */
 }
+ #commContents {
+        width: 950px;
+        height: 80px;
+        padding: 10px; /* 여백 추가 */
+        box-sizing: border-box; /* 여백을 요소의 크기에 포함시킴 */
+        text-align: center;
+    }
+
+#commContents::placeholder {
+	text-align: center;
+	line-height: 50px; /* 플레이스홀더의 높이와 일치하도록 설정 */
+}

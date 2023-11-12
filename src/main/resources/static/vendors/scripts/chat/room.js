@@ -48,11 +48,10 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
     // sender, message, chatdate
     let msgTag = "";
     if (user == jsonObj.sender) {
-        msgTag = '<div class="alert alert-primary myMsg msg text-end" role="alert" style="text-align: rigth;"><div>' +
+        msgTag = '<div class="alert alert-primary myMsg msg text-end" role="alert" style="text-align: right;"><div>' +
             '나' + '</div><div>' +
             jsonObj.message + '</div><div id="chatDate" style="text-align: right;">' + jsonObj.chatDate + '</div></div>';
     } else {
-        console.log("상대방" + one);
         msgTag = '<div style="background-color:white;" class="alert yourMsg msg text-start" role="alert" style="text-align: left;"><div>' +
             one + '님의 메세지</div><div>' +
             jsonObj.message + '</div><div id="chatDate" style="text-align: left;">' + jsonObj.chatDate + '</div></div>';
@@ -63,15 +62,16 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
     // 보내온 값에서 방번호를 보내기 버튼의 속성에 저장해줌
     $('#button-send').attr("data-room", jsonObj.roomNum);
     $('#button-send').attr("data-receiver", jsonObj.receiver);
-};
 
+    // 메시지를 받은 후에 스크롤 함수 호출
+    scrollToBottom();
+	};
 	
 	$("#searchName").on("keyup", function(event) {
 	    if (event.key === "Enter") {
 	       
 	       let memName = $("#searchName").val();
 		
-			console.log(memName);
 			$('#listBox').empty();
 			getSearch(memName);
 
@@ -86,7 +86,6 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 		
 		let memName = $("#searchName").val();
 		
-		console.log(memName);
 		$('#listBox').empty();
 		getSearch(memName);
 
@@ -115,8 +114,10 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 			error:function(){
 				console.log("ajax 실패");
 			}
-			})	
+		})	
 	}
+	
+	
 	
 	function enterRoom(socket,memCd, roomNum){
 		$('#msgArea').empty();
@@ -132,16 +133,22 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 	    socket.send(JSON.stringify(enterMsg));
 	}
 	
+	// send 함수 수정
 	function send(roomNum, memCd) {
-    let content = document.querySelector('#msg').value.trim(); // trim()을 사용하여 앞뒤 공백 제거
-    if (content !== '') { // 공백이 아닌 경우에만 전송
-        console.log(memCd);
-        let chatDate = getTodayDate();
-        let talkMsg = {"type": "TALK", "roomNum": roomNum, "receiver": memCd, "message": content, "chatDate": chatDate};
-        socket.send(JSON.stringify(talkMsg));
-        document.querySelector('#msg').value = ''; // 전송 후 입력 필드 초기화
-    }
-}
+	    let content = document.querySelector('#msg').value.trim();
+	    if (content !== '') {
+	        let chatDate = getTodayDate();
+	        let talkMsg = {"type": "TALK", "roomNum": roomNum, "receiver": memCd, "message": content, "chatDate": chatDate};
+	        socket.send(JSON.stringify(talkMsg));
+	        document.querySelector('#msg').value = ''; // 전송 후 입력 필드 초기화
+	    }
+	}
+	
+	// 메시지 전송 후 스크롤을 맨 아래로 이동하는 함수
+	function scrollToBottom() {
+	    // 채팅창의 맨 아래로 스크롤
+	    $('#msgArea').scrollTop($('#msgArea')[0].scrollHeight);
+	}
 	
 	//방나가기  function quit(){
 	
@@ -154,7 +161,6 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 			},
 			success:function(response){
 				
-				console.log("before"+response);
 				
 				if (response > 0){
 					console.log("방이 만들어졌습니다"+response);
@@ -184,7 +190,6 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 	    
 	    let dateString = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes; 
 		
-		console.log(dateString);
 
 	    return dateString;
 	}
@@ -198,28 +203,27 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
         },
         success: function (response) {
             if (response.list != null) {
-                console.log("list 가져옴");
 
                 searchList = response.list;
 
                 
                 
-                $('#listBox').empty();  // 이 부분이 수정되었습니다.
+                $('#listBox').empty(); 
               
 
                $.each(searchList, function (index, value) {
 				    let a = '<a href="#" class="chatList" data-empNum="' + value.memCd + '">' + value.depName + " (" + value.jobName + ") : " + value.memName + '</a><br>';
 				    $('#listBox').append(a);
 				});
-            } else {
-                console.log("list 가져오기 실패");
-            }
-        },
-        error: function () {
-            console.log("ajax 실패");
-        }
-    })
-}
+	            } else {
+	                console.log("list 가져오기 실패");
+	            }
+	        },
+	        error: function () {
+	            console.log("ajax 실패");
+	        }
+	    })
+	}
 	
 	function getSomeone(memCd){
 		console.log("someone",memCd);
@@ -232,9 +236,12 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 			success:function(response){
 				
 				if (response != null) {
-				console.log("대상정보 가져옴"+ response.one.memCd);
 						
-				$('#someone').text(response.one.memName+" 님의 채팅");
+				// 아이콘과 사용자 이름을 함께 보여주는 HTML 문자열 생성
+                let userDisplay = '<i class="icon-copy fa fa-user-circle" aria-hidden="true"></i> ' + response.one.memName + ' 님의 채팅';
+
+                // 결과를 특정 요소에 설정
+                $('#someone').html(userDisplay);
 				
 				} else {
 				console.log("list 가져오기 실패");

@@ -296,17 +296,35 @@ public class ClubController {
 	
 	// 댓글 업데이트
 	@PostMapping("commentUpdate")
-	public String commentUpdate(@RequestParam("commCd") int commCd,CommentVO commentVO,HttpSession session,Model model)throws Exception{
-		
-		 int result = clubService.commentUpdate(commentVO);
+	@ResponseBody
+	public Map<String, Object> commentUpdate(@RequestParam("commCd") int commCd, @RequestParam("commContents") String commContents) {
+	    Map<String, Object> result = new HashMap<>();
+	    try {
+	        CommentVO commentVO = new CommentVO();
+	        commentVO.setCommCd(commCd);
+	        commentVO.setCommContents(commContents);
+	        int updateResult = clubService.commentUpdate(commentVO);
 
-	        String message = "수정 실패";
-
-	        if (result > 0) {
-	            message = "수정 성공";
+	        if (updateResult > 0) {
+	            result.put("result", 1);
+	        } else {
+	            result.put("result", 0);
 	        }
-	        model.addAttribute("message", message);
-	        model.addAttribute("url", "list");
-	        return "commons/result";
+	    } catch (Exception e) {
+	        result.put("result", 0);
+	        e.printStackTrace();
+	    }
+	    return result;
 	}
+	
+	// 댓글 삭제
+	@PostMapping("commentDelete")
+	@ResponseBody
+    public int commentDelete(@RequestParam("commCd") int commCd) throws Exception {
+        // 여기서 적절한 서비스 메서드를 호출하여 댓글 삭제 로직을 수행합니다.
+        int deleteResult = clubService.commentDelete(commCd);
+
+        // 삭제 결과를 반환
+        return deleteResult;
+    }
 }

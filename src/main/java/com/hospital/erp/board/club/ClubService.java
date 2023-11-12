@@ -235,5 +235,12 @@ public class ClubService {
 		
 		return result;
 	}
+	
+	// 댓글 삭제
+	public int commentDelete(int commCd) throws Exception {
+		int result = clubDAO.commentDelete(commCd);
+        
+		return result;
+	}
 
 }

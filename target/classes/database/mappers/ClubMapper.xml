@@ -346,4 +346,12 @@
 			COMM_CD = #{commCd}
 </update>
 
+<delete id="commentDelete" parameterType="int">
+		DELETE
+    		FROM
+    	COMMENT
+    		WHERE 
+    	COMM_CD = #{commCd}
+</delete>
+
 </mapper>

@@ -78,5 +78,7 @@ public interface ClubDAO {
 	// 댓글 수정
 	public int commentUpdate(CommentVO commentVO)throws Exception;
 	
+	// 댓글 삭제
+	public int commentDelete(int commCd) throws Exception;
 
 }
