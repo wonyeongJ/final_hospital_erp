@@ -149,6 +149,7 @@ public class ClubController {
 		List<CommentVO> commentList = clubService.commentList(clubCd);
 		
 		model.addAttribute("commentList",commentList);
+		
 
 		// 로그로 데이터 확인 (옵션)
 		log.info("List 데이터: {}", clubVO.getList());

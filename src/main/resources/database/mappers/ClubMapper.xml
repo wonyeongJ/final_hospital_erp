@@ -342,7 +342,6 @@
 			COMMENT
 		SET
 			COMM_CONTENTS = #{commContents}
-			COMM_RDATE = #{NOW()}
 		WHERE
 			COMM_CD = #{commCd}
 </update>
