@@ -42,7 +42,7 @@ public class SecurityConfig {
 			.disable()
 			.authorizeHttpRequests()
 				.antMatchers("/*","/member/insert","/member/memberListChart","/department/chart","/member/mypage","/member/updatePassword").permitAll()
-				.antMatchers("/member/**","/department/**").hasRole("ADMIN")
+				.antMatchers("/member/list","/department/**").hasRole("ADMIN")
 				.anyRequest().authenticated()
 				.and()
 			//form 관련 설정

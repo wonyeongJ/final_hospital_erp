@@ -50,11 +50,16 @@ public class MemberVO implements UserDetails {
 	private Integer memDelete;
 	private Date memRdate;
 	private Integer memIspwch;
+	private String memOname;
+	private String memFname;
+	private String memPath;
+	private String memExtention;
 	
 	private String depName; // memberListJoin 
 	private String codeName; // memberListJoin 성별 
 	private String jobName; //meberLoginJoin 직무
 	private String posName; // meberLoginJoin 직책
+	private String mfPath; // memberfile join 
 	
 	@Override
 	public String getUsername() {

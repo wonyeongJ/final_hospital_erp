@@ -40,5 +40,5 @@ public interface MemberDAO {
 	 public int memberUpdateForgotPassword(MemberVO memberVO) throws Exception;
 	 
 	 // member profile insert 메서드
-	 public int memberProfileInsert(MemberFileVO memberFileVO) throws Exception;
+	 public int memberProfileUpdate(MemberVO memberVO) throws Exception;
 }

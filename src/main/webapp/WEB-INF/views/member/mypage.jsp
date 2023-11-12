@@ -20,9 +20,17 @@
 	</div>
 	<div class="col-lg-2 col-md-6 col-sm-12 mb-30" style="float:left;">
 		<div class="da-card">
+			<c:set var="memPath" value="<sec:authentication property='principal.memPath' />" />
+			<c:if test="${empty memPath}">
+			    <div class="da-card-photo">
+			        <img src="/vendors/images/photo1.jpg" alt="">
+			    </div>
+			</c:if>
+			<c:if test="${memPath ne null}">
 			<div class="da-card-photo">
-				<img src="/vendors/images/photo1.jpg" alt="">
+				<img src="<sec:authentication property="principal.memPath" />" alt="">
 			</div>
+			</c:if>
 			<div class="da-card-content" style="display: flex; justify-content: center;">
 				<a href="#" type="button" class="btn btn-primary ms-30" data-toggle="modal" data-target="#profile-modal" >프로필사진 변경</a>
 				<div class="modal fade" id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">

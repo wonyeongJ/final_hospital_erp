@@ -83,28 +83,35 @@
   			NULL,
   			0,
   			NOW(),
-  			0
+  			0,
+  			NULL,
+  			NULL,
+  			NULL,
+  			NULL
   			)
   			
   	</insert>
   	
   	<!--  시큐리티 로그인 조회 쿼리 -->
   	<select id="memberFindByData" parameterType="String" resultType="MemberVO">
-  		SELECT 
+		SELECT 
 			M.*, 
 			C.CODE_NAME AS JOB_NAME, 
 			C2.CODE_NAME AS POS_NAME, 
 			C3.CODE_NAME AS CODE_NAME, 
-			D.DEP_NAME 
+			D.DEP_NAME,
+			MF.MF_PATH 
 		FROM MEMBER AS M 
 			JOIN CODE AS C
 				ON M.JOB_CD = C.CODE_CD 
-			JOIN CODE C2
+			JOIN CODE AS C2
 				ON M.POS_CD = C2.CODE_CD 
-			JOIN CODE C3 
+			JOIN CODE AS C3 
 				ON M.CODE_CD = C3.CODE_CD 
-			JOIN DEPARTMENT D
-				ON M.DEP_CD = D.DEP_CD 
+			JOIN DEPARTMENT AS D
+				ON M.DEP_CD = D.DEP_CD
+			LEFT OUTER JOIN MEMBER_FILE AS MF
+				ON M.MEM_CD = MF.MEM_CD
 		WHERE M.MEM_CD = #{value}
   	</select>
   	
@@ -168,19 +175,16 @@
 			MEM_EMAIL = #{memEmail}
   	</update>
   	
-  	<insert id="memberProfileInsert" parameterType="MemberFileVO">
-  		INSERT INTO  			
-  			MEMBER_FILE
-  		VALUES
-  			(
-  			 NULL,
-  			 27,
-  			 #{memCd},
-  			 #{mfOname},
-  			 #{mfFname},
-  			 #{mfPath},
-  			 #{mfExtention},
-  			 NOW()
-  			)
-  	</insert>
+  	<update id="memberProfileUpdate" parameterType="MemberVO">
+		UPDATE
+  			MEMBER 
+		SET 
+			MEM_ONAME = #{memOname},
+			MEM_FNAME = #{memFname},
+			MEM_PATH = #{memPath},
+			MEM_EXTENTION =  #{memExtention}
+		WHERE 
+			MEM_CD = #{memCd}
+			
+  	</update>
 </mapper>

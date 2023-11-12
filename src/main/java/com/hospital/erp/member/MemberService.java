@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hospital.erp.common.CodeVO;
 import com.hospital.erp.util.EmailService;
 import com.hospital.erp.util.FileManager;
+import com.hospital.erp.util.S3Uploader;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,11 +29,11 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberService implements UserDetailsService {
 
 	
-	 @Autowired 
-	 private MemberDAO memberDAO;
+	@Autowired 
+	private MemberDAO memberDAO;
 	 
-	 @Autowired
-	 private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
  
 	@Autowired
 	private EmailService emailService;
@@ -44,6 +45,9 @@ public class MemberService implements UserDetailsService {
 	
 	@Value("${app.member.profile}")
     private String profile;
+	
+	@Autowired
+	private S3Uploader s3Uploader;
 	 
 	//로그인처리 하는 메서드
 	 @Override
@@ -164,7 +168,34 @@ public class MemberService implements UserDetailsService {
 	public int memberProfileInsert(MemberVO memberVO,MultipartFile multipartFile) throws Exception {
 		log.info("서비스 진입 memberVO {} ==============",memberVO);
 		int result = 0;
-		
+		// file이 없지 않다면
+		if(!multipartFile.isEmpty()) {
+			// MemberVO profile 이 null일 경우 insert
+			if(memberVO.getMemPath() == null) {
+				// 이미지 파일만 넣기
+				String[] allowedExtensions = {"jpg", "jpeg", "png", "gif"};
+				// 파일 확장자 추출
+				String extension = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
+				// 이미지파일 확장자일 경우에만 넣기
+				for (String allowExtension : allowedExtensions) {
+					if(allowExtension.equals(extension)) {
+						// 파일의 원본이름 가져와서 MemberVO 에 넣기
+						memberVO.setMemOname(multipartFile.getOriginalFilename());
+						// 확장자명 추출해서 넣기 
+						memberVO.setMemExtention(extension);
+						// UUID 넣어서 filename 만들기
+						String fileName = s3Uploader.getUuid(multipartFile);
+						memberVO.setMemFname(fileName);
+						//S3에 업로드
+						String S3Url = s3Uploader.upload(multipartFile, "member",fileName);
+						memberVO.setMemPath(S3Url);
+						log.info("===========fileVO {}========");
+						result = memberDAO.memberProfileUpdate(memberVO);
+						log.info("===============memberVO {} ========",memberVO);
+					}
+				}
+			}
+		}
 		
 		
 		// file이 없지 않다면
