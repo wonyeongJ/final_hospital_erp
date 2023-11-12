@@ -37,7 +37,7 @@
 									<td>${memberVO.codeName}</td>
 									<td>${memberVO.memHdate}</td>
 									<td>${memberVO.memAnnual}</td>
-									<td>40</td>
+									<td>${memberVO.worktime }</td>
 								</tr>
 								</c:forEach>
 							</tbody>

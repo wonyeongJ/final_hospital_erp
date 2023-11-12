@@ -59,6 +59,7 @@ public class MemberVO implements UserDetails {
 	private String codeName; // memberListJoin 성별 
 	private String jobName; //meberLoginJoin 직무
 	private String posName; // meberLoginJoin 직책
+	private String worktime;
 	private String mfPath; // memberfile join 
 	
 	@Override

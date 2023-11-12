@@ -25,10 +25,10 @@ $(document).ready(function() {
             alert('이름은 한글만 입력하세요.');
         }
 
-        if (!/^[0-9]{6}$/.test(memRnum1)) {
+        if (!/^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))$/.test(memRnum1)) {
             console.log(memRnum1);
             arrayValidResultCheck.push(false);
-            alert('주민등록번호 앞 6자리는 숫자만 입력하세요.');
+            alert('주민등록번호 앞자리가 올바르지 않습니다.');
         }
 
         if (!/^[1-4][0-9]{6}$/.test(memRnum2)) {
