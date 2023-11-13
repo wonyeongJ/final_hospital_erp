@@ -117,7 +117,7 @@ public class ClubService {
 	    int clubCd = clubVO.getClubCd();
 	    
 	    if (files1 != null) {
-	 // 파일 업로드 및 파일 정보 저장
+	    // 파일 업로드 및 파일 정보 저장
         for (MultipartFile file : files1) {
             if (!file.isEmpty()) {
                 ClubFileVO clubFileVO = new ClubFileVO();
@@ -186,26 +186,26 @@ public class ClubService {
 				
 	
 	// 썸머노트 사진 등록
-		public String contentsImgInsert(MultipartFile files, HttpSession session) throws Exception{
-			
-			
-			 String FileName = fileManger.save(this.uploadPath+this.boardName, files);
-	         
-	         return this.uploadPath+this.boardName+FileName;
-		}
-		
-		
-		// 썸머노트 사진 삭제
-		public boolean contentsImgDelete(NoticeFileVO noticeFileVO, HttpSession session) throws Exception {
-		   
-			noticeFileVO.setBfFname(this.boardName.substring(this.boardName.lastIndexOf("/") + 1));
-		    return fileManger.fileDelete(noticeFileVO, uploadPath, session, null);
-		}
+	public String contentsImgInsert(MultipartFile files, HttpSession session) throws Exception{
 
-		// 사내동호회 조회수 업데이트
-		public int clubHitCount(int clubCd)throws Exception{
-			return clubDAO.clubHitCount(clubCd);
-		}
+
+		String FileName = fileManger.save(this.uploadPath+this.boardName, files);
+
+		return this.uploadPath+this.boardName+FileName;
+	}
+
+
+	// 썸머노트 사진 삭제
+	public boolean contentsImgDelete(NoticeFileVO noticeFileVO, HttpSession session) throws Exception {
+
+		noticeFileVO.setBfFname(this.boardName.substring(this.boardName.lastIndexOf("/") + 1));
+		return fileManger.fileDelete(noticeFileVO, uploadPath, session, null);
+	}
+
+	// 사내동호회 조회수 업데이트
+	public int clubHitCount(int clubCd)throws Exception{
+		return clubDAO.clubHitCount(clubCd);
+	}
 		
 	//사내동호회 삭제 
 	public int clubDelete(int clubCd) throws Exception{
@@ -238,9 +238,9 @@ public class ClubService {
 	
 	// 댓글 삭제
 	public int commentDelete(int commCd) throws Exception {
-		int result = clubDAO.commentDelete(commCd);
-        
-		return result;
-	}
+			int result = clubDAO.commentDelete(commCd);
+	        
+			return result;
+		}
 
-}
+	}

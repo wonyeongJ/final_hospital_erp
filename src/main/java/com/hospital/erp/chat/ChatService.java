@@ -71,7 +71,7 @@ public class ChatService {
     		chatRooms.put(roomVO.getRoomNum(), roomVO);
     	}
     	return roomVO;
-    };
+    }
     
     public int messageAdd(ChatMessageVO chatMessageVO)throws Exception{
     	return chatDAO.messageAdd(chatMessageVO);

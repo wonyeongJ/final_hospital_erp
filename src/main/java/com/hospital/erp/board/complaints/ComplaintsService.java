@@ -97,12 +97,7 @@ public class ComplaintsService {
 		}
 		
 		
-		// 썸머노트 사진 삭제
-//		public boolean contentsImgDelete(ComplaintsFileVO complaintsFileVO, HttpSession session) throws Exception {
-//		   
-//			complaintsFileVO.setBfFname(this.boardName.substring(this.boardName.lastIndexOf("/") + 1));
-//		    return fileManger.fileDelete(complaintsFileVO, uploadPath, session);
-//		}
+		
 		
 		// 파일상세
 		public List<ComplaintsFileVO> fileData(int compCd)throws Exception{
