@@ -58,20 +58,13 @@
 			CON.CON_STEP AS CON_STEP,
 			CON.CON_PSTATUS AS CON_PSTATUS,
 			MEM.MEM_NAME AS MEM_NAME,
-			CONMEM.MEM_NAME AS CONMEM_NAME,
-			REFMEM.MEM_NAME AS REFMEM_NAME
+			CON.MEM_NAME AS CONMEM_NAME
 		FROM
 			ELECTRONIC_PAYMENT AS EP 
 			LEFT JOIN DOCUMENT_FORM AS DF
 				ON EP.DF_CD = DF.DF_CD
 			LEFT JOIN CONFIRM AS CON
 				ON EP.EP_CD = CON.EP_CD
-			LEFT JOIN MEMBER AS CONMEM
-				ON CON.MEM_CD = CONMEM.MEM_CD
-			LEFT JOIN REFERENCE AS REF
-				ON EP.EP_CD = REF.EP_CD
-			LEFT JOIN MEMBER AS REFMEM
-				ON REF.MEM_CD = REFMEM.MEM_CD
 			LEFT JOIN MEMBER AS MEM
 				ON EP.MEM_CD = MEM.MEM_CD
 	</select>
@@ -86,24 +79,166 @@
 			CON.CON_STEP AS CON_STEP,
 			CON.CON_PSTATUS AS CON_PSTATUS,
 			MEM.MEM_NAME AS MEM_NAME,
-			CONMEM.MEM_NAME AS CONMEM_NAME,
-			REFMEM.MEM_NAME AS REFMEM_NAME
+			CON.MEM_NAME AS CONMEM_NAME
 		FROM
 			ELECTRONIC_PAYMENT AS EP 
 			LEFT JOIN DOCUMENT_FORM AS DF
 				ON EP.DF_CD = DF.DF_CD
 			LEFT JOIN CONFIRM AS CON
 				ON EP.EP_CD = CON.EP_CD
-			LEFT JOIN MEMBER AS CONMEM
-				ON CON.MEM_CD = CONMEM.MEM_CD
-			LEFT JOIN REFERENCE AS REF
-				ON EP.EP_CD = REF.EP_CD
-			LEFT JOIN MEMBER AS REFMEM
-				ON REF.MEM_CD = REFMEM.MEM_CD
 			LEFT JOIN MEMBER AS MEM
 				ON EP.MEM_CD = MEM.MEM_CD
 		WHERE
-			MEM.MEM_CD = #{memCd}
+			EP.MEM_CD = #{memCd}
 	</select>
 	
+	<!-- 전자결재문서 DETAIL -->
+	<!-- 
+	<select id="paymentData" parameterType="PaymentVO" resultMap="paymentDataResult">
+		SELECT
+			EP.*,
+			MEM.*,
+			DEP.DEP_NAME
+		FROM
+			ELECTRONIC_PAYMENT AS EP
+			LEFT JOIN MEMBER AS MEM
+				ON EP.MEM_CD = MEM.MEM_CD
+			LEFT JOIN DEPARTMENT AS DEP
+				ON MEM.DEP_CD = DEP.DEP_CD
+		WHERE
+			EP.EP_CD=#{epCd}
+	</select>
+	
+	<resultMap type="PaymentVO" id="paymentDataResult">
+		<id column="EP_CD" property="epCd"/>
+		<result column="MEM_CD" property="memCd"/>
+		<result column="DF_CD" property="dfCd"/>
+		<result column="EP_TITLE" property="epTitle"/>
+		<result column="EP_VTYPE" property="epVType"/>
+		<result column="EP_OTYPE" property="epOType"/>
+		<result column="EP_SDATE" property="epSDate"/>
+		<result column="EP_EDATE" property="epEDate"/>
+		<result column="EP_DAYS" property="epDays"/>
+		<result column="EP_PRICE" property="epPrice"/>
+		<result column="EP_LOCATION" property="epLocation"/>
+		<result column="EP_INPUT1" property="epInput1"/>
+		<result column="EP_INPUT2" property="epInput2"/>
+		<result column="EP_INPUT3" property="epInput3"/>
+		<result column="EP_REASON" property="epReason"/>
+		<result column="EP_CONTENTS" property="epContents"/>
+		<result column="EP_DSTATUS" property="epDStatus"/>
+		<result column="EP_FDATE" property="epFDate"/>
+		<result column="EP_RDATE" property="epRDate"/>
+		<collection property="memberVOs" javaType="MemberVO">
+			<id column="MEM_CD" property="memCd"/>
+			<result column="JOB_CD" property="jobCd"/>
+			<result column="DEP_CD" property="depCd"/>
+			<result column="MEM_NAME" property="memName"/>
+		</collection>
+		<collection property="departmentVOs" javaType="DepartmentVO">
+			<id column="DEP_CD" property="depCd"/>
+			<result column="DEP_NAME" property="depName"/>
+		</collection>
+	</resultMap>
+	 -->
+	
+	
+
+	<select id="paymentData" parameterType="PaymentVO" resultMap="paymentDataResult">
+		SELECT
+			EP.*,
+			DF.*,
+			MEM.*,
+			DEP.DEP_NAME,
+			CON.*,
+			REF.*
+			
+		FROM
+			ELECTRONIC_PAYMENT AS EP 
+			LEFT JOIN DOCUMENT_FORM AS DF
+				ON EP.DF_CD = DF.DF_CD
+			LEFT JOIN CONFIRM AS CON
+				ON EP.EP_CD = CON.EP_CD
+			LEFT JOIN REFERENCE AS REF
+				ON EP.EP_CD = REF.EP_CD
+			LEFT JOIN MEMBER AS MEM
+				ON EP.MEM_CD = MEM.MEM_CD
+			LEFT JOIN DEPARTMENT AS DEP
+				ON MEM.DEP_CD = DEP.DEP_CD
+		WHERE
+			EP.EP_CD=#{epCd}
+	</select>
+
+	<resultMap type="PaymentVO" id="paymentDataResult">
+		<id column="EP_CD" property="epCd"/>
+		<result column="MEM_CD" property="memCd"/>
+		<result column="DF_CD" property="dfCd"/>
+		<result column="EP_TITLE" property="epTitle"/>
+		<result column="EP_VTYPE" property="epVType"/>
+		<result column="EP_OTYPE" property="epOType"/>
+		<result column="EP_SDATE" property="epSDate"/>
+		<result column="EP_EDATE" property="epEDate"/>
+		<result column="EP_DAYS" property="epDays"/>
+		<result column="EP_PRICE" property="epPrice"/>
+		<result column="EP_LOCATION" property="epLocation"/>
+		<result column="EP_INPUT1" property="epInput1"/>
+		<result column="EP_INPUT2" property="epInput2"/>
+		<result column="EP_INPUT3" property="epInput3"/>
+		<result column="EP_REASON" property="epReason"/>
+		<result column="EP_CONTENTS" property="epContents"/>
+		<result column="EP_DSTATUS" property="epDStatus"/>
+		<result column="EP_FDATE" property="epFDate"/>
+		<result column="EP_RDATE" property="epRDate"/>
+		<collection property="documentFormVOs" javaType="DocumentFormVO">
+			<id column="DF_CD" property="dfCd"/>
+			<result column="DF_KIND" property="dfKind"/>
+			<result column="DF_VTAB" property="dfVTab"/>
+			<result column="DF_OTAB" property="dfOTab"/>
+			<result column="DF_DTAB" property="dfDTab"/>
+			<result column="DF_PTAB" property="dfPTab"/>
+			<result column="DF_LTAB" property="dfLTab"/>
+			<result column="DF_IN1TAB" property="dfIn1Tab"/>
+			<result column="DF_IN2TAB" property="dfIn2Tab"/>
+			<result column="DF_IN3TAB" property="dfIn3Tab"/>
+			<result column="DF_CONTENTS" property="dfContents"/>
+		</collection>
+		<collection property="memberVOs" javaType="MemberVO">
+			<id column="MEM_CD" property="memCd"/>
+			<result column="JOB_CD" property="jobCd"/>
+			<result column="DEP_CD" property="depCd"/>
+			<result column="MEM_NAME" property="memName"/>
+			<result column="MEM_PNUM" property="memPnum"/>
+		</collection>
+		<collection property="departmentVOs" javaType="DepartmentVO">
+			<id column="DEP_CD" property="depCd"/>
+			<result column="DEP_NAME" property="depName"/>
+		</collection>
+		<collection property="confirmVOs" javaType="java.util.List" ofType="ConfirmVO">
+			<id column="CON_CD" property="conCd"/>
+			<result column="EP_CD" property="epCd"/>
+			<result column="MEM_CD" property="memCd"/>
+			<result column="MEM_NAME" property="memName"/>
+			<result column="CON_STEP" property="conStep"/>
+			<result column="CON_RDATE" property="conRDate"/>
+			<result column="CON_PSTATUS" property="conPStatus"/>
+			<result column="CON_CONMMENT" property="conConmment"/>
+		</collection>
+		<collection property="referenceVOs" javaType="java.util.List" ofType="ReferenceVO">
+			<id column="REF_CD" property="refCd"/>
+			<result column="EP_CD" property="epCd"/>
+			<result column="MEM_CD" property="memCd"/>
+			<result column="MEM_NAME" property="memName"/>
+			<result column="REF_RDATE" property="refRDate"/>
+		</collection>
+		
+	</resultMap>
+
+
+
+
+
+
+
+
+
 </mapper>

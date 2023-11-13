@@ -31,7 +31,7 @@
 									<tr role="row" class="odd">
 										<td class="table-plus sorting_1" tabindex="0">${vo.epCd}</td>
 										<td>${vo.dfKind}</td>
-										<td><a href="./detail?boardNo=${vo.epCd}">${vo.epTitle}</a></td>
+										<td><a href="./data?epCd=${vo.epCd}">${vo.epTitle}</a></td>
 										<td>${vo.memName}</td>
 										<td>${vo.epRDate}</td>
 										<td>${vo.conStep}</td>

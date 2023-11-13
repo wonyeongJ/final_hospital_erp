@@ -1,7 +1,14 @@
 package com.hospital.erp.payment;
 
-import java.sql.Date;
+
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.hospital.erp.department.DepartmentVO;
+import com.hospital.erp.member.MemberVO;
+import com.hospital.erp.payment.confirm.ConfirmVO;
+import com.hospital.erp.payment.documentForm.DocumentFormVO;
+import com.hospital.erp.payment.reference.ReferenceVO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +18,13 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Setter
 @ToString
-@Slf4j
 public class PaymentVO {
+	
+	private DocumentFormVO documentFormVOs;
+	private MemberVO memberVOs;
+	private List<ConfirmVO> confirmVOs;
+	private List<ReferenceVO> referenceVOs;
+	private DepartmentVO departmentVOs;
 	
 	private Integer epCd;
 	private String memCd;
@@ -20,8 +32,8 @@ public class PaymentVO {
 	private String epTitle;
 	private String epVType;
 	private String epOType;
-	private Date epSDate;
-	private Date epEDate;
+	private String epSDate;
+	private String epEDate;
 	private Integer epDays;
 	private Integer epPrice;
 	private String epLocation;
