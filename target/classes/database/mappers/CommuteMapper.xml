@@ -24,7 +24,7 @@
 			COMMUTE 
 		WHERE 
 			MEM_CD = #{memCd} AND 
-			COM_SDATE > #{comSdate}
+			COM_SDATE > DATE_FORMAT(NOW(), '%Y-%m-%d')
 			
 	</select>
 	

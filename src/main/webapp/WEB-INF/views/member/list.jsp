@@ -24,7 +24,7 @@
 									<th>직무</th>
 									<th>입사일</th>
 									<th>연차</th>
-									<th>근무시간</th>
+									<th>근무시간(월)</th>
 								</tr>
 							</thead>
 							<tbody>
