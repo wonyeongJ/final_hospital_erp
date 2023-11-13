@@ -41,8 +41,6 @@ public class MemberService implements UserDetailsService {
 	@Autowired
 	private FileManager fileManager;
 	
-    private String uploadPath = "/static/upload/";
-	
 	@Autowired
 	private S3Uploader s3Uploader;
 	 
