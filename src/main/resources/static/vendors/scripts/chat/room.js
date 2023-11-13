@@ -238,7 +238,7 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 				if (response != null) {
 						
 				// 아이콘과 사용자 이름을 함께 보여주는 HTML 문자열 생성
-                let userDisplay = '<i class="icon-copy fa fa-user-circle" aria-hidden="true"></i> ' + response.one.memName + '님의 채팅';
+                let userDisplay = '<i class="icon-copy fa fa-user-circle" aria-hidden="true"></i> ' + response.one.memName +'님의 채팅';
 
                 // 결과를 특정 요소에 설정
                 $('#someone').html(userDisplay);
