@@ -71,10 +71,15 @@ public class EquipmentController {
 		
 		// Date processedPdate = timeSetter.localDateTimetoDate(equipmentVO.getEquPdate());
 		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	    UserDetails userDetails = (UserDetails)principal;
+	    MemberVO memberVO = (MemberVO)userDetails;
+	    
 		model.addAttribute("equipmentVO", equipmentVO);
 		model.addAttribute("codeVO", codeVO);
 		model.addAttribute("pDate", pDate);
 		model.addAttribute("equipmentHistory", equipmentHistoryVO);
+		model.addAttribute("memberVO", memberVO);
 		// model.addAttribute("processedPdate", processedPdate);
 		
 		return "equipment/data";

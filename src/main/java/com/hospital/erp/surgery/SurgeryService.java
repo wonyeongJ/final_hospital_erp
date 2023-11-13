@@ -49,6 +49,20 @@ public class SurgeryService {
 		return surgeryVO;
 	}
 
+	public List<ScheduleVO> surgeryScheduleCheck2(ScheduleVO scheduleVO) throws Exception {
+		List<ScheduleVO> scheduleList = surgeryDAO.surgeryScheduleCheck2(scheduleVO);
+		return scheduleList;
+	}
+
+	public void surgeryScheduleDelete(ScheduleVO scheduleVO) throws Exception {
+		surgeryDAO.surgeryScheduleDelete(scheduleVO);
+	}
+
+	public List<ScheduleVO> surgeryScheduleCheck3(ScheduleVO scheduleVO) throws Exception {
+		List<ScheduleVO> scheduleList = surgeryDAO.surgeryScheduleCheck3(scheduleVO);
+		return scheduleList;
+	}
+
 //	public List<SurgeryParticiantVO> memberList() throws Exception {
 //		List<SurgeryParticiantVO> result = surgeryDAO.memberList();
 //		return result;

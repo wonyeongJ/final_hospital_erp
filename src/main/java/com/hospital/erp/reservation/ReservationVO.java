@@ -18,6 +18,7 @@ public class ReservationVO {
 	private Integer patCd;
 	private Integer memCd; //작성자(간호사)
 	private Integer resMemCd; //의사
+	private Integer depCd;
 	private String resReason;
 	private Date resVdate;
 	private String resMHistory;

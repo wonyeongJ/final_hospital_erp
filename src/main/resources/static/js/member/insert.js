@@ -25,10 +25,10 @@ $(document).ready(function() {
             alert('이름은 한글만 입력하세요.');
         }
 
-        if (!/^[0-9]{6}$/.test(memRnum1)) {
+        if (!/^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))$/.test(memRnum1)) {
             console.log(memRnum1);
             arrayValidResultCheck.push(false);
-            alert('주민등록번호 앞 6자리는 숫자만 입력하세요.');
+            alert('주민등록번호 앞자리가 올바르지 않습니다.');
         }
 
         if (!/^[1-4][0-9]{6}$/.test(memRnum2)) {
@@ -61,8 +61,9 @@ $(document).ready(function() {
         // validValue는 false를 찾아서 값이 있으면 true를 넣어주기때문에 false일때가 정상적으로 검증이 끝났을 때다
         if(!validValue){
             $("#memRnum").val(memRnumValue);
-            $("#memPnumValue").val(memPnumValue);
-            $("#memEmailValue").val(memEmailValue);
+            $("#memPnum").val(memPnumValue);
+            $("#memEmail").val(memEmailValue);
+
             $("#memberInsertFrm").submit();
         }
 

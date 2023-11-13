@@ -26,7 +26,7 @@
                 <c:forEach items="${data}" var="club" varStatus="loop">
 				    <tr>
 				        <td>${loop.index + 1}</td>
-				        <td><a href="./data/${club.clubCd}">${club.clubTitle}</td>
+				        <td><a href="./data?clubCd=${club.clubCd}">${club.clubTitle}</td>
 				        <td>${club.depName} : ${club.memName}</td>
 				       	<td>${club.currentMembers} / ${club.clubPersonnel}</td>
 				        <td>${club.clubStatus == 0 ? '모집 중' : '모집 완료'}</td>

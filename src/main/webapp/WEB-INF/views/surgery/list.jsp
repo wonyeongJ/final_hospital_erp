@@ -57,53 +57,56 @@
 	</div>	
 		<br>
 </div>
-<div class="clearfix mb-20">
-	<div class="pull-right">
-		<a href="#" class="btn-block" data-toggle="modal" data-target="#Medium-modal" type="button">
-			<button class="btn btn-outline-primary">수술실 관리</button>
-		</a>
-		<div class="modal fade" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="myLargeModalLabel">수술실 관리</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					</div>
-					<div class="modal-body">
-						<table class="table table-bordered">
-							<tbody>
-								<c:forEach items="${allSurgeries}" var="list">
-									<tr role="row" class="">
-										<td>
-											<input type="hidden" value="${list.surCd}">
-											<input class="form-control" type="text" value="${list.surNum}">
-										</td>
-										<td>
-											<button class="btn btn-outline-primary surgery-update-btn">수정</button>
-											<button class="btn btn-outline-primary surgery-delete-btn">삭제</button>
-										</td>
-									</tr>
-								</c:forEach>
-								<tr>
-									<th scope="row">
-										<input type="text" placeholder="호수 입력" class="form-control" style="width: 120px;">
-									</th>
-									<td>
-										<button class="btn btn-outline-primary surgery-insert-btn">수술실 등록</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<c:choose> 
+    <c:when test="${memberVO.depCd == 2}">
+		<div class="clearfix mb-20">
+			<div class="pull-right">
+				<a href="#" class="btn-block" data-toggle="modal" data-target="#Medium-modal" type="button">
+					<button class="btn btn-outline-primary">수술실 관리</button>
+				</a>
+				<div class="modal fade" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myLargeModalLabel">수술실 관리</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							</div>
+							<div class="modal-body">
+								<table class="table table-bordered">
+									<tbody>
+										<c:forEach items="${allSurgeries}" var="list">
+											<tr role="row" class="">
+												<td>
+													<input type="hidden" value="${list.surCd}">
+													<input class="form-control" type="text" value="${list.surNum}">
+												</td>
+												<td>
+													<button class="btn btn-outline-primary surgery-update-btn">수정</button>
+													<button class="btn btn-outline-primary surgery-delete-btn">삭제</button>
+												</td>
+											</tr>
+										</c:forEach>
+										<tr>
+											<th scope="row">
+												<input type="text" placeholder="호수 입력" class="form-control" style="width: 120px;">
+											</th>
+											<td>
+												<button class="btn btn-outline-primary surgery-insert-btn">수술실 등록</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-
+	</c:when> 
+</c:choose> 
 
 <script src="/src/plugins/switchery/switchery.min.js"></script>
 <script src="/vendors/scripts/surgery/list.js"></script>

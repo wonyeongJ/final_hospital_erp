@@ -154,5 +154,9 @@ $RECYCLE.BIN/
 
 # .yml file ignore
 application-db.yml
+application-dev3.yml
+
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,eclipse,java,macos
+src/main/resources/application-dev.yml
+target/classes/application-dev.yml

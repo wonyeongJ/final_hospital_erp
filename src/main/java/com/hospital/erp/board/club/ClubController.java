@@ -79,13 +79,13 @@ public class ClubController {
 	
 	
 	@PostMapping("insert")
-	public String clubInsert(@AuthenticationPrincipal MemberVO memberVO,ClubVO clubVO, MultipartFile[] files, Model model) throws Exception {
+	public String clubInsert(@AuthenticationPrincipal MemberVO memberVO,ClubVO clubVO, MultipartFile[] files1, Model model) throws Exception {
 		
 		clubVO.setMemName(memberVO.getMemName());
 		clubVO.setDepCd(memberVO.getDepCd());
 		clubVO.setDepName(memberVO.getDepName());
 		
-		int result = clubService.clubInsert(clubVO, files);
+		int result = clubService.clubInsert(clubVO, files1);
         if (result > 0) {
             model.addAttribute("message", "사내동호회 등록이 완료되었습니다.");
             model.addAttribute("url", "list");
@@ -98,8 +98,8 @@ public class ClubController {
 	}
 	
 	
-	@PostMapping("clubMemberInsert/{clubCd}")
-	public ResponseEntity<String> clubMemberInsert(@AuthenticationPrincipal MemberVO memberVO, @PathVariable int clubCd, ClubMemberVO clubMemberVO) throws Exception {
+	@PostMapping("clubMemberInsert")
+	public ResponseEntity<String> clubMemberInsert(@AuthenticationPrincipal MemberVO memberVO, @RequestParam("clubCd") int clubCd, ClubMemberVO clubMemberVO) throws Exception {
 
 	    clubMemberVO.setMemName(memberVO.getMemName());
 	    clubMemberVO.setClubCd(clubCd);
@@ -117,8 +117,8 @@ public class ClubController {
 	    }
 	}
 	// 사내동호회 상세
-	@GetMapping("data/{clubCd}")
-    public String clubData(@AuthenticationPrincipal MemberVO memberVO,@PathVariable int clubCd, Model model) throws Exception {
+	@GetMapping("data")
+    public String clubData(@AuthenticationPrincipal MemberVO memberVO,@RequestParam("clubCd") int clubCd, Model model) throws Exception {
     	model.addAttribute("memCd",memberVO.getMemCd());
     	model.addAttribute("memName",memberVO.getMemName());
         model.addAttribute("depCd",memberVO.getDepCd());
@@ -149,6 +149,7 @@ public class ClubController {
 		List<CommentVO> commentList = clubService.commentList(clubCd);
 		
 		model.addAttribute("commentList",commentList);
+		
 
 		// 로그로 데이터 확인 (옵션)
 		log.info("List 데이터: {}", clubVO.getList());
@@ -175,9 +176,9 @@ public class ClubController {
 	}
 	
 	@PostMapping("update")
-	public String clubUpdata(ClubVO clubVO,MultipartFile[] files,HttpSession session,Model model)throws Exception{
+	public String clubUpdata(ClubVO clubVO,MultipartFile[] files1,HttpSession session,Model model)throws Exception{
 		
-		 int result = clubService.clubUpdate(clubVO, files);
+		 int result = clubService.clubUpdate(clubVO, files1);
 
 	        String message = "등록 실패";
 
@@ -252,19 +253,7 @@ public class ClubController {
 	
 	
 	
-	//댓글
 	
-//	// 댓글 리스트
-//	@GetMapping("commentList")
-//	public String commentList(CommentVO commentVO,Model model) throws Exception {
-//		int clubCd = commentVO.getClubCd();
-//		List<CommentVO> commentList = clubService.commentList(commentVO);
-//		model.addAttribute("commentList",commentList);
-//		
-//		System.out.println("댓글 목록: " + commentList);
-//		// 댓글 목록 데이터를 모델에 담고, 뷰 페이지로 이동
-//	    return "board/club/data"; // 댓글 목록 데이터가 포함된 뷰 페이지로 리턴
-//	}
 
 	// 댓글 등록
 	@PostMapping("commentInsert")
@@ -303,5 +292,39 @@ public class ClubController {
         } catch (Exception e) {
             return new ResponseEntity<>("오류 발생: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+	
+	// 댓글 업데이트
+	@PostMapping("commentUpdate")
+	@ResponseBody
+	public Map<String, Object> commentUpdate(@RequestParam("commCd") int commCd, @RequestParam("commContents") String commContents) {
+	    Map<String, Object> result = new HashMap<>();
+	    try {
+	        CommentVO commentVO = new CommentVO();
+	        commentVO.setCommCd(commCd);
+	        commentVO.setCommContents(commContents);
+	        int updateResult = clubService.commentUpdate(commentVO);
+
+	        if (updateResult > 0) {
+	            result.put("result", 1);
+	        } else {
+	            result.put("result", 0);
+	        }
+	    } catch (Exception e) {
+	        result.put("result", 0);
+	        e.printStackTrace();
+	    }
+	    return result;
+	}
+	
+	// 댓글 삭제
+	@PostMapping("commentDelete")
+	@ResponseBody
+    public int commentDelete(@RequestParam("commCd") int commCd) throws Exception {
+        // 여기서 적절한 서비스 메서드를 호출하여 댓글 삭제 로직을 수행합니다.
+        int deleteResult = clubService.commentDelete(commCd);
+
+        // 삭제 결과를 반환
+        return deleteResult;
     }
 }

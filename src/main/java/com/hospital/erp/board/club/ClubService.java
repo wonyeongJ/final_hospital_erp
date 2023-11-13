@@ -45,7 +45,7 @@ public class ClubService {
 	} 
 	
 	// 사내동호회 등록
-	public int clubInsert(ClubVO clubVO,MultipartFile[] files)throws Exception{
+	public int clubInsert(ClubVO clubVO,MultipartFile[] files1)throws Exception{
 		
 		// 클럽 등록
 		int result = clubDAO.clubInsert(clubVO);
@@ -62,10 +62,10 @@ public class ClubService {
 		}
         
         
-
+	    if (files1 != null) {
 		
 		// 파일 업로드 및 파일 정보 저장
-        for (MultipartFile file : files) {
+        for (MultipartFile file : files1) {
             if (!file.isEmpty()) {
                 ClubFileVO clubFileVO = new ClubFileVO();
                 clubFileVO.setCodeCd(11); // 해당 게시판 카테고리 코드
@@ -79,6 +79,7 @@ public class ClubService {
                 clubDAO.fileInsert(clubFileVO);
             }
         }
+	    }
 
 		return result;
 	}
@@ -110,13 +111,14 @@ public class ClubService {
 	}
 	
 	// 사내동호회 업데이트
-	public int clubUpdate(ClubVO clubVO,MultipartFile[] files)throws Exception{
+	public int clubUpdate(ClubVO clubVO,MultipartFile[] files1)throws Exception{
 		
 		int result = clubDAO.clubUpdate(clubVO);
 	    int clubCd = clubVO.getClubCd();
 	    
-	 // 파일 업로드 및 파일 정보 저장
-        for (MultipartFile file : files) {
+	    if (files1 != null) {
+	    // 파일 업로드 및 파일 정보 저장
+        for (MultipartFile file : files1) {
             if (!file.isEmpty()) {
                 ClubFileVO clubFileVO = new ClubFileVO();
                 clubFileVO.setCodeCd(11); // 해당 공지사항 카테고리 코드
@@ -130,7 +132,7 @@ public class ClubService {
                 clubDAO.fileInsert(clubFileVO);
             }
         }
-
+	    }
 		return result;
 	}
 	
@@ -144,7 +146,7 @@ public class ClubService {
 	
 		
 	
-
+	// 클럽 멤버 등록
 	public int clubMemberInsert(ClubMemberVO clubMemberVO)throws Exception{
 		int result = clubDAO.clubMemberInsert(clubMemberVO);
 		
@@ -184,26 +186,26 @@ public class ClubService {
 				
 	
 	// 썸머노트 사진 등록
-		public String contentsImgInsert(MultipartFile files, HttpSession session) throws Exception{
-			
-			
-			 String FileName = fileManger.save(this.uploadPath+this.boardName, files);
-	         
-	         return this.uploadPath+this.boardName+FileName;
-		}
-		
-		
-		// 썸머노트 사진 삭제
-		public boolean contentsImgDelete(NoticeFileVO noticeFileVO, HttpSession session) throws Exception {
-		   
-			noticeFileVO.setBfFname(this.boardName.substring(this.boardName.lastIndexOf("/") + 1));
-		    return fileManger.fileDelete(noticeFileVO, uploadPath, session, null);
-		}
+	public String contentsImgInsert(MultipartFile files, HttpSession session) throws Exception{
 
-		// 사내동호회 조회수 업데이트
-		public int clubHitCount(int clubCd)throws Exception{
-			return clubDAO.clubHitCount(clubCd);
-		}
+
+		String FileName = fileManger.save(this.uploadPath+this.boardName, files);
+
+		return this.uploadPath+this.boardName+FileName;
+	}
+
+
+	// 썸머노트 사진 삭제
+	public boolean contentsImgDelete(NoticeFileVO noticeFileVO, HttpSession session) throws Exception {
+
+		noticeFileVO.setBfFname(this.boardName.substring(this.boardName.lastIndexOf("/") + 1));
+		return fileManger.fileDelete(noticeFileVO, uploadPath, session, null);
+	}
+
+	// 사내동호회 조회수 업데이트
+	public int clubHitCount(int clubCd)throws Exception{
+		return clubDAO.clubHitCount(clubCd);
+	}
 		
 	//사내동호회 삭제 
 	public int clubDelete(int clubCd) throws Exception{
@@ -225,5 +227,20 @@ public class ClubService {
 	public int commentInsert(CommentVO commentVO) throws Exception {
 	    return clubDAO.commentInsert(commentVO);
 	}
+	
+	// 댓글 수정
+	public int commentUpdate(CommentVO commentVO)throws Exception{
+		
+		int result = clubDAO.commentUpdate(commentVO);
+		
+		return result;
+	}
+	
+	// 댓글 삭제
+	public int commentDelete(int commCd) throws Exception {
+			int result = clubDAO.commentDelete(commCd);
+	        
+			return result;
+		}
 
-}
+	}

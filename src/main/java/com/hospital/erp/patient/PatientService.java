@@ -22,6 +22,13 @@ public class PatientService {
 	
 	//환자 등록 메서드
 	public int patinetInsert(PatientVO patientVO) throws Exception {
+		char gender =patientVO.getPatRnum().charAt(7);
+		if(gender == '1' || gender == '3'){
+			patientVO.setCodeCd(1);
+		}else {
+			patientVO.setCodeCd(2);
+		}
+		
 		return patientDAO.patientInsert(patientVO);
 	}
 }

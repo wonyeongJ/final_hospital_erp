@@ -10,7 +10,9 @@
 		<typeAlias type="com.hospital.erp.department.DepartmentVO" alias="DepartmentVO"/>
 		<typeAlias type="com.hospital.erp.patient.PatientVO" alias="PatientVO"/>
 		<typeAlias type="com.hospital.erp.reservation.ReservationVO" alias="ReservationVO"/>
-		
+		<typeAlias type="com.hospital.erp.commute.CommuteVO" alias="CommuteVO"/>
+		<typeAlias type="com.hospital.erp.member.MemberFileVO" alias="MemberFileVO"/>
+			
 		
 		
 		
@@ -62,6 +64,10 @@
 		<typeAlias type="com.hospital.erp.board.club.ClubFileVO" alias="ClubFileVO"/>
 		<typeAlias type="com.hospital.erp.board.club.ClubMemberVO" alias="ClubMemberVO"/>
 		<typeAlias type="com.hospital.erp.board.CommentVO" alias="CommentVO"/>
+		
+		<typeAlias type="com.hospital.erp.chat.ChatMessageVO" alias="ChatMessageVO"/>
+		<typeAlias type="com.hospital.erp.chat.RoomVO" alias="RoomVO"/>
+		
 		
 		
 		
