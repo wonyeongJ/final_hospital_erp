@@ -43,9 +43,6 @@ public class MemberService implements UserDetailsService {
 	
     private String uploadPath = "/static/upload/";
 	
-	@Value("${app.member.profile}")
-    private String profile;
-	
 	@Autowired
 	private S3Uploader s3Uploader;
 	 
