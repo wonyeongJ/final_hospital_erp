@@ -49,12 +49,12 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
     let msgTag = "";
     if (user == jsonObj.sender) {
         msgTag = '<div class="alert alert-primary myMsg msg text-end" role="alert" style="text-align: right;"><div>' +
-            '나' + '</div><div>' +
-            jsonObj.message + '</div><div id="chatDate" style="text-align: right;">' + jsonObj.chatDate + '</div></div>';
+            '나' + '</div><hr style="margin: 5px 0;">' +
+            '<div>' + jsonObj.message + '</div><div id="chatDate" style="text-align: right;">' + jsonObj.chatDate + '</div></div>';
     } else {
         msgTag = '<div style="background-color:white;" class="alert yourMsg msg text-start" role="alert" style="text-align: left;"><div>' +
-            one + '님의 메세지</div><div>' +
-            jsonObj.message + '</div><div id="chatDate" style="text-align: left;">' + jsonObj.chatDate + '</div></div>';
+            one + '님의 메세지</div><hr style="margin: 5px 0;">' +
+            '<div>' + jsonObj.message + '</div><div id="chatDate" style="text-align: left;">' + jsonObj.chatDate + '</div></div>';
     }
 
     $('#msgArea').append(msgTag);

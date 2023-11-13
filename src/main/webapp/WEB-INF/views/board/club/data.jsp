@@ -135,8 +135,10 @@
 	        // Ajax 요청을 보냄
 	        $.ajax({
 	            type: "POST", // POST 요청
-	            url: `/board/club/clubMemberInsert/${clubCd}`, // 요청 URL
+	            url: `/board/club/clubMemberInsert`,
+	            data: { clubCd: clubCd },// 요청 URL
 	            success: function(data, status, xhr) {
+	            	
 	                if (xhr.status === 200) {
 	                    // 가입 성공 메시지
 	                    alert("모임의 참가가 완료되었습니다.");

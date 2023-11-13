@@ -98,8 +98,8 @@ public class ClubController {
 	}
 	
 	
-	@PostMapping("clubMemberInsert/{clubCd}")
-	public ResponseEntity<String> clubMemberInsert(@AuthenticationPrincipal MemberVO memberVO, @PathVariable int clubCd, ClubMemberVO clubMemberVO) throws Exception {
+	@PostMapping("clubMemberInsert")
+	public ResponseEntity<String> clubMemberInsert(@AuthenticationPrincipal MemberVO memberVO, @RequestParam("clubCd") int clubCd, ClubMemberVO clubMemberVO) throws Exception {
 
 	    clubMemberVO.setMemName(memberVO.getMemName());
 	    clubMemberVO.setClubCd(clubCd);
