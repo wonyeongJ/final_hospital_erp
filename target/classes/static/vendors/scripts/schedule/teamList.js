@@ -13,7 +13,7 @@ $(document).ready(function(){
 		if(startNum % 100 == 0){
 			start = parseInt( startNum / 100 );
 		}else{
-			start = parseInt( startNum / 100 ) - 1;
+			start = parseInt( startNum / 100 );
 		}
 		
 		let endNum = scheduleArray[i].attr('endNum');
