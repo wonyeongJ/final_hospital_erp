@@ -109,4 +109,48 @@ public class TimeSetter {
 		String result = dateArray[0]+" "+dateArray[1]+" "+dateArray[2];
 		return result;
 	}
+	
+	public String stringDateChanger2(String date) {
+		String[] dateArray = date.split("-");
+		switch(dateArray[1]) {
+        case "01":
+        	dateArray[1] = "January";
+            break;
+        case "02":
+        	dateArray[1] = "February";
+            break;
+        case "03":
+        	dateArray[1] = "March";
+            break;
+        case "04":
+        	dateArray[1] = "April";
+            break;
+        case "05":
+        	dateArray[1] = "May";
+            break;
+        case "06":
+        	dateArray[1] = "June";
+            break;
+        case "07":
+        	dateArray[1] = "July";
+            break;
+        case "08":
+        	dateArray[1] = "August";
+            break;
+        case "09":
+        	dateArray[1] = "September";
+            break;
+        case "10":
+        	dateArray[1] = "October";
+            break;
+        case "11":
+        	dateArray[1] = "November";
+            break;
+        case "12":
+        	dateArray[1] = "December";
+            break;
+	}
+		String result = dateArray[2]+" "+dateArray[1]+" "+dateArray[0]+" 12:00 am";
+		return result;
+	}
 }
