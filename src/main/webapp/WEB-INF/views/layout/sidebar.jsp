@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+   
     <!-- sidebar -->
 	<div class="left-side-bar">
 		<div class="brand-logo">
 			<a href="/">
 				<img src="/vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
-				<img src="/vendors/images/deskapp-logo-white.svg" alt="" class="light-logo">
+				<img src="/vendors/images/병원로고1.jpg" style="position: relative; left : 10%;" alt="" class="light-logo">
 			</a>
 			<div class="close-sidebar" data-toggle="left-sidebar-close">
 				<i class="ion-close-round"></i>
@@ -87,10 +89,17 @@
 					</li>
 					
 					<li>
+						<a href="/chat/room" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-chat3"></span><span class="mtext">메신저</span>
+						</a>
+					</li>
+					
+					<li>
 						<a href="#" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-settings2"></span><span class="mtext">SETTING</span>
 						</a>
 					</li>
+					
 
 					
 				</ul>

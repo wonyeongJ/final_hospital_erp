@@ -61,12 +61,12 @@ insert.addEventListener("click", function () {
 
     let inputGroup = document.createElement("div");
     inputGroup.className = "input-group mb-3";
-    inputGroup.id = "files" + idx;
+    inputGroup.id = "files1" + idx;
 
     let fileInput = document.createElement("input");
     fileInput.type = "file";
     fileInput.className = "form-control";
-    fileInput.name = "files";
+    fileInput.name = "files1";
 
     let deleteButton = document.createElement("span");
     deleteButton.className = "df";
