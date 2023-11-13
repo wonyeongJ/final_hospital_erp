@@ -9,7 +9,15 @@
         <h4 class="text-blue h4">공지사항</h4>
     </div>
     <div class="pb-20">
-        <table class="datatable table nowrap">
+    	
+       <c:choose>
+		       <c:when test="${member == 2}">
+		         <table class="datatable table nowrap">
+		        </c:when>
+		   <c:otherwise>
+		          <table class="datatable3 table nowrap">
+		     </c:otherwise>
+		</c:choose>
             <thead>
                 <tr>
                     <th>NO</th>
@@ -22,7 +30,6 @@
                             <th>상태변경</th>
                         </c:when>
                         <c:otherwise>
-                            <!-- 멤버가 2가 아닌 경우에는 빈 <th> 태그를 생성하지 않음 -->
                         </c:otherwise>
                     </c:choose>
                 </tr>
