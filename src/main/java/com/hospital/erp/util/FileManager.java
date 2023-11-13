@@ -35,8 +35,8 @@ public class FileManager extends AbstractView {
 //	    private String uploadPath;
 	    
 	    // 윈도우용 저장경로
-	    @Value("${app.upload.nodeValue}")
-	    private String uploadPath;
+//	    @Value("${app.upload.nodeValue}")
+	    private String uploadPath = "/static/upload";
 	    
 	    @Autowired
 	    private NoticeDAO noticeDAO;

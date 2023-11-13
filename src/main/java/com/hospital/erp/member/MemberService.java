@@ -1,5 +1,6 @@
 package com.hospital.erp.member;
 
+import java.security.spec.EncodedKeySpec;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -7,13 +8,19 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.hospital.erp.common.CodeVO;
+import com.hospital.erp.util.EmailService;
+import com.hospital.erp.util.FileManager;
+import com.hospital.erp.util.S3Uploader;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,11 +29,25 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberService implements UserDetailsService {
 
 	
-	 @Autowired 
-	 private MemberDAO memberDAO;
+	@Autowired 
+	private MemberDAO memberDAO;
 	 
-	 @Autowired
-	 private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+ 
+	@Autowired
+	private EmailService emailService;
+	
+	@Autowired
+	private FileManager fileManager;
+	
+    private String uploadPath = "/static/upload/";
+	
+	@Value("${app.member.profile}")
+    private String profile;
+	
+	@Autowired
+	private S3Uploader s3Uploader;
 	 
 	//로그인처리 하는 메서드
 	 @Override
@@ -40,7 +61,6 @@ public class MemberService implements UserDetailsService {
 	}
 	 
 	
-	  
 	//직원 리스트 조회 메서드
 	public List<MemberVO> memberList() throws Exception {
 		return memberDAO.memberList();
@@ -112,7 +132,9 @@ public class MemberService implements UserDetailsService {
 		UserDetails userDetails = (UserDetails)principal;
 		MemberVO memberVO = (MemberVO)userDetails;
 		
-		memberVO.setMemPw(passwordEncoder.encode(memberVO.getMemPw()));
+		log.info("=========service passwordVOconfirm ====  {}",passwordVO);
+		memberVO.setMemPw(passwordEncoder.encode(passwordVO.getNewPasswordConfirm()));
+		log.info("=========service passwordVOconfirm ====  {}",memberVO.getMemPw());
 		return memberDAO.memberUpdatePassword(memberVO);
 	}
 	
@@ -120,4 +142,65 @@ public class MemberService implements UserDetailsService {
 	public List<MemberVO> memberListChart() throws Exception {
 		return memberDAO.memberListChart();
 	}
+	
+	// codeList
+	public List<CodeVO> codeList() throws Exception {
+		return memberDAO.codeList();
+	}
+	
+	// member 업데이트
+	public int memberUpdate(MemberVO memberVO) throws Exception {
+		return memberDAO.memberUpdate(memberVO);
+	}
+	
+	// forgotPassword 로 사번 이메일 받아서 해당하는 
+	public int memberUpdateForgotPassword(MemberVO memberVO) throws Exception {
+		// 이메일로 임시비밀번호 보내기
+		String temporaryPassword = emailService.sendEmail(memberVO.getMemEmail());
+		log.info("=========서비스단에서 임시번호 인코딩전 ==========={}",temporaryPassword);
+		memberVO.setMemPw(passwordEncoder.encode(temporaryPassword));
+		// update 쿼리이기때문에 성공시 1 실패시 0 성공인 경우 해당하는 사번과 email이 있다는 것 
+		int result = memberDAO.memberUpdateForgotPassword(memberVO); 
+		return result;
+	}
+	
+	// memberProfile Insert 메서드
+	public int memberProfileInsert(MemberVO memberVO,MultipartFile multipartFile) throws Exception {
+		log.info("서비스 진입 memberVO {} ==============",memberVO);
+		int result = 0;
+		// file이 없지 않다면
+		if(!multipartFile.isEmpty()) {
+			// 이미지 파일만 넣기
+			String[] allowedExtensions = {"jpg", "jpeg", "png", "gif"};
+			// 파일 확장자 추출
+			String extension = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
+			// 이미지파일 확장자일 경우에만 넣기
+			for (String allowExtension : allowedExtensions) {
+				if(allowExtension.equals(extension)) {
+					//memberVO 의 memPath 값이 null 아니라면 즉 이미 파일이 올라가있으면
+					if(memberVO.getMemPath() != null) {
+						s3Uploader.deleteFile("member/"+memberVO.getMemFname());
+					}
+					// 파일의 원본이름 가져와서 MemberVO 에 넣기
+					memberVO.setMemOname(multipartFile.getOriginalFilename());
+					// 확장자명 추출해서 넣기 
+					memberVO.setMemExtention(extension);
+					// UUID 넣어서 filename 만들기
+					String fileName = s3Uploader.getUuid(multipartFile);
+					memberVO.setMemFname(fileName);
+					//S3에 업로드
+					String S3Url = s3Uploader.upload(multipartFile, "member",fileName);
+					memberVO.setMemPath(S3Url);
+					log.info("===========fileVO {}========");
+					result = memberDAO.memberProfileUpdate(memberVO);
+					log.info("===============memberVO {} ========",memberVO);
+				}
+					
+				
+			}
+		}
+
+		return result;
+	}
+	
 }

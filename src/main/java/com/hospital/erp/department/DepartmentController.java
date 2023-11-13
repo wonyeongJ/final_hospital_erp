@@ -52,7 +52,7 @@ public class DepartmentController {
 	public String departmentUpdate(DepartmentVO departmentVO) throws Exception {
 		log.info("=============dpeartment update 실행 =================");
 		int result = departmentService.departmentUpdate(departmentVO);
-		return "redirect:./";
+		return "redirect:./list";
 	}
 	
 	//조직도 호출 메서드
