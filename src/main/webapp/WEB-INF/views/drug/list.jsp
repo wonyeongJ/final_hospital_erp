@@ -7,4 +7,8 @@
 	<br>
 <h2>약품 조회</h2>
 	<br><br>
-
+<select class="custom-select col-12" name="drug">
+	<c:forEach items="${drugs}" var="drug" varStatus="status">
+		<option value="${drug}">${drug}</option>
+	</c:forEach>
+</select>
