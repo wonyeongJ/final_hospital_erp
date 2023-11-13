@@ -21,7 +21,7 @@
 							<h4 class="text-blue h4">환자 목록</h4>
 						</div>
 					</div>
-					<table class="table table-bordered">
+					<table class="table hover multiple-select-row datatable2 nowrap">
 						<thead>
 							<tr>
 								<th scope="col">NO</th>
@@ -37,7 +37,7 @@
 							<c:forEach items="${patientAr}" var="patientVO" varStatus="i">	
 							<tr>
 								<th scope="row">${i.index+1}</th>
-								<td>${patientVO.patName}</td>
+								<td><a href="./data?patCd=${patientVO.patCd}">${patientVO.patName}</a></td>
 								<td>${patientVO.patRnum}</td>
 								<td>${patientVO.codeName}</td>
 								<td>${patientVO.patPnum}</td>

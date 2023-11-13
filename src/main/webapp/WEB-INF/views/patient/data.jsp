@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,27 +21,28 @@
 						</div>
 					</div>
 					<div class="form-group row ">
+					<input class="form-control" type="hidden" value="${patientVO.patCd}" >
 						<label class="col-sm-12 col-md-2 col-form-label">이름</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" type="text" placeholder="홍길동" readonly>
+							<input class="form-control" type="text" value="${patientVO.patName}" readonly>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 col-form-label">주민등록번호</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" type="text" placeholder="940908-1234567" readonly>
+							<input class="form-control" type="text" value="${patientVO.patRnum}" readonly>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 col-form-label">연락처</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" type="text" placeholder="010-1234-5678" readonly>
+							<input class="form-control" type="text" value="${patientVO.patPnum}" readonly>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 col-form-label">성별</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" type="text" placeholder="남" readonly>
+							<input class="form-control" type="text" value="${patientVO.codeName}" readonly>
 						</div>
 					</div>
 				</div>			
@@ -72,15 +76,15 @@
 								<td>이수찬</td>
 								<td>예약중</td>
 								<td>
-									<button class="btn btn-success">수정</button>
+									<button class="btn btn-success">수정</button>>
 									<button class="btn btn-danger">삭제</button>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 					<div style="display: flex; justify-content: flex-end;">
-						<a type="button" class="btn btn-primary" href="../reservation/insert" style="margin-right: 10px;">진료예약</a>
-						<a type="button" class="btn btn-primary" href="./update">환자수정</a>
+						<a type="button" class="btn btn-primary" href="../reservation/insert?patCd=${patientVO.patCd }" style="margin-right: 10px;">진료예약</a>
+						<a type="button" class="btn btn-primary" href="./update?patCd=${patientVO.patCd }">환자수정</a>
 					</div>
 				</div>
 				<!-- Bordered table End -->

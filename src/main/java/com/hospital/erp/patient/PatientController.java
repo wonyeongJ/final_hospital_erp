@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
 /*
  * From 서동휘
  * 환자 관리 controller
  */
+@Slf4j
 @Controller
 @RequestMapping("/patient/*")
 public class PatientController {
@@ -25,13 +28,33 @@ public class PatientController {
 	public String patientList(Model model) throws Exception {
 		List<PatientVO> patientAr = patientService.patientList();
 		model.addAttribute("patientAr", patientAr);
+		log.info("patinetAr patienVO=== {}",patientAr);
 		return "patient/list";
 	}
 	
 	//환자 상세 및 예약 정보 페이지 호출 메서드
 	@GetMapping("data")
-	public String patientData(PatientVO patientVO) throws Exception {
+	public String patientData(PatientVO patientVO,Model model) throws Exception {
+		patientVO = patientService.patientData(patientVO);
+		log.info("===========patientVO {}",patientVO);
+		model.addAttribute("patientVO", patientVO);
 		return "patient/data";
+	}
+	
+	// 환자수정 폼 호출 메서드
+	@GetMapping("update")
+	public String patientUpdate(PatientVO patientVO, Model model) throws Exception {
+		patientVO = patientService.patientData(patientVO);
+		model.addAttribute("patientVO", patientVO);
+		return "patient/update";
+	}
+	
+	// 환자 수정 메서드
+	@PostMapping("update")
+	public String patientUpdate(PatientVO patientVO) throws Exception {
+		log.info("=========update patinet {} ", patientVO);
+		int result = patientService.patientUpdate(patientVO);
+		return "redirect:./list";
 	}
 	
 	// 환자 등록 폼 호출 메서드
@@ -48,17 +71,6 @@ public class PatientController {
 	}
 	
 
-	
-	//환자 정보 수정 폼 요청 메서드
-	@GetMapping("update")
-	public String patientUpdate() throws Exception {
-		return "patient/update";
-	}
-	
-	@PostMapping("update")
-	public String patientUpdate(PatientVO patientVO) throws Exception {
-		return "patinet/update";
-	}
 	
 	
 }
