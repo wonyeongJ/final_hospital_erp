@@ -48,7 +48,6 @@ $(document).ready(function () {
 			    }), */ 
 			    contentType : 'application/json; charset=utf-8',
 			    success : function(result) { // 결과 성공 콜백함수
-			        console.log(result);
 			        $('#ajaxResult').empty();
 			    	$('#ajaxResult').append(result);
 			    },

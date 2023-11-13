@@ -154,7 +154,6 @@ $RECYCLE.BIN/
 
 # .yml file ignore
 application-db.yml
-application-dev.yml
 application-dev3.yml
 
 
