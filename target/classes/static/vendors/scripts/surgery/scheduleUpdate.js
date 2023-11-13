@@ -34,8 +34,8 @@ $('.date-change-btn').click(function(){
 	if(split[0].length > 2){
 		location.reload();
 	}else{
-		let surCd = $('#surCd').val();
-		let url = 'scheduleInsert?surCd='+surCd+'&&paramDate='+paramDate
+		let surCd = $('#schCd').val();
+		let url = 'scheduleUpdate?schCd='+surCd+'&&paramDate='+paramDate
 		
 		$('#hidden-link').attr('href', url)
 		$('#hidden-link').get(0).click();
@@ -56,8 +56,8 @@ $('.all-particiant-delete').click(function(){
 	$(this).parent().remove();
 });*/
 
-$('#schedule-insert-btn').click(function(){
-	var check = confirm('선택하신 시간으로 예약 하시겠습니까?')
+$('#schedule-update-btn').click(function(){
+	var check = confirm('선택하신 시간으로 예약을 변경 하시겠습니까?')
 	
 	if(check){
 		let date = $('.param-date').attr('id');
@@ -65,6 +65,7 @@ $('#schedule-insert-btn').click(function(){
 		let surgeryEnd = Number($('.surgery-end').val());
 		let surCd = Number($('#surCd').val());
 		let memCd = $('#memCd').val();	
+		let schCd = $('#schCd').val();
 		
 		var now = new Date();
 		let datesplit = date.split(' ')
@@ -80,21 +81,22 @@ $('#schedule-insert-btn').click(function(){
 			}else{
 			$.ajax({
 			  	type : 'post',
-			    url : '/surgery/reservation',
+			    url : '/surgery/reservationUpdate',
 			    async: false,
 			    data : {
 					 paramDate : date,
 					 sTime : surgeryStart,
 					 eTime : surgeryEnd,
 					 surCd : surCd,
-					 memCd : memCd
+					 memCd : memCd,
+					 schCd : schCd
 				},
 			    success : function(result) {
 					if(result=='x'){
-						alert('예약 시간을 다시 확인해주세요. 해당 수술실의 일정 뿐 아니라 자신의 진료 일정, 연차 등의 일정과도 중복될 수 없습니다.');
+						alert('예약 시간을 다시 확인해주세요.');
 					}else{
-			    		location.reload();
-						alert('수술실 예약 완료되었습니다. (' + date +': '+surgeryStart+'시 ~ '+surgeryEnd+'시)')
+			    		window.location.replace("scheduleList");
+						alert('수술실 예약 변경이 완료되었습니다. (' + date +': '+surgeryStart+'시 ~ '+surgeryEnd+'시)')
 					}
 				}
 	 		})

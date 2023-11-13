@@ -91,7 +91,7 @@ $('#schedule-insert-btn').click(function(){
 				},
 			    success : function(result) {
 					if(result=='x'){
-						alert('예약 시간을 다시 확인해주세요.');
+						alert('예약 시간을 다시 확인해주세요. 해당 수술실의 일정 뿐 아니라 자신의 진료 일정, 연차 등의 일정과도 중복될 수 없습니다.');
 					}else{
 			    		location.reload();
 						alert('수술실 예약 완료되었습니다. (' + date +': '+surgeryStart+'시 ~ '+surgeryEnd+'시)')

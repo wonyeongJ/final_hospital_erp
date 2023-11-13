@@ -102,99 +102,103 @@
 		</table>
 	</div>
 </div>
-<div class="clearfix mb-20">
-	<div class="pull-right">
-		<a href="#" class="btn-block" data-toggle="modal" data-target="#Medium-modal-1" type="button" style="display: block;">
-			<button class="btn btn-outline-primary">비품등록</button>
-		</a>
-		<div class="modal fade" id="Medium-modal-1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="myLargeModalLabel">비품 등록</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					</div>
-					<div class="modal-body">
-						<div class="pd-20 card-box mb-30">
-							<div class="form-group row">
-								<label class="col-sm-12 col-md-2 col-form-label">시리얼넘버</label>
-								<div class="col-sm-12 col-md-10">
-									<input class="form-control" type="text" name="equSnum" placeholder="serial number">
+
+<c:choose> 
+	<c:when test="${memberVO.depCd == 2}">
+		<div class="clearfix mb-20">
+			<div class="pull-right">
+				<a href="#" class="btn-block" data-toggle="modal" data-target="#Medium-modal-1" type="button" style="display: block;">
+					<button class="btn btn-outline-primary">비품등록</button>
+				</a>
+				<div class="modal fade" id="Medium-modal-1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myLargeModalLabel">비품 등록</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							</div>
+							<div class="modal-body">
+								<div class="pd-20 card-box mb-30">
+									<div class="form-group row">
+										<label class="col-sm-12 col-md-2 col-form-label">시리얼넘버</label>
+										<div class="col-sm-12 col-md-10">
+											<input class="form-control" type="text" name="equSnum" placeholder="serial number">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-12 col-md-2 col-form-label">항목</label>
+										<div class="col-sm-12 col-md-10">
+											<select class="custom-select col-12" name="codeName">
+												<option selected="">choose category</option>
+												<c:forEach items="${categories}" var="category">
+													<option value="${category.codeName}">${category.codeName}</option>
+												</c:forEach>
+											</select>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="example-datetime-local-input" class="col-sm-12 col-md-2 col-form-label">구매날짜</label>
+										<div class="col-sm-12 col-md-10">
+											<input class="form-control date-picker" id="date-picker" placeholder="Click to select Date" type="text" name="equPdate" readonly style="background-color: white;">
+										</div>
+									</div>
+									<div class="clearfix mb-20">
+										<div class="pull-right">
+											<input type="button" id="" class="btn btn-outline-primary equipment-insert-btn" value="비품등록"></button>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="form-group row">
-								<label class="col-sm-12 col-md-2 col-form-label">항목</label>
-								<div class="col-sm-12 col-md-10">
-									<select class="custom-select col-12" name="codeName">
-										<option selected="">choose category</option>
-										<c:forEach items="${categories}" var="category">
-											<option value="${category.codeName}">${category.codeName}</option>
-										</c:forEach>
-									</select>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="example-datetime-local-input" class="col-sm-12 col-md-2 col-form-label">구매날짜</label>
-								<div class="col-sm-12 col-md-10">
-									<input class="form-control date-picker" id="date-picker" placeholder="Click to select Date" type="text" name="equPdate" readonly style="background-color: white;">
-								</div>
-							</div>
-							<div class="clearfix mb-20">
-								<div class="pull-right">
-									<input type="button" id="" class="btn btn-outline-primary equipment-insert-btn" value="비품등록"></button>
-								</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 							</div>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					</div>
 				</div>
-			</div>
-		</div>
 
-		<a href="#" class="btn-block" data-toggle="modal" data-target="#Medium-modal-2" type="button" style="display: block;">
-			<button class="btn btn-outline-primary">항목관리</button>
-		</a>
-		<div class="modal fade" id="Medium-modal-2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="myLargeModalLabel">항목관리</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					</div>
-					<div class="modal-body">
-						<table class="table table-bordered">
-							<c:forEach items="${categories}" var="category" varStatus="status">
-								<tr role="row" class="">
-									<td value="${category.codeCd}">
-										${status.count}
-									</td>
-									<td class="td-1">
-										<input class="form-control category" type="text" name="" value="${category.codeName}">
-									</td>
-									<td class="td-2">
-										<button class="btn btn-outline-primary category-update-btn">수정</button>
-										<button class="btn btn-outline-primary category-delete-btn">삭제</button>
-									</td>
-								</tr>
-							</c:forEach>
-							<tr>
-								<td>-</td>
-								<td><input type="text" placeholder="추가할 항목의 이름을 써주세요." class="form-control" value=""></td>
-								<td><button class="btn btn-outline-primary category-insert-btn">항목 등록</button></td>
-							</tr>
-						</table>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<a href="#" class="btn-block" data-toggle="modal" data-target="#Medium-modal-2" type="button" style="display: block;">
+					<button class="btn btn-outline-primary">항목관리</button>
+				</a>
+				<div class="modal fade" id="Medium-modal-2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myLargeModalLabel">항목관리</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							</div>
+							<div class="modal-body">
+								<table class="table table-bordered">
+									<c:forEach items="${categories}" var="category" varStatus="status">
+										<tr role="row" class="">
+											<td value="${category.codeCd}">
+												${status.count}
+											</td>
+											<td class="td-1">
+												<input class="form-control category" type="text" name="" value="${category.codeName}">
+											</td>
+											<td class="td-2">
+												<button class="btn btn-outline-primary category-update-btn">수정</button>
+												<button class="btn btn-outline-primary category-delete-btn">삭제</button>
+											</td>
+										</tr>
+									</c:forEach>
+									<tr>
+										<td>-</td>
+										<td><input type="text" placeholder="추가할 항목의 이름을 써주세요." class="form-control" value=""></td>
+										<td><button class="btn btn-outline-primary category-insert-btn">항목 등록</button></td>
+									</tr>
+								</table>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-	</div>
-</div>
+	</c:when> 
+</c:choose> 
 
 <script src="/vendors/scripts/equipment/list.js"></script>
 
