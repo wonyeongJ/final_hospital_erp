@@ -43,4 +43,11 @@ public class ReservationController {
 		return "reservation/update";
 	}
 	
+	// 해당시간 가능한 의사 조회해오기
+	@PostMapping("search")
+	public String reservationSearch(ReservationVO reservationVO) throws Exception {
+		return "reservation";
+	}
+	
+	
 }

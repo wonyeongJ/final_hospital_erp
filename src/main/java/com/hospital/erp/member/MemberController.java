@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.hospital.erp.common.CodeVO;
+import com.hospital.erp.commute.CommuteService;
+import com.hospital.erp.commute.CommuteVO;
+import com.hospital.erp.department.DepartmentService;
+import com.hospital.erp.department.DepartmentVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,13 +42,13 @@ public class MemberController {
 	
 	  @Autowired 
 	  private MemberService memberService;
+	  
+	  @Autowired
+	  private DepartmentService departmentService;
+	  
+	  @Autowired
+	  private CommuteService commuteService;
 	    
-	
-	  // 로그인 요청 메서드
-	  @GetMapping("login")
-	  public String getLogin() throws Exception {
-		  return "member/login";
-	  }
 	  
 	  // 직원 리스트 요청 메서드
 	  @GetMapping("list")
@@ -54,34 +62,49 @@ public class MemberController {
 	  @GetMapping("data")
 	  public String memberData(MemberVO memberVO, Model model) throws Exception {
 		  memberVO = memberService.memberData(memberVO);
+		  List<DepartmentVO> departmentAr = departmentService.departmentList();
+		  List<CodeVO> codeAr = memberService.codeList();
 		  model.addAttribute("memberVO", memberVO);
+		  model.addAttribute("departmentAr", departmentAr);
+		  model.addAttribute("codeAr",codeAr);
 		  return "member/data";
 	  }
 	  
 	  // 직원 등록 폼 메서드
 	  @GetMapping("insert")
-	  public String memberInsert() throws Exception {
+	  public String memberInsert(@ModelAttribute MemberVO memberVO) throws Exception {
 		  return "member/insert";
 	  }
 	  
 	  // 직원 등록 요청 메서드
 	  @PostMapping("insert")
-	  public String memberInsert(MemberVO memberVO) throws Exception {
-		  int result = memberService.memberInsert(memberVO);
-		  return "member/insert";
+	  public String memberInsert(@Valid MemberVO memberVO, BindingResult bindingResult) throws Exception {
+		  if(bindingResult.hasErrors()) {
+			  log.info("=========memberVO {}=========",memberVO);
+			  log.info("==========binding result 에러 {}=========", bindingResult);
+			  return "member/insert";
+		  }else {
+			  int result = memberService.memberInsert(memberVO);
+			  return "member/insert";
+		  }
+		  
 	  }
 	  
 	 
 	  // 업데이트 요청 메서드
 	  @PostMapping("update")
 	  public String memberUpdate(MemberVO memberVO) throws Exception {
-		  return "redirect:./data";
+		  log.info("=======memberVO update {}=======",memberVO);
+		  int result = memberService.memberUpdate(memberVO);
+		  return "redirect:./data?memCd="+memberVO.getMemCd();
 	  }
 	 
 	  // 마이페이지 요청 메서드
 	  @GetMapping("mypage")
-	  public String memberData() throws Exception {
-		  
+	  public String memberData(Model model,@AuthenticationPrincipal MemberVO memberVO) throws Exception {
+		  CommuteVO commuteVO = commuteService.commuteData(memberVO);
+		  log.info("======= commutVO {} ==========",commuteVO);
+		  model.addAttribute("commuteVO", commuteVO);
 		  return "member/mypage";
 	  }
 	  
@@ -99,8 +122,9 @@ public class MemberController {
 				  return "member/mypage";
 			  }else{
 				  //패스워드 리셋 수행 메서드 호출
+				  log.info("===Password 변경 실행 {} ======= ", passwordVO);
 				  memberService.memberUpdatePassword(passwordVO);
-				  return "redirect:./mypage";
+				  return "redirect:/logout";
 			  }
 		  }
 	  }
@@ -111,6 +135,13 @@ public class MemberController {
 		  List<MemberVO> memberVO = memberService.memberListChart();
 		  log.info("=============memberChart 실행");
 		  return memberVO;
+	  }
+	  
+	  @PostMapping("profileInsert")
+	  public String memberProfileInsert(@AuthenticationPrincipal MemberVO memberVO,MultipartFile multipartFile) throws Exception {
+		  
+		  int result = memberService.memberProfileInsert(memberVO,multipartFile);
+		  return "redirect:./mypage";
 	  }
 	  
 	 

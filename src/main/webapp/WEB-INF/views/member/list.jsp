@@ -24,7 +24,7 @@
 									<th>직무</th>
 									<th>입사일</th>
 									<th>연차</th>
-									<th>근무시간</th>
+									<th>근무시간(월)</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -37,7 +37,7 @@
 									<td>${memberVO.codeName}</td>
 									<td>${memberVO.memHdate}</td>
 									<td>${memberVO.memAnnual}</td>
-									<td>40</td>
+									<td>${memberVO.worktime }</td>
 								</tr>
 								</c:forEach>
 							</tbody>

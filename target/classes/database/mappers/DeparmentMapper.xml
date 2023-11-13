@@ -33,7 +33,8 @@
 			DEPARTMENT
 		SET 
 			DEP_NAME = #{depName},
-			DEP_TNUM = #{depTnum}
+			DEP_TNUM = #{depTnum},
+			DEP_DELETE = #{depDelete}
 		WHERE
 			DEP_CD = #{depCd}
 			
