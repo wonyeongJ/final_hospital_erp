@@ -27,7 +27,7 @@
                 <td>${list.startNumString}</td>
                 <td>${list.endNumString}</td>
                 <td value="${list.schCd}">
-                    <span class="badge badge-primary"><a onclick="location.href='scheduleUpdate'" id="a2">수정하기</a></span>
+                    <span class="badge badge-primary"><a onclick="location.href='scheduleUpdate?schCd=${list.schCd}'" id="a2">변경하기</a></span>
                     <span class="badge badge-primary"><a class="surgery-schedule-delete-btn" id="a2">취소하기</a></span>
                 </td>
             </tr>
