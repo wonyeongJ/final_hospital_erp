@@ -15,44 +15,12 @@ $(document).ready(function () {
         },
         'columnDefs': [
             { 'type': 'num', 'targets': 0 },
-            { 'targets': [1, 2, 3, 4, 5], 'orderable': false } // 열 인덱스 [1, 2, 3, 4]에 해당하는 열에 대해 소팅 비활성화 // Apply string sorting to the 0th column (Korean)
+            { 'targets': [1, 2, 3, 4, 5], 'orderable': false } // 열 인덱스 [1, 2, 3, 4]에 해당하는 열에 대해 소팅 비활성화 
         ],
-        'order': [0, 'desc'] // Sort the 0th column (Korean) in ascending order first, then sort the 1st column (numbers) in ascending order.
+        'order': [0, 'desc'] 
     });
 
-    // Add PDF, Print, Copy, and CSV buttons
-    new $.fn.dataTable.Buttons(table, {
-        buttons: [
-            {
-                extend: 'pdfHtml5',
-                text: 'PDF',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'print',
-                text: 'Print',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'copyHtml5',
-                text: 'Copy',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'csvHtml5',
-                text: 'CSV',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            }
-        ]
-    });
+   
 
     table.buttons().container()
         .appendTo($('.dataTables_wrapper .col-md-6:eq(0)'));
@@ -80,39 +48,7 @@ $(document).ready(function () {
         'order': [0, 'desc'] // Sort the 0th column (Korean) in ascending order first, then sort the 1st column (numbers) in ascending order.
     });
 
-    // Add PDF, Print, Copy, and CSV buttons
-    new $.fn.dataTable.Buttons(table, {
-        buttons: [
-            {
-                extend: 'pdfHtml5',
-                text: 'PDF',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'print',
-                text: 'Print',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'copyHtml5',
-                text: 'Copy',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'csvHtml5',
-                text: 'CSV',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            }
-        ]
-    });
+   
 
     table.buttons().container()
         .appendTo($('.dataTables_wrapper .col-md-6:eq(0)'));

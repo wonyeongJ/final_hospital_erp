@@ -81,7 +81,7 @@ public class NoticeController {
 
     // 공지사항 등록 처리
     @PostMapping("insert")
-    public String noticeInsert(@AuthenticationPrincipal MemberVO memberVO,NoticeVO noticeVO, MultipartFile[] files, Model model) throws Exception {
+    public String noticeInsert(@AuthenticationPrincipal MemberVO memberVO,NoticeVO noticeVO, MultipartFile[] files1, Model model) throws Exception {
        
     	
     	
@@ -93,7 +93,7 @@ public class NoticeController {
         
         System.out.println(noticeVO.toString());
 
-        int result = noticeService.noticeInsert(noticeVO, files);
+        int result = noticeService.noticeInsert(noticeVO, files1);
 
         String message = "등록 실패";
 
@@ -187,9 +187,9 @@ public class NoticeController {
 	
 	//update
 	@PostMapping("update")
-	public String noticeUpdate(NoticeVO noticeVO,MultipartFile[] files,HttpSession session, Model model)throws Exception{
+	public String noticeUpdate(NoticeVO noticeVO,MultipartFile[] files1,HttpSession session, Model model)throws Exception{
 			 
-		int result = noticeService.noticeUpdate(noticeVO, files);
+		int result = noticeService.noticeUpdate(noticeVO, files1);
 		
 		String message = "등록 실패";
 

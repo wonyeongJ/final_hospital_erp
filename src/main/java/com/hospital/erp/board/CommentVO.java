@@ -33,4 +33,6 @@ public class CommentVO {
     private int depCd;
     
     private String depName;
+    
+  
 }
