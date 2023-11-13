@@ -81,6 +81,7 @@ function data(data){
 
 		$('#chart-container').orgchart({
 			'data' : chartList,
+			'depth' : 2,
 			'nodeContent': 'title'
 		});		
 	
