@@ -28,8 +28,8 @@
 		<!-- 병웅 -->
 		<typeAlias type="com.hospital.erp.payment.documentForm.DocumentFormVO" alias="DocumentFormVO"/>
 		<typeAlias type="com.hospital.erp.payment.PaymentVO" alias="PaymentVO"/>
-		
-		
+		<typeAlias type="com.hospital.erp.payment.confirm.ConfirmVO" alias="ConfirmVO"/>
+		<typeAlias type="com.hospital.erp.payment.reference.ReferenceVO" alias="ReferenceVO"/>
 		
 		
 		

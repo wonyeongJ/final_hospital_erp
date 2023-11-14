@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.erp.payment.confirm.ConfirmDAO">
+
+	<select id="confirmData" parameterType="ConfirmVO">
+		SELECT
+			*
+		FROM
+			CONFIRM
+		WHERE
+			EP_CD=#{epCd}
+	</select>
+
+	<insert id="confirmInsert" parameterType="ConfirmVO">
+		INSERT 
+		INTO 
+			CONFIRM(EP_CD, MEM_CD, MEM_NAME, CON_STEP, CON_RDATE, CON_PSTATUS, CON_COMMENT)
+		VALUES
+			(#{dfCd}, #{memCd}, #{memName}, #{conStep}, NULL, 0, NULL),
+			(#{dfCd}, #{memCd}, #{memName}, #{conStep}, NULL, 0, NULL),
+			(#{dfCd}, #{memCd}, #{memName}, #{conStep}, NULL, 0, NULL)
+	</insert>
+
+
+
+
+</mapper>

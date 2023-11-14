@@ -38,7 +38,7 @@ public class DocumentFormController {
 		
 		int result = documentFormService.documentFormInsert(documentFormVO);
 		
-		return "";
+		return "redirect:./list";
 	}
 	
 	/*

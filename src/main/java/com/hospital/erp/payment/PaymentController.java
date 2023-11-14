@@ -1,5 +1,7 @@
 package com.hospital.erp.payment;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,10 +18,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hospital.erp.department.DepartmentService;
+import com.hospital.erp.department.DepartmentVO;
 import com.hospital.erp.member.MemberService;
 import com.hospital.erp.member.MemberVO;
+import com.hospital.erp.payment.confirm.ConfirmService;
+import com.hospital.erp.payment.confirm.ConfirmVO;
 import com.hospital.erp.payment.documentForm.DocumentFormService;
 import com.hospital.erp.payment.documentForm.DocumentFormVO;
+import com.hospital.erp.util.TimeSetter;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,7 +42,16 @@ public class PaymentController {
 	private DocumentFormService documentFormService;
 	
 	@Autowired
+	private ConfirmService confirmService;
+	
+	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private DepartmentService departmentService;
+	
+	@Autowired
+	private TimeSetter timeSetter;
 	
 	//결재문서 전체보기 -> 인사과만 가능
 	@GetMapping("allList")
@@ -57,7 +73,7 @@ public class PaymentController {
 	    MemberVO memberVO = (MemberVO)userDetails;
 		model.addAttribute("memberVO", memberVO);
 		
-		List<PaymentVO> ar = paymentService.paymentAllList();
+		List<PaymentVO> ar = paymentService.paymentList(memberVO);
 		model.addAttribute("list", ar);
 		
 		return "payment/list";
@@ -75,6 +91,14 @@ public class PaymentController {
 	    UserDetails userDetails = (UserDetails)principal;
 	    MemberVO memberVO = (MemberVO)userDetails;
 		model.addAttribute("memberVO", memberVO);
+		
+		//결재선지정에 필요한 부서, 사람 정보
+		List<DepartmentVO> departmentAr = departmentService.departmentList();
+		model.addAttribute("departmentList", departmentAr);
+		log.info("==============departmentAr={} ===========", departmentAr);
+		
+		List<MemberVO> memberAr = memberService.memberListChart();
+		model.addAttribute("memberList", memberAr);
 	    
 
 		return "ajax.payment/insert";
@@ -82,14 +106,27 @@ public class PaymentController {
 	
 	//실제로 결재문서 insert//결재추가(기안상신)
 	@PostMapping("insert")
-	public String paymentInsert(PaymentVO paymentVO)throws Exception{
+	public String paymentInsert(PaymentVO paymentVO, ConfirmVO confirmVO)throws Exception{
 		
-		int result = paymentService.paymentInsert(paymentVO);
+		/*
+		 * int result = paymentService.paymentInsert(paymentVO); 
+		 * int conResult = confirmService.confirmInsert(confirmVO);
+		 */
 		
 		return "redirect:./list";
 	}
 	
-	
+	//문서보기 data
+	@GetMapping("data")
+	public String paymentData(PaymentVO paymentVO, Model model) throws Exception{
+		paymentVO = paymentService.paymentData(paymentVO);
+		model.addAttribute("paymentVO", paymentVO);
+		
+		
+		log.info("=======paymentVO : {}========",paymentVO);
+		
+		return "payment/data";
+	}
 	
 	
 	

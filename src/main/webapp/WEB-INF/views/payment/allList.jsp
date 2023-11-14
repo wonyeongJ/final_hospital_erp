@@ -11,7 +11,7 @@
 					</div>
 					<div class="pb-20">
 						<div id="DataTables_Table_2_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-							<table class="table hover multiple-select-row data-table-export nowrap dataTable no-footer dtr-inline" id="DataTables_Table_2" role="grid">
+							<table class="datatable2 table nowrap" id="DataTables_Table_2" role="grid">
 							
 							<thead>
 								<tr role="row">
@@ -31,7 +31,7 @@
 									<tr role="row" class="odd">
 										<td class="table-plus sorting_1" tabindex="0">${vo.epCd}</td>
 										<td>${vo.dfKind}</td>
-										<td><a href="./detail?boardNo=${vo.epCd}">${vo.epTitle}</a></td>
+										<td><a href="./data?epCd=${vo.epCd}">${vo.epTitle}</a></td>
 										<td>${vo.memName}</td>
 										<td>${vo.epRDate}</td>
 										<td>${vo.conStep}</td>
