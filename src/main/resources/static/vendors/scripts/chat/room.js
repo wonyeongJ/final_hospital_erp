@@ -212,7 +212,7 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
               
 
                $.each(searchList, function (index, value) {
-				    let a = '<a href="#" class="chatList" data-empNum="' + value.memCd + '">' + value.depName + " (" + value.jobName + ") : " + value.memName + '</a><br>';
+				    let a = '<i class="icon-copy fa fa-user-circle" aria-hidden="true"></i> '+'<a href="#" class="chatList" data-empNum="' + value.memCd + '">' + value.depName + " (" + value.jobName + ") : " + value.memName + '</a><br>';
 				    $('#listBox').append(a);
 				});
 	            } else {

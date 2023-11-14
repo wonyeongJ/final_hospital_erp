@@ -5,7 +5,7 @@
     <!-- sidebar -->
 	<div class="left-side-bar">
 		<div class="brand-logo">
-			<a href="/">
+			<a href="/board/notice/list">
 				<img src="/vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
 				<img src="/vendors/images/병원로고2.jpg" style="position: relative; left : 10%;" alt="" class="light-logo">
 			</a>
