@@ -41,7 +41,7 @@
 								<td>${patientVO.patRnum}</td>
 								<td>${patientVO.codeName}</td>
 								<td>${patientVO.patPnum}</td>
-								<td></td>
+								<td>${patientVO.resVdate}</td>
 								<td></td>
 							</tr>
 							</c:forEach>

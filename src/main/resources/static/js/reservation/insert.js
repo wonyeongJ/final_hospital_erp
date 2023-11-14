@@ -40,7 +40,18 @@ $(document).ready(function() {
 	    console.log("Selected option value: " + selectedValue);
 	
 	    // 여기에 원하는 작업을 추가할 수 있습니다.
- 	 });    
+ 	 });
+ 	 
+ 	$("#reservationInsertBtn").on("click",function(){
+		 
+		 let resReason = $("#resReason").val().trim()
+		 if(resReason != ""){
+			 let resVdate = $('#resVdate').val().replace("T"," ")+":00";
+			 $("#resVdate").val(resVdate);
+			 console.log(resVdate);
+			 $("#reservationInsertFrm").submit();
+		 }
+	 })    
         
    function searchAjax(depCdData,resVdateData){
 		$.ajax({

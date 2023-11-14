@@ -213,10 +213,12 @@
 							LEFT OUTER JOIN SCHEDULE AS S
 							ON M.MEM_CD =  S.MEM_CD 
 						WHERE
-							(#{resVdate} BETWEEN SCH_SDATE AND SCH_EDATE) OR 
-							(DATE_ADD(#{resVdate}, INTERVAL 1 HOUR) BETWEEN SCH_SDATE AND SCH_EDATE) OR
-							(SCH_SDATE  BETWEEN #{resVdate} AND DATE_ADD(#{resVdate}, INTERVAL 1 HOUR)) OR
-							(SCH_EDATE BETWEEN #{resVdate} AND DATE_ADD(#{resVdate}, INTERVAL 1 HOUR))
+							(
+							(#{resVdate} <![CDATA[<=]]> SCH_SDATE AND DATE_ADD(#{resVdate}, INTERVAL 1 HOUR) <![CDATA[>]]> SCH_SDATE) OR
+							(#{resVdate} <![CDATA[<]]> SCH_EDATE AND DATE_ADD(#{resVdate}, INTERVAL 1 HOUR) <![CDATA[>=]]> SCH_EDATE) OR
+							(#{resVdate} <![CDATA[>=]]> SCH_SDATE AND #{resVdate} <![CDATA[<]]> SCH_EDATE) OR
+							(DATE_ADD(#{resVdate}, INTERVAL 1 HOUR) <![CDATA[>]]> SCH_SDATE AND DATE_ADD(#{resVdate}, INTERVAL 1 HOUR) <![CDATA[<=]]> SCH_EDATE)
+							)
 							AND S.CODE_CD != 26)
 		AND JOB_CD = 03
 		AND DEP_CD = #{depCd}

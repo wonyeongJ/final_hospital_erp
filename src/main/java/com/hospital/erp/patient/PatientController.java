@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hospital.erp.reservation.ReservationService;
+import com.hospital.erp.reservation.ReservationVO;
+
 import lombok.extern.slf4j.Slf4j;
 
 /*
@@ -22,6 +25,9 @@ public class PatientController {
 	
 	@Autowired
 	private PatientService patientService;
+	
+	@Autowired
+	private ReservationService reservationService;
 	
 	// 환자 목록 호출 메서드
 	@GetMapping("list")
@@ -38,6 +44,8 @@ public class PatientController {
 		patientVO = patientService.patientData(patientVO);
 		log.info("===========patientVO {}",patientVO);
 		model.addAttribute("patientVO", patientVO);
+		List<ReservationVO> reservationAr = reservationService.reservationListPatient(patientVO);
+		model.addAttribute("reservationAr", reservationAr);
 		return "patient/data";
 	}
 	

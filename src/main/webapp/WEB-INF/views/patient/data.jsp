@@ -67,19 +67,31 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>내과</td>
-								<td>강영희</td>
-								<td>목아픔</td>
-								<td>2023-10-21</td>
-								<td>이수찬</td>
-								<td>예약중</td>
-								<td>
-									<button class="btn btn-success">수정</button>>
-									<button class="btn btn-danger">삭제</button>
-								</td>
-							</tr>
+							<c:forEach items="${reservationAr}" var="reservationVO" varStatus="i">
+								<tr>
+									<th scope="row">${i.index+1}</th>
+									<td>${reservationVO.depName}</td>
+									<td>${reservationVO.resMemName}</td>
+									<td><a href="/reservation/update?resCd=${reservationVO.resCd }">${reservationVO.resReason}</a></td>
+									<td>${reservationVO.resVdate}</td>
+									<td>${reservationVO.memName}</td>
+									<c:if test="${reservationVO.resClinic eq 0}">
+										<td>예약중</td>
+									</c:if>
+									<c:if test="${reservationVO.resClinic eq 1}">
+										<td>조치완료</td>
+									</c:if>
+									<td>
+										<c:if test="${reservationVO.resClinic eq 0}">
+											<a class="btn btn-success" href="/reservation/update?resCd=${reservationVO.resCd}">수정</a>
+											<button class="btn btn-danger">삭제</button>
+										</c:if>
+										<c:if test="${reservationVO.resClinic eq 1}">
+											<button class="btn btn-success">수정</button>
+										</c:if>
+									</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 					<div style="display: flex; justify-content: flex-end;">

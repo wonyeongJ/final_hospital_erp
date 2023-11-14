@@ -22,9 +22,14 @@ public class ReservationVO {
 	private Integer resMemCd; //의사
 	private Integer depCd;
 	private String resReason;
-	private Timestamp resVdate;
+	private String resVdate;
 	private String resMHistory;
+	private String resDrug;
 	private Integer resClinic;
 	private Timestamp resRdate;
+	
+	private String depName; // department JOIN 결과
+	private String memName; // memberJOin 
+	private String resMemName; // meberJoin 의사이름
 	
 }

@@ -47,23 +47,25 @@
 							<h4 class="text-blue h4">방문일정</h4>
 						</div>
 					</div>
-				<form action="insert" method="post">
+				<form id="reservationInsertFrm" action="insert" method="post">
+					<input value="<sec:authentication property="principal.memCd" />" name="memCd" type="hidden">
+					<input class="form-control" type="hidden" name="patCd" value="${patientVO.patCd}" >
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 col-form-label">방문원인</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" type="text">
+							<input class="form-control" id="resReason"  name="resReason" type="text">
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 col-form-label">방문날짜</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" id="resVdate" type="datetime-local" >
+							<input class="form-control" id="resVdate" name="resVdate" type="datetime-local"  >
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 col-form-label">방문부서</label>
 						<div class="col-sm-12 col-md-10">
-							<select id="searchDepartment" name="depCd" class="custom-select col-12">
+							<select id="searchDepartment" name="depCd" class="custom-select col-12" >
 								<option value="3">외과</option>
 								<option value="4">내과</option>
 							</select>
@@ -77,7 +79,7 @@
 						</div>
 					</div>
 					<div style="display: flex; justify-content: flex-end;">
-						<button type="submit" class="btn btn-primary">예약완료</button>
+						<button id="reservationInsertBtn" type="button" class="btn btn-primary">예약완료</button>
 					</div>
 				</form>
 			</div>

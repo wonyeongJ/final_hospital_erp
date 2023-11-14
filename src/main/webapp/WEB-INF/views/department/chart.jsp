@@ -5,23 +5,23 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/orgchart/3.8.0/css/jquery.orgchart.min.css">
 	<style>
 	.orgchart .top-level .title {
- background-color: #006699;
-}
-.orgchart .top-level content{
- background-color: #006699;
-}
-.orgchart .middle-level .title {
- background-color: #009933;
-}
-.orgchart .middle-level content{
- background-color: #009933;
-}
-.orgchart .botton-level .title {
- background-color: #993366;
-}
-.orgchart .botton-level content{
- background-color: #993366;
-}
+		 background-color: #006699;
+	}
+	.orgchart .top-level content{
+		 background-color: #006699;
+	}
+	.orgchart .middle-level .title {
+		 background-color: #009933;
+	}
+	.orgchart .middle-level content{
+		 background-color: #009933;
+	}
+	.orgchart .botton-level .title {
+		 background-color: #993366;
+	}
+	.orgchart .botton-level content{
+		 background-color: #993366;
+	}
 	</style>
 	<div class="pd-ltr-20 xs-pd-20-10">
 		<div class="min-height-200px">
