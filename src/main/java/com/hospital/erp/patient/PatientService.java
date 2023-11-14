@@ -31,4 +31,13 @@ public class PatientService {
 		
 		return patientDAO.patientInsert(patientVO);
 	}
+	
+	// 환자 디테일 메서드
+	public PatientVO patientData(PatientVO patientVO) throws Exception {
+		return patientDAO.patientData(patientVO);
+	}
+	
+	public int patientUpdate(PatientVO patientVO) throws Exception {
+		return patientDAO.patientUpdate(patientVO);
+	}
 }

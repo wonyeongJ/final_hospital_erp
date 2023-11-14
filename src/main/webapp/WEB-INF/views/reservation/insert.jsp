@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 	<h1>접수관리</h1>
 	<br>
 		<div class="pd-ltr-20 xs-pd-20-10">
@@ -11,27 +15,28 @@
 						</div>
 					</div>
 					<div class="form-group row ">
+					<input class="form-control" type="hidden" value="${patientVO.patCd}" >
 						<label class="col-sm-12 col-md-2 col-form-label">이름</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" type="text" placeholder="홍길동" readonly>
+							<input class="form-control" type="text" value="${patientVO.patName}" readonly>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 col-form-label">주민등록번호</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" type="text" placeholder="940908-1234567" readonly>
+							<input class="form-control" type="text" value="${patientVO.patRnum}" readonly>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 col-form-label">연락처</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" type="text" placeholder="010-1234-5678" readonly>
+							<input class="form-control" type="text" value="${patientVO.patPnum}" readonly>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 col-form-label">성별</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" type="text" placeholder="남" readonly>
+							<input class="form-control" type="text" value="${patientVO.codeName}" readonly>
 						</div>
 					</div>
 				</div>			
@@ -42,33 +47,43 @@
 							<h4 class="text-blue h4">방문일정</h4>
 						</div>
 					</div>
-				<form action="">
+				<form id="reservationInsertFrm" action="insert" method="post">
+					<input value="<sec:authentication property="principal.memCd" />" name="memCd" type="hidden">
+					<input class="form-control" type="hidden" name="patCd" value="${patientVO.patCd}" >
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 col-form-label">방문원인</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" type="text">
+							<input class="form-control" id="resReason"  name="resReason" type="text">
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 col-form-label">방문날짜</label>
 						<div class="col-sm-12 col-md-10">
-							<input class="form-control" type="date">
+							<input class="form-control" id="resVdate" name="resVdate" type="datetime-local"  >
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 col-form-label">방문부서</label>
 						<div class="col-sm-12 col-md-10">
-							<select class="custom-select col-12">
-								<option value="1">외과</option>
-								<option value="2">내과</option>
+							<select id="searchDepartment" name="depCd" class="custom-select col-12" >
+								<option value="3">외과</option>
+								<option value="4">내과</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 col-form-label">담당의</label>
+						<div class="col-sm-12 col-md-10">
+							<select id="doctorList" name="resMemCd" class="custom-select col-12">
 							</select>
 						</div>
 					</div>
 					<div style="display: flex; justify-content: flex-end;">
-						<a type="button" class="btn btn-primary" href="../reservation/insert">예약완료</a>
+						<button id="reservationInsertBtn" type="button" class="btn btn-primary">예약완료</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="/js/reservation/insert.js"></script>
