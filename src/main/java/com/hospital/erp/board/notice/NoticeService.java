@@ -9,11 +9,13 @@ import javax.servlet.http.HttpSession;
 import org.apache.tomcat.jni.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hospital.erp.file.FileVO;
 import com.hospital.erp.util.FileManager;
+import com.hospital.erp.util.S3Uploader;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,17 +29,18 @@ public class NoticeService {
 	@Autowired
 	private FileManager fileManger;
 	
-//	@Value("${app2.upload.nodeValue2}")
-//	private String uploadPath;
+	@Value("${app2.upload.nodeValue2}")
+	private String uploadPath;
 	
-//	 윈도우용 저장경로
-    @Value("${app.upload.nodeValue}")
-    private String uploadPath;
+//	// 윈도우용 저장경로
+//    @Value("${app.upload.nodeValue}")
+//    private String uploadPath;
 	
 	@Value("${app2.board.notice}")
 	private String boardName;
 
-	
+	@Autowired
+	private S3Uploader s3Uploader;
 	
 	// 공지사항 리스트
 	public List<NoticeVO> noticeList(NoticeVO noticeVO) throws Exception{
@@ -97,11 +100,15 @@ public class NoticeService {
                 noticeFileVO.setCodeCd(9); // 해당 공지사항 카테고리 코드
                 noticeFileVO.setBfFk(notCd); // 공지사항 등록 후 생성된 PK
                 noticeFileVO.setBfOname(file.getOriginalFilename());
-                String FileName = fileManger.save(this.uploadPath+this.boardName, file);
-                noticeFileVO.setBfFname(FileName);
-                noticeFileVO.setBfPath(uploadPath);
                 String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
                 noticeFileVO.setBfExtension(extension);
+                
+                String fileName = s3Uploader.getUuid(file);
+                noticeFileVO.setBfFname(fileName);
+                
+                String s3Url = s3Uploader.upload(file, boardName, fileName);
+                noticeFileVO.setBfPath(s3Url);
+               
                 noticeDAO.fileInsert(noticeFileVO);
             }
         }
@@ -120,18 +127,27 @@ public class NoticeService {
 	
 	
 	// 파일 다운로드
-	public FileVO fileDown(FileVO fileVO) throws Exception{
-		return noticeDAO.fileDown(fileVO);
+	public ResponseEntity<byte[]> fileDown(FileVO fileVO) throws Exception{
+		fileVO = noticeDAO.fileDown(fileVO);
+		
+		return s3Uploader.getObject(boardName+"/" + fileVO.getBfFname());
 	}
 
 	
 	//fileDelete
 	public int fileDelete(int bfCd)throws Exception{
-	
+		FileVO fileVO = new FileVO();
+		
+		fileVO.setBfCd(bfCd);
+		
+		fileVO = noticeDAO.fileDown(fileVO);
+		
+		
 		int result = noticeDAO.fileDelete(bfCd);
 		
-		fileManger.fileDelete(null, uploadPath, null, null);
+		s3Uploader.deleteFile(boardName+"/" + fileVO.getBfFname());
 	 
+		
 		return result;
 		
 	}
@@ -153,22 +169,26 @@ public class NoticeService {
        
 
        if (files1 != null) {
-		// 파일 업로드 및 파일 정보 저장
-        for (MultipartFile file : files1) {
-            if (!file.isEmpty()) {
-                NoticeFileVO noticeFileVO = new NoticeFileVO();
-                noticeFileVO.setCodeCd(9); // 해당 공지사항 카테고리 코드
-                noticeFileVO.setBfFk(notCd); // 공지사항 등록 후 생성된 PK
-                noticeFileVO.setBfOname(file.getOriginalFilename());
-                String FileName = fileManger.save(this.uploadPath+this.boardName, file);
-                noticeFileVO.setBfFname(FileName);
-                noticeFileVO.setBfPath(uploadPath);
-                String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
-                noticeFileVO.setBfExtension(extension);
-                noticeDAO.fileInsert(noticeFileVO);
-            }
+    	// 파일 업로드 및 파일 정보 저장
+           for (MultipartFile file : files1) {
+               if (!file.isEmpty()) {
+                   NoticeFileVO noticeFileVO = new NoticeFileVO();
+                   noticeFileVO.setCodeCd(9); // 해당 공지사항 카테고리 코드
+                   noticeFileVO.setBfFk(notCd); // 공지사항 등록 후 생성된 PK
+                   noticeFileVO.setBfOname(file.getOriginalFilename());
+                   String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+                   noticeFileVO.setBfExtension(extension);
+                   
+                   String fileName = s3Uploader.getUuid(file);
+                   noticeFileVO.setBfFname(fileName);
+                   
+                   String s3Url = s3Uploader.upload(file, boardName, fileName);
+                   noticeFileVO.setBfPath(s3Url);
+                  
+                   noticeDAO.fileInsert(noticeFileVO);
+               }
+           }
         }
-       }
 
 		return result;
 	}

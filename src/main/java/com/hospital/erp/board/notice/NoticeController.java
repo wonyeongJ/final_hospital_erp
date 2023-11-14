@@ -2,7 +2,7 @@ package com.hospital.erp.board.notice;
 
 import java.util.List;
 import java.util.Map;
-
+import javax.print.DocFlavor.BYTE_ARRAY;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -140,17 +140,12 @@ public class NoticeController {
 	}
 	
 	@GetMapping("fileDown")
-	public String fileDown(@RequestParam int bfCd,FileVO fileVO, Model model) throws Exception {
-	    System.out.println("Controller fileDown bfCd : " + bfCd);
-	 
-	    // 파일 상세조회
-	    fileVO = noticeService.fileDown(fileVO);
+	public ResponseEntity<byte[]> fileDown(@RequestParam int bfCd,FileVO fileVO, Model model) throws Exception {
 		
-	    // 모델에 파일 정보를 추가
-	    model.addAttribute("fileVO", fileVO);
+		fileVO.setBfCd(bfCd);
+		
+		return noticeService.fileDown(fileVO);
 
-	    // 다운로드 뷰로 이동
-	    return "fileDownView";
 	}
 	
 	
@@ -158,12 +153,13 @@ public class NoticeController {
 	@GetMapping("fileDelete")
 	public String fileDelete(int bfCd,Model model,HttpSession session) throws Exception{
 		
+		
 		int result = noticeService.fileDelete(bfCd);
 		//System.out.println("이건 컨트롤"+bfCd);
 		model.addAttribute("result",result);
 		System.out.println("컨트롤러 리절" + result);
 		
-		return "commons/ajaxResult";
+		return "ajax.commons/ajaxResult";
 	}
 	
 	

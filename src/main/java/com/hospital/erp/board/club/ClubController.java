@@ -225,17 +225,12 @@ public class ClubController {
 	}
 	
 	@GetMapping("fileDown")
-	public String fileDown(@RequestParam int bfCd,FileVO fileVO, Model model) throws Exception {
-	    System.out.println("Controller fileDown bfCd : " + bfCd);
-	 
-	    // 파일 상세조회
-	    fileVO = clubService.fileDown(fileVO);
+	public ResponseEntity<byte[]> fileDown(@RequestParam int bfCd,FileVO fileVO, Model model) throws Exception {
 		
-	    // 모델에 파일 정보를 추가
-	    model.addAttribute("fileVO", fileVO);
+		fileVO.setBfCd(bfCd);
+		
+		return clubService.fileDown(fileVO);
 
-	    // 다운로드 뷰로 이동
-	    return "fileDownView";
 	}
 	
 	

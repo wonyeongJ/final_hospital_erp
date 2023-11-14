@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +17,7 @@ import com.hospital.erp.board.notice.NoticeDAO;
 import com.hospital.erp.board.notice.NoticeFileVO;
 import com.hospital.erp.file.FileVO;
 import com.hospital.erp.util.FileManager;
+import com.hospital.erp.util.S3Uploader;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +29,8 @@ public class ClubService {
 	private ClubDAO clubDAO;
 	
 	@Autowired
-	private FileManager fileManger;
+	private FileManager fileManager;
+	
 	
 	@Value("${app2.upload.nodeValue2}")
 	private String uploadPath;
@@ -38,6 +41,9 @@ public class ClubService {
 	
 	@Value("${app2.board.club}")
 	private String boardName;
+	
+	@Autowired
+	private S3Uploader s3Uploader;
 	
 	// 사내동호회 리스트
 	public List<ClubVO> clubList(ClubVO clubVO) throws Exception{
@@ -71,15 +77,19 @@ public class ClubService {
                 clubFileVO.setCodeCd(11); // 해당 게시판 카테고리 코드
                 clubFileVO.setBfFk(clubCd); // 사내동호회 등록 후 생성된 PK
                 clubFileVO.setBfOname(file.getOriginalFilename());
-                String FileName = fileManger.save(this.uploadPath+this.boardName, file);
-                clubFileVO.setBfFname(FileName);
-                clubFileVO.setBfPath(uploadPath);
                 String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
                 clubFileVO.setBfExtension(extension);
+
+                String fileName = s3Uploader.getUuid(file);
+                clubFileVO.setBfFname(fileName);
+
+                String s3Url = s3Uploader.upload(file, boardName, fileName);
+                clubFileVO.setBfPath(s3Url);
                 clubDAO.fileInsert(clubFileVO);
             }
         }
 	    }
+	    
 
 		return result;
 	}
@@ -124,14 +134,19 @@ public class ClubService {
                 clubFileVO.setCodeCd(11); // 해당 공지사항 카테고리 코드
                 clubFileVO.setBfFk(clubCd); // 사내동호회 등록 후 생성된 PK
                 clubFileVO.setBfOname(file.getOriginalFilename());
-                String FileName = fileManger.save(this.uploadPath+this.boardName, file);
-                clubFileVO.setBfFname(FileName);
-                clubFileVO.setBfPath(uploadPath);
                 String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
                 clubFileVO.setBfExtension(extension);
-                clubDAO.fileInsert(clubFileVO);
-            }
-        }
+                
+                String fileName = s3Uploader.getUuid(file);
+				clubFileVO.setBfFname(fileName);
+
+				String s3Url = s3Uploader.upload(file, boardName, fileName);
+				clubFileVO.setBfPath(s3Url);
+
+				clubDAO.fileInsert(clubFileVO);
+                
+            	}
+        	}
 	    }
 		return result;
 	}
@@ -171,16 +186,25 @@ public class ClubService {
 		
 	
 	// 파일 다운로드
-	public FileVO fileDown(FileVO fileVO) throws Exception{
-		return clubDAO.fileDown(fileVO);
-	}
+	public ResponseEntity<byte[]> fileDown(FileVO fileVO) throws Exception{
+		fileVO = clubDAO.fileDown(fileVO);
 
+		return s3Uploader.getObject(boardName+"/" + fileVO.getBfFname());
+	}
 			
 	//fileDelete
 	public int fileDelete(int bfCd)throws Exception{
 			
+		FileVO fileVO = new FileVO();
+		
+		fileVO.setBfCd(bfCd);
+		
+		fileVO = clubDAO.fileDown(fileVO);
+		
 		int result = clubDAO.fileDelete(bfCd);
-		        
+		
+		s3Uploader.deleteFile(boardName+"/" + fileVO.getBfFname());
+
 		return result;
 	}
 				
@@ -189,7 +213,7 @@ public class ClubService {
 	public String contentsImgInsert(MultipartFile files, HttpSession session) throws Exception{
 
 
-		String FileName = fileManger.save(this.uploadPath+this.boardName, files);
+		String FileName = fileManager.save(this.uploadPath+this.boardName, files);
 
 		return this.uploadPath+this.boardName+FileName;
 	}
@@ -199,7 +223,7 @@ public class ClubService {
 	public boolean contentsImgDelete(NoticeFileVO noticeFileVO, HttpSession session) throws Exception {
 
 		noticeFileVO.setBfFname(this.boardName.substring(this.boardName.lastIndexOf("/") + 1));
-		return fileManger.fileDelete(noticeFileVO, uploadPath, session, null);
+		return fileManager.fileDelete(noticeFileVO, uploadPath, session, null);
 	}
 
 	// 사내동호회 조회수 업데이트

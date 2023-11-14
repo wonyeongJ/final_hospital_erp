@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -147,17 +148,12 @@ public class ComplaintsController {
     }
 
     @GetMapping("fileDown")
-	public String fileDown(@RequestParam int bfCd,FileVO fileVO, Model model) throws Exception {
-	    System.out.println("Controller fileDown bfCd : " + bfCd);
-	 
-	    // 파일 상세조회
-	    fileVO = complaintsService.fileDown(fileVO);
+public ResponseEntity<byte[]> fileDown(@RequestParam int bfCd,FileVO fileVO, Model model) throws Exception {
 		
-	    // 모델에 파일 정보를 추가
-	    model.addAttribute("fileVO", fileVO);
+		fileVO.setBfCd(bfCd);
+		
+		return complaintsService.fileDown(fileVO);
 
-	    // 다운로드 뷰로 이동
-	    return "fileDownView";
 	}
 	
 	
