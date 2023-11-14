@@ -56,15 +56,15 @@
 			
 			            <!-- 멤버가 2일 때만 보여질 <td> -->
 			            <c:if test="${member == 2}">
-			                <td>
+			                <td style="width: 120px">
 			                    <c:choose>
 			                        <c:when test="${notice.notImportant eq 1}">
-			                            <button class="my btn btn-primary" type="button" id="btn" data-notcd="${notice.notCd}" data-notimportant="0" style="color: white;">
+			                            <button class="my btn btn-primary" type="button" id="btn" data-notcd="${notice.notCd}" data-notimportant="0" style="color: white; width: 100px; height: 40px; font-size: 12px">
 			                                (일반)상태변경
 			                            </button>
 			                        </c:when>
 			                        <c:otherwise>
-			                            <button class="my btn btn-danger" type="button" id="btn" data-notcd="${notice.notCd}" data-notimportant="1" style="color: white;">
+			                            <button class="my btn btn-danger" type="button" id="btn" data-notcd="${notice.notCd}" data-notimportant="1" style="color: white; width: 100px; height: 40px; font-size: 12px">
 			                                (중요)상태변경
 			                            </button>
 			                        </c:otherwise>
