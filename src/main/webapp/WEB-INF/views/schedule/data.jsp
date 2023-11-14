@@ -53,13 +53,13 @@
                                             <div class="form-group row">
                                                 <label for="example-datetime-local-input" class="col-sm-12 col-md-2 col-form-label">시작</label>
                                                 <div class="col-sm-12 col-md-10">
-                                                    <input class="form-control datetimepicker" id="start" placeholder="${scheduleVO.startNumString}" type="text" readonly style="background-color: white;">
+                                                    <input class="form-control datetimepicker" id="start" placeholder="Select Date and Time" type="text" readonly style="background-color: white;">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="example-datetime-local-input" class="col-sm-12 col-md-2 col-form-label">종료</label>
                                                 <div class="col-sm-12 col-md-10">
-                                                    <input class="form-control datetimepicker" id="end" placeholder="${scheduleVO.endNumString}" type="text" readonly style="background-color: white;">
+                                                    <input class="form-control datetimepicker" id="end" placeholder="Select Date and Time" type="text" readonly style="background-color: white;">
                                                 </div>
                                             </div>
                                             <div class="form-group">
