@@ -7,8 +7,13 @@
 	<br>
 <h2>약품 조회</h2>
 	<br><br>
-<select class="custom-select col-12" name="drug">
-	<c:forEach items="${drugs}" var="drug" varStatus="status">
-		<option value="${drug}">${drug}</option>
-	</c:forEach>
-</select>
+
+<div class="col-md-6" data-select2-id="8">
+	<div class="form-group" data-select2-id="7">
+		<label>약품 리스트</label>
+		<select class="custom-select2 form-control select2-hidden-accessible" name="state" style="width: 100%; height: 38px;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+			<c:forEach items="${drugs}" var="drug" varStatus="status">
+				<option value="${drug}" data-select2-id="${drug}">${status.count}. ${drug}</option>
+			</c:forEach>
+	</div>
+</div>

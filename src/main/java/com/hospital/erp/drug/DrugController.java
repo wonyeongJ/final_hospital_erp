@@ -26,11 +26,11 @@ public class DrugController {
 		if(page==null) {
 			page = "1";
 		}
-		if(Integer.parseInt(page) > 50 || Integer.parseInt(page) <= 0) {
+		if(Integer.parseInt(page) > 6 || Integer.parseInt(page) <= 0) {
 			page = "1";
 		}
 		// 1. URL을 만들기 위한 StringBuilder.
-        StringBuilder urlBuilder = new StringBuilder("http://api.odcloud.kr/api/15090584/v1/uddi:39290762-80a6-4568-bedf-a82df17a5ec9?page="+ page +"&perPage=1000&serviceKey=UiMzrPzzB%2BfoxLvhMW5sj5Lo1wjj4Ul4ELv5JY%2BO03RbkltQ69twhVLedyD3vwUb%2FDpiLOdSO8qsDJhRWFiv1g%3D%3D"); /*URL*/
+        StringBuilder urlBuilder = new StringBuilder("http://api.odcloud.kr/api/15090584/v1/uddi:39290762-80a6-4568-bedf-a82df17a5ec9?page="+ page +"&perPage=8943&serviceKey=UiMzrPzzB%2BfoxLvhMW5sj5Lo1wjj4Ul4ELv5JY%2BO03RbkltQ69twhVLedyD3vwUb%2FDpiLOdSO8qsDJhRWFiv1g%3D%3D"); /*URL*/
         // 2. 오픈 API의요청 규격에 맞는 파라미터 생성, 발급받은 인증키.
         // urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + URLEncoder.encode("testkey", "UTF-8")); /*Service Key*/
         // urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
