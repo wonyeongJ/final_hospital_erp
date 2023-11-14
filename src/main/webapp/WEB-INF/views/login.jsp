@@ -48,7 +48,7 @@
 		<div class="container">
 			<div class="row align-items-center">
 				<div class="col-md-6 col-lg-7">
-					<img src="vendors/images/login-page-img.png" alt="">
+					<img src="vendors/images/로그인메인3.png" alt="">
 				</div>
 				<div class="col-md-6 col-lg-5">
 					<div class="login-box bg-white box-shadow border-radius-10">
