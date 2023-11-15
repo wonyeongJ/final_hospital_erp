@@ -41,11 +41,13 @@
   	<!-- 직원 상세 조회 쿼리 -->
   	<select id="memberData" parameterType="MemberVO" resultType="MemberVO">
 		SELECT
-			M.*, C.CODE_NAME AS JOBNAME
+			M.*, C.CODE_NAME AS JOBNAME, C2.CODE_NAME AS CODE_NAME
 		FROM
 			MEMBER AS M
 				JOIN CODE AS C
-				ON M.JOB_CD = C.CODE_CD
+					ON M.JOB_CD = C.CODE_CD
+				JOIN CODE AS C2
+					ON M.CODE_CD = C2.CODE_CD
 		WHERE
 			MEM_CD = #{memCd}
   	</select>
@@ -93,6 +95,10 @@
   			0,
   			NOW(),
   			0,
+  			NULL,
+  			NULL,
+  			NULL,
+  			NULL,
   			NULL,
   			NULL,
   			NULL,
@@ -192,6 +198,19 @@
 			MEM_FNAME = #{memFname},
 			MEM_PATH = #{memPath},
 			MEM_EXTENTION =  #{memExtention}
+		WHERE 
+			MEM_CD = #{memCd}
+			
+  	</update>
+  	
+  	<update id="memberStampUpdate" parameterType="MemberVO">
+		UPDATE
+  			MEMBER 
+		SET 
+			MEM_SONAME = #{memSOname},
+			MEM_SFNAME = #{memSFname},
+			MEM_SPATH = #{memSPath},
+			MEM_SEXTENTION =  #{memSExtention}
 		WHERE 
 			MEM_CD = #{memCd}
 			

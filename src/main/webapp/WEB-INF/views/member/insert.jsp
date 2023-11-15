@@ -82,7 +82,7 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">입사일</label>
 			<div class="col-sm-12 col-md-4">
-				<input class="form-control" type="date" id="memhdate" name="memHdate">
+				<input class="form-control" type="date" id="memHdate" name="memHdate">
 			</div>
 		</div>
 			<div class="form-group row">

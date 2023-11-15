@@ -195,10 +195,51 @@ public class MemberService implements UserDetailsService {
 
 		return result;
 	}
-	
+
+	// memberStamp Insert 메서드
+	public int memberStampUpdate(MemberVO memberVO,MultipartFile multipartFile) throws Exception {
+		log.info("서비스 진입 memberVO {} ==============",memberVO);
+		int result = 0;
+		// file이 없지 않다면
+		if(!multipartFile.isEmpty()) {
+			// 이미지 파일만 넣기
+			String[] allowedExtensions = {"jpg", "jpeg", "png", "gif"};
+			// 파일 확장자 추출
+			String extension = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
+			// 이미지파일 확장자일 경우에만 넣기
+			for (String allowExtension : allowedExtensions) {
+				if(allowExtension.equals(extension)) {
+					//memberVO 의 memPath 값이 null 아니라면 즉 이미 파일이 올라가있으면
+					if(memberVO.getMemSPath() != null) {
+						s3Uploader.deleteFile("stamp/"+memberVO.getMemSFname());
+					}
+					// 파일의 원본이름 가져와서 MemberVO 에 넣기
+					memberVO.setMemSOname(multipartFile.getOriginalFilename());
+					// 확장자명 추출해서 넣기 
+					memberVO.setMemSExtention(extension);
+					// UUID 넣어서 filename 만들기
+					String fileName = s3Uploader.getUuid(multipartFile);
+					memberVO.setMemSFname(fileName);
+					//S3에 업로드
+					String s3Url = s3Uploader.upload(multipartFile, "stamp",fileName);
+					memberVO.setMemSPath(s3Url);
+					log.info("===========fileVO {}========");
+					result = memberDAO.memberStampUpdate(memberVO);
+					log.info("===============memberVO {} ========",memberVO);
+				}
+					
+				
+			}
+		}
+
+		return result;
+	}
+		
 	// reservation search 메서드 해당시간부서를통해 가능한 담당의 찾기위한 메서드
 	public List<MemberVO> memberDoctorList(ReservationVO reservationVO) throws Exception{
 		return memberDAO.memberDoctorList(reservationVO);
 	}
+	
+	
 	
 }

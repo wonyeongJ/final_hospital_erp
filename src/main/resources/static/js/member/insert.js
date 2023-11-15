@@ -53,6 +53,11 @@ $(document).ready(function() {
             arrayValidResultCheck.push(false);
             alert('전체 이메일 주소 형식이 올바르지 않습니다.');
         }
+        
+        if ($("#memHdate").val() == ""){
+			alert("입사일을 입력하세요.")
+			arrayValidResultCheck.push(false);
+		}
 
         // validResultcheck 배열 에서 false가 있다면 true가 담김 false 가 없으면 false이므로 정상 동작하게끔 짜주면 됨
         let validValue = arrayValidResultCheck.includes(false);

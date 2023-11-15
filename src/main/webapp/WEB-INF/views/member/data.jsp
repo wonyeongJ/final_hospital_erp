@@ -73,12 +73,6 @@
 				<input class="form-control" type="number" name="memAnnual" value="${memberVO.memAnnual}">
 			</div>
 		</div>
-			<div class="form-group row">
-			<label class="col-sm-12 col-md-2 col-form-label">근무시간(월)</label>
-			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="number" value="40" readonly>
-			</div>
-		</div>
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">직책</label>
 			<div class="col-sm-12 col-md-10">
@@ -101,9 +95,10 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">성별</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="memCodeCd" value="${memberVO.codeCd}">
+				<input class="form-control" type="text" name="memCodeCd" value="${memberVO.codeName}" readonly>
 			</div>
 		</div>
+		
 		<div style="display: flex; justify-content: flex-end;">
 			<button type="submit" class="btn btn-primary">수정완료</button>
 		</div>

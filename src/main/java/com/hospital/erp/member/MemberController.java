@@ -144,5 +144,12 @@ public class MemberController {
 		  return "redirect:./mypage";
 	  }
 	  
+	  @PostMapping("stampUpdate")
+	  public String memberStampUpdate(@AuthenticationPrincipal MemberVO memberVO,MultipartFile multipartFile) throws Exception {
+		  
+		  int result = memberService.memberStampUpdate(memberVO,multipartFile);
+		  return "redirect:./mypage";
+	  }
+	  
 	 
 }
