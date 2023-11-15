@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hospital.erp.common.CodeVO;
+import com.hospital.erp.reservation.ReservationVO;
 import com.hospital.erp.util.EmailService;
 import com.hospital.erp.util.FileManager;
 import com.hospital.erp.util.S3Uploader;
@@ -187,8 +188,8 @@ public class MemberService implements UserDetailsService {
 					String fileName = s3Uploader.getUuid(multipartFile);
 					memberVO.setMemFname(fileName);
 					//S3에 업로드
-					String S3Url = s3Uploader.upload(multipartFile, "member",fileName);
-					memberVO.setMemPath(S3Url);
+					String s3Url = s3Uploader.upload(multipartFile, "member",fileName);
+					memberVO.setMemPath(s3Url);
 					log.info("===========fileVO {}========");
 					result = memberDAO.memberProfileUpdate(memberVO);
 					log.info("===============memberVO {} ========",memberVO);
@@ -199,6 +200,11 @@ public class MemberService implements UserDetailsService {
 		}
 
 		return result;
+	}
+	
+	// reservation search 메서드 해당시간부서를통해 가능한 담당의 찾기위한 메서드
+	public List<MemberVO> memberDoctorList(ReservationVO reservationVO) throws Exception{
+		return memberDAO.memberDoctorList(reservationVO);
 	}
 	
 }

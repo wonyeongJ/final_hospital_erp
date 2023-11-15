@@ -6,16 +6,21 @@
 	
   	<!-- 환자 목록 -->
   	<select id="patientList" resultType="PatientVO">
-  		SELECT
-  			*
+		SELECT
+  			 P.*, C.CODE_NAME, R.RES_VDATE
   		FROM
   			PATIENT P 
-  				LEFT OUTER JOIN CODE AS C
+  				JOIN CODE AS C
   					ON P.CODE_CD = C.CODE_CD
-  				LEFT OUTER JOIN RESERVATION R
+  				LEFT OUTER JOIN (
+  								SELECT 
+  									PAT_CD ,
+  									MAX(RES_VDATE) AS RES_VDATE
+  								FROM 
+  									RESERVATION
+ 								GROUP BY 
+ 									PAT_CD) AS R
   					ON P.PAT_CD = R.PAT_CD
-  				
-  				
   	</select>
 	
 	<!-- 환자 등록 -->
@@ -33,5 +38,25 @@
 			)
 	</insert>
 	
+	<select id="patientData" parameterType="PatientVO" resultType="PatientVO">
+		SELECT
+			P.*, C.CODE_NAME
+		FROM
+			PATIENT AS P
+				JOIN CODE AS C
+					ON P.CODE_CD = C.CODE_CD
+		WHERE PAT_CD = #{patCd}
+	</select>
+	
+	<update id="patientUpdate" parameterType="PatientVO">
+		UPDATE
+			PATIENT
+		SET
+			PAT_NAME = #{patName},
+			PAT_RNUM = #{patRnum},
+			PAT_PNUM = #{patPnum}
+		WHERE
+			PAT_CD = #{patCd}
+	</update>
   	
 </mapper>

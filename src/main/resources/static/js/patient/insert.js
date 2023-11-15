@@ -55,6 +55,8 @@ $(document).ready(function() {
             $("#patientInsertFrm").submit();
         }
 
+        // 방문날짜와 방문부서 입력후 selectbox에 진료 가능한 의사 목록 가져오기
+        
         
     });
 

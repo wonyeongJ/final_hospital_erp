@@ -1,18 +1,22 @@
 $(document).ready(function() {
-    $("#insertBtn").on('click',function(){
+    $("#patientUpdateBtn").on('click',function(){
         console.log("버튼입력 이벤트")
         let patName = $('#patName').val();
-        let patRnum1 = $('#patRnum1').val();
-        let patRnum2 = $('#patRnum2').val();
-        let patPnum1 = $('#patPnum1').val();
-        let patPnum2 = $('#patPnum2').val();
-        let patPnum3 = $('#patPnum3').val();
-        
-        
+        let patRnum = $('#patRnum').val();
+        let patRnum1 = $('#patRnum').val().substring(0,6);
+        let patRnum2 = $('#patRnum').val().substring(7);
+       
+        let patPnum = $('#patPnum').val();
+ 
+        console.log("patName",patName);
+        console.log("patRnum",patRnum);
+        console.log("patRnum1",patRnum1);
+        console.log("patRnum2",patRnum2);
+        console.log("patPnum",patPnum);
+       
        
 
-        let patRnumValue = patRnum1 + "-" + patRnum2;
-        let patPnumValue = patPnum1 + "-" + patPnum2 + "-" + patPnum3;
+      
        
       
         let arrayValidResultCheck = [];
@@ -36,8 +40,8 @@ $(document).ready(function() {
             alert('주민등록번호 뒷자리가 올바르지 않습니다.');
         }
 
-        if (!/^01[016789]-[0-9]{4}-[0-9]{4}$/.test(patPnumValue)) {
-            console.log(patPnumValue);
+        if (!/^01[016789]-[0-9]{4}-[0-9]{4}$/.test(patPnum)) {
+            console.log(patPnum);
             arrayValidResultCheck.push(false);
             alert('핸드폰 번호가 올바르지 않습니다.');
         }
@@ -50,9 +54,8 @@ $(document).ready(function() {
 
         // validValue는 false를 찾아서 값이 있으면 true를 넣어주기때문에 false일때가 정상적으로 검증이 끝났을 때다
         if(!validValue){
-            $("#patRnum").val(patRnumValue);
-            $("#patPnum").val(patPnumValue);
-            $("#patientInsertFrm").submit();
+         
+            $("#patientUpdateFrm").submit();
         }
 
         // 방문날짜와 방문부서 입력후 selectbox에 진료 가능한 의사 목록 가져오기

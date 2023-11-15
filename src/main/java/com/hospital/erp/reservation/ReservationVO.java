@@ -1,6 +1,8 @@
 package com.hospital.erp.reservation;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,9 +22,14 @@ public class ReservationVO {
 	private Integer resMemCd; //의사
 	private Integer depCd;
 	private String resReason;
-	private Date resVdate;
+	private String resVdate;
 	private String resMHistory;
+	private String resDrug;
 	private Integer resClinic;
-	private Date resRdate;
+	private Timestamp resRdate;
+	
+	private String depName; // department JOIN 결과
+	private String memName; // memberJOin 
+	private String resMemName; // meberJoin 의사이름
 	
 }

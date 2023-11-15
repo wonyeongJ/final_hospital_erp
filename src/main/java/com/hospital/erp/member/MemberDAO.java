@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.hospital.erp.common.CodeVO;
+import com.hospital.erp.reservation.ReservationVO;
 
 @Mapper
 public interface MemberDAO {
@@ -41,4 +42,7 @@ public interface MemberDAO {
 	 
 	 // member profile insert 메서드
 	 public int memberProfileUpdate(MemberVO memberVO) throws Exception;
+	 
+	 // reservation 테이블에서 예약을위해 담당의 조회 메서드
+	 public List<MemberVO> memberDoctorList(ReservationVO reservationVO) throws Exception;
 }

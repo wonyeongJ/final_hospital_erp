@@ -3,6 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,47 +53,9 @@
 				<input class="form-control" type="hidden" id="patPnum" name="patPnum">
 			</div>
 		</div>
-	<!-- 	<div class="form-group row">
-			<label class="col-sm-12 col-md-2 col-form-label">성별</label>
-			<div class="col-sm-12 col-md-10">
-				<div class="col-md-6 col-sm-12" style="text-align: justify;">
-					<div class="custom-control custom-radio mb-5" style="float: left">
-						<input type="radio" id="male" name="codeCd" value="1" class="custom-control-input">
-						<label class="custom-control-label" for="male">남자</label>
-					</div>
-					<div class="custom-control custom-radio mb-5" style="float: left">
-						<input type="radio" id="female" name="codeCd" value="2" class="custom-control-input">
-						<label class="custom-control-label" for="female">여자</label>
-					</div>
-				</div>
-			</div>
-		</div> -->
 	</form>
-	
-	<form id="reservationInsertFrm" class="card-box pd-20 mb-30">
-		<div class="form-group row">
-			<label class="col-sm-12 col-md-2 col-form-label">방문원인</label>
-			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="resReason">
-			</div>
-		</div>
-		<div class="form-group row">
-			<label class="col-sm-12 col-md-2 col-form-label">방문날짜</label>
-			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="date" nam="resVdate">
-			</div>
-		</div>
-		<div class="form-group row">
-			<label class="col-sm-12 col-md-2 col-form-label">방문부서</label>
-			<div class="col-sm-12 col-md-10">
-				<select class="custom-select col-12">
-					<option value="2">외과</option>
-					<option value="3">내과</option>
-				</select>
-			</div>
-		</div>
-
-	</form>
+		
+		
 		<div style="display: flex; justify-content: flex-end;">
 			<button id="insertBtn" type="button" class="btn btn-primary">환자등록</button>
 		</div>

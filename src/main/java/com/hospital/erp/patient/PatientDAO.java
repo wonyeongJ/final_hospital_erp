@@ -10,4 +10,8 @@ public interface PatientDAO {
 	public List<PatientVO> patientList() throws Exception;
 	
 	public int patientInsert(PatientVO patientVO) throws Exception;
+	
+	public PatientVO patientData(PatientVO patientVO) throws Exception;
+	
+	public int patientUpdate(PatientVO patientVO) throws Exception;
 }
