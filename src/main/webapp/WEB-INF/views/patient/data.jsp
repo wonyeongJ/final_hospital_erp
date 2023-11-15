@@ -84,10 +84,10 @@
 									<td>
 										<c:if test="${reservationVO.resClinic eq 0}">
 											<a class="btn btn-success" href="/reservation/update?resCd=${reservationVO.resCd}">수정</a>
-											<button class="btn btn-danger">삭제</button>
+											<a class="btn btn-danger" href="/reservation/delete?resCd=${reservationVO.resCd}&patCd=${reservationVO.patCd}">삭제</a>
 										</c:if>
 										<c:if test="${reservationVO.resClinic eq 1}">
-											<button class="btn btn-success">수정</button>
+											<a class="btn btn-success" href="/reservation/update?resCd=${reservationVO.resCd}">수정</a>
 										</c:if>
 									</td>
 								</tr>

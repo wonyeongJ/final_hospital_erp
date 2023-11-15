@@ -48,6 +48,7 @@
 						</div>
 					</div>
 				<form id="reservationInsertFrm" action="insert" method="post">
+					<input class="form-control" type="hidden" name="memName" value="${patientVO.patName}">
 					<input value="<sec:authentication property="principal.memCd" />" name="memCd" type="hidden">
 					<input class="form-control" type="hidden" name="patCd" value="${patientVO.patCd}" >
 					<div class="form-group row">

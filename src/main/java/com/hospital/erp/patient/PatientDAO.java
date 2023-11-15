@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.hospital.erp.reservation.ReservationVO;
+
 @Mapper
 public interface PatientDAO {
 
@@ -14,4 +16,5 @@ public interface PatientDAO {
 	public PatientVO patientData(PatientVO patientVO) throws Exception;
 	
 	public int patientUpdate(PatientVO patientVO) throws Exception;
+	
 }
