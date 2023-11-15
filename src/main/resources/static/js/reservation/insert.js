@@ -42,16 +42,29 @@ $(document).ready(function() {
 	    // 여기에 원하는 작업을 추가할 수 있습니다.
  	 });
  	 
+ 	 
  	$("#reservationInsertBtn").on("click",function(){
 		 
 		 let resReason = $("#resReason").val().trim()
-		 if(resReason != ""){
-			 let resVdate = $('#resVdate').val().replace("T"," ")+":00";
-			 $("#resVdate").val(resVdate);
-			 console.log(resVdate);
-			 $("#reservationInsertFrm").submit();
+		 if(resReason.length != 0){
+ 			if($('#resVdate').val().length != 0){
+				 if($('#doctorList').val().length != 0){
+					let resVdate = $('#resVdate').val().replace("T"," ")+":00";
+					$("#resVdate").val(resVdate);
+					 
+					$("#reservationInsertFrm").submit(); 
+				 }else{
+					 alert('선택하신 날짜에 진료가 가능한 의사를 선택해주세요.');
+				 }
+			 }else{
+				 alert('예약 날짜를 입력해주세요.');
+			 }
+		 }else{
+			 alert('방문원인을 입력해주세요.');
 		 }
+		 
 	 })    
+	 
         
    function searchAjax(depCdData,resVdateData){
 		$.ajax({
@@ -82,8 +95,6 @@ $(document).ready(function() {
 		});
    }
 	
-
-       
           
 
     

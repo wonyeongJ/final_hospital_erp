@@ -34,7 +34,7 @@
 				JOIN MEMBER AS M2
 					ON R.RES_MEM_CD = M2.MEM_CD
 		WHERE PAT_CD = #{patCd}
-		ORDER BY RES_VDATE
+		ORDER BY RES_VDATE DESC
 	</select>
 	
 	<select id="reservationList" resultType="ReservationVO">

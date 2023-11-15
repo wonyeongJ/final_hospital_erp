@@ -158,4 +158,18 @@ public class ReservationController {
 		return "redirect:../patient/data?patCd="+patCd;
 	}
 	
+	//진료 예약 수정 폼 요청 메서드
+	@GetMapping("data")
+	public String reservatioinData(ReservationVO reservationVO,Model model) throws Exception {
+		log.info("update get reservationVO {}",reservationVO);
+		reservationVO = reservationService.reservationData(reservationVO);
+		model.addAttribute("reservationVO", reservationVO);
+		PatientVO patientVO = new PatientVO();
+		patientVO.setPatCd(reservationVO.getPatCd());
+		patientVO = patientService.patientData(patientVO);
+		log.info("===========patientVO {}",patientVO);
+		model.addAttribute("patientVO", patientVO);	
+		
+		return "reservation/data";
+	}
 }

@@ -59,6 +59,7 @@
 		<div style="display: flex; justify-content: flex-end;">
 			<button id="insertBtn" type="button" class="btn btn-primary">환자등록</button>
 		</div>
+		<br>
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="/js/patient/insert.js"></script> 
