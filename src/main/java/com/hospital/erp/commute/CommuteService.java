@@ -34,8 +34,8 @@ public class CommuteService {
 		commuteVO.setMemCd(memberVO.getMemCd());
 		// 현재날짜 구하기
 		// LocalDate 객체 생성
-        LocalDate localDate = LocalDate.now();
-        commuteVO.setComSdate(Timestamp.valueOf(localDate.atStartOfDay())); 
+//        LocalDate localDate = LocalDate.now();
+//        commuteVO.setComSdate(Timestamp.valueOf(localDate.atStartOfDay())); 
 		
 		return commuteVO = commuteDAO.commuteData(commuteVO);
 	}

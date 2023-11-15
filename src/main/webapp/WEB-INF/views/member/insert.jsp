@@ -78,6 +78,16 @@
 				<input class="form-control" type="email" id="memEmail2"  placeholder="domain.com">
 				<input class="form-control" type="hidden" id="memEmail" name="memEmail" >
 			</div>
+			<div class="col-sm-12 col-md-2">
+				<button id="emailAthenticationBtn" type="button" class="btn btn-primary">인증요청</button>
+			</div>
+		</div>
+		<div class="form-group row " id="emailShow" style="display: none;">
+			<label class="col-sm-12 col-md-2 col-form-label">인증번호</label>
+			<div class="col-sm-12 col-md-3">
+				<input class="form-control" type="text" id="emailValue" placeholder="인증코드를 입력하세요.">
+			</div>
+				<input class="form-control" type="hidden" id="emailValue2">
 		</div>
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">입사일</label>

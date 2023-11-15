@@ -66,18 +66,56 @@ public class EmailService {
 
         return message;
     }
+    
+    public MimeMessage createMailAuthenticate(String mail){
+    	passwordCreate();  // 임시 비밀번호 생성
+        MimeMessage message = javaMailSender.createMimeMessage();
+
+        try {
+            message.setFrom(senderEmail);   // 보내는 이메일
+            message.setRecipients(MimeMessage.RecipientType.TO, mail); // 보낼 이메일 설정
+            message.setSubject("[ERP_Hospital] 이메일 인증번호 전송");  // 제목 설정
+            String body = "";
+            body += "<h1>" + "안녕하세요." + "</h1>";
+            body += "<h1>" + "ERP_Hospital 입니다." + "</h1>";
+            body += "<h3>" + "회원가입 인증 코드를 보내드립니다." + "</h3><br>";
+            body += "<h2>" + "이메일인증란에 해당 코드를 입력해 주세요." + "</h2>";
+
+            body += "<div align='center' style='border:1px solid black; font-family:verdana;'>";
+            body += "<h2>" + "인증 코드 입니다." + "</h2>";
+            body += "<h1 style='color:blue'>" + this.temporaryPassword + "</h1>";
+            body += "</div><br>";
+            body += "<h3>" + "감사합니다." + "</h3>";
+            message.setText(body,"UTF-8", "html");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return message;
+    }
 
     // 실제 메일 전송
-    public String sendEmail(String userId) {
+    public String sendEmail(String email,String mailKind) {
         // 메일 전송에 필요한 정보 설정
-        MimeMessage message = createMail(userId);
-        // 실제 메일 전송
-        javaMailSender.send(message);
+    	
+    	if("pw".equals(mailKind)) {
+    		MimeMessage message = createMail(email);
+    		javaMailSender.send(message);   
+    		// 실제 메일 전송
+    	}else {
+    		MimeMessage message = createMailAuthenticate(email);
+    		javaMailSender.send(message);   
+    	}
 
+    	    		
         // 임시 비밀 번호 반환
         System.out.println(temporaryPassword+"       임시비밀번호 전송하기전");
         return this.temporaryPassword;
     }
+    
+    
+    
+    
 		
 	
 }

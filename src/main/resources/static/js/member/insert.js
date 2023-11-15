@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	let arrayValidResultCheck = [];
+
     $("#insertBtn").on('click',function(){
         console.log("버튼입력 이벤트")
         let memName = $('#memName').val();
@@ -17,8 +19,7 @@ $(document).ready(function() {
         let memPnumValue = memPnum1 + "-" + memPnum2 + "-" + memPnum3;
         let memEmailValue = memEmail1 + "@" + memEmail2;
       
-        let arrayValidResultCheck = [];
-
+        
         if (!/^[가-힣]+$/.test(memName)) {
             console.log(memName);
             arrayValidResultCheck.push(false);
@@ -54,15 +55,22 @@ $(document).ready(function() {
             alert('전체 이메일 주소 형식이 올바르지 않습니다.');
         }
         
+        if ($("#emailValue").val() != $("#emailValue2").val()){
+			alert("인증번호가 일치하지 않습니다.")
+			arrayValidResultCheck.push(false);
+		}
+		
         if (!/^\d{4}-\d{2}-\d{2}$/.test(memHdate)){
 			alert("입사일을 입력하세요.")
 			arrayValidResultCheck.push(false);
 		}
 		
-		 if ($("#address_kakao").val() == ""){
+		if ($("#address_kakao").val() == ""){
 			alert("주소를 입력하세요.")
 			arrayValidResultCheck.push(false);
 		}
+		
+	
 
         // validResultcheck 배열 에서 false가 있다면 true가 담김 false 가 없으면 false이므로 정상 동작하게끔 짜주면 됨
         let validValue = arrayValidResultCheck.includes(false);
@@ -80,7 +88,26 @@ $(document).ready(function() {
         
     });
 
-       
+    $("#emailAthenticationBtn").on("click",function(){
+		console.log("인증 요청 버튼 클릭");
+		$('#emailShow').css('display', '');
+		let memEmail1 = $('#memEmail1').val();
+        let memEmail2 = $('#memEmail2').val();
+		let memEmailValue = memEmail1 + "@" + memEmail2;
+		$.ajax({
+				url: "/member/emailAuthenticate",
+				type: "get",
+				data : {
+					email: memEmailValue
+				},
+				success: function(data) {
+					
+					$("#emailValue2").val(data);
+
+				}
+			});
+		
+	});   
           
 
     

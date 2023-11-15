@@ -151,15 +151,24 @@ public class MemberService implements UserDetailsService {
 		return memberDAO.memberUpdate(memberVO);
 	}
 	
-	// forgotPassword 로 사번 이메일 받아서 해당하는 
+	// forgotPassword 로 사번 이메일 받아서 해당메일로 임시비밀번호 생성
 	public int memberUpdateForgotPassword(MemberVO memberVO) throws Exception {
 		// 이메일로 임시비밀번호 보내기
-		String temporaryPassword = emailService.sendEmail(memberVO.getMemEmail());
+		String mailKind = "pw";
+		String temporaryPassword = emailService.sendEmail(memberVO.getMemEmail(),mailKind);
 		log.info("=========서비스단에서 임시번호 인코딩전 ==========={}",temporaryPassword);
 		memberVO.setMemPw(passwordEncoder.encode(temporaryPassword));
 		// update 쿼리이기때문에 성공시 1 실패시 0 성공인 경우 해당하는 사번과 email이 있다는 것 
 		int result = memberDAO.memberUpdateForgotPassword(memberVO); 
 		return result;
+	}
+	
+	// 회원가입시 이메일 인증 서비스
+	public String emailAuthenticationCode(String email) throws Exception {
+		// 이메일 서비스에서 메서드 실행될때이 값 구분을 위해서 넣어주는 mailKind
+		String mailKind = "Au";
+		String emailValue = emailService.sendEmail(email, mailKind);
+		return emailValue;
 	}
 	
 	// memberProfile Insert 메서드

@@ -170,14 +170,19 @@ public class MemberController {
 		  return "member/listexpired";
 	  }
 	  
+	  // 퇴사자 detail 조회
 	  @GetMapping("dataexpired")
 	  public String memberDataExpired(MemberVO memberVO, Model model) throws Exception {
 		  memberVO = memberService.memberData(memberVO);
-//		  List<DepartmentVO> departmentAr = departmentService.departmentList();
-//		  List<CodeVO> codeAr = memberService.codeList();
 		  model.addAttribute("memberVO", memberVO);
-//		  model.addAttribute("departmentAr", departmentAr);
-//		  model.addAttribute("codeAr",codeAr);
 		  return "member/dataexpired";
+	  }
+	  
+	  // 회원가입때 이메일 인증 코드 발급 메서드
+	  @GetMapping("emailAuthenticate")
+	  @ResponseBody
+	  public String emailAuthenticationCode(String email) throws Exception {
+		   
+		  return memberService.emailAuthenticationCode(email);
 	  }
 }
