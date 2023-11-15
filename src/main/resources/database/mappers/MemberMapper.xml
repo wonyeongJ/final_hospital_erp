@@ -35,19 +35,25 @@
 					ON M.DEP_CD = D.DEP_CD
 				JOIN CODE AS C2
 					ON M.POS_CD = C2.CODE_CD
+		WHERE
+			M.MEM_DELETE = 0
 		ORDER BY M.MEM_CD DESC
 	</select> 	
   	
   	<!-- 직원 상세 조회 쿼리 -->
   	<select id="memberData" parameterType="MemberVO" resultType="MemberVO">
 		SELECT
-			M.*, C.CODE_NAME AS JOBNAME, C2.CODE_NAME AS CODE_NAME
+			M.*, C.CODE_NAME AS JOBNAME, C2.CODE_NAME AS CODE_NAME, D.DEP_NAME, C3.CODE_NAME AS POS_NAME
 		FROM
 			MEMBER AS M
 				JOIN CODE AS C
 					ON M.JOB_CD = C.CODE_CD
 				JOIN CODE AS C2
 					ON M.CODE_CD = C2.CODE_CD
+				JOIN CODE AS C3
+					ON M.POS_CD = C3.CODE_CD
+				JOIN DEPARTMENT AS D
+					ON M.DEP_CD = D.DEP_CD
 		WHERE
 			MEM_CD = #{memCd}
   	</select>
@@ -127,7 +133,9 @@
 				ON M.DEP_CD = D.DEP_CD
 			LEFT OUTER JOIN MEMBER_FILE AS MF
 				ON M.MEM_CD = MF.MEM_CD
-		WHERE M.MEM_CD = #{value}
+		WHERE 
+			M.MEM_CD = #{value} AND
+			M.MEM_DELETE = 0
   	</select>
   	
   	<update id="memberUpdate" parameterType="MemberVO">
@@ -175,7 +183,9 @@
 					ON M.DEP_CD = D.DEP_CD
 				JOIN CODE AS C2
 					ON M.POS_CD = C2.CODE_CD
-		WHERE NOT M.DEP_CD = 1 
+		WHERE 
+			NOT M.DEP_CD = 1 AND
+			M.MEM_DELETE = 0
 		ORDER BY M.MEM_CD
   	</select>
   	
@@ -241,5 +251,41 @@
 							AND S.CODE_CD != 26)
 		AND JOB_CD = 03
 		AND DEP_CD = #{depCd}
+		AND MEM.MEM_DELETE = 0
   	</select>
+  	
+  	<update id="memberUpdateExpired" parameterType="MemberVO">
+  		UPDATE
+  			MEMBER
+  		SET
+  			MEM_QDATE = #{memQdate}
+  		WHERE
+  			MEM_CD = #{memCd}
+  	</update>
+  	
+  	<select id="memberListExpired" parameterType="MemberVO">
+  		SELECT
+  			*
+  		FROM
+  			MEMBER
+  		WHERE
+  			MEM_DELETE = 1
+  	</select>
+  	
+  	<update id="memberUpdateMemDeleteScheduler">
+	  	UPDATE
+			MEMBER 
+		SET 
+			MEM_DELETE = 1
+		WHERE 
+			MEM_CD IN 
+					(
+					SELECT
+						MEM_CD
+					FROM 
+						MEMBER 
+					WHERE MEM_QDATE = DATE_FORMAT(NOW(), '%Y-%m-%d')
+					)
+  	</update>
+  	
 </mapper>

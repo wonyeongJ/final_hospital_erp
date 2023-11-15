@@ -85,7 +85,7 @@ public class MemberController {
 			  return "member/insert";
 		  }else {
 			  int result = memberService.memberInsert(memberVO);
-			  return "member/insert";
+			  return "redirect:./list";
 		  }
 		  
 	  }
@@ -129,6 +129,7 @@ public class MemberController {
 		  }
 	  }
 	  
+	  // 조직도 직원조회
 	  @ResponseBody
 	  @GetMapping("memberListChart")
 	  public List<MemberVO> memberListChart() throws Exception {
@@ -137,6 +138,7 @@ public class MemberController {
 		  return memberVO;
 	  }
 	  
+	  // 프로필 사진 변경
 	  @PostMapping("profileInsert")
 	  public String memberProfileInsert(@AuthenticationPrincipal MemberVO memberVO,MultipartFile multipartFile) throws Exception {
 		  
@@ -144,6 +146,7 @@ public class MemberController {
 		  return "redirect:./mypage";
 	  }
 	  
+	  // 도장/사인 이미지 변경
 	  @PostMapping("stampUpdate")
 	  public String memberStampUpdate(@AuthenticationPrincipal MemberVO memberVO,MultipartFile multipartFile) throws Exception {
 		  
@@ -151,5 +154,30 @@ public class MemberController {
 		  return "redirect:./mypage";
 	  }
 	  
-	 
+	  // 퇴사자 등록
+	  @PostMapping("updateExpired")
+	  public String memberUpdateExpired(MemberVO memberVO) throws Exception{
+		  log.info("quitDate {}", memberVO);
+		  int result = memberService.memberUpdateExpired(memberVO);
+		  return "redirect:./listexpired";
+	  }
+	  
+	  // 퇴사자 조회
+	  @GetMapping("listexpired")
+	  public String memberListExpired(Model model) throws Exception {
+		  List<MemberVO> memberAr = memberService.memberListExpired();
+		  model.addAttribute("memberAr",memberAr);
+		  return "member/listexpired";
+	  }
+	  
+	  @GetMapping("dataexpired")
+	  public String memberDataExpired(MemberVO memberVO, Model model) throws Exception {
+		  memberVO = memberService.memberData(memberVO);
+//		  List<DepartmentVO> departmentAr = departmentService.departmentList();
+//		  List<CodeVO> codeAr = memberService.codeList();
+		  model.addAttribute("memberVO", memberVO);
+//		  model.addAttribute("departmentAr", departmentAr);
+//		  model.addAttribute("codeAr",codeAr);
+		  return "member/dataexpired";
+	  }
 }

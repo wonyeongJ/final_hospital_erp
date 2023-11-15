@@ -91,21 +91,7 @@
 				<input class="form-control" type="number" id="memSalary" name="memSalary">
 			</div>
 		</div>
-		<div class="form-group row">
-			<label class="col-sm-12 col-md-2 col-form-label">성별</label>
-			<div class="col-sm-12 col-md-10">
-				<div class="col-md-6 col-sm-12" style="text-align: justify;">
-					<div class="custom-control custom-radio mb-5" style="float: left">
-						<input type="radio" id="male" name="codeCd" value="1" class="custom-control-input">
-						<label class="custom-control-label" for="male">남자</label>
-					</div>
-					<div class="custom-control custom-radio mb-5" style="float: left">
-						<input type="radio" id="female" name="codeCd" value="2" class="custom-control-input">
-						<label class="custom-control-label" for="female">여자</label>
-					</div>
-				</div>
-			</div>
-		</div>
+
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">주소</label>
 			<div class="col-sm-12 col-md-4">

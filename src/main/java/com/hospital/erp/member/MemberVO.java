@@ -31,7 +31,6 @@ public class MemberVO implements UserDetails {
 	private Integer jobCd;
 	private Integer depCd;
 	private Integer posCd;
-	@NotNull
 	private Integer codeCd;
 	@Pattern(regexp = "^[가-힣]*$", message = "이름은 한글만 입력 가능합니다.")
 	private String memName;

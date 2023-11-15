@@ -6,11 +6,12 @@
 
 
 	<h1>직원상세(재직자)</h1>
-	<h3></h3>
-	<form action="update" method="post">
+	<br>
+	<form id="memberUpdateFrm" action="update" method="post" class="card-box pd-20 mb-30 ">
 		<div class="form-group row">
+			<label class="col-sm-12 col-md-2 col-form-label">사번</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="memCd" value="${memberVO.memCd}" hidden>
+				<input class="form-control" type="text" name="memCd" value="${memberVO.memCd}" readonly>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -98,8 +99,41 @@
 				<input class="form-control" type="text" name="memCodeCd" value="${memberVO.codeName}" readonly>
 			</div>
 		</div>
-		
-		<div style="display: flex; justify-content: flex-end;">
-			<button type="submit" class="btn btn-primary">수정완료</button>
-		</div>
 	</form>
+		<div style="display: flex; justify-content: flex-end;">
+			<a href="#" type="button" class="btn btn-success ms-30" data-toggle="modal" data-target="#expire-modal" style="margin-right: 10px;" >퇴사자로 변경</a>
+			<div class="modal fade" id="expire-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="text-center text-primary">퇴사자 등록</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						</div>
+						
+						<div class="modal-body">
+						<form action="updateExpired" method="post" id="memberUpdateExpiredFrm">
+							<div class="form-group row">
+								<label class="col-sm-4 col-md-2 col-form-label">퇴사일</label>
+								<div class="col-sm-4 col-md-10">
+									<input class="form-control" type="hidden" name="memCd" value="${memberVO.memCd}">
+									<input class="form-control" type="date" name="memQdate">
+								</div>
+							</div>
+						</form>	
+						</div>
+						<div class="modal-footer">
+							<a type="button" id="memberUpdateExpiredBtn" class="btn btn-success btn-lg btn-block">Submit</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<button id="memberUpdateBtn" type="button" class="btn btn-primary">수정완료</button>
+			
+		</div>
+		<br>
+		<br>
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="/js/member/data.js"></script>
+		
+	

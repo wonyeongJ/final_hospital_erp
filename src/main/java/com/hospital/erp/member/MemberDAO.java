@@ -48,4 +48,13 @@ public interface MemberDAO {
 	 
 	 // reservation 테이블에서 예약을위해 담당의 조회 메서드
 	 public List<MemberVO> memberDoctorList(ReservationVO reservationVO) throws Exception;
+	 
+	 // 퇴사자 변경
+	 public int memberUpdateExpired(MemberVO memberVO) throws Exception;
+	 
+	 // 직원조회 메서드
+	 public List<MemberVO> memberListExpired() throws Exception;
+	 
+	 // 스케쥴러로 MEM_DELETE 1로 바꾸는 쿼리
+	 public int memberUpdateMemDeleteScheduler() throws Exception;
 }

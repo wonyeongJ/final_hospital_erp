@@ -66,7 +66,12 @@ public class MemberService implements UserDetailsService {
 	
 	//직원 등록 메서드
 	public int memberInsert(MemberVO memberVO) throws Exception {
-		
+		char gender =memberVO.getMemRnum().charAt(7);
+		if(gender == '1' || gender == '3'){
+			memberVO.setCodeCd(1);
+		}else {
+			memberVO.setCodeCd(2);
+		}
 		log.info("===========MemberVO {}", memberVO);
 		// memberVO 값에서 일부분만 수정할거기때문에 바꿀 내용을 임시 객체 maxMemberVO를 통해 저장한다.
 		MemberVO maxMemberVO = new MemberVO(); 
@@ -74,7 +79,7 @@ public class MemberService implements UserDetailsService {
 		maxMemberVO.setJobCd(memberVO.getJobCd());
 		
 		// ex) 2303 LIKE에 들어갈 연도 + 직무코드 만들기
-		String yearStart = maxMemberVO.getMemHdate().toString().substring(2, 4); //23
+		String yearStart = maxMemberVO.getMemHdate().toString().substring(2, 4);
 		String selectjobCode = "";
 		if (maxMemberVO.getJobCd() < 10) {
 			String addZero = "0";
@@ -240,6 +245,13 @@ public class MemberService implements UserDetailsService {
 		return memberDAO.memberDoctorList(reservationVO);
 	}
 	
+	// 퇴사자 등록 메서드
+	public int memberUpdateExpired(MemberVO memberVO) throws Exception {
+		return memberDAO.memberUpdateExpired(memberVO);
+	}
 	
-	
+	// 퇴사자 직원 조회 메서드
+	public List<MemberVO> memberListExpired() throws Exception{
+		return memberDAO.memberListExpired();
+	}
 }

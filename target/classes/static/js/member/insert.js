@@ -10,7 +10,7 @@ $(document).ready(function() {
         let memEmail1 = $('#memEmail1').val();
         let memEmail2 = $('#memEmail2').val();
         let memSalary = $('#memSalary').val();
-        
+      	let memHdate =  $("#memHdate").val();
        
 
         let memRnumValue = memRnum1 + "-" + memRnum2;
@@ -54,8 +54,13 @@ $(document).ready(function() {
             alert('전체 이메일 주소 형식이 올바르지 않습니다.');
         }
         
-        if ($("#memHdate").val() == ""){
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(memHdate)){
 			alert("입사일을 입력하세요.")
+			arrayValidResultCheck.push(false);
+		}
+		
+		 if ($("#address_kakao").val() == ""){
+			alert("주소를 입력하세요.")
 			arrayValidResultCheck.push(false);
 		}
 
