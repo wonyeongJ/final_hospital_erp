@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <h1>전자결재</h1>
 <h2>내결재함</h2>
 
@@ -52,7 +53,7 @@
 					</div>
 					<div class="pb-20">
 						<div id="DataTables_Table_2_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-							<table class="table hover multiple-select-row data-table-export nowrap dataTable no-footer dtr-inline" id="DataTables_Table_2" role="grid">
+							<table class="datatable2 table nowrap" id="DataTables_Table_2" role="grid">
 							
 							<thead>
 								<tr role="row">
@@ -68,28 +69,35 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr role="row" class="odd">
-									<td class="table-plus sorting_1" tabindex="0">1</td>
-									<td>휴가신청</td>
-									<td>2301001 박병웅 휴가신청</td>
-									<td>박병웅</td>
-									<td>2023-10-24</td>
-									<td>1</td>
-									<td>전원영</td>
-									<td>미결</td>
-									<td>검토중</td>
-								</tr>
-								<tr role="row" class="odd">
-									<td class="table-plus sorting_1" tabindex="0">2</td>
-									<td>지출결의서</td>
-									<td>2302001 홍길동 지출결의서</td>
-									<td>홍길동</td>
-									<td>2023-10-25</td>
-									<td>3</td>
-									<td>손오공</td>
-									<td>종결</td>
-									<td>결재완료</td>
-								</tr>
+								<c:forEach items="${list}" var="vo">
+									<tr role="row" class="odd">
+										<td class="table-plus sorting_1" tabindex="0">${vo.epCd}</td>
+										<td>${vo.dfKind}</td>
+										<td><a href="./data?epCd=${vo.epCd}">${vo.epTitle}</a></td>
+										<td>${vo.memName}</td>
+										<td>${vo.epRDate}</td>
+										<td>${vo.conStep}</td>
+										<td>${vo.conmemName}</td>
+										<c:if test="${vo.conPStatus eq '0'}"> 
+											<td>결재중</td>
+										</c:if>
+										<c:if test="${vo.conPStatus eq '1'}"> 
+											<td>반려</td>
+										</c:if>
+										<c:if test="${vo.conPStatus eq '2'}"> 
+											<td>결재완료</td>
+										</c:if>
+										<c:if test="${empty vo.conPStatus}"> 
+											<td>결재라인이 추가되지 않음</td>
+										</c:if>
+										<c:if test="${vo.epDStatus eq '0'}"> 
+											<td>미결</td>
+										</c:if>
+										<c:if test="${vo.epDStatus eq '1'}"> 
+											<td>종결</td>
+										</c:if>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>

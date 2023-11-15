@@ -69,13 +69,14 @@ public class ComplaintsController {
 
     // 민원게시판 등록 처리
     @PostMapping("insert")
-    public String complaintsInsert(@AuthenticationPrincipal MemberVO memberVO,ComplaintsVO complaintsVO, MultipartFile[] files, HttpSession session, Model model) throws Exception {
+    public String complaintsInsert(@AuthenticationPrincipal MemberVO memberVO,ComplaintsVO complaintsVO, MultipartFile[] files1, HttpSession session, Model model) throws Exception {
        
     	complaintsVO.setMemName(memberVO.getMemName());
     	complaintsVO.setDepCd(memberVO.getDepCd());
     	complaintsVO.setDepName(memberVO.getDepName());
     	
-    	int result = complaintsService.complaintsInsert(complaintsVO, files);
+    	System.out.println(files1);
+    	int result = complaintsService.complaintsInsert(complaintsVO, files1);
 
         String message = "등록 실패";
 
@@ -132,8 +133,8 @@ public class ComplaintsController {
 
     // 민원게시판 수정 처리
     @PostMapping("update")
-    public String complaintsUpdate(ComplaintsVO complaintsVO, MultipartFile[] files, HttpSession session, Model model) throws Exception {
-        int result = complaintsService.complaintsUpdate(complaintsVO, files);
+    public String complaintsUpdate(ComplaintsVO complaintsVO, MultipartFile[] files1, HttpSession session, Model model) throws Exception {
+        int result = complaintsService.complaintsUpdate(complaintsVO, files1);
 
         String message = "등록 실패";
 

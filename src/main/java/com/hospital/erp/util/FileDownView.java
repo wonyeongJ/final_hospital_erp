@@ -27,13 +27,13 @@ import lombok.extern.slf4j.Slf4j;
 public class FileDownView extends AbstractView {
 
 	// 맥용 저장경로
-//    @Value("${app2.upload.nodeValue2}")
-//    private String filePath;
+    @Value("${app2.upload.nodeValue2}")
+    private String filePath;
 
-    // 윈도우용 저장경로
-	  @Value("${app.upload.nodeValue}")
-	  private String filePath;
-    
+//    // 윈도우용 저장경로
+//	  @Value("${app.upload.nodeValue}")
+//	  private String filePath;
+//    
     @Override
     protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
             HttpServletResponse response) throws Exception {

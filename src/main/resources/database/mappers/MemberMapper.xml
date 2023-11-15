@@ -15,12 +15,21 @@
 			C.CODE_NAME AS JOB_NAME,
 			M.MEM_HDATE,
 			M.MEM_ANNUAL,
-			C2.CODE_NAME AS POS_NAME
+			C2.CODE_NAME AS POS_NAME,
+			ifnull(COM.WORKTIME,0) AS WORKTIME
 		FROM 
 			MEMBER AS M
 				JOIN CODE AS C
 					ON M.JOB_CD = C.CODE_CD
-				LEFT OUTER JOIN COMMUTE AS COM
+				LEFT OUTER JOIN (SELECT 
+									MEM_CD, 
+									TIME_FORMAT(SEC_TO_TIME(SUM(TIMESTAMPDIFF(SECOND,COM_SDATE,COM_EDATE))),'%H시 %i분 %s초') AS WORKTIME
+								FROM 
+									COMMUTE
+								WHERE 
+									COM_SDATE > DATE_FORMAT(NOW(), '%Y-%m-01') 
+								GROUP BY 
+									MEM_CD) AS COM
 					ON M.MEM_CD = COM.MEM_CD
 				JOIN DEPARTMENT D
 					ON M.DEP_CD = D.DEP_CD
@@ -32,11 +41,20 @@
   	<!-- 직원 상세 조회 쿼리 -->
   	<select id="memberData" parameterType="MemberVO" resultType="MemberVO">
 		SELECT
-			*
+			M.*, C.CODE_NAME AS JOBNAME
 		FROM
-			MEMBER
+			MEMBER AS M
+				JOIN CODE AS C
+				ON M.JOB_CD = C.CODE_CD
 		WHERE
 			MEM_CD = #{memCd}
+  	</select>
+  	
+  	<select id="codeList" resultType="CodeVO">
+  		SELECT
+  			*
+  		FROM
+  			CODE  
   	</select>
   	
   	<!-- Member 테이블 Insert 전 사번 입력을위해 가장 마지막 사번 조회해오는 쿼리문 -->
@@ -73,36 +91,57 @@
   			15,
   			NULL,
   			0,
-  			NOW()
+  			NOW(),
+  			0,
+  			NULL,
+  			NULL,
+  			NULL,
+  			NULL
   			)
   			
   	</insert>
   	
   	<!--  시큐리티 로그인 조회 쿼리 -->
   	<select id="memberFindByData" parameterType="String" resultType="MemberVO">
-  		SELECT 
+		SELECT 
 			M.*, 
 			C.CODE_NAME AS JOB_NAME, 
 			C2.CODE_NAME AS POS_NAME, 
 			C3.CODE_NAME AS CODE_NAME, 
-			D.DEP_NAME 
+			D.DEP_NAME,
+			MF.MF_PATH 
 		FROM MEMBER AS M 
 			JOIN CODE AS C
 				ON M.JOB_CD = C.CODE_CD 
-			JOIN CODE C2
+			JOIN CODE AS C2
 				ON M.POS_CD = C2.CODE_CD 
-			JOIN CODE C3 
+			JOIN CODE AS C3 
 				ON M.CODE_CD = C3.CODE_CD 
-			JOIN DEPARTMENT D
-				ON M.DEP_CD = D.DEP_CD 
+			JOIN DEPARTMENT AS D
+				ON M.DEP_CD = D.DEP_CD
+			LEFT OUTER JOIN MEMBER_FILE AS MF
+				ON M.MEM_CD = MF.MEM_CD
 		WHERE M.MEM_CD = #{value}
   	</select>
+  	
+  	<update id="memberUpdate" parameterType="MemberVO">
+  		UPDATE
+			MEMBER
+		SET MEM_NAME = #{memName},
+			MEM_EMAIL = #{memEmail},
+			MEM_SALARY = #{memSalary},
+			DEP_CD = #{depCd},
+			MEM_ANNUAL = #{memAnnual},
+			POS_CD = #{posCd}
+		WHERE MEM_CD = #{memCd}
+  	</update>
   	
   	<update id="memberUpdatePassword" parameterType="MemberVO">
   		UPDATE
   			MEMBER	
   		SET
-  			MEM_PW = #{memPw}
+  			MEM_PW = #{memPw},
+  			MEM_ISPWCH = 1
   		WHERE
   			MEM_CD = #{memCd}
   	</update>
@@ -110,7 +149,7 @@
   	
   	<select id="memberListChart" resultType="MemberVO">
   		SELECT 
-			M.MEM_CD,
+			DISTINCT(M.MEM_CD),
 			M.MEM_NAME,
 			M.POS_CD,
 			M.DEP_CD,
@@ -134,4 +173,54 @@
 		ORDER BY M.MEM_CD
   	</select>
   	
+  	<update id="memberUpdateForgotPassword" parameterType="MemberVO">
+  		UPDATE
+  			MEMBER 
+		SET 
+			MEM_PW = #{memPw},
+			MEM_ISPWCH = 0
+		WHERE 
+			MEM_CD = #{memCd} AND 
+			MEM_EMAIL = #{memEmail}
+  	</update>
+  	
+  	<update id="memberProfileUpdate" parameterType="MemberVO">
+		UPDATE
+  			MEMBER 
+		SET 
+			MEM_ONAME = #{memOname},
+			MEM_FNAME = #{memFname},
+			MEM_PATH = #{memPath},
+			MEM_EXTENTION =  #{memExtention}
+		WHERE 
+			MEM_CD = #{memCd}
+			
+  	</update>
+  	
+  	<select id="memberDoctorList" parameterType="ReservationVO" resultType="MemberVO">
+		SELECT 
+			MEM.MEM_CD,
+			MEM.DEP_CD,
+			MEM.MEM_NAME
+		FROM 
+			MEMBER AS MEM
+		WHERE 
+			MEM_CD NOT IN
+						(SELECT 
+							M.MEM_CD
+						FROM 
+							MEMBER AS M
+							LEFT OUTER JOIN SCHEDULE AS S
+							ON M.MEM_CD =  S.MEM_CD 
+						WHERE
+							(
+							(#{resVdate} <![CDATA[<=]]> SCH_SDATE AND DATE_ADD(#{resVdate}, INTERVAL 1 HOUR) <![CDATA[>]]> SCH_SDATE) OR
+							(#{resVdate} <![CDATA[<]]> SCH_EDATE AND DATE_ADD(#{resVdate}, INTERVAL 1 HOUR) <![CDATA[>=]]> SCH_EDATE) OR
+							(#{resVdate} <![CDATA[>=]]> SCH_SDATE AND #{resVdate} <![CDATA[<]]> SCH_EDATE) OR
+							(DATE_ADD(#{resVdate}, INTERVAL 1 HOUR) <![CDATA[>]]> SCH_SDATE AND DATE_ADD(#{resVdate}, INTERVAL 1 HOUR) <![CDATA[<=]]> SCH_EDATE)
+							)
+							AND S.CODE_CD != 26)
+		AND JOB_CD = 03
+		AND DEP_CD = #{depCd}
+  	</select>
 </mapper>

@@ -40,21 +40,31 @@ public class SecuritySuccessHandler implements AuthenticationSuccessHandler{
 		
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		
-		// 권한에 따라 리디렉션 URL 설정
-       	for (GrantedAuthority authority : authorities) {
-            if (authority.getAuthority().equals("ROLE_ADMIN")) {
-                // ADMIN 권한이 있는 경우
-            	new DefaultRedirectStrategy().sendRedirect(request, response, "/member/list");
-                return;
-            } else if (authority.getAuthority().equals("ROLE_DOCTOR")) {
-                // DOCTOR 권한이 있는 경우
-            	new DefaultRedirectStrategy().sendRedirect(request, response, "/schedule/personalList");
-                return;
-            } else if (authority.getAuthority().equals("ROLE_NURSE")) {
-            	// NURSE 권한이 있는 경우
-            	new DefaultRedirectStrategy().sendRedirect(request, response, "/patient/list");
-            }
-        }
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	    UserDetails userDetails = (UserDetails)principal;
+	    MemberVO memberVO = (MemberVO)userDetails;
+	    if(memberVO != null) {
+	    	if(memberVO.getMemIspwch()<1) {
+	    		new DefaultRedirectStrategy().sendRedirect(request, response, "/member/mypage");
+	    		return;
+	    	}else {
+	    		// 권한에 따라 리디렉션 URL 설정
+	    		for (GrantedAuthority authority : authorities) {
+	    			if (authority.getAuthority().equals("ROLE_ADMIN")) {
+	    				// ADMIN 권한이 있는 경우
+	    				new DefaultRedirectStrategy().sendRedirect(request, response, "/member/list");
+	    				return;
+	    			} else if (authority.getAuthority().equals("ROLE_DOCTOR")) {
+	    				// DOCTOR 권한이 있는 경우
+	    				new DefaultRedirectStrategy().sendRedirect(request, response, "/schedule/personalList");
+	    				return;
+	    			} else if (authority.getAuthority().equals("ROLE_NURSE")) {
+	    				// NURSE 권한이 있는 경우
+	    				new DefaultRedirectStrategy().sendRedirect(request, response, "/patient/list");
+	    			}
+	    		}
+	    	}
+	    }
 
 		response.sendRedirect("/");
 	}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
     <!-- header -->
 	<div class="header">
 		<div class="header-left">
@@ -19,9 +20,11 @@
 				<div class="dropdown">
 					<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img src="/vendors/images/photo1.jpg" alt="">
+							<img src="<sec:authentication property="principal.memPath" />" alt="">
 						</span>
-						<span class="user-name">직원이름</span>
+						<span class="user-name">
+							<sec:authentication property="principal.memName" />
+						</span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 						<a class="dropdown-item" href="/member/mypage"><i class="dw dw-user1"></i> My Page</a>
