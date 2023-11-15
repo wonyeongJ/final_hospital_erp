@@ -59,62 +59,39 @@
 					<input class="form-control" type="hidden" name="resCd" value="${reservationVO.resCd}" >
 						<label>조치내용</label>
 						<input id="textareaValue" value="${reservationVO.resMHistory}" type="hidden">
-						<textarea class="form-control" name="resMHistory">${reservationVO.resMHistory}</textarea>
+						<textarea class="form-control" name="resMHistory" readonly>${reservationVO.resMHistory}</textarea>
 					</div>
 
 					<div class="form-group">
 						<label>처방</label>
 							<br>
-						<select class="custom-select2 form-control select2-hidden-accessible" id="drug-selected" name="state" style="width: 1000px;" data-select2-id="1" tabindex="-1" aria-hidden="true">
-							<c:forEach items="${drugs}" var="drug" varStatus="status">
-								<option id="" value="${drug}" data-select2-id="${drug}">${status.count}. ${drug}</option>
-							</c:forEach>
-						</select>	
-						<select class="custom-select col-12" id="howmany" name="codeName" style="width: 118px;">
-							<option value="1p">1p</option>
-							<option value="2p">2p</option>
-							<option value="3p">3p</option>
-							<option value="4p">4p</option>
-							<option value="5p">5p</option>
-							<option value="6p">6p</option>
-							<option value="7p">7p</option>
-							<option value="8p">8p</option>
-							<option value="9p">9p</option>
-							<option value="10p">10p</option>
-						</select>
-						<input type="button" id="drug-insert-btn" class="btn btn-outline-primary" value="처방에 추가하기">
-							<br>
 						<input id="textareaValue" value="${reservationVO.resDrug}" type="hidden">
-						<textarea class="form-control" id="drug-area" name="resDrug">${reservationVO.resDrug}</textarea>
+						<textarea class="form-control" id="drug-area" name="resDrug" readonly>${reservationVO.resDrug}</textarea>
 					</div>
 
-
-					<c:if test="${reservationVO.resClinic eq 1}">
-						<input type="radio" id="male" name="resClinic" value="0" class="custom-control-input">
-					</c:if>
 					<c:if test="${reservationVO.resClinic eq 0}">
-						<input type="radio" id="male" name="resClinic" value="0" class="custom-control-input" checked="checked">
+						<h5>예약 중</h5>
 					</c:if>
-
-
-					<div class="form-group row">
+					<c:if test="${reservationVO.resClinic eq 1}">
+						<h5>진료 완료</h5>
+					</c:if>
+					<!-- <div class="form-group row">
 						<div class="col-sm-12 col-md-10">
 							<div class="col-md-6 col-sm-12" style="text-align: justify;">
 								<div class="custom-control custom-radio mb-5" style="float: left">
-										<input type="radio" id="male" name="resClinic" value="0" class="custom-control-input">
+									<input type="radio" id="male" name="resClinic" value="0" class="custom-control-input">
 									<label class="custom-control-label" for="male">예약중</label>
 								</div>
 								<div class="custom-control custom-radio mb-5" style="float: left">
-										<input type="radio" id="female" name="resClinic"  value="1" class="custom-control-input" checked="checked">
+									<input type="radio" id="female" name="resClinic"  value="1" class="custom-control-input" checked="checked">
 									<label class="custom-control-label" for="female">진료완료</label>
 								</div>
 							</div>
 						</div>
-					</div>
-
-					<div style="display: flex; justify-content: flex-end;">
-						<button type="submit" class="btn btn-primary" onclick="return confirm('등록 하시겠습니까?')">확인</button>
-					</div>
+					</div> -->
+					<!-- <div style="display: flex; justify-content: flex-end;">
+						<button type="submit" class="btn btn-primary">확인</button>
+					</div> -->
 				</form>
 			</div>
 		</div>

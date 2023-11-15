@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hospital.erp.reservation.ReservationVO;
+
 /*
  * From 서동휘
  * Patient Service
@@ -40,4 +42,5 @@ public class PatientService {
 	public int patientUpdate(PatientVO patientVO) throws Exception {
 		return patientDAO.patientUpdate(patientVO);
 	}
+	
 }

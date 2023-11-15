@@ -46,6 +46,7 @@ public class PatientController {
 		model.addAttribute("patientVO", patientVO);
 		List<ReservationVO> reservationAr = reservationService.reservationListPatient(patientVO);
 		model.addAttribute("reservationAr", reservationAr);
+		// System.out.println(reservationAr);
 		return "patient/data";
 	}
 	
@@ -76,9 +77,6 @@ public class PatientController {
 	public String patientInsert(PatientVO patientVO) throws Exception {
 		int result = patientService.patinetInsert(patientVO);
 		return "redirect:./list";
-	}
-	
-
-	
+	}	
 	
 }

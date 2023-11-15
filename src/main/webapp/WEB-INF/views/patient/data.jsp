@@ -3,6 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<link rel="stylesheet" href="/vendors/styles/patient/data.css">
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,7 +64,7 @@
 								<th scope="col">예약날짜</th>
 								<th scope="col">작성자(간호사)</th>
 								<th scope="col">조치사항</th>
-								<th scope="col">Tag</th>
+								<th scope="col"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -72,7 +73,7 @@
 									<th scope="row">${i.index+1}</th>
 									<td>${reservationVO.depName}</td>
 									<td>${reservationVO.resMemName}</td>
-									<td><a href="/reservation/update?resCd=${reservationVO.resCd }">${reservationVO.resReason}</a></td>
+									<td><a href="/reservation/data?resCd=${reservationVO.resCd }" class="a1">${reservationVO.resReason}</a></td>
 									<td>${reservationVO.resVdate}</td>
 									<td>${reservationVO.memName}</td>
 									<c:if test="${reservationVO.resClinic eq 0}">
@@ -83,11 +84,11 @@
 									</c:if>
 									<td>
 										<c:if test="${reservationVO.resClinic eq 0}">
-											<a class="btn btn-success" href="/reservation/update?resCd=${reservationVO.resCd}">수정</a>
-											<button class="btn btn-danger">삭제</button>
+											<a class="btn btn-success" href="/reservation/update?resCd=${reservationVO.resCd}">진료 결과 작성</a>
+											<a class="btn btn-danger" href="/reservation/delete?resCd=${reservationVO.resCd}&patCd=${reservationVO.patCd}" onclick="return confirm('예약을 취소 하시겠습니까?');">취소</a>
 										</c:if>
 										<c:if test="${reservationVO.resClinic eq 1}">
-											<button class="btn btn-success">수정</button>
+											<a class="btn btn-success" href="/reservation/update?resCd=${reservationVO.resCd}">수정</a>
 										</c:if>
 									</td>
 								</tr>

@@ -4,11 +4,16 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 
 @Controller
@@ -16,10 +21,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DrugController {
 	
 	@GetMapping("list") 
-	public String equipmentList(Model model) throws Exception{ 
+	public String equipmentList(Model model, String page) throws Exception{ 
 		
+		if(page==null) {
+			page = "1";
+		}
+		if(Integer.parseInt(page) > 6 || Integer.parseInt(page) <= 0) {
+			page = "1";
+		}
 		// 1. URL을 만들기 위한 StringBuilder.
-        StringBuilder urlBuilder = new StringBuilder("http://api.odcloud.kr/api/15090584/v1/uddi:39290762-80a6-4568-bedf-a82df17a5ec9?page=1&perPage=1000&serviceKey=UiMzrPzzB%2BfoxLvhMW5sj5Lo1wjj4Ul4ELv5JY%2BO03RbkltQ69twhVLedyD3vwUb%2FDpiLOdSO8qsDJhRWFiv1g%3D%3D"); /*URL*/
+        StringBuilder urlBuilder = new StringBuilder("http://api.odcloud.kr/api/15090584/v1/uddi:39290762-80a6-4568-bedf-a82df17a5ec9?page="+ page +"&perPage=8943&serviceKey=UiMzrPzzB%2BfoxLvhMW5sj5Lo1wjj4Ul4ELv5JY%2BO03RbkltQ69twhVLedyD3vwUb%2FDpiLOdSO8qsDJhRWFiv1g%3D%3D"); /*URL*/
         // 2. 오픈 API의요청 규격에 맞는 파라미터 생성, 발급받은 인증키.
         // urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + URLEncoder.encode("testkey", "UTF-8")); /*Service Key*/
         // urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
@@ -51,7 +62,24 @@ public class DrugController {
         rd.close();
         conn.disconnect();
         // 11. 전달받은 데이터 확인.
-        System.out.println(sb.toString());
+//      System.out.println(sb.toString());
+        
+        JSONParser jsonParser = new JSONParser();
+        Object obj = jsonParser.parse(sb.toString());
+        JSONObject jsonObj = (JSONObject) obj;      
+        JSONArray drugArray = (JSONArray) jsonObj.get("data");
+
+        @SuppressWarnings("serial")
+		List<String> drugStringList = new ArrayList<>(){
+            {
+            	for(int i = 0; i < drugArray.size(); i++) {
+            		JSONObject drugJsonObj = (JSONObject) jsonParser.parse(drugArray.get(i).toString());
+            		add(drugJsonObj.get("약품명").toString());
+            	}
+            }
+        };
+
+        model.addAttribute("drugs", drugStringList);
 		
 		return "drug/list";
 		
