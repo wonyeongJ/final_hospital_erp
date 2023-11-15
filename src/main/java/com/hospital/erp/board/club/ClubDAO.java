@@ -60,10 +60,6 @@ public interface ClubDAO {
 	// 모임 탈퇴
 	public int clubMemberDrop(ClubMemberVO clubMemberVO)throws Exception;
 	
-
-	
-	
-	
 	// 댓글
 	
 	// 댓글 리스트

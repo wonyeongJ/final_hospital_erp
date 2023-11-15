@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,12 +44,16 @@ public class ComplaintsController {
     // 민원게시판 목록 화면
     @GetMapping("list")
     public String complaintsList(@AuthenticationPrincipal MemberVO memberVO,ComplaintsVO complaintsVO, Model model) throws Exception {
-        model.addAttribute("memCd",memberVO.getMemCd());
+        
+    	// 세션에서 각 정보들을 가져와 각각의 이름으로 jsp로 전달
+    	model.addAttribute("memCd",memberVO.getMemCd());
     	model.addAttribute("memName",memberVO.getMemName());
         model.addAttribute("depCd",memberVO.getDepCd());
     	
+        // 민원게시판의 글들을 리스트에 담아 data라는 이름으로 전달
     	List<ComplaintsVO> data = complaintsService.complaintsList(complaintsVO);
-        // DataTables에 데이터 전달
+       
+    	// DataTables에 데이터 전달
         model.addAttribute("data", data);
 
         return "board/complaints/list";
@@ -58,6 +63,7 @@ public class ComplaintsController {
     @GetMapping("insert")
     public String complaintsInsert(@AuthenticationPrincipal MemberVO memberVO,Model model) {
     	
+    	// 세션에서 가져온 정보들을 각각의 이름으로 jsp로 전달
     	model.addAttribute("memCd", memberVO.getMemCd());
     	model.addAttribute("memName", memberVO.getMemName());
     	model.addAttribute("depCd", memberVO.getDepCd());
@@ -71,11 +77,11 @@ public class ComplaintsController {
     @PostMapping("insert")
     public String complaintsInsert(@AuthenticationPrincipal MemberVO memberVO,ComplaintsVO complaintsVO, MultipartFile[] files1, HttpSession session, Model model) throws Exception {
        
+    	// 세션에서 가져온 정보들을 complaintsVO set 하고 인서트
     	complaintsVO.setMemName(memberVO.getMemName());
     	complaintsVO.setDepCd(memberVO.getDepCd());
     	complaintsVO.setDepName(memberVO.getDepName());
     	
-    	System.out.println(files1);
     	int result = complaintsService.complaintsInsert(complaintsVO, files1);
 
         String message = "등록 실패";
@@ -85,12 +91,15 @@ public class ComplaintsController {
         }
         model.addAttribute("message", message);
         model.addAttribute("url", "list");
+        
         return "commons/result";
     }
 
     // 민원게시판 상세 화면
     @GetMapping("data/{compCd}")
     public String complaintsData(@AuthenticationPrincipal MemberVO memberVO,@PathVariable int compCd, Model model) throws Exception {
+    	
+    	// 세션에서 가져온 정보들을 각각의 이름으로 jsp로 전달
     	model.addAttribute("memCd",memberVO.getMemCd());
     	model.addAttribute("memName",memberVO.getMemName());
         model.addAttribute("depCd",memberVO.getDepCd());
@@ -104,24 +113,25 @@ public class ComplaintsController {
             List<ComplaintsFileVO> fileList = complaintsService.fileData(compCd);
             complaintsVO.setList(fileList);
 
-            // 로그로 데이터 확인 (옵션)
-            log.info("List 데이터: {}", complaintsVO.getList());
-
             // Model에 공지사항 정보를 담아서 View로 전달합니다.
             model.addAttribute("data", complaintsVO);
 
             return "board/complaints/data";
+        
         } else {
-            // 민원게시판이 존재하지 않을 때 예외 처리 (View에서 메시지 표시 등)
-            return "redirect:/board/complaints/list"; // 에러 페이지로 리다이렉트 또는 다른 처리
+            
+        	// 민원게시판이 존재하지 않을 때 예외 처리 (View에서 메시지 표시 등)
+            return "redirect:/board/complaints/list"; 
         }
     }
 
     // 민원게시판 수정 화면
     @GetMapping("update/{compCd}")
     public String complaintsUpdate(@PathVariable int compCd, Model model) throws Exception {
-        ComplaintsVO complaintsVO = complaintsService.complaintsData(compCd);
-        // 민원게시판의 속하는 파일리스트를 가져온다
+        
+    	ComplaintsVO complaintsVO = complaintsService.complaintsData(compCd);
+        
+    	// 민원게시판의 속하는 파일리스트를 가져온다
         List<ComplaintsFileVO> fileList = complaintsService.fileData(compCd);
         complaintsVO.setList(fileList);
 
@@ -134,7 +144,8 @@ public class ComplaintsController {
     // 민원게시판 수정 처리
     @PostMapping("update")
     public String complaintsUpdate(ComplaintsVO complaintsVO, MultipartFile[] files1, HttpSession session, Model model) throws Exception {
-        int result = complaintsService.complaintsUpdate(complaintsVO, files1);
+        
+    	int result = complaintsService.complaintsUpdate(complaintsVO, files1);
 
         String message = "등록 실패";
 
@@ -147,17 +158,12 @@ public class ComplaintsController {
     }
 
     @GetMapping("fileDown")
-	public String fileDown(@RequestParam int bfCd,FileVO fileVO, Model model) throws Exception {
-	    System.out.println("Controller fileDown bfCd : " + bfCd);
-	 
-	    // 파일 상세조회
-	    fileVO = complaintsService.fileDown(fileVO);
+public ResponseEntity<byte[]> fileDown(@RequestParam int bfCd,FileVO fileVO, Model model) throws Exception {
 		
-	    // 모델에 파일 정보를 추가
-	    model.addAttribute("fileVO", fileVO);
+		fileVO.setBfCd(bfCd);
+		
+		return complaintsService.fileDown(fileVO);
 
-	    // 다운로드 뷰로 이동
-	    return "fileDownView";
 	}
 	
 	
@@ -166,9 +172,8 @@ public class ComplaintsController {
 	public String fileDelete(int bfCd,Model model,HttpSession session) throws Exception{
 		
 		int result = complaintsService.fileDelete(bfCd);
-		//System.out.println("이건 컨트롤"+bfCd);
+		
 		model.addAttribute("result",result);
-		//System.out.println("컨트롤러 리절" + result);
 		
 		return "commons/ajaxResult";
 	}
@@ -176,17 +181,17 @@ public class ComplaintsController {
     
     @GetMapping("/actionUpdate/{compCd}")
     public String updateAction(@PathVariable int compCd, @RequestParam int codeCdAction) throws Exception {
-        System.out.println("compCd :" + compCd);
-        System.out.println("codeCdaction :" + codeCdAction);
-        
+    	
+    	// 빈 complaintsVO 객체 생성
     	ComplaintsVO complaintsVO = new ComplaintsVO();
         
+    	// ajax로 받은 데이터를 해당 객체에 set
     	complaintsVO.setCompCd(compCd);
         complaintsVO.setCodeCdAction(codeCdAction);
         
         int result = complaintsService.actionUpdate(complaintsVO);
 
-        // 업데이트 후 리다이렉트 또는 다른 처리 수행
+    
         return "redirect:/board/complaints/list";
     }
     
@@ -195,6 +200,7 @@ public class ComplaintsController {
         
     	
             int result = complaintsService.complaintsDelete(compCd);
+            
             String message = "삭제 실패";
 
             if (result > 0) {

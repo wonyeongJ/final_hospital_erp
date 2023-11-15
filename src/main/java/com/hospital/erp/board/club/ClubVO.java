@@ -49,14 +49,10 @@ public class ClubVO extends FileVO{
     // 부서 코드 (DEP_CD 필드 추가)
     private int depCd;
     
+    // 부서 이름
     private String depName;
     
     // 현재인원
     private int currentMembers;
     
-//    // 작성자 이름
-//    private String writerName;
-//
-//    // 현재 가입 멤버들의 이름 목록 (쉼표로 구분된 문자열)
-//    private String clubMembers;
 }

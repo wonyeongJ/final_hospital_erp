@@ -26,7 +26,7 @@
 	<div class="pd-ltr-20 xs-pd-20-10">
 		<div class="min-height-200px">
 			<div class="card-box mb-30">
-				<div id="chart-container" style="text-align: center;">
+				<div id="chart-container" style="text-align: center;  overflow-x: auto; ">
 					<div id="orgchart">
 					
 					</div>

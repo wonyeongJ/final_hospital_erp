@@ -20,11 +20,10 @@ $(document).ready(function () {
         'order': [0, 'desc'] 
     });
 
-   
-
-    table.buttons().container()
-        .appendTo($('.dataTables_wrapper .col-md-6:eq(0)'));
-});
+  
+	    table.buttons().container()
+	        .appendTo($('.dataTables_wrapper .col-md-6:eq(0)'));
+	});
 
 // Notices
 $(document).ready(function () {
@@ -54,8 +53,9 @@ $(document).ready(function () {
         .appendTo($('.dataTables_wrapper .col-md-6:eq(0)'));
 });
 
-// Civil complaints bulletin board,company clubs
+// Civil complaints bulletin board, company clubs
 $(document).ready(function () {
+    // DataTables 초기화
     var table = $('.datatable2').DataTable({
         'scrollCollapse': true,
         'autoWidth': false,
@@ -72,43 +72,20 @@ $(document).ready(function () {
         'order': [0, 'desc']
     });
 
-    // Add PDF, Print, Copy, and CSV buttons
-    new $.fn.dataTable.Buttons(table, {
-        buttons: [
-            {
-                extend: 'pdfHtml5',
-                text: 'PDF',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'print',
-                text: 'Print',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'copyHtml5',
-                text: 'Copy',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'csvHtml5',
-                text: 'CSV',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            }
-        ]
-    });
+   // DataTables Buttons 초기화
+	new $.fn.dataTable.Buttons(table, {
+	    buttons: [
+	        'pdfHtml5',
+	        'print',
+	        'copyHtml5',
+	        'csvHtml5'
+	    ]
+	});
 
-    table.buttons().container()
-        .appendTo($('.dataTables_wrapper .col-md-6:eq(0)'));
-});
+
+	    // DataTables Buttons를 DataTables에 추가
+	    table.buttons().container().appendTo($('.dataTables_wrapper .col-md-6:eq(0)'));
+	});
 
 
 

@@ -44,9 +44,12 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 	socket.onmessage = function (msg) {
     let jsonObj = JSON.parse(msg.data);
     let one = $('#someone').attr("data-name");
-
+    let roomNum = $("#button-send").attr("data-room");
+    
+	let msgTag = "";
+	if(roomNum == jsonObj.roomNum){
     // sender, message, chatdate
-    let msgTag = "";
+   
     if (user == jsonObj.sender) {
         msgTag = '<div class="alert alert-primary myMsg msg text-end" role="alert" style="text-align: right;"><div>' +
             '나' + '</div><hr style="margin: 5px 0;">' +
@@ -56,12 +59,9 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
             one + '님의 메세지</div><hr style="margin: 5px 0;">' +
             '<div>' + jsonObj.message + '</div><div id="chatDate" style="text-align: left;">' + jsonObj.chatDate + '</div></div>';
     }
+   }
 
     $('#msgArea').append(msgTag);
-
-    // 보내온 값에서 방번호를 보내기 버튼의 속성에 저장해줌
-    $('#button-send').attr("data-room", jsonObj.roomNum);
-    $('#button-send').attr("data-receiver", jsonObj.receiver);
 
     // 메시지를 받은 후에 스크롤 함수 호출
     scrollToBottom();
@@ -121,6 +121,9 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 	
 	function enterRoom(socket,memCd, roomNum){
 		$('#msgArea').empty();
+		// 보내온 값에서 방번호를 보내기 버튼의 속성에 저장해줌
+	    $('#button-send').attr("data-room", roomNum);
+	    $('#button-send').attr("data-receiver", memCd);
 		//대상의 사진, 이름, 직책을 가져옴
 		getSomeone(memCd);
 		
@@ -131,6 +134,8 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 		let chatDate = getTodayDate();
 	    let enterMsg={"type" : "ENTER","roomNum":roomNum,"receiver":memCd,"message":"","chatDate":chatDate};
 	    socket.send(JSON.stringify(enterMsg));
+	    
+	    
 	}
 	
 	// send 함수 수정
@@ -212,7 +217,7 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
               
 
                $.each(searchList, function (index, value) {
-				    let a = '<a href="#" class="chatList" data-empNum="' + value.memCd + '">' + value.depName + " (" + value.jobName + ") : " + value.memName + '</a><br>';
+				    let a = '<i class="icon-copy fa fa-user-circle" aria-hidden="true"></i> '+'<a href="#" class="chatList" data-empNum="' + value.memCd + '">' + value.depName + " (" + value.jobName + ") : " + value.memName + '</a><br>';
 				    $('#listBox').append(a);
 				});
 	            } else {
@@ -238,7 +243,7 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 				if (response != null) {
 						
 				// 아이콘과 사용자 이름을 함께 보여주는 HTML 문자열 생성
-                let userDisplay = '<i class="icon-copy fa fa-user-circle" aria-hidden="true"></i> ' + response.one.memName + '님의 채팅';
+                let userDisplay = '<i class="icon-copy fa fa-user-circle" aria-hidden="true"></i> ' + response.one.memName +'님의 채팅';
 
                 // 결과를 특정 요소에 설정
                 $('#someone').html(userDisplay);
