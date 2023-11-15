@@ -16,12 +16,17 @@
 		INTO 
 			CONFIRM(EP_CD, MEM_CD, MEM_NAME, CON_STEP, CON_RDATE, CON_PSTATUS, CON_COMMENT)
 		VALUES
-			(#{dfCd}, #{memCd}, #{memName}, #{conStep}, NULL, 0, NULL),
-			(#{dfCd}, #{memCd}, #{memName}, #{conStep}, NULL, 0, NULL),
-			(#{dfCd}, #{memCd}, #{memName}, #{conStep}, NULL, 0, NULL)
+			(#{epCd}, #{memCd}, #{memName}, #{conStep}, NULL, 0, NULL)
 	</insert>
 
-
+	<select id="confirmList" parameterType="ConfirmVO" resultType="ConfirmVO">
+		SELECT
+			*
+		FROM
+			CONFIRM
+		WHERE
+			EP_CD=#{epCd}
+	</select>
 
 
 </mapper>

@@ -106,29 +106,41 @@ public class PaymentController {
 	
 	//실제로 결재문서 insert//결재추가(기안상신)
 	@PostMapping("insert")
-	public String paymentInsert(PaymentVO paymentVO, ConfirmVO confirmVO)throws Exception{
+	public String paymentInsert(PaymentVO paymentVO, String [] conMemCd, String [] conMemName, String [] conStep)throws Exception{
 		
-		/*
-		 * int result = paymentService.paymentInsert(paymentVO); 
-		 * int conResult = confirmService.confirmInsert(confirmVO);
-		 */
+		
+		 int result = paymentService.paymentInsert(paymentVO); 
+		 int conResult = confirmService.confirmInsert(paymentVO, conMemCd, conMemName, conStep);
+		 
 		
 		return "redirect:./list";
 	}
 	
 	//문서보기 data
 	@GetMapping("data")
-	public String paymentData(PaymentVO paymentVO, Model model) throws Exception{
+	public String paymentData(PaymentVO paymentVO,ConfirmVO confirmVO, Model model) throws Exception{
 		paymentVO = paymentService.paymentData(paymentVO);
 		model.addAttribute("paymentVO", paymentVO);
 		
+		List<ConfirmVO> conAr = confirmService.confirmList(confirmVO);
+		model.addAttribute("conList", conAr);
 		
 		log.info("=======paymentVO : {}========",paymentVO);
+		
+		//로그인 한 사람 데이터 가져오기
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	    UserDetails userDetails = (UserDetails)principal;
+	    MemberVO memberVO = (MemberVO)userDetails;
+		model.addAttribute("memberVO", memberVO);
 		
 		return "payment/data";
 	}
 	
-	
+	@PostMapping("data")
+	public String paymentData()throws Exception{
+		
+		return "redirect:./list";
+	}
 	
 	
 	

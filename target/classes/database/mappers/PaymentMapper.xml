@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.erp.payment.PaymentDAO">
-	<insert id="paymentInsert" parameterType="PaymentVO">
+	<insert id="paymentInsert" parameterType="PaymentVO" useGeneratedKeys="true" keyProperty="epCd">
 		INSERT INTO 
 			ELECTRONIC_PAYMENT
 				(
@@ -67,6 +67,25 @@
 				ON EP.EP_CD = CON.EP_CD
 			LEFT JOIN MEMBER AS MEM
 				ON EP.MEM_CD = MEM.MEM_CD
+		WHERE
+			(CON.CON_CD, CON.CON_STEP) IN
+				(
+				SELECT 
+					CON_CD, MIN(CON_STEP)
+				FROM
+					(
+					SELECT 
+						*
+					FROM 
+						CONFIRM 
+					WHERE 
+						CON_PSTATUS = 0
+					ORDER BY
+						EP_CD, CON_STEP
+					) A
+				GROUP BY
+					A.EP_CD				
+				)
 	</select>
 	
 	<select id="paymentList" parameterType="PaymentVO">
@@ -89,7 +108,25 @@
 			LEFT JOIN MEMBER AS MEM
 				ON EP.MEM_CD = MEM.MEM_CD
 		WHERE
-			EP.MEM_CD = #{memCd}
+			(CON.MEM_CD = #{memCd} OR EP.MEM_CD = #{memCd}) AND
+			(CON.CON_CD, CON.CON_STEP) IN
+				(
+				SELECT 
+					CON_CD, MIN(CON_STEP)
+				FROM
+					(
+					SELECT 
+						*
+					FROM 
+						CONFIRM 
+					WHERE 
+						CON_PSTATUS = 0
+					ORDER BY
+						EP_CD, CON_STEP
+					) A
+				GROUP BY
+					A.EP_CD				
+				)
 	</select>
 	
 	<!-- 전자결재문서 DETAIL -->
