@@ -40,6 +40,12 @@ public class MemberService implements UserDetailsService {
 	private EmailService emailService;
 	
 	@Autowired
+	private FileManager fileManager;
+	
+    private String uploadPath = "/static/upload/";
+	
+	
+	@Autowired
 	private S3Uploader s3Uploader;
 	 
 	//로그인처리 하는 메서드

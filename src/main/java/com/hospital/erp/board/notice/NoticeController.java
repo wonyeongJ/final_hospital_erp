@@ -2,7 +2,7 @@ package com.hospital.erp.board.notice;
 
 import java.util.List;
 import java.util.Map;
-
+import javax.print.DocFlavor.BYTE_ARRAY;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -53,10 +53,10 @@ public class NoticeController {
     @GetMapping("/board/notice/list")
     public String noticeList (@AuthenticationPrincipal MemberVO memberVO,NoticeVO noticeVO, Model model) throws Exception {
     	
-    	
+    	// 세션에서 가져온 부서코드를 memberVO 넣고 멤버라는 이름으로 전달
     	model.addAttribute("member", memberVO.getDepCd());
 
-    
+    	// 공지사항의 글들을 리스트에 담아 data 라는 이름으로 jsp로 전달
     	List<NoticeVO> data = noticeService.noticeList(noticeVO);
     	
     	
@@ -71,6 +71,7 @@ public class NoticeController {
     @GetMapping("insert")
     public String noticeInsert(@AuthenticationPrincipal MemberVO memberVO, Model model) {
        
+    	// 세선에서 가져온 정보들을 각각의 이름을 지정해 jsp 로 전달
         model.addAttribute("memCd", memberVO.getMemCd());
         model.addAttribute("memName", memberVO.getMemName());
         model.addAttribute("depCd", memberVO.getDepCd());
@@ -82,17 +83,11 @@ public class NoticeController {
     // 공지사항 등록 처리
     @PostMapping("insert")
     public String noticeInsert(@AuthenticationPrincipal MemberVO memberVO,NoticeVO noticeVO, MultipartFile[] files1, Model model) throws Exception {
-       
-    	
-    	
     	
         noticeVO.setMemName(memberVO.getMemName());
         noticeVO.setDepCd(memberVO.getDepCd());
         noticeVO.setDepName(memberVO.getDepName());
         
-        
-        System.out.println(noticeVO.toString());
-
         int result = noticeService.noticeInsert(noticeVO, files1);
 
         String message = "등록 실패";
@@ -107,7 +102,8 @@ public class NoticeController {
 	
 	@GetMapping("data/{notCd}")
 	public String noticeData(@AuthenticationPrincipal MemberVO memberVO, @PathVariable int notCd, Model model) throws Exception {
-	    // 버튼 유무를 위해 세션에서 해당 계정 정보를 받아온다
+	   
+		// 버튼 유무를 위해 세션에서 해당 계정 정보를 받아온다
 		model.addAttribute("member", memberVO.getDepCd());
 		
 		// 공지사항 조회수 증가
@@ -140,17 +136,12 @@ public class NoticeController {
 	}
 	
 	@GetMapping("fileDown")
-	public String fileDown(@RequestParam int bfCd,FileVO fileVO, Model model) throws Exception {
-	    System.out.println("Controller fileDown bfCd : " + bfCd);
-	 
-	    // 파일 상세조회
-	    fileVO = noticeService.fileDown(fileVO);
+	public ResponseEntity<byte[]> fileDown(@RequestParam int bfCd,FileVO fileVO, Model model) throws Exception {
 		
-	    // 모델에 파일 정보를 추가
-	    model.addAttribute("fileVO", fileVO);
+		fileVO.setBfCd(bfCd);
+		
+		return noticeService.fileDown(fileVO);
 
-	    // 다운로드 뷰로 이동
-	    return "fileDownView";
 	}
 	
 	
@@ -158,12 +149,13 @@ public class NoticeController {
 	@GetMapping("fileDelete")
 	public String fileDelete(int bfCd,Model model,HttpSession session) throws Exception{
 		
+		
 		int result = noticeService.fileDelete(bfCd);
-		//System.out.println("이건 컨트롤"+bfCd);
+
 		model.addAttribute("result",result);
 		System.out.println("컨트롤러 리절" + result);
 		
-		return "commons/ajaxResult";
+		return "ajax.commons/ajaxResult";
 	}
 	
 	
@@ -177,9 +169,6 @@ public class NoticeController {
         List<NoticeFileVO> fileList =noticeService.fileData(notCd);
         noticeVO.setList(fileList);
 
-       // log.info("=======notice {}=========", fileList);
-        
-		
 		model.addAttribute("data",noticeVO);
 			
 		return "board/notice/update";
@@ -206,7 +195,8 @@ public class NoticeController {
 	@RequestMapping(value = "delete/{notCd}", method = RequestMethod.POST)
 	@ResponseBody
 	public String noticeDelete(@PathVariable int notCd) throws Exception {
-	    int result = noticeService.noticeDelete(notCd);
+	    
+		int result = noticeService.noticeDelete(notCd);
 
 	    if (result > 0) {
 	        return "success";
@@ -219,7 +209,8 @@ public class NoticeController {
 	@PostMapping("noticeImportantCount")
 	@ResponseBody
 	public String noticeImportantCount(@RequestParam int notImportant, Model model) throws Exception {
-	    // 여기서 중요 공지사항이 3개 이상 등록되었는지 확인하는 로직을 작성
+	    
+		// 여기서 중요 공지사항이 3개 이상 등록되었는지 확인
 	    int importantCount = noticeService.noticeImportantCount(notImportant);
 
 	    if (importantCount >= 3) {
@@ -235,7 +226,8 @@ public class NoticeController {
 	@PostMapping("noticeChangeStatus")
 	@ResponseBody
 	public String changeStatus(@RequestParam("notCd") int notCd, @RequestParam("notImportant") int notImportant) throws Exception {
-	    NoticeVO noticeVO = new NoticeVO();
+	    
+		NoticeVO noticeVO = new NoticeVO();
 	    noticeVO.setNotCd(notCd);
 	    noticeVO.setNotImportant(notImportant);
 

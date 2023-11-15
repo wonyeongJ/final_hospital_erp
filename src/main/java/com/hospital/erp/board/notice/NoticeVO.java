@@ -46,6 +46,7 @@ public class NoticeVO extends FileVO{
     // 부서 코드 (DEP_CD 필드 추가)
     private int depCd;
     
+    // 부서 이름
     private String depName;
 	
 	
