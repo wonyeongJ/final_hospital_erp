@@ -34,10 +34,6 @@ public class ChatService {
     private Map<Long, RoomVO> chatRooms = new HashMap<>();//방저장
     private Map<String, Set<String>> memers = new HashMap<>();
 
-//    @PostConstruct
-//    private void init() {
-//        chatRooms = new LinkedHashMap<>();
-//    }
 
     public List<RoomVO> findAllRoom() throws Exception{
 

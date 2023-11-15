@@ -23,9 +23,13 @@ public class ClubMemberVO {
 	// 모임 생성날짜
 	private Date cmRdate;
 	
+	// 모임의 가입한 사람의 이름
 	private String memName;
 	
+	// 모입의 가입한 사람의 부서코드
 	private int depCd;
+	
+	// 모임의 가입한 사람의 부서이름
 	private String depName;
 	
 	

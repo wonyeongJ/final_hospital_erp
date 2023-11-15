@@ -35,7 +35,6 @@ public class ComplaintsService {
 	private String uploadPath;
 	
 	
-	
 	@Value("${app2.board.complaints}")
 	private String boardName;
 
@@ -51,20 +50,18 @@ public class ComplaintsService {
 	// 민원게시판 상세
 	public ComplaintsVO complaintsData(int compCd) throws Exception{
 			
-	        log.info("compCd {}번 민원게시판 데이터 조회 시도 중", compCd);
-	        ComplaintsVO complaintsVO = complaintsDAO.complaintsData(compCd);
-		      if (complaintsVO != null) {
-		          log.info("compCd {}번 민원게시판 데이터를 성공적으로 조회했습니다: {}", compCd, complaintsVO.toString());
-		      }
-		        return complaintsVO;
-    }
+		ComplaintsVO complaintsVO = complaintsDAO.complaintsData(compCd);
+		
+		if (complaintsVO != null) {
+		}
+		return complaintsVO;
+	}
 	
 	// 민원게시판 등록
 	public int complaintsInsert(ComplaintsVO complaintsVO, MultipartFile[] files1) throws Exception {
 
 		int result = complaintsDAO.complaintsInsert(complaintsVO);
 		int compCd = complaintsVO.getCompCd();
-		System.out.println("eeeeeeeeee");
 
 		if (files1 != null) {
 			// 파일 업로드 및 파일 정보 저장
@@ -107,13 +104,16 @@ public class ComplaintsService {
 
 	// 파일상세
 	public List<ComplaintsFileVO> fileData(int compCd)throws Exception{
+		
 		List<ComplaintsFileVO> fileList = complaintsDAO.fileData(compCd);
+		
 		return fileList;
 	}
 
 
 	// 민원게시판 업데이트
 	public int complaintsUpdate(ComplaintsVO complaintsVO,MultipartFile[] files1)throws Exception{
+		
 		int result = complaintsDAO.complaintsUpdate(complaintsVO);
 		int compCd = complaintsVO.getCompCd();
 
@@ -146,6 +146,7 @@ public class ComplaintsService {
 
 	// 조치상태 업데이트
 	public int actionUpdate(ComplaintsVO complaintsVO)throws Exception{
+		
 		int result = complaintsDAO.actionUpdate(complaintsVO);
 
 		return result;
@@ -153,6 +154,7 @@ public class ComplaintsService {
 
 	// 파일 다운로드
 	public ResponseEntity<byte[]> fileDown(FileVO fileVO) throws Exception{
+		
 		fileVO = complaintsDAO.fileDown(fileVO);
 
 		return s3Uploader.getObject(boardName+"/" + fileVO.getBfFname());
@@ -166,6 +168,7 @@ public class ComplaintsService {
 		
 		fileVO.setBfCd(bfCd);
 		
+		// 파일의 정보를 가져오기위해 fileDown 메서드를 이용해 하나의 사진 정보를 가져옴
 		fileVO = complaintsDAO.fileDown(fileVO);
 		
 		int result = complaintsDAO.fileDelete(bfCd);
@@ -178,6 +181,7 @@ public class ComplaintsService {
 
 	// 민원게시판 삭제 (논리삭제)
 	public int complaintsDelete(int compCd) throws Exception {
+		
 		ComplaintsVO complaintsVO = new ComplaintsVO();
 		complaintsVO.setCompCd(compCd);
 		complaintsVO.setCompDelete(1); // 1은 삭제 플래그

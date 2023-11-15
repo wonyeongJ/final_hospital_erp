@@ -68,6 +68,7 @@ public class ClubController {
 	@GetMapping("insert")
 	public String clubInsert(@AuthenticationPrincipal MemberVO memberVO, Model model) {
 		
+		// 세션에 있는 정보들을 가져와 각각의 이름으로 jsp로 전달
 		model.addAttribute("memCd", memberVO.getMemCd());
 		model.addAttribute("memName", memberVO.getMemName());
 		model.addAttribute("depCd", memberVO.getDepCd());
@@ -81,12 +82,14 @@ public class ClubController {
 	@PostMapping("insert")
 	public String clubInsert(@AuthenticationPrincipal MemberVO memberVO,ClubVO clubVO, MultipartFile[] files1, Model model) throws Exception {
 		
+		// 세션의 정보들을 가져와 clubVO 해당 객체에 set
 		clubVO.setMemName(memberVO.getMemName());
 		clubVO.setDepCd(memberVO.getDepCd());
 		clubVO.setDepName(memberVO.getDepName());
 		
 		int result = clubService.clubInsert(clubVO, files1);
-        if (result > 0) {
+        
+		if (result > 0) {
             model.addAttribute("message", "사내동호회 등록이 완료되었습니다.");
             model.addAttribute("url", "list");
         } else {
@@ -101,6 +104,7 @@ public class ClubController {
 	@PostMapping("clubMemberInsert")
 	public ResponseEntity<String> clubMemberInsert(@AuthenticationPrincipal MemberVO memberVO, @RequestParam("clubCd") int clubCd, ClubMemberVO clubMemberVO) throws Exception {
 
+		
 	    clubMemberVO.setMemName(memberVO.getMemName());
 	    clubMemberVO.setClubCd(clubCd);
 	    clubMemberVO.setMemCd(memberVO.getMemCd());
@@ -119,7 +123,8 @@ public class ClubController {
 	// 사내동호회 상세
 	@GetMapping("data")
     public String clubData(@AuthenticationPrincipal MemberVO memberVO,@RequestParam("clubCd") int clubCd, Model model) throws Exception {
-    	model.addAttribute("memCd",memberVO.getMemCd());
+    	
+		model.addAttribute("memCd",memberVO.getMemCd());
     	model.addAttribute("memName",memberVO.getMemName());
         model.addAttribute("depCd",memberVO.getDepCd());
         model.addAttribute("depName", memberVO.getDepName());
@@ -150,10 +155,6 @@ public class ClubController {
 		
 		model.addAttribute("commentList",commentList);
 		
-
-		// 로그로 데이터 확인 (옵션)
-		log.info("List 데이터: {}", clubVO.getList());
-
 		// Model에 공지사항 정보를 담아서 View로 전달합니다.
 		model.addAttribute("data", clubVO);
 
@@ -171,7 +172,7 @@ public class ClubController {
 	     
 	     model.addAttribute("data",clubVO);
 		
-		return "board/club/update";
+	     return "board/club/update";
 
 	}
 	
@@ -195,8 +196,10 @@ public class ClubController {
 	@RequestMapping(value = "delete/{clubCd}", method = RequestMethod.POST)
 	@ResponseBody
 	public String clubDelete(@PathVariable int clubCd) throws Exception {
-	    int result = clubService.clubDelete(clubCd);
-	    if (result > 0) {
+	    
+		int result = clubService.clubDelete(clubCd);
+	   
+		if (result > 0) {
 	        return "success";
 	    } else {
 	        return "failure";
@@ -205,7 +208,8 @@ public class ClubController {
 	
 	@PostMapping("clubMemberDrop")
 	public String clubMemberDrop(@RequestParam("clubCd") int clubCd, @AuthenticationPrincipal MemberVO memberVO) throws Exception {
-	    String memCd = memberVO.getMemCd();
+	   
+		String memCd = memberVO.getMemCd();
 	    
 	    ClubMemberVO clubMemberVO = new ClubMemberVO();
 	    clubMemberVO.setClubCd(clubCd);
@@ -215,11 +219,9 @@ public class ClubController {
 	    
 	    if (result > 0) {
 	        // 탈퇴 성공
-	        // 여기에서 원하는 작업 수행, 예: 메시지 표시 또는 페이지 리다이렉션
 	        return "redirect:/board/club/data/" + clubCd; // 탈퇴 후 클럽 상세 페이지로 리다이렉션
 	    } else {
 	        // 탈퇴 실패
-	        // 여기에서 원하는 작업 수행, 예: 에러 메시지 표시 또는 페이지 리다이렉션
 	        return "redirect:/board/club/data/" + clubCd; // 실패 시 해당 클럽 상세 페이지로 리다이렉션
 	    }
 	}
@@ -254,7 +256,8 @@ public class ClubController {
 	@PostMapping("commentInsert")
 	@ResponseBody
 	public Map<String, Object> commentInsert(@RequestParam("clubCd") int clubCd, CommentVO commentVO, @AuthenticationPrincipal MemberVO memberVO) throws Exception {
-	    Map<String, Object> response = new HashMap<>();
+	   
+		Map<String, Object> response = new HashMap<>();
 	    
 	    commentVO.setMemCd(memberVO.getMemCd());
 	    commentVO.setDepCd(memberVO.getDepCd());
@@ -272,7 +275,8 @@ public class ClubController {
 	// 사내동호회 모집상태 업데이트
 	@PostMapping("/clubStatusUpdate")
     public ResponseEntity<String> clubStatusUpdate(@RequestParam("clubCd") int clubCd, @RequestParam("clubStatus") int clubStatus) {
-        try {
+        
+		try {
             ClubVO clubVO = new ClubVO();
             clubVO.setClubCd(clubCd);
             clubVO.setClubStatus(clubStatus);
@@ -293,8 +297,10 @@ public class ClubController {
 	@PostMapping("commentUpdate")
 	@ResponseBody
 	public Map<String, Object> commentUpdate(@RequestParam("commCd") int commCd, @RequestParam("commContents") String commContents) {
-	    Map<String, Object> result = new HashMap<>();
-	    try {
+	    
+		Map<String, Object> result = new HashMap<>();
+	    
+		try {
 	        CommentVO commentVO = new CommentVO();
 	        commentVO.setCommCd(commCd);
 	        commentVO.setCommContents(commContents);
@@ -316,7 +322,7 @@ public class ClubController {
 	@PostMapping("commentDelete")
 	@ResponseBody
     public int commentDelete(@RequestParam("commCd") int commCd) throws Exception {
-        // 여기서 적절한 서비스 메서드를 호출하여 댓글 삭제 로직을 수행합니다.
+       
         int deleteResult = clubService.commentDelete(commCd);
 
         // 삭제 결과를 반환

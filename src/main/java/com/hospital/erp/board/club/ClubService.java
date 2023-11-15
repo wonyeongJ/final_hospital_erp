@@ -96,19 +96,20 @@ public class ClubService {
 	
 	
 	// 사내동호회 상세
-		public ClubVO clubData(int clubCd) throws Exception{
-				
-		        log.info("clubCd {}번 사내동호회 데이터 조회 시도 중", clubCd);
-		        ClubVO clubVO = clubDAO.clubData(clubCd);
-			      if (clubVO != null) {
-			          log.info("clubCd {}번 사내동호회 데이터를 성공적으로 조회했습니다: {}",clubCd, clubVO.toString());
-			      }
-			        return clubVO;
-	    }
+	public ClubVO clubData(int clubCd) throws Exception{
+
+		ClubVO clubVO = clubDAO.clubData(clubCd);
+
+		if (clubVO != null) {
+		}
+		return clubVO;
+	}
 		
 	// 사내동호회 멤버 리스트	
 	public List<ClubMemberVO> clubMemberList(int clubCd)throws Exception{
+		
 		List<ClubMemberVO> memberList = clubDAO.clubMemberList(clubCd);
+		
 		return memberList;
 	}	
 		
@@ -154,6 +155,7 @@ public class ClubService {
 		
 	// 사내동호회 모집상태 업데이트
 	public int clubStatusUpdate(ClubVO clubVO)throws Exception{
+		
 		int result = clubDAO.clubStatusUpdate(clubVO);
 		
 		return result;
@@ -163,13 +165,15 @@ public class ClubService {
 	
 	// 클럽 멤버 등록
 	public int clubMemberInsert(ClubMemberVO clubMemberVO)throws Exception{
+		
 		int result = clubDAO.clubMemberInsert(clubMemberVO);
 		
 		return result;
 	}
 	// 가입여부 확인
 	public boolean clubMemberCk(int clubCd, String memCd) throws Exception {
-	     ClubMemberVO clubMemberVO = new ClubMemberVO();
+	    
+		ClubMemberVO clubMemberVO = new ClubMemberVO();
 	     clubMemberVO.setClubCd(clubCd);
 	     clubMemberVO.setMemCd(memCd);
 
@@ -187,6 +191,7 @@ public class ClubService {
 	
 	// 파일 다운로드
 	public ResponseEntity<byte[]> fileDown(FileVO fileVO) throws Exception{
+		
 		fileVO = clubDAO.fileDown(fileVO);
 
 		return s3Uploader.getObject(boardName+"/" + fileVO.getBfFname());
@@ -235,8 +240,6 @@ public class ClubService {
 	public int clubDelete(int clubCd) throws Exception{
 		return clubDAO.clubDelete(clubCd);
 	}	
-
-	
 	
 	// 댓글
 	
@@ -262,9 +265,9 @@ public class ClubService {
 	
 	// 댓글 삭제
 	public int commentDelete(int commCd) throws Exception {
-			int result = clubDAO.commentDelete(commCd);
-	        
-			return result;
+		int result = clubDAO.commentDelete(commCd);
+
+		return result;
 		}
 
 	}

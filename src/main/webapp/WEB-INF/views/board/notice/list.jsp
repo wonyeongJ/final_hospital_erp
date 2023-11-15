@@ -9,71 +9,70 @@
         <h4 class="text-blue h4">공지사항</h4>
     </div>
     <div class="pb-20">
-    	
-       <c:choose>
-		       <c:when test="${member == 2}">
-		         <table class="datatable table nowrap">
-		        </c:when>
-		   <c:otherwise>
-		          <table class="datatable3 table nowrap">
-		     </c:otherwise>
-		</c:choose>
-            <thead>
-                <tr>
-                    <th>NO</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성날짜</th>
-                    <th>조회수</th>
-                    <c:choose>
-                        <c:when test="${member == 2}">
-                            <th>상태변경</th>
-                        </c:when>
-                        <c:otherwise>
-                        </c:otherwise>
-                    </c:choose>
+        <c:choose>
+            <c:when test="${member == 2}">
+                <table class="datatable table nowrap">
+            </c:when>
+            <c:otherwise>
+                <table class="datatable3 table nowrap">
+            </c:otherwise>
+        </c:choose>
+        <thead>
+            <tr>
+                <th>NO</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성날짜</th>
+                <th>조회수</th>
+                <c:choose>
+                    <c:when test="${member == 2}">
+                        <th>상태변경</th>
+                    </c:when>
+                    <c:otherwise>
+                    </c:otherwise>
+                </c:choose>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${data}" var="notice" varStatus="loop">
+                <tr style="${notice.notImportant eq 1 ? 'background-color: #f9f9f8;' : ''}">
+                    <td>
+                        <c:choose>
+                            <c:when test="${notice.notImportant eq 1}">
+                                <span style="border: 2px solid #ffc6c9;
+                                            background-color: #ffe3e4;
+                                            color: #ff4e59;">  중요공지  </span>
+                            </c:when>
+                            <c:otherwise>
+                                ${loop.index + (-2)}
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td><a style="color: black;" href="./data/${notice.notCd}">${notice.notTitle}</a></td>
+                    <td>${notice.depName} : ${notice.memName}</td>
+                    <td>${notice.notRdate}</td>
+                    <td>${notice.notHit}</td>
+
+                    <!-- 멤버가 2일 때만 보여질 <td> -->
+                    <c:if test="${member == 2}">
+                        <td style="width: 120px">
+                            <c:choose>
+                                <c:when test="${notice.notImportant eq 1}">
+                                    <button class="my btn btn-primary" type="button" id="btn" data-notcd="${notice.notCd}" data-notimportant="0" style="color: white; width: 100px; height: 40px; font-size: 12px">
+                                        (일반)상태변경
+                                    </button>
+                                </c:when>
+                                <c:otherwise>
+                                    <button class="my btn btn-danger" type="button" id="btn" data-notcd="${notice.notCd}" data-notimportant="1" style="color: white; width: 100px; height: 40px; font-size: 12px">
+                                        (중요)상태변경
+                                    </button>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </c:if>
                 </tr>
-            </thead>
-           <tbody>
-			    <c:forEach items="${data}" var="notice" varStatus="loop">
-			        <tr style="${notice.notImportant eq 1 ? 'background-color: #f9f9f8;' : ''}">
-			            <td>
-			                <c:choose>
-			                    <c:when test="${notice.notImportant eq 1}">
-			                        <span style="border: 2px solid #ffc6c9;
-											    background-color: #ffe3e4;
-											    color: #ff4e59;">  중요공지  </span>
-			                    </c:when>
-			                    <c:otherwise>
-			                        ${loop.index + (-2)}
-			                    </c:otherwise>
-			                </c:choose>
-			            </td>
-			            <td><a style="color: black;" href="./data/${notice.notCd}">${notice.notTitle}</a></td>
-			            <td>${notice.depName} : ${notice.memName}</td>
-			            <td>${notice.notRdate}</td>
-			            <td>${notice.notHit}</td>
-			
-			            <!-- 멤버가 2일 때만 보여질 <td> -->
-			            <c:if test="${member == 2}">
-			                <td style="width: 120px">
-			                    <c:choose>
-			                        <c:when test="${notice.notImportant eq 1}">
-			                            <button class="my btn btn-primary" type="button" id="btn" data-notcd="${notice.notCd}" data-notimportant="0" style="color: white; width: 100px; height: 40px; font-size: 12px">
-			                                (일반)상태변경
-			                            </button>
-			                        </c:when>
-			                        <c:otherwise>
-			                            <button class="my btn btn-danger" type="button" id="btn" data-notcd="${notice.notCd}" data-notimportant="1" style="color: white; width: 100px; height: 40px; font-size: 12px">
-			                                (중요)상태변경
-			                            </button>
-			                        </c:otherwise>
-			                    </c:choose>
-			                </td>
-			            </c:if>
-			        </tr>
-			    </c:forEach>
-			</tbody>
+            </c:forEach>
+        </tbody>
         </table>
         <c:choose>
             <c:when test="${member == 2}">
@@ -90,6 +89,7 @@
     </div>
 </div>
 <!-- Datatable End -->
+
 
 <script>
 $(document).ready(function() {

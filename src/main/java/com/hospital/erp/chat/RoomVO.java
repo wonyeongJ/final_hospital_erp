@@ -12,8 +12,13 @@ import lombok.Setter;
 @ToString
 public class RoomVO {
 
+	// 채팅방 번호
 	private Long roomNum;
-    private Long user1;
-    private Long user2;
+    
+	// 채팅방의 멤버
+	private Long user1;
+    
+	// 채팅방의 멤버
+	private Long user2;
     
 }
