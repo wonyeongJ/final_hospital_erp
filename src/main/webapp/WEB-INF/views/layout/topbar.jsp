@@ -61,7 +61,7 @@
     </div>
     <div class="header-right" style="width: 90%">
 
-        <div id="topbarNoticeContainer" style="margin-right: 2%;">
+        <div id="topbarNoticeContainer" style="margin-right: 15%;">
             <!-- 중요 공지사항을 담을 컨테이너 -->
             <table class="notice-table">
                 <tbody>
