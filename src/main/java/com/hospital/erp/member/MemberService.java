@@ -33,8 +33,12 @@ public class MemberService implements UserDetailsService {
 	@Autowired 
 	private MemberDAO memberDAO;
 	 
+	private final PasswordEncoder passwordEncoder;
+	
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	public MemberService(PasswordEncoder passwordEncoder) {
+	   this.passwordEncoder = passwordEncoder;
+	}
  
 	@Autowired
 	private EmailService emailService;
@@ -72,7 +76,12 @@ public class MemberService implements UserDetailsService {
 	
 	//직원 등록 메서드
 	public int memberInsert(MemberVO memberVO) throws Exception {
-		
+		char gender =memberVO.getMemRnum().charAt(7);
+		if(gender == '1' || gender == '3'){
+			memberVO.setCodeCd(1);
+		}else {
+			memberVO.setCodeCd(2);
+		}
 		log.info("===========MemberVO {}", memberVO);
 		// memberVO 값에서 일부분만 수정할거기때문에 바꿀 내용을 임시 객체 maxMemberVO를 통해 저장한다.
 		MemberVO maxMemberVO = new MemberVO(); 
@@ -80,7 +89,7 @@ public class MemberService implements UserDetailsService {
 		maxMemberVO.setJobCd(memberVO.getJobCd());
 		
 		// ex) 2303 LIKE에 들어갈 연도 + 직무코드 만들기
-		String yearStart = maxMemberVO.getMemHdate().toString().substring(2, 4); //23
+		String yearStart = maxMemberVO.getMemHdate().toString().substring(2, 4);
 		String selectjobCode = "";
 		if (maxMemberVO.getJobCd() < 10) {
 			String addZero = "0";
@@ -121,7 +130,11 @@ public class MemberService implements UserDetailsService {
 		String [] juminAr = memberVO.getMemRnum().split("-");
 		memberVO.setMemPw(passwordEncoder.encode(juminAr[0]));
 	
-		return memberDAO.memberInsert(memberVO);
+		int result = memberDAO.memberInsert(memberVO);
+		if(result > 0) {
+			emailService.sendEmail(memberVO.getMemEmail(), memberVO.getMemCd());
+		}
+		return result;
 	}
 	
 	// passwordUpdate
@@ -152,7 +165,7 @@ public class MemberService implements UserDetailsService {
 		return memberDAO.memberUpdate(memberVO);
 	}
 	
-	// forgotPassword 로 사번 이메일 받아서 해당하는 
+	// forgotPassword 로 사번 이메일 받아서 해당메일로 임시비밀번호 생성
 	public int memberUpdateForgotPassword(MemberVO memberVO) throws Exception {
 		// 이메일로 임시비밀번호 보내기
 		String temporaryPassword = emailService.sendEmail(memberVO.getMemEmail());
@@ -162,6 +175,14 @@ public class MemberService implements UserDetailsService {
 		int result = memberDAO.memberUpdateForgotPassword(memberVO); 
 		return result;
 	}
+	
+	// 회원가입시 이메일 인증 서비스
+//	public String emailAuthenticationCode(String email) throws Exception {
+//		// 이메일 서비스에서 메서드 실행될때이 값 구분을 위해서 넣어주는 mailKind
+//		String mailKind = "Au";
+//		String emailValue = emailService.sendEmail(email, mailKind);
+//		return emailValue;
+//	}
 	
 	// memberProfile Insert 메서드
 	public int memberProfileInsert(MemberVO memberVO,MultipartFile multipartFile) throws Exception {
@@ -201,10 +222,58 @@ public class MemberService implements UserDetailsService {
 
 		return result;
 	}
-	
+
+	// memberStamp Insert 메서드
+	public int memberStampUpdate(MemberVO memberVO,MultipartFile multipartFile) throws Exception {
+		log.info("서비스 진입 memberVO {} ==============",memberVO);
+		int result = 0;
+		// file이 없지 않다면
+		if(!multipartFile.isEmpty()) {
+			// 이미지 파일만 넣기
+			String[] allowedExtensions = {"jpg", "jpeg", "png", "gif"};
+			// 파일 확장자 추출
+			String extension = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
+			// 이미지파일 확장자일 경우에만 넣기
+			for (String allowExtension : allowedExtensions) {
+				if(allowExtension.equals(extension)) {
+					//memberVO 의 memPath 값이 null 아니라면 즉 이미 파일이 올라가있으면
+					if(memberVO.getMemSPath() != null) {
+						s3Uploader.deleteFile("stamp/"+memberVO.getMemSFname());
+					}
+					// 파일의 원본이름 가져와서 MemberVO 에 넣기
+					memberVO.setMemSOname(multipartFile.getOriginalFilename());
+					// 확장자명 추출해서 넣기 
+					memberVO.setMemSExtention(extension);
+					// UUID 넣어서 filename 만들기
+					String fileName = s3Uploader.getUuid(multipartFile);
+					memberVO.setMemSFname(fileName);
+					//S3에 업로드
+					String s3Url = s3Uploader.upload(multipartFile, "stamp",fileName);
+					memberVO.setMemSPath(s3Url);
+					log.info("===========fileVO {}========");
+					result = memberDAO.memberStampUpdate(memberVO);
+					log.info("===============memberVO {} ========",memberVO);
+				}
+					
+				
+			}
+		}
+
+		return result;
+	}
+		
 	// reservation search 메서드 해당시간부서를통해 가능한 담당의 찾기위한 메서드
 	public List<MemberVO> memberDoctorList(ReservationVO reservationVO) throws Exception{
 		return memberDAO.memberDoctorList(reservationVO);
 	}
 	
+	// 퇴사자 등록 메서드
+	public int memberUpdateExpired(MemberVO memberVO) throws Exception {
+		return memberDAO.memberUpdateExpired(memberVO);
+	}
+	
+	// 퇴사자 직원 조회 메서드
+	public List<MemberVO> memberListExpired() throws Exception{
+		return memberDAO.memberListExpired();
+	}
 }

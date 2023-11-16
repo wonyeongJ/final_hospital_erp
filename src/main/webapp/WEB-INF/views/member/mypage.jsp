@@ -27,10 +27,19 @@
 	</div>
 	<div class="col-lg-2 col-md-6 col-sm-12 mb-30" style="float:left;">
 		<div class="da-card">
-			<c:set var="memPath" value="<sec:authentication property='principal.memPath' />" />
+			
+			<sec:authentication property="principal.memPath" var="memPath"/>
+			<c:if test="${empty memPath}">
+				<div class="da-card-photo">
+	            	<img src="/img/sign/기본이미지.jpg" alt="">
+	         	</div>
+			</c:if>
+			<c:if test="${memPath ne null }">
 	         <div class="da-card-photo">
 	            <img src="<sec:authentication property="principal.memPath" />" alt="">
 	         </div>
+	         </c:if>
+	         
 			<div class="da-card-content" style="display: flex; justify-content: center;">
 				<a href="#" type="button" class="btn btn-primary ms-30" data-toggle="modal" data-target="#profile-modal" >프로필사진 변경</a>
 				<div class="modal fade" id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
@@ -84,7 +93,28 @@
 			</li>
 		</ul>
 		<div style="display: flex; justify-content: flex-end;">
-			<button type="button" class="btn btn-primary" style="margin-right: 10px;">도장/사인 이미지 변경</button>
+			<a href="#" type="button" class="btn btn-primary ms-30" data-toggle="modal" data-target="#stamp-modal" style="margin-right: 10px;" >도장/사인 이미지 변경</a>
+			<div class="modal fade" id="stamp-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="text-center text-primary">도장&사인 이미지 변경</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							</div>
+							
+							<div class="modal-body">
+								 <img src="<sec:authentication property="principal.memSPath" />" alt="">
+								<form action="stampUpdate" method="post" id="stampUpdateFrm" enctype="multipart/form-data">
+									<input type="file" class="form-control" name="multipartFile">
+								</form>
+							</div>
+							<div class="modal-footer">
+								<a type="button" id="stampUpdateBtn" class="btn btn-primary btn-lg btn-block">Submit</a>
+							</div>
+											
+						</div>
+					</div>
+				</div>
 			<a href="#" type="button" class="btn btn-primary ms-30" data-toggle="modal" data-target="#Medium-modal" >비밀번호 변경</a>
 			<div class="modal fade" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered">
