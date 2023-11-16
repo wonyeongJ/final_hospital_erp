@@ -27,6 +27,7 @@ import com.hospital.erp.department.DepartmentService;
 import com.hospital.erp.department.DepartmentVO;
 import com.hospital.erp.equipment.EquipmentHistoryVO;
 import com.hospital.erp.equipment.EquipmentService;
+import com.hospital.erp.payment.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,6 +54,9 @@ public class MemberController {
 	  
 	  @Autowired
 	  private EquipmentService equipmentService;
+	  
+	  @Autowired
+	  private PaymentService paymentService;
 	    
 	  
 	  // 직원 리스트 요청 메서드
