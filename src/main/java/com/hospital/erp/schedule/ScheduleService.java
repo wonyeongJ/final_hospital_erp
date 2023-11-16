@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hospital.erp.common.CodeVO;
+import com.hospital.erp.commute.CommuteVO;
 import com.hospital.erp.department.DepartmentVO;
 import com.hospital.erp.member.MemberVO;
 
@@ -87,6 +88,10 @@ public class ScheduleService {
 	public List<ScheduleVO> personalScheduleCheck(ScheduleVO scheduleVO) throws Exception {
 		List<ScheduleVO> scheduleList = scheduleDAO.personalScheduleCheck(scheduleVO);
 		return scheduleList;
+	}
+
+	public void commuteInsert(ScheduleVO scheduleVO) throws Exception{
+		scheduleDAO.commuteInsert(scheduleVO);
 	}
 	
 }

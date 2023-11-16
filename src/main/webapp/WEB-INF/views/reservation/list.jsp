@@ -22,8 +22,7 @@
 						<div class="pull-left">
 							<h4 class="text-blue h4" style="display: flex; float: left;">진료 관리</h4>
 							<label style="display: flex; justify-content: flex-end;">&nbsp;&nbsp;&nbsp;&nbsp;금일 진료목록</label>
-							<span class="switchery switchery-default" style="background-color: rgb(0, 89, 178); border-color: rgb(0, 89, 178); box-shadow: rgb(0, 89, 178) 0px 0px 0px 16px inset; transition: border 0.4s ease 0s, box-shadow 0.4s ease 0s, background-color 1.2s ease 0s;"><small style="left: 20px; transition: background-color 0.4s ease 0s, left 0.2s ease 0s; background-color: rgb(255, 255, 255);"></small></span>
-						</div>
+							</div>
 					</div>
 					<table class="table table-bordered">
 						<thead>

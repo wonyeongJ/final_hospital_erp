@@ -29,31 +29,31 @@ $(document).ready(function(){
 		if(codeCd == 26){
 			$('.'+ memCd).attr('id', 'on');
 			for(var j = 0; j < 24; j++){
-				$('#'+ memCd + '-' + String(j+1)).attr('class', 'o')
+				$('#'+ memCd + '-' + String(j+1)).attr('class', 'o teamList')
 			}
 		}
 		
 		switch (codeCd) {
 		    case 15: // 수술 일정
 				for(var j = start; j < end; j++){
-					$('#'+ memCd + '-' + String(j+1)).attr('class', 'g')
+					$('#'+ memCd + '-' + String(j+1)).attr('class', 'g teamList')
 					$('#'+ memCd + '-' + String(j+1)).attr('time', time)
 				};
 		    break;
 		    case 16: // 연차
 		    	for(var j = 0; j < 24; j++){
-					$('#'+ memCd + '-' + String(j+1)).attr('class', 'r')
+					$('#'+ memCd + '-' + String(j+1)).attr('class', 'r teamList')
 				}
 			break;
 			case 18: // 환자 진료 일정
 		    	for(var j = start; j < end; j++){
-					$('#'+ memCd + '-' + String(j+1)).attr('class', 'y')
+					$('#'+ memCd + '-' + String(j+1)).attr('class', 'y teamList')
 					$('#'+ memCd + '-' + String(j+1)).attr('time', time)
 				};
 			break;
 			case 25: // 개인 일정
 		    	for(var j = start; j < end; j++){
-					$('#'+ memCd + '-' + String(j+1)).attr('class', 'p')
+					$('#'+ memCd + '-' + String(j+1)).attr('class', 'p teamList')
 					$('#'+ memCd + '-' + String(j+1)).attr('time', time)
 				};
 		    break;
