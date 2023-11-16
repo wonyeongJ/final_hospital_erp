@@ -208,4 +208,9 @@ public class NoticeService {
 	public int noticeChangeStatus(NoticeVO noticeVO) throws Exception {
 		return noticeDAO.noticeChangeStatus(noticeVO.getNotCd(), noticeVO.getNotImportant());
     }
+	
+	// 중요공지 리스트 TopBar
+	public List<NoticeVO> noticeImportantList (NoticeVO noticeVO) throws Exception{
+		return noticeDAO.noticeImportantList(noticeVO);
+	}
 }

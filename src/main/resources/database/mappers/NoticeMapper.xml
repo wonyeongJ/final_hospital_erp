@@ -205,5 +205,29 @@
 	    WHERE 
 	    	NOT_CD = #{notCd}
 </update>
+
+<select id="noticeImportantList" parameterType="NoticeVO" resultType="NoticeVO">
+		SELECT
+	        N.NOT_CD,
+	        N.MEM_CD,
+	        M.MEM_NAME,
+	        D.DEP_CD,
+	        D.DEP_NAME,
+	        N.NOT_TITLE,
+	        N.NOT_CONTENTS,
+	        N.NOT_HIT,
+	        N.NOT_IMPORTANT,
+	        N.NOT_DELETE,
+	        N.NOT_RDATE
+	    FROM
+	        NOTICE N
+	    LEFT JOIN
+	        MEMBER M ON N.MEM_CD = M.MEM_CD
+	    LEFT JOIN
+	        DEPARTMENT D ON M.DEP_CD = D.DEP_CD
+	    WHERE
+				N.NOT_IMPORTANT = 1;  
+
+</select>
   	
 </mapper>
