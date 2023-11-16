@@ -157,6 +157,11 @@ application-db.yml
 application-dev3.yml
 
 
+# intellij file ignore
+.idea
+*.iml
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,eclipse,java,macos
-src/main/resources/application-dev.yml
-target/classes/application-dev.yml
