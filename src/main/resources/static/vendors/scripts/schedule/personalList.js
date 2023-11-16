@@ -28,11 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
 						events: data,
 					dateClick: function(info) { 
 						let date = info.dateStr
-						location.replace('insert?date='+date)
+						location.href = 'insert?date='+date;
 					},
 					eventClick: function(info) {
 						var id = info.event.id;
-						location.replace('data?schCd='+id)
+						location.href = 'data?schCd='+id;
 					} 
 					});
 					calendar.render();

@@ -43,18 +43,25 @@ pageEncoding="UTF-8"%>
 			float:left;
 			margin:5px;
 		}
+		ul,li{
+			padding-left: 1rem;
+		}
 	</style>
 	
 	<form action="/payment/insert" method="post" enctype="multipart/form-data">
+		<!-- 결제자 정보 Input -->
+		<div id="conList"></div>
+		<!-- 참조자 정보 Input -->
+		<div id="refList"></div>
 		<input class="form-control" type="hidden" name="dfCd" value="${documentFormVO.dfCd}">
 		
 		<!-- 모달 -->
 		<div>
 			<div class="col-md-4 col-sm-12 mb-30">
 				<div class="pd-20 card-box height-100-p">
-					<h5 class="h4">결재선지정</h5>
+					
 					<a href="#" class="btn-block" data-toggle="modal" data-target="#bd-example-modal-lg" type="button">
-						<img src="vendors/images/modal-img1.jpg" alt="modal" id="confirmResult">
+						<h5 class="h4" alt="modal" id="confirmResult">결재선지정</h5>
 
 					</a>
 					<div class="modal fade bs-example-modal-lg" id="bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
@@ -81,12 +88,12 @@ pageEncoding="UTF-8"%>
 								    	<div class="left">
 								    		<c:forEach items="${departmentList}" var="vo">
 												<ul>
-													<li id="${vo.depCd}">${vo.depName}</li>
+													<li id="${vo.depCd}"><i class="icon-copy fa fa-folder-open-o" aria-hidden="true"></i>${vo.depName}</li>
 														<c:forEach items="${memberList}" var="vo2">
 															<ul>
 																<c:if test="${vo.depCd eq vo2.depCd}">
 																	<li id="${vo2.memCd}" class="members" data-vo2name="${vo2.memName}">
-																		${vo2.memName}
+																		<i class="icon-copy fa fa-user" aria-hidden="true"></i>${vo2.memName}
 																	</li>
 																</c:if>
 															</ul>
@@ -140,7 +147,7 @@ pageEncoding="UTF-8"%>
 								    		
 								    		<div>
 								    			<h5>참조</h5>
-								    			<p id="ref"></p>
+								    			<p id="ref" class="members"></p>
 								    		</div>
 								    	</div>
 									</div>
@@ -156,11 +163,7 @@ pageEncoding="UTF-8"%>
 			</div>
 		</div>
 		
-		<c:forEach items="${conArr}" var="voCon">
-		<input type="text" name="" value="${voCon.memCd}">
-		<input type="text" name="" value="${voCon.memName}">
-		<input type="text" name="" value="${voCon.data-step}">
-		</c:forEach>
+
 		<!--  -->
 		<table class="tg">
 			<thead>
@@ -462,11 +465,11 @@ pageEncoding="UTF-8"%>
 			  	</tr>
 			  		
 			  	<tr>
-			    	<td class="tg-text-r tg-baqh-r tg-baqh-b tg-baqh-t" colspan="7">성명 : </td>
-			    	<td class="tg-baqh-l tg-baqh-r tg-baqh tg-baqh-b tg-baqh-t" colspan="1">
+			    	<td class="tg-text-r tg-baqh-r tg-baqh-b tg-baqh-t" colspan="8">성명 : </td>
+			    	<td class="tg-baqh-l tg-baqh tg-baqh-b tg-baqh-t" colspan="1">
 			    		<p>${memberVO.memName}</p>
 			    	</td>
-			    	<td class="tg-baqh-l tg-baqh-b tg-baqh-t tg-baqh" colspan="1">(인)</td>
+			    	
 			  	</tr>
 			  	
 			  	<tr>
@@ -477,7 +480,7 @@ pageEncoding="UTF-8"%>
 		</table>
 		<div>
 			<button type="reset" class="btn btn-danger">다시작성</button>
-			<button type="submit" class="btn btn-danger" name="epDStatus" value="2">임시저장</button>
+			<button type="submit" class="btn btn-danger" name="epDStatus" value="1">임시저장</button>
 			<button type="submit" class="btn btn-success" name="epDStatus" value="0">기안상신</button>
 		</div>
 	</form>
@@ -514,11 +517,14 @@ pageEncoding="UTF-8"%>
   		let con1 = "";
   		let con2 = "";
   		let con3 = "";
+  		let ref = "";
   		let conArr = []; //결재자'들'의 정보를 담을 배열
   		let refArr = [];
   		let conArr1 = {}; //conArr[]에 담을 결재자의 정보 배열
   		let conArr2 = {};
   		let conArr3 = {};
+  		let refArr1 = {};
+
   		
   		
   		//기안->최종결재
@@ -563,6 +569,7 @@ pageEncoding="UTF-8"%>
     	$('.members').on("click", function () {
     		memCd = $(this).attr("id");
       	 	memName = $(this).attr("data-vo2name");
+      	 	console.log(memCd);
     	});
       	
     	//1차결재
@@ -664,6 +671,34 @@ pageEncoding="UTF-8"%>
  			
       	});
       	
+      	//참조
+      	$('#refAdd').on("click", function(){
+      		console.log("참조add작동");
+			ref = "<span class='refClass' data-refCd="+memCd+" data-refName="+memName+">"+memName+"</span><br>";
+			$('#ref').append(ref);
+			
+			refArr1 = {
+					memCd:memCd,
+					memName:memName
+					};
+			refArr.push(refArr1);
+			memCd = "";
+ 			memName = "";
+			
+      	});
+      	
+      	$('#refRemove').on("click", function(){
+      		console.log("참조remove작동");
+			$('#ref').empty();
+
+			let refArr1 = {};
+			memCd = "";
+ 			memName = "";
+ 			
+      	});
+      	
+      	
+      	//저장
       	$('#confirmSave').on("click", function(){
 			console.log("작동동")
 			$('#1stConMem').empty();
@@ -682,6 +717,20 @@ pageEncoding="UTF-8"%>
 			conArr.push(conArr3);
 			
 			console.log(conArr);
+			
+			for(let c of conArr){
+				$("#conList").append('<input type="hidden" name="conMemCd" value="'+c.memCd+'"></input>')
+				$("#conList").append('<input type="hidden" name="conMemName" value="'+c.memName+'"></input>')
+				$("#conList").append('<input type="hidden" name="conStep" value="'+c.conStep+'"></input>')				
+				
+			}
+			
+			for(let r of refArr){
+				$("#refList").append('<input type="hidden" name="refMemCd" value="'+r.memCd+'"></input>')
+				$("#refList").append('<input type="hidden" name="refMemName" value="'+r.memName+'"></input>')			
+				
+			}
+			
       	}); 
   	});
   	

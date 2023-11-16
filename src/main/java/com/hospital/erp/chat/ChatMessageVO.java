@@ -12,26 +12,23 @@ public class ChatMessageVO {
 		ENTER, TALK, QUIT
 	}
 	
+	// 메세지 타입 예)ENTER = 처음 들어왔을때, TALK = 이미 방에 속한사람의 메세지
 	private MessageType type;
 	
+	// 채팅방의 번호
 	private Long roomNum;
 	
+	// 메세지를 발신한 사람
 	private String sender;
+	
+	// 메세지 수신자
 	private String receiver;
+	
+	// 메세지 내용
 	private String message;
+	
+	// 메세지 작성시간 (Date 타입이지만 시간을 생성해서 넣어주기때문에 VO는 String타입 사용)
 	private String chatDate;
 	
-
-	
-//	// 메시지 타입 : 입장, 채팅, 나감
-//    public enum MessageType {
-//        ENTER, TALK, QUIT
-//    }
-//    private MessageType type; // 메시지 타입
-//    private Long roomNum; // 방번호
-//    private String sender; // 메시지 보낸사람
-//    private String receiver; // 메시지 받는사람
-//    private String message; // 메시지
-//    private String chatDate; //보낸 날짜시간
 
 }

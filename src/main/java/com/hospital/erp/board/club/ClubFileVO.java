@@ -13,6 +13,6 @@ public class ClubFileVO extends FileVO{
 	
 	
 	// 사내동호회 PK
-		private int clubCd;
+	private int clubCd;
 
 }

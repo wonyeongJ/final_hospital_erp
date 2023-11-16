@@ -43,8 +43,8 @@ public class PaymentVO {
 	private String epReason;
 	private String epContents;
 	private String epDStatus;
-	private LocalDateTime epFDate;
-	private LocalDateTime epRDate;
+	private String epFDate;
+	private String epRDate;
 	
 	//JOIN해서 가져오는 DATA
 	private String dfKind;

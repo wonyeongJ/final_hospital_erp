@@ -56,9 +56,8 @@
 		</div>
 	</div>	
 		<br>
-</div>
 <c:choose> 
-    <c:when test="${memberVO.depCd == 2}">
+	<c:when test="${memberVO.depCd == 2}">
 		<div class="clearfix mb-20">
 			<div class="pull-right">
 				<a href="#" class="btn-block" data-toggle="modal" data-target="#Medium-modal" type="button">
@@ -107,6 +106,8 @@
 		</div>
 	</c:when> 
 </c:choose> 
+		<br>
+</div>
 
 <script src="/src/plugins/switchery/switchery.min.js"></script>
 <script src="/vendors/scripts/surgery/list.js"></script>

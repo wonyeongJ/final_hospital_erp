@@ -48,6 +48,7 @@
 						</div>
 					</div>
 				<form id="reservationInsertFrm" action="insert" method="post">
+					<input class="form-control" type="hidden" name="memName" value="${patientVO.patName}">
 					<input value="<sec:authentication property="principal.memCd" />" name="memCd" type="hidden">
 					<input class="form-control" type="hidden" name="patCd" value="${patientVO.patCd}" >
 					<div class="form-group row">
@@ -79,7 +80,7 @@
 						</div>
 					</div>
 					<div style="display: flex; justify-content: flex-end;">
-						<button id="reservationInsertBtn" type="button" class="btn btn-primary">예약완료</button>
+						<button id="reservationInsertBtn" type="button" class="btn btn-primary" onclick="return confirm('진료 예약을 등록 하시겠습니까?');">진료 예약 등록</button>
 					</div>
 				</form>
 			</div>
