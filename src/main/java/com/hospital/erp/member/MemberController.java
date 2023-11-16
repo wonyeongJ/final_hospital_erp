@@ -85,7 +85,7 @@ public class MemberController {
 			  return "member/insert";
 		  }else {
 			  int result = memberService.memberInsert(memberVO);
-			  return "member/insert";
+			  return "redirect:./list";
 		  }
 		  
 	  }
@@ -129,6 +129,7 @@ public class MemberController {
 		  }
 	  }
 	  
+	  // 조직도 직원조회
 	  @ResponseBody
 	  @GetMapping("memberListChart")
 	  public List<MemberVO> memberListChart() throws Exception {
@@ -137,6 +138,7 @@ public class MemberController {
 		  return memberVO;
 	  }
 	  
+	  // 프로필 사진 변경
 	  @PostMapping("profileInsert")
 	  public String memberProfileInsert(@AuthenticationPrincipal MemberVO memberVO,MultipartFile multipartFile) throws Exception {
 		  
@@ -144,5 +146,43 @@ public class MemberController {
 		  return "redirect:./mypage";
 	  }
 	  
-	 
+	  // 도장/사인 이미지 변경
+	  @PostMapping("stampUpdate")
+	  public String memberStampUpdate(@AuthenticationPrincipal MemberVO memberVO,MultipartFile multipartFile) throws Exception {
+		  
+		  int result = memberService.memberStampUpdate(memberVO,multipartFile);
+		  return "redirect:./mypage";
+	  }
+	  
+	  // 퇴사자 등록
+	  @PostMapping("updateExpired")
+	  public String memberUpdateExpired(MemberVO memberVO) throws Exception{
+		  log.info("quitDate {}", memberVO);
+		  int result = memberService.memberUpdateExpired(memberVO);
+		  return "redirect:./listexpired";
+	  }
+	  
+	  // 퇴사자 조회
+	  @GetMapping("listexpired")
+	  public String memberListExpired(Model model) throws Exception {
+		  List<MemberVO> memberAr = memberService.memberListExpired();
+		  model.addAttribute("memberAr",memberAr);
+		  return "member/listexpired";
+	  }
+	  
+	  // 퇴사자 detail 조회
+	  @GetMapping("dataexpired")
+	  public String memberDataExpired(MemberVO memberVO, Model model) throws Exception {
+		  memberVO = memberService.memberData(memberVO);
+		  model.addAttribute("memberVO", memberVO);
+		  return "member/dataexpired";
+	  }
+	  
+	  // 회원가입때 이메일 인증 코드 발급 메서드
+//	  @GetMapping("emailAuthenticate")
+//	  @ResponseBody
+//	  public String emailAuthenticationCode(String email) throws Exception {
+//		   
+//		  return memberService.emailAuthenticationCode(email);
+//	  }
 }

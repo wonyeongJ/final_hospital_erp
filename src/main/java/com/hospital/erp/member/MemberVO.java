@@ -31,7 +31,6 @@ public class MemberVO implements UserDetails {
 	private Integer jobCd;
 	private Integer depCd;
 	private Integer posCd;
-	@NotNull
 	private Integer codeCd;
 	@Pattern(regexp = "^[가-힣]*$", message = "이름은 한글만 입력 가능합니다.")
 	private String memName;
@@ -43,6 +42,7 @@ public class MemberVO implements UserDetails {
 	private String memAddress;
 	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "올바른 이메일 형식이 아닙니다.")
 	private String memEmail;
+	@NotNull
 	private Date memHdate;
 	private Integer memSalary;
 	private Integer memAnnual;
@@ -53,7 +53,11 @@ public class MemberVO implements UserDetails {
 	private String memOname;
 	private String memFname;
 	private String memPath;
-	private String memExtention;
+	private String memExtention;	
+	private String memSOname;
+	private String memSFname;
+	private String memSPath;
+	private String memSExtention;
 	
 	private String depName; // memberListJoin 
 	private String codeName; // memberListJoin 성별 

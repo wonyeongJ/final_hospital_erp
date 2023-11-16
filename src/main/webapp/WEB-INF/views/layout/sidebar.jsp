@@ -23,7 +23,7 @@
 						<ul class="submenu">
 							<li><a href="/member/list">직원조회</a></li>
 							<li><a href="/member/insert">직원등록</a></li>
-							<li><a href="/member/list">퇴사자조회</a></li>
+							<li><a href="/member/listexpired">퇴사자조회</a></li>
 						</ul>
 					</li>
 					
