@@ -4,6 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<link rel="stylesheet" href="/vendors/styles/equipment/list.css">
 
 <body>
 	<div>
@@ -166,7 +167,7 @@
 		<div class="col-lg-6 col-md-12 col-sm-12 mb-30">
 			<div class="pd-20 card-box">
 				<h5 class="h4 text-blue mb-20" style="display: flex; float: left;">연차사용내역</h5>
-				<h5 class="h4 text-blue mb-20" style="display: flex; justify-content: flex-end;">남은연차 : 15</h5>
+				<h5 class="h4 text-blue mb-20" style="display: flex; justify-content: flex-end;">남은연차 : <sec:authentication property="principal.memAnnual" /></h5>
 				
 				<table class="table table-striped">
 					<thead>
@@ -185,21 +186,9 @@
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-12 col-sm-12 mb-30">
-			<div class="pd-20 card-box">
-				<h5 class="h4 text-blue mb-20" style="display: flex;">비품사용내역</h5>
+			<div id="equipment" class="pd-20 card-box">
 				
-				<table class="table table-striped">
-					<thead>
-					<tr>
-						<th scope="col">#</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<th scope="row">1</th>
-					</tr>
-					</tbody>
-				</table>
+				
 			</div>
 		</div>
 	</div>

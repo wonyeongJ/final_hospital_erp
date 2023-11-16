@@ -103,4 +103,7 @@ public class EquipmentService {
 		return ev;
 	}
 	 
+	public List<EquipmentHistoryVO> mypageList(MemberVO memberVO) throws Exception {
+		return equipmentDAO.mypageList(memberVO);
+	}
 }
