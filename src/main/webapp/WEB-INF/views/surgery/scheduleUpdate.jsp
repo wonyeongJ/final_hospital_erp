@@ -32,7 +32,7 @@
             <th class="scheduleList">예약자</th>
         </tr>
         <tr class="scheduleList" id="table-top">
-            <th class="scheduleList" scope="col" class="param-date" id="${ldt}">${ldt}</th>
+            <th scope="col" class="param-date scheduleList" id="${ldt}">${ldt}</th>
             <th class="scheduleList" scope="col">${surgeryVO.surNum}</th>
             <th class="scheduleList" scope="col">${memberVO.memName}</th>
             <input id="surCd" type="hidden" value="${surgeryVO.surCd}">
