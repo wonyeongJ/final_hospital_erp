@@ -3,12 +3,15 @@ package com.hospital.erp.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.hospital.erp.member.MemberService;
 
 
 
@@ -19,6 +22,13 @@ public class SecurityConfig {
 	@Autowired
 	private SecuritySuccessHandler securitySuccessHandler;
 	
+	
+	private final MemberService memberService;
+	
+	@Autowired
+    public SecurityConfig(@Lazy MemberService memberService) {
+        this.memberService = memberService;
+    }
 
 	@Bean
 	WebSecurityCustomizer webSecurityConfig() {
@@ -41,8 +51,22 @@ public class SecurityConfig {
 			.csrf()
 			.disable()
 			.authorizeHttpRequests()
-				.antMatchers("/*","/member/insert","/member/memberListChart","/department/chart","/member/mypage","/member/updatePassword").permitAll()
-				.antMatchers("/member/list","/department/**").hasRole("ADMIN")
+				.antMatchers("/*").permitAll()
+				.antMatchers
+							(
+							"/member/list",
+							"/member/update",
+							"/member/data",
+							"/member/insert",
+							"/member/update",
+							"/member/updateExpired",
+							"/member/listexpired",
+							"/member/dataexpired",
+							"/department/list",
+							"/department/insert",
+							"/department/update"
+							)
+							.hasRole("ADMIN")
 				.anyRequest().authenticated()
 				.and()
 			//form 관련 설정
@@ -61,7 +85,12 @@ public class SecurityConfig {
 				.deleteCookies("JSESSIONID")
 				.and()
 			.rememberMe()
-				.tokenValiditySeconds(60)
+				.rememberMeParameter("rememberMe") //파라미터명
+				.tokenValiditySeconds(604800)
+				.key("rememberMe")
+				.userDetailsService(memberService)
+				.rememberMeCookieName("customRememberMeCookie")
+				.useSecureCookie(false)
 				.and()
 //			.oauth2Login()
 //				.userInfoEndpoint()

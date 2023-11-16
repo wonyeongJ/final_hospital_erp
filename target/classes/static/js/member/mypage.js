@@ -31,6 +31,12 @@ $("#profileBtn").on("click",function(){
     
 })
 
+$("#stampUpdateBtn").on("click",function(){
+    console.log("stamp btn 입력");
+    $("#stampUpdateFrm").submit();
+    
+})
+
 // 비밀번호 변경하지 않고 mypage 접속 시
 $(document).ready(function() {
     if($("#memIspwch").text().trim()<1){

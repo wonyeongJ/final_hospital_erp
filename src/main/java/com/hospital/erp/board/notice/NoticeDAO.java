@@ -50,4 +50,7 @@ public interface NoticeDAO {
 	
 	// 중요여부 업데이트
 	public int noticeChangeStatus(int notCd,int notImportant)throws Exception;
+	
+	// 중요공지 리스트 TopBar
+	public List<NoticeVO> noticeImportantList (NoticeVO noticeVO) throws Exception;
 }

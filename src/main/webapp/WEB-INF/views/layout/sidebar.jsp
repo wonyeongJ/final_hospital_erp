@@ -23,7 +23,7 @@
 						<ul class="submenu">
 							<li><a href="/member/list">직원조회</a></li>
 							<li><a href="/member/insert">직원등록</a></li>
-							<li><a href="/member/list">퇴사자조회</a></li>
+							<li><a href="/member/listexpired">퇴사자조회</a></li>
 						</ul>
 					</li>
 					
@@ -93,6 +93,12 @@
 							<span class="micon dw dw-chat3"></span><span class="mtext">메신저</span>
 						</a>
 					</li>
+
+					<li>
+                        <a href="/emergency/list" class="dropdown-toggle no-arrow">
+                            <span class="micon  fa fa-ambulance"></span><span class="mtext">실시간 응급실 현황</span>
+                        </a>
+                    </li>
 					
 					<li>
 						<a href="#" class="dropdown-toggle no-arrow">

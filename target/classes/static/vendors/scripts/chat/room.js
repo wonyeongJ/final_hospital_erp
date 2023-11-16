@@ -70,21 +70,28 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 	$("#searchName").on("keyup", function(event) {
 	    if (event.key === "Enter") {
 	       
+	       
 	       let memName = $("#searchName").val();
+	       if (!memName.trim()) {
+		        $('#listBox').append(listBoxCh);
+		        return;
+		    }
 		
 			$('#listBox').empty();
 			getSearch(memName);
-
-	
 
 	    }
 	});
 
 	$('#search').click(function(){
 		
-		//socket.close();
+		
 		
 		let memName = $("#searchName").val();
+		if (!memName.trim()) {
+        $('#listBox').append(listBoxCh);
+        return;
+    }
 		
 		$('#listBox').empty();
 		getSearch(memName);
@@ -200,6 +207,8 @@ const socket = new WebSocket("ws://localhost:82/ws/chat");
 	}
 	
 	function getSearch(memName) {
+		
+	// 만약 memName이 비어있으면 원래 내용을 다시 추가합니다
     $.ajax({
         type: "get",
         url: "./search",

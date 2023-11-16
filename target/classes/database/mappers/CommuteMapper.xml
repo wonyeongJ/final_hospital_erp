@@ -39,5 +39,23 @@
 			COM_WORK = 1
 	</update>
 	
+	<update id="commuteUpdateScheduler">
+		UPDATE
+			COMMUTE
+		SET 
+			COM_EDATE = DATE_ADD(COM_SDATE, INTERVAL 9 HOUR),
+			COM_WORK = 0
+		WHERE
+			MEM_CD IN
+					(
+					SELECT 
+						MEM_CD
+					FROM 
+						COMMUTE
+					WHERE 
+						COM_WORK = 1
+					)
+	</update>
+	
   	
 </mapper>

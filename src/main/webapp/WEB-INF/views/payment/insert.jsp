@@ -25,21 +25,18 @@ pageEncoding="UTF-8"%>
 		div.left{
 			width:30%;
 			height:100%;
-			background-color:yellow;
 			float:left;
 			margin:5px;
 		}
 		div.center{
 			width:20%;
 			height:100%;
-			background-color:red;
 			float:left;
 			margin:5px;
 		}
 		div.right{
 			width:30%;
 			height:100%;
-			background-color:green;
 			float:left;
 			margin:5px;
 		}
@@ -86,8 +83,7 @@ pageEncoding="UTF-8"%>
 											<input type="radio" id="pRadio3" name="pRadio" checked>
 											<label for="pRadio3">기안->1차결재->2차결재->최종결재</label>
 										</div>
-										
-								    	<div class="left">
+								    	<div class="left card">
 								    		<c:forEach items="${departmentList}" var="vo">
 												<ul>
 													<li id="${vo.depCd}"><i class="icon-copy fa fa-folder-open-o" aria-hidden="true"></i>${vo.depName}</li>
@@ -104,7 +100,7 @@ pageEncoding="UTF-8"%>
 											</c:forEach>
 								    	</div>
 								    	
-								    	<div class="center">
+								    	<div class="center card">
 								    		<div class="1stPayment">
 								    			<input type="button" value="remove" id="1stConRemove">
 								    			<input type="button" value="1차결재">
@@ -130,7 +126,7 @@ pageEncoding="UTF-8"%>
 								    		</div>
 								    	</div>
 								    	
-								    	<div class="right">
+								    	<div class="right card">
 								
 								    		<div class="1stPayment">
 								    			<h5>1차결재</h5>
