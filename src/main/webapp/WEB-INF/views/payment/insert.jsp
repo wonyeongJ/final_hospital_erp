@@ -53,6 +53,7 @@ pageEncoding="UTF-8"%>
 		<div id="conList"></div>
 		<!-- 참조자 정보 Input -->
 		<div id="refList"></div>
+		
 		<input class="form-control" type="hidden" name="dfCd" value="${documentFormVO.dfCd}">
 		
 		<!-- 모달 -->
@@ -60,8 +61,8 @@ pageEncoding="UTF-8"%>
 			<div class="col-md-4 col-sm-12 mb-30">
 				<div class="pd-20 card-box height-100-p">
 					
-					<a href="#" class="btn-block" data-toggle="modal" data-target="#bd-example-modal-lg" type="button">
-						<h5 class="h4" alt="modal" id="confirmResult">결재선지정</h5>
+					<a href="#" class="btn-block" data-toggle="modal" data-target="#bd-example-modal-lg" type="button" >
+						<h4 class="h4" alt="modal" id="confirmResult">결재선지정</h4>
 
 					</a>
 					<div class="modal fade bs-example-modal-lg" id="bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
@@ -85,6 +86,7 @@ pageEncoding="UTF-8"%>
 											<input type="radio" id="pRadio3" name="pRadio" checked>
 											<label for="pRadio3">기안->1차결재->2차결재->최종결재</label>
 										</div>
+										
 								    	<div class="left">
 								    		<c:forEach items="${departmentList}" var="vo">
 												<ul>
@@ -245,7 +247,7 @@ pageEncoding="UTF-8"%>
 			  	<tr>
 			    	<td class="tg-baqh">이름</td>
 				    <td class="tg-baqh" colspan="2">
-				    	<input class="form-control" type="text" value="${memberVO.memName}" readonly>
+				    	<input class="form-control" type="text" name="memName" value="${memberVO.memName}" readonly>
 				    </td>
 				    <td class="tg-baqh">연락처</td>
 				    <td class="tg-baqh tg-baqh-r" colspan="3">
@@ -366,7 +368,7 @@ pageEncoding="UTF-8"%>
 			  	</tr>
 			  	
 			  	
-			  	<tr>
+			  	<!-- <tr>
 					<td class="tg-baqh" colspan="9">
 						<div class="html-editor pd-20 card-box mb-30">
 							<ul class="wysihtml5-toolbar" style="">
@@ -448,8 +450,8 @@ pageEncoding="UTF-8"%>
 							<iframe class="wysihtml5-sandbox" security="restricted" allowtransparency="true" frameborder="0" width="0" height="0" marginwidth="0" marginheight="0" style="display: block; background-color: rgb(255, 255, 255); border-collapse: separate; border-color: rgb(212, 212, 212); border-style: solid; border-width: 0.8px; clear: none; float: none; margin: 0px; outline: rgb(19, 30, 34) none 0px; outline-offset: 0px; padding: 6px 12px; position: static; inset: auto; z-index: auto; vertical-align: baseline; text-align: start; box-sizing: border-box; box-shadow: none; border-radius: 0px; width: 1119.2px; height: 300px;"></iframe>
 						</div>
 					</td>
-			  	</tr>
-			  	
+			  	</tr> -->
+
 			  	<tr>
 			    	<td class="tg-baqh" colspan="9">
 			    		${documentFormVO.dfContents}
@@ -731,7 +733,13 @@ pageEncoding="UTF-8"%>
 				
 			}
 			
-      	}); 
+			
+      	});
+    	$('#conResetButton').on("click", function(){
+    		$('#conList').empty();
+			$('#refList').empty();
+    	});
+      	
   	});
   	
 

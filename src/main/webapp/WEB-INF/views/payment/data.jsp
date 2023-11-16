@@ -55,7 +55,11 @@ pageEncoding="UTF-8"%>
 				    		</tr>
 				    		<tr>
 				    			<td class="tg-baqh">
-									${paymentVO.memberVOs.memName}
+				    				<c:forEach items="${conList}" var="conVo">
+										<c:if test="${conVo.conStep eq 1}">
+											${conVo.memName}
+										</c:if>
+									</c:forEach>
 								</td>
 								<td class="tg-baqh 1stPayment">
 									<c:forEach items="${conList}" var="conVo">
@@ -242,7 +246,11 @@ pageEncoding="UTF-8"%>
 			  	<tr>
 			    	<td class="tg-text-r tg-baqh-r tg-baqh-b tg-baqh-t" colspan="8">성명 : </td>
 			    	<td class="tg-baqh-l tg-baqh tg-baqh-b tg-baqh-t" colspan="1">
-			    		${paymentVO.memberVOs.memName}
+			    		<c:forEach items="${conList}" var="conVo">
+										<c:if test="${conVo.conStep eq 1}">
+											${conVo.memName}
+										</c:if>
+									</c:forEach>
 			    	</td>
 			  	</tr>
 			  	
@@ -253,12 +261,25 @@ pageEncoding="UTF-8"%>
 			</tbody>
 		</table>
 		<form action="/payment/data" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="memCd" value="${memberVO.memCd}">
+			<input type="hidden" name="epCd" value="${paymentVO.epCd}">
 			<c:forEach items="${conList}" var="conVo">
 				<c:if test="${conVo.memCd eq memberVO.memCd}">
-					<div>
-						<button type="submit" class="btn btn-danger" name="conPStatus" value="1">반려</button>
-						<button type="submit" class="btn btn-success" name="conPStatus" value="2">승인</button>
-					</div>		
+					<c:if test="${conVo.conRDate eq '0'}">
+						<c:if test="${conVo.conStep eq '4'}">
+							<div>
+								<input type="hidden" name="epDStatus" value="2">
+								<button type="submit" class="btn btn-danger" name="conPStatus" value="1">반려</button>
+								<button type="submit" class="btn btn-success" name="conPStatus" value="2">승인</button>
+							</div>		
+						</c:if>
+						<c:if test="${conVo.conStep ne '4'}">
+							<div>
+								<button type="submit" class="btn btn-danger" name="conPStatus" value="1">반려</button>
+								<button type="submit" class="btn btn-success" name="conPStatus" value="2">승인</button>
+							</div>		
+						</c:if>
+					</c:if>
 				</c:if>
 			</c:forEach>
 		</form>

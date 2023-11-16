@@ -26,6 +26,7 @@ import com.hospital.erp.payment.confirm.ConfirmService;
 import com.hospital.erp.payment.confirm.ConfirmVO;
 import com.hospital.erp.payment.documentForm.DocumentFormService;
 import com.hospital.erp.payment.documentForm.DocumentFormVO;
+import com.hospital.erp.payment.reference.ReferenceService;
 import com.hospital.erp.util.TimeSetter;
 
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +44,9 @@ public class PaymentController {
 	
 	@Autowired
 	private ConfirmService confirmService;
+	
+	@Autowired
+	private ReferenceService referenceService;
 	
 	@Autowired
 	private MemberService memberService;
@@ -67,16 +71,43 @@ public class PaymentController {
 	@GetMapping("list")
 	public String paymentList(Model model)throws Exception{
 		
+
+		
+		return "payment/list";
+	}
+	
+	//문서리스트 ajax
+	@GetMapping("listResult")
+	public String paymentListResult(Model model, String dfCodeResult)throws Exception{
+		
 		//로그인 한 사람 데이터 가져오기
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 	    UserDetails userDetails = (UserDetails)principal;
 	    MemberVO memberVO = (MemberVO)userDetails;
 		model.addAttribute("memberVO", memberVO);
 		
-		List<PaymentVO> ar = paymentService.paymentList(memberVO);
-		model.addAttribute("list", ar);
+		if("listResult1".equals(dfCodeResult)) {
+			List<PaymentVO> ar = paymentService.paymentList1(memberVO);
+			model.addAttribute("list", ar);
+		}else if("listResult2".equals(dfCodeResult)){
+			List<PaymentVO> ar = paymentService.paymentList2(memberVO);
+			model.addAttribute("list", ar);
+		}else if("listResult3".equals(dfCodeResult)){
+			List<PaymentVO> ar = paymentService.paymentList3(memberVO);
+			model.addAttribute("list", ar);
+		}else if("listResult4".equals(dfCodeResult)){
+			List<PaymentVO> ar = paymentService.paymentList4(memberVO);
+			model.addAttribute("list", ar);
+		}else if("listResult5".equals(dfCodeResult)){
+			List<PaymentVO> ar = paymentService.paymentList5(memberVO);
+			model.addAttribute("list", ar);
+		}else if("listResult6".equals(dfCodeResult)){
+			List<PaymentVO> ar = paymentService.paymentList6(memberVO);
+			model.addAttribute("list", ar);
+		}
+
 		
-		return "payment/list";
+		return "ajax.payment/listResult";
 	}
 	
 	//이름은 insert지만 정확히는 문서폼 data
@@ -106,12 +137,14 @@ public class PaymentController {
 	
 	//실제로 결재문서 insert//결재추가(기안상신)
 	@PostMapping("insert")
-	public String paymentInsert(PaymentVO paymentVO, String [] conMemCd, String [] conMemName, String [] conStep)throws Exception{
-		
+	public String paymentInsert(PaymentVO paymentVO, String [] conMemCd, String [] conMemName, String [] conStep, String [] refMemCd, String [] refMemName)throws Exception{
 		
 		 int result = paymentService.paymentInsert(paymentVO); 
+		 int conMemResult = confirmService.cofirmMemInsert(paymentVO);
 		 int conResult = confirmService.confirmInsert(paymentVO, conMemCd, conMemName, conStep);
-		 
+		 if(refMemCd != null) {			 
+			 int refResult = referenceService.referenceInsert(paymentVO, refMemCd, refMemName);
+		 }
 		
 		return "redirect:./list";
 	}
@@ -137,10 +170,22 @@ public class PaymentController {
 	}
 	
 	@PostMapping("data")
-	public String paymentData()throws Exception{
+	public String paymentData(ConfirmVO confirmVO, PaymentVO paymentVO)throws Exception{
+		
+		//결재한 사람의 결재상태 update
+		int conResult = confirmService.confirmUpdate(confirmVO);
+		
+		//문서상태 update (최종 결재 완료 시 종결처리)
+		int paymenRresult = paymentService.paymentUpdate(paymentVO);
+
 		
 		return "redirect:./list";
 	}
+	
+	
+	
+	
+
 	
 	
 	

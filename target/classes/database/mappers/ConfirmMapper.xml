@@ -18,6 +18,14 @@
 		VALUES
 			(#{epCd}, #{memCd}, #{memName}, #{conStep}, NULL, 0, NULL)
 	</insert>
+	
+	<insert id="cofirmMemInsert" parameterType="ConfirmVO">
+		INSERT 
+		INTO 
+			CONFIRM(EP_CD, MEM_CD, MEM_NAME, CON_STEP, CON_RDATE, CON_PSTATUS, CON_COMMENT)
+		VALUES
+			(#{epCd}, #{memCd}, #{memName}, 1, NOW(), 2, NULL)
+	</insert>
 
 	<select id="confirmList" parameterType="ConfirmVO" resultType="ConfirmVO">
 		SELECT
@@ -27,6 +35,16 @@
 		WHERE
 			EP_CD=#{epCd}
 	</select>
+	
+	<update id="confirmUpdate" parameterType="ConfirmVO">
+		UPDATE
+			CONFIRM
+		SET
+			CON_RDATE = NOW(),
+			CON_PSTATUS = #{conPStatus}
+		WHERE
+			EP_CD=#{epCd} AND MEM_CD=#{memCd}
+	</update>
 
 
 </mapper>
