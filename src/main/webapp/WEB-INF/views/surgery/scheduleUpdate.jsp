@@ -25,88 +25,88 @@
         </div>
     </div>
     <br><br>
-    <table class="time-table-1">
-        <tr>
-            <th scope="row">선택한 날짜</th>
-            <th>호수</th>
-            <th>예약자</th>
+    <table class="time-table-1 scheduleList">
+        <tr class="scheduleList">
+            <th scope="row" class="scheduleList">선택한 날짜</th>
+            <th class="scheduleList">호수</th>
+            <th class="scheduleList">예약자</th>
         </tr>
-        <tr id="table-top">
-            <th scope="col" class="param-date" id="${ldt}">${ldt}</th>
-            <th scope="col">${surgeryVO.surNum}</th>
-            <th scope="col">${memberVO.memName}</th>
+        <tr class="scheduleList" id="table-top">
+            <th scope="col" class="param-date scheduleList" id="${ldt}">${ldt}</th>
+            <th class="scheduleList" scope="col">${surgeryVO.surNum}</th>
+            <th class="scheduleList" scope="col">${memberVO.memName}</th>
             <input id="surCd" type="hidden" value="${surgeryVO.surCd}">
             <input id="memCd" type="hidden" value="${memberVO.memCd}">
             <input id="schCd" type="hidden" value="${scheduleVO.schCd}">
         </tr>
     </table>
         <br><br><br>
-    <table class="time-table-1">
-        <tr>
-            <th>00:00 ~ 01:00</th>
-            <th>01:00 ~ 02:00</th>
-            <th>02:00 ~ 03:00</th>
-            <th>03:00 ~ 04:00</th>
-            <th>04:00 ~ 05:00</th>
-            <th>05:00 ~ 06:00</th>
-            <th>06:00 ~ 07:00</th>
-            <th>07:00 ~ 08:00</th>
+    <table class="time-table-1 scheduleList">
+        <tr class="scheduleList">
+            <th class="scheduleList">00:00 ~ 01:00</th>
+            <th class="scheduleList">01:00 ~ 02:00</th>
+            <th class="scheduleList">02:00 ~ 03:00</th>
+            <th class="scheduleList">03:00 ~ 04:00</th>
+            <th class="scheduleList">04:00 ~ 05:00</th>
+            <th class="scheduleList">05:00 ~ 06:00</th>
+            <th class="scheduleList">06:00 ~ 07:00</th>
+            <th class="scheduleList">07:00 ~ 08:00</th>
         </tr>
-        <tr>
-            <th id="0" class="t time-select"></th>
-            <th id="1" class="t time-select"></th>
-            <th id="2" class="t time-select"></th>
-            <th id="3" class="t time-select"></th>
-            <th id="4" class="t time-select"></th>
-            <th id="5" class="t time-select"></th>
-            <th id="6" class="t time-select"></th>
-            <th id="7" class="t time-select"></th>
-        </tr>
-    </table>
-        <br>
-    <table class="time-table-1">
-        <tr>
-            <th>08:00 ~ 09:00</th>
-            <th>09:00 ~ 10:00</th>
-            <th>10:00 ~ 11:00</th>
-            <th>11:00 ~ 12:00</th>
-            <th>12:00 ~ 13:00</th>
-            <th>13:00 ~ 14:00</th>
-            <th>14:00 ~ 15:00</th>
-            <th>15:00 ~ 16:00</th>
-        </tr>
-        <tr>
-            <th id="8" class="t time-select"></th>
-            <th id="9" class="t time-select"></th>
-            <th id="10" class="t time-select"></th>
-            <th id="11" class="t time-select"></th>
-            <th id="12" class="t time-select"></th>
-            <th id="13" class="t time-select"></th>
-            <th id="14" class="t time-select"></th>
-            <th id="15" class="t time-select"></th>
+        <tr class="scheduleList">
+            <th id="0" class="t time-select scheduleList"></th>
+            <th id="1" class="t time-select scheduleList"></th>
+            <th id="2" class="t time-select scheduleList"></th>
+            <th id="3" class="t time-select scheduleList"></th>
+            <th id="4" class="t time-select scheduleList"></th>
+            <th id="5" class="t time-select scheduleList"></th>
+            <th id="6" class="t time-select scheduleList"></th>
+            <th id="7" class="t time-select scheduleList"></th>
         </tr>
     </table>
         <br>
-    <table class="time-table-1">
+    <table class="time-table-1 scheduleList">
+        <tr class="scheduleList">
+            <th class="scheduleList">08:00 ~ 09:00</th>
+            <th class="scheduleList">09:00 ~ 10:00</th>
+            <th class="scheduleList">10:00 ~ 11:00</th>
+            <th class="scheduleList">11:00 ~ 12:00</th>
+            <th class="scheduleList">12:00 ~ 13:00</th>
+            <th class="scheduleList">13:00 ~ 14:00</th>
+            <th class="scheduleList">14:00 ~ 15:00</th>
+            <th class="scheduleList">15:00 ~ 16:00</th>
+        </tr>
+        <tr class="scheduleList">
+            <th id="8" class="t time-select scheduleList"></th>
+            <th id="9" class="t time-select scheduleList"></th>
+            <th id="10" class="t time-select scheduleList"></th>
+            <th id="11" class="t time-select scheduleList"></th>
+            <th id="12" class="t time-select scheduleList"></th>
+            <th id="13" class="t time-select scheduleList"></th>
+            <th id="14" class="t time-select scheduleList"></th>
+            <th id="15" class="t time-select scheduleList"></th>
+        </tr>
+    </table>
+        <br>
+    <table class="time-table-1 scheduleList">
         <tr>
-            <th>16:00 ~ 17:00</th>
-            <th>17:00 ~ 18:00</th>
-            <th>18:00 ~ 19:00</th>
-            <th>19:00 ~ 20:00</th>
-            <th>20:00 ~ 21:00</th>
-            <th>21:00 ~ 22:00</th>
-            <th>22:00 ~ 23:00</th>
-            <th>23:00 ~ 24:00</th>
+            <th class="scheduleList">16:00 ~ 17:00</th>
+            <th class="scheduleList">17:00 ~ 18:00</th>
+            <th class="scheduleList">18:00 ~ 19:00</th>
+            <th class="scheduleList">19:00 ~ 20:00</th>
+            <th class="scheduleList">20:00 ~ 21:00</th>
+            <th class="scheduleList">21:00 ~ 22:00</th>
+            <th class="scheduleList">22:00 ~ 23:00</th>
+            <th class="scheduleList">23:00 ~ 24:00</th>
         </tr>
         <tr>
-            <th id="16" class="t time-select"></th>
-            <th id="17" class="t time-select"></th>
-            <th id="18" class="t time-select"></th>
-            <th id="19" class="t time-select"></th>
-            <th id="20" class="t time-select"></th>
-            <th id="21" class="t time-select"></th>
-            <th id="22" class="t time-select"></th>
-            <th id="23" class="t time-select"></th>
+            <th id="16" class="t time-select scheduleList"></th>
+            <th id="17" class="t time-select scheduleList"></th>
+            <th id="18" class="t time-select scheduleList"></th>
+            <th id="19" class="t time-select scheduleList"></th>
+            <th id="20" class="t time-select scheduleList"></th>
+            <th id="21" class="t time-select scheduleList"></th>
+            <th id="22" class="t time-select scheduleList"></th>
+            <th id="23" class="t time-select scheduleList"></th>
         </tr>
     </table>
         <br>
