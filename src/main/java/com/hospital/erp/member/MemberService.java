@@ -33,8 +33,12 @@ public class MemberService implements UserDetailsService {
 	@Autowired 
 	private MemberDAO memberDAO;
 	 
+	private final PasswordEncoder passwordEncoder;
+	
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	public MemberService(PasswordEncoder passwordEncoder) {
+	   this.passwordEncoder = passwordEncoder;
+	}
  
 	@Autowired
 	private EmailService emailService;
@@ -120,7 +124,11 @@ public class MemberService implements UserDetailsService {
 		String [] juminAr = memberVO.getMemRnum().split("-");
 		memberVO.setMemPw(passwordEncoder.encode(juminAr[0]));
 	
-		return memberDAO.memberInsert(memberVO);
+		int result = memberDAO.memberInsert(memberVO);
+		if(result > 0) {
+			emailService.sendEmail(memberVO.getMemEmail(), memberVO.getMemCd());
+		}
+		return result;
 	}
 	
 	// passwordUpdate
@@ -154,8 +162,7 @@ public class MemberService implements UserDetailsService {
 	// forgotPassword 로 사번 이메일 받아서 해당메일로 임시비밀번호 생성
 	public int memberUpdateForgotPassword(MemberVO memberVO) throws Exception {
 		// 이메일로 임시비밀번호 보내기
-		String mailKind = "pw";
-		String temporaryPassword = emailService.sendEmail(memberVO.getMemEmail(),mailKind);
+		String temporaryPassword = emailService.sendEmail(memberVO.getMemEmail());
 		log.info("=========서비스단에서 임시번호 인코딩전 ==========={}",temporaryPassword);
 		memberVO.setMemPw(passwordEncoder.encode(temporaryPassword));
 		// update 쿼리이기때문에 성공시 1 실패시 0 성공인 경우 해당하는 사번과 email이 있다는 것 
@@ -164,12 +171,12 @@ public class MemberService implements UserDetailsService {
 	}
 	
 	// 회원가입시 이메일 인증 서비스
-	public String emailAuthenticationCode(String email) throws Exception {
-		// 이메일 서비스에서 메서드 실행될때이 값 구분을 위해서 넣어주는 mailKind
-		String mailKind = "Au";
-		String emailValue = emailService.sendEmail(email, mailKind);
-		return emailValue;
-	}
+//	public String emailAuthenticationCode(String email) throws Exception {
+//		// 이메일 서비스에서 메서드 실행될때이 값 구분을 위해서 넣어주는 mailKind
+//		String mailKind = "Au";
+//		String emailValue = emailService.sendEmail(email, mailKind);
+//		return emailValue;
+//	}
 	
 	// memberProfile Insert 메서드
 	public int memberProfileInsert(MemberVO memberVO,MultipartFile multipartFile) throws Exception {

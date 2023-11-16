@@ -179,10 +179,10 @@ public class MemberController {
 	  }
 	  
 	  // 회원가입때 이메일 인증 코드 발급 메서드
-	  @GetMapping("emailAuthenticate")
-	  @ResponseBody
-	  public String emailAuthenticationCode(String email) throws Exception {
-		   
-		  return memberService.emailAuthenticationCode(email);
-	  }
+//	  @GetMapping("emailAuthenticate")
+//	  @ResponseBody
+//	  public String emailAuthenticationCode(String email) throws Exception {
+//		   
+//		  return memberService.emailAuthenticationCode(email);
+//	  }
 }
