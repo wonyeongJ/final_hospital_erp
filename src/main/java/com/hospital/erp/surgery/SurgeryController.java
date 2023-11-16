@@ -298,10 +298,11 @@ public class SurgeryController {
 		scheduleVO.setCodeCd(15);
 		scheduleVO.setMemCd(memCd);
 		scheduleVO.setSchCd(surgeryReservationVO.getSchCd());
-		List<ScheduleVO> checkResult = surgeryService.surgeryScheduleCheck2(scheduleVO);
+		List<ScheduleVO> checkResult1 = surgeryService.surgeryScheduleCheck2(scheduleVO);
+		List<ScheduleVO> checkResult2 = surgeryService.surgeryScheduleCheck4(scheduleVO);
 		
 		String result;
-		if(checkResult.size()==0) {
+		if(checkResult1.size() == 0 && checkResult2.size() == 0) {
 			// 등록가능
 			surgeryService.surgeryScheduleDelete(scheduleVO);
 			surgeryService.surgeryScheduleInsert(scheduleVO);

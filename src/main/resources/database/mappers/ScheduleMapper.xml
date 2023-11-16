@@ -55,7 +55,8 @@
 		FROM
 			SCHEDULE
 		WHERE 
-			MEM_CD = #{memCd}
+			MEM_CD = #{memCd} AND
+			CODE_CD != 26
 	</select>
 	
 	<select id="codeData" parameterType="int" resultType="CodeVO">
@@ -178,6 +179,7 @@
 		WHERE 
 			SCH_CD NOT IN (#{schCd}) AND
 			MEM_CD = #{memCd} AND 
+			CODE_CD != 26 AND
 			(
 			(#{schSdate} <![CDATA[<=]]> SCH_SDATE AND #{schEdate} <![CDATA[>]]> SCH_SDATE) OR
 			(#{schSdate} <![CDATA[<]]> SCH_EDATE AND #{schEdate} <![CDATA[>=]]> SCH_EDATE) OR
@@ -185,5 +187,27 @@
 			(#{schEdate} <![CDATA[>]]> SCH_SDATE AND #{schEdate} <![CDATA[<=]]> SCH_EDATE)
 			)
   	</select>
+  	
+  	<insert id="commuteInsert" parameterType="ScheduleVO" useGeneratedKeys="true" keyProperty="schCd">
+		INSERT INTO 
+			SCHEDULE 
+				(
+				MEM_CD, 
+				CODE_CD, 
+				SCH_FK, 
+				SCH_SDATE, 
+				SCH_EDATE, 
+				SCH_RDATE
+				)
+			VALUES 
+				(
+				#{memCd}, 
+				26, 
+				0, 
+				NOW(), 
+				DATE_ADD(NOW(), INTERVAL 9 HOUR), 
+				NOW()
+				)
+	</insert>
   	
 </mapper>

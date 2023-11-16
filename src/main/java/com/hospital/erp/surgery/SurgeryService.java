@@ -63,6 +63,11 @@ public class SurgeryService {
 		return scheduleList;
 	}
 
+	public List<ScheduleVO> surgeryScheduleCheck4(ScheduleVO scheduleVO) throws Exception{
+		List<ScheduleVO> scheduleList = surgeryDAO.surgeryScheduleCheck4(scheduleVO);
+		return scheduleList;
+	}
+
 //	public List<SurgeryParticiantVO> memberList() throws Exception {
 //		List<SurgeryParticiantVO> result = surgeryDAO.memberList();
 //		return result;

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.hospital.erp.common.CodeVO;
+import com.hospital.erp.commute.CommuteVO;
 import com.hospital.erp.department.DepartmentVO;
 import com.hospital.erp.member.MemberVO;
 
@@ -40,5 +41,7 @@ public interface ScheduleDAO {
 	DepartmentVO departmentData(int depCd) throws Exception;
 
 	List<ScheduleVO> personalScheduleCheck(ScheduleVO scheduleVO) throws Exception;
+
+	void commuteInsert(ScheduleVO scheduleVO) throws Exception;
 
 }
