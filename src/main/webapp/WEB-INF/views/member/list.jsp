@@ -21,7 +21,6 @@
 									<th>이름</th>
 									<th>사번</th>
 									<th>과</th>
-									<th>직무</th>
 									<th>입사일</th>
 									<th>연차</th>
 									<th>근무시간(월)</th>
@@ -34,7 +33,6 @@
 									<td><a href="./data?memCd=${memberVO.memCd}">${memberVO.memName}</a></td>
 									<td><a href="./data?memCd=${memberVO.memCd}">${memberVO.memCd}</a></td>
 									<td>${memberVO.depName}</td>
-									<td>${memberVO.codeName}</td>
 									<td>${memberVO.memHdate}</td>
 									<td>${memberVO.memAnnual}</td>
 									<td>${memberVO.worktime }</td>
