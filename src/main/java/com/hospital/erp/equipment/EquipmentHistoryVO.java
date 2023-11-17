@@ -23,4 +23,5 @@ public class EquipmentHistoryVO {
 	
 	private String processedSdate;
 	private String processedRedate;
+	private String ehSnum;
 }

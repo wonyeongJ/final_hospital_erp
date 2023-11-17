@@ -13,7 +13,7 @@
 	<h3>  </h3>
 	<form action="insert" method="post" class="card-box pd-20 mb-30">
 		<div class="form-group row">
-			<label class="col-sm-12 col-md-2 col-form-label">부서이름</label>
+			<label class="col-sm-12 col-md-2 col-form-label">부서명</label>
 			<div class="col-sm-12 col-md-10">
 				<input class="form-control" name="depName" type="text" placeholder="부서이름을 입력하세요" >
 			</div>

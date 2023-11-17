@@ -1,3 +1,4 @@
+$(document).ready(function() {
 // 비밀번호 변경 이벤트
 $("#updatePasswordBtn").on("click",function(){
     
@@ -89,8 +90,24 @@ $("#commuteUpdate").on("click",function(){
     
 })
 
+	let memCd = $("#memCd").text();
+	let equipment = $("#equipment");
+	console.log(memCd);
+	$.ajax({
+		url: "/member/equipmentlist",
+		type: "get",
+		data : {
+			memCd: memCd
+		},
+		success: function(data) {
+			equipment.append(data);
+			console.log(data);
+
+		}
+	});
 // $("#resetPasswordbtn").on("click",function(){
 //     console.log("ssss");
 //     $("#Medium-modal").show();
 //     return false;
 // })
+});
