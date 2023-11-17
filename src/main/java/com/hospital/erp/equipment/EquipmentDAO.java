@@ -48,4 +48,7 @@ public interface EquipmentDAO {
 
 	 public EquipmentVO codeCheck(CodeVO codeVO);
 	 
+	 // mypage 비품사용내역 조회 메서드
+	 public List<EquipmentHistoryVO> mypageList(MemberVO memberVO) throws Exception;
+	 
 }

@@ -265,9 +265,11 @@
   	
   	<select id="memberListExpired" parameterType="MemberVO">
   		SELECT
-  			*
+  			M.*,D.DEP_NAME AS DEP_NAME
   		FROM
-  			MEMBER
+  			MEMBER AS M
+  			JOIN DEPARTMENT AS D
+  				ON M.DEP_CD = D.DEP_CD 
   		WHERE
   			MEM_DELETE = 1
   	</select>

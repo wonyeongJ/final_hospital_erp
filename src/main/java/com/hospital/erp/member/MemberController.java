@@ -25,6 +25,9 @@ import com.hospital.erp.commute.CommuteService;
 import com.hospital.erp.commute.CommuteVO;
 import com.hospital.erp.department.DepartmentService;
 import com.hospital.erp.department.DepartmentVO;
+import com.hospital.erp.equipment.EquipmentHistoryVO;
+import com.hospital.erp.equipment.EquipmentService;
+import com.hospital.erp.payment.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,6 +51,12 @@ public class MemberController {
 	  
 	  @Autowired
 	  private CommuteService commuteService;
+	  
+	  @Autowired
+	  private EquipmentService equipmentService;
+	  
+	  @Autowired
+	  private PaymentService paymentService;
 	    
 	  
 	  // 직원 리스트 요청 메서드
@@ -176,6 +185,17 @@ public class MemberController {
 		  memberVO = memberService.memberData(memberVO);
 		  model.addAttribute("memberVO", memberVO);
 		  return "member/dataexpired";
+	  }
+	  
+	  
+	  @GetMapping("equipmentlist")
+	  public String mypageEquipmentList(MemberVO memberVO, Model model) throws Exception{
+		  log.info("==========equipmentList==== {}", memberVO);
+		  List<EquipmentHistoryVO> equipmentHistoryAr = equipmentService.mypageList(memberVO);
+		  log.info("==========equipmentList service 호출 리턴 받은 컨트롤러 ==========");
+		  log.info("==========equipmentList {} ==========", equipmentHistoryAr);
+		  model.addAttribute("equipmentHistoryAr", equipmentHistoryAr);
+		  return "ajax.member/equipmentlist";
 	  }
 	  
 	  // 회원가입때 이메일 인증 코드 발급 메서드
