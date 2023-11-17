@@ -18,7 +18,7 @@ $(document).ready(function(){
 	for(var i = 0; i < 24; i++){
 		for(var j = 0; j < startArray.length; j++){
 			if(startArray[j] <= i*100 && i*100 < endArray[j]){
-				$('#'+ i ).attr('class', 'f')
+				$('#'+ i ).attr('class', 'f scheduleList')
 			}	
 			if(startArray[j] == i*100){
 				$('#'+ i ).append(reservatorArray[j])
