@@ -75,8 +75,8 @@
             <th class="scheduleList">15:00 ~ 16:00</th>
         </tr>
         <tr class="scheduleList">
-            <th id="9" class="t time-select"></th>
             <th id="8" class="t time-select scheduleList"></th>
+            <th id="9" class="t time-select scheduleList"></th>
             <th id="10" class="t time-select scheduleList"></th>
             <th id="11" class="t time-select scheduleList"></th>
             <th id="12" class="t time-select scheduleList"></th>
