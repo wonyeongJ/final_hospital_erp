@@ -5,7 +5,6 @@ let chartList = {};
 
 // 멤버 리스트 요청
 $(document).ready(function(){
-	console.log("ready")
 	// 병원장인거 가져오기
 	$.ajax({
 		url: "/member/memberListChart",
@@ -14,7 +13,6 @@ $(document).ready(function(){
 		async : false,
 		success: function(ajaxData) {
 			// 서버에서 반환한 MemberVO 객체를 사용
-			console.log(ajaxData);
 
 			data(ajaxData);
 	
@@ -72,12 +70,7 @@ function data(data){
 		data = JSON.stringify(chartNode,null,' ');
 		chartList = chartNode;
 
-		console.log(data);
-		console.log(typeof data);
 		datasource = JSON.parse(data);
-		console.log(typeof datasource);
-		console.log(chartList);
-		console.log(typeof chartList);
 
 		$('#chart-container').orgchart({
 			'data' : chartList,

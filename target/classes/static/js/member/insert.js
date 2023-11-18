@@ -64,7 +64,6 @@ $(document).ready(function() {
         }
 
         if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+$/.test(memEmailValue)) {
-            console.log(memEmailValue);
             arrayValidResultCheck.push(false);
             alert('전체 이메일 주소 형식이 올바르지 않습니다.');
             return;
@@ -91,7 +90,6 @@ $(document).ready(function() {
 
         // validResultcheck 배열 에서 false가 있다면 true가 담김 false 가 없으면 false이므로 정상 동작하게끔 짜주면 됨
         let validValue = arrayValidResultCheck.includes(false);
-        console.log(validValue);
 
         // validValue는 false를 찾아서 값이 있으면 true를 넣어주기때문에 false일때가 정상적으로 검증이 끝났을 때다
         if(!validValue){
