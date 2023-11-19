@@ -61,7 +61,13 @@ public class PaymentController {
 	@GetMapping("allList")
 	public String paymentAllList(Model model)throws Exception{
 		
-		List<PaymentVO> ar = paymentService.paymentAllList1();
+		//로그인 한 사람 데이터 가져오기
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	    UserDetails userDetails = (UserDetails)principal;
+	    MemberVO memberVO = (MemberVO)userDetails;
+		model.addAttribute("memberVO", memberVO);
+		
+		List<PaymentVO> ar = paymentService.paymentAllList1(memberVO);
 		model.addAttribute("list", ar);
 		
 		return "payment/allList";

@@ -25,8 +25,8 @@ public class PaymentService {
 	}
 	
 	//문서전체보기
-	public List<PaymentVO> paymentAllList1() throws Exception{
-		List<PaymentVO> paymentAr = paymentDAO.paymentAllList1();
+	public List<PaymentVO> paymentAllList1(MemberVO memberVO) throws Exception{
+		List<PaymentVO> paymentAr = paymentDAO.paymentAllList1(memberVO);
 		for(PaymentVO paymentVO : paymentAr) {
 			  
 			paymentVO.setEpRDate(paymentVO.getEpRDate().substring(0,10));
