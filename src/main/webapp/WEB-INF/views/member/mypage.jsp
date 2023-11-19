@@ -183,9 +183,9 @@
 					<c:forEach items="${paymentAr}" var="paymentVO" varStatus="i">
 					<tr>
 						<th class="table-plus">${i.index+1}</th>
-						<td>${paymentVO.epTitle}</td>
-						<td>${paymentVO.epSdate}</td>
-						<td>${paymentVO.epEdate}</td>
+						<td><a href="/payment/data?epCd=${paymentVO.epCd}" class="a1">${paymentVO.epTitle}</a> </td>
+						<td>${paymentVO.epSDate}</td>
+						<td>${paymentVO.epEDate}</td>
 						<td>${paymentVO.epDays}</td>
 					</tr>
 					</c:forEach>

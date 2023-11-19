@@ -48,9 +48,7 @@ public class IndexController {
 	
 	@PostMapping("/forgotPassword")
 	public String forgotPassword(MemberVO memberVO) throws Exception {
-		log.info("=======forgotPassword 실행=========== {}", memberVO);
 		int result = memberService.memberUpdateForgotPassword(memberVO);
-		log.info("==========컨트롤러에서 result 값 확인 {}========", result);
 		// 비밀번호 업데이트 성공
 		if(result > 0 ) {
 			return "redirect:/";

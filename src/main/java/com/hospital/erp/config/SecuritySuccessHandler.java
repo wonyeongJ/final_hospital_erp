@@ -33,10 +33,10 @@ public class SecuritySuccessHandler implements AuthenticationSuccessHandler{
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		log.info("==========authentication : {} ============", authentication);
-		log.info("==========pathinfo : {} ============", request.getPathInfo());
-		log.info("==========RequestURI : {} ============", request.getRequestURI());
-		log.info("==========RequestURL : {} ============", request.getRequestURL());
+//		log.info("==========authentication : {} ============", authentication);
+//		log.info("==========pathinfo : {} ============", request.getPathInfo());
+//		log.info("==========RequestURI : {} ============", request.getRequestURI());
+//		log.info("==========RequestURL : {} ============", request.getRequestURL());
 		
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		

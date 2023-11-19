@@ -57,7 +57,6 @@ public class MemberService implements UserDetailsService {
 	 @Override
 	public UserDetails loadUserByUsername(String memCd) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		 log.info("=================== 테스트 =================== {}", memCd);
 		MemberVO memberVO = memberDAO.memberFindByData(memCd);
 		System.out.println("loaad depName : " + memberVO.getDepName());
 		
@@ -83,7 +82,6 @@ public class MemberService implements UserDetailsService {
 		}else {
 			memberVO.setCodeCd(2);
 		}
-		log.info("===========MemberVO {}", memberVO);
 		// memberVO 값에서 일부분만 수정할거기때문에 바꿀 내용을 임시 객체 maxMemberVO를 통해 저장한다.
 		MemberVO maxMemberVO = new MemberVO(); 
 		maxMemberVO.setMemHdate(memberVO.getMemHdate());
@@ -98,11 +96,9 @@ public class MemberService implements UserDetailsService {
 		}
 		// 조회용으로쓰는 maxMemberVO에 위에서만든 ex) 2303% 값 넣기
 		maxMemberVO.setMemCd(yearStart.concat(selectjobCode.concat("%")));
-		log.info("========maxMemberVO memCd 설정값===={}=========",maxMemberVO);
 		
 		// 자신의 직무코드에 맞는 사번중 가장 높은 사번 조회 메서드
 		maxMemberVO = memberDAO.memberDataMaxMemCd(maxMemberVO);
-		log.info("========maxMemberVO  조회해온값===={}=========",maxMemberVO);
 		// 위의 메서드를 통해 조회해온 사번이 NULL일 경우 실행 메서드
 		if (maxMemberVO == null) {
 			
@@ -120,10 +116,8 @@ public class MemberService implements UserDetailsService {
 			startMemCd = year.concat(jobCode.concat(startMemCd));
 			//memberVO에 사번 대입
 			memberVO.setMemCd(startMemCd);
-			log.info("===============MemberVO 쿼리NULL실행 {} =========", memberVO);
 			
 		}else { // 조회해온 사번이 NULL 이 아닐 경우 실행
-			log.info("======maxMemberVO 쿼리 NULL아닐때 {} ", maxMemberVO);
 			memberVO.setMemCd(maxMemberVO.getMemCd()); 
 		}
 		
@@ -145,9 +139,7 @@ public class MemberService implements UserDetailsService {
 		UserDetails userDetails = (UserDetails)principal;
 		MemberVO memberVO = (MemberVO)userDetails;
 		
-		log.info("=========service passwordVOconfirm ====  {}",passwordVO);
 		memberVO.setMemPw(passwordEncoder.encode(passwordVO.getNewPasswordConfirm()));
-		log.info("=========service passwordVOconfirm ====  {}",memberVO.getMemPw());
 		return memberDAO.memberUpdatePassword(memberVO);
 	}
 	
@@ -170,7 +162,6 @@ public class MemberService implements UserDetailsService {
 	public int memberUpdateForgotPassword(MemberVO memberVO) throws Exception {
 		// 이메일로 임시비밀번호 보내기
 		String temporaryPassword = emailService.sendEmail(memberVO.getMemEmail());
-		log.info("=========서비스단에서 임시번호 인코딩전 ==========={}",temporaryPassword);
 		memberVO.setMemPw(passwordEncoder.encode(temporaryPassword));
 		// update 쿼리이기때문에 성공시 1 실패시 0 성공인 경우 해당하는 사번과 email이 있다는 것 
 		int result = memberDAO.memberUpdateForgotPassword(memberVO); 
@@ -187,7 +178,6 @@ public class MemberService implements UserDetailsService {
 	
 	// memberProfile Insert 메서드
 	public int memberProfileInsert(MemberVO memberVO,MultipartFile multipartFile) throws Exception {
-		log.info("서비스 진입 memberVO {} ==============",memberVO);
 		int result = 0;
 		// file이 없지 않다면
 		if(!multipartFile.isEmpty()) {
@@ -212,9 +202,7 @@ public class MemberService implements UserDetailsService {
 					//S3에 업로드
 					String s3Url = s3Uploader.upload(multipartFile, "member",fileName);
 					memberVO.setMemPath(s3Url);
-					log.info("===========fileVO {}========");
 					result = memberDAO.memberProfileUpdate(memberVO);
-					log.info("===============memberVO {} ========",memberVO);
 				}
 					
 				
@@ -226,7 +214,6 @@ public class MemberService implements UserDetailsService {
 
 	// memberStamp Insert 메서드
 	public int memberStampUpdate(MemberVO memberVO,MultipartFile multipartFile) throws Exception {
-		log.info("서비스 진입 memberVO {} ==============",memberVO);
 		int result = 0;
 		// file이 없지 않다면
 		if(!multipartFile.isEmpty()) {
@@ -251,9 +238,7 @@ public class MemberService implements UserDetailsService {
 					//S3에 업로드
 					String s3Url = s3Uploader.upload(multipartFile, "stamp",fileName);
 					memberVO.setMemSPath(s3Url);
-					log.info("===========fileVO {}========");
 					result = memberDAO.memberStampUpdate(memberVO);
-					log.info("===============memberVO {} ========",memberVO);
 				}
 					
 				
