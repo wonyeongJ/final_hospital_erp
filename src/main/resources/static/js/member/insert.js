@@ -2,7 +2,6 @@ $(document).ready(function() {
 	let arrayValidResultCheck = [];
 
     $("#insertBtn").on('click',function(){
-        console.log("버튼입력 이벤트")
         let memName = $('#memName').val();
         let memRnum1 = $('#memRnum1').val();
         let memRnum2 = $('#memRnum2').val();
@@ -21,53 +20,76 @@ $(document).ready(function() {
       
         
         if (!/^[가-힣]+$/.test(memName)) {
-            console.log(memName);
             arrayValidResultCheck.push(false);
             alert('이름은 한글만 입력하세요.');
             
             $("#memName").focus();
+            $("#memName").attr('class','form-control form-control-danger');
             return;
-        }
+        }else{
+			$("#memName").attr('class','form-control form-control-success');		
+		}
+			
+		
 
         if (!/^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))$/.test(memRnum1)) {
-            console.log(memRnum1);
             arrayValidResultCheck.push(false);
             alert('주민등록번호 앞자리가 올바르지 않습니다.');
+            $("#memRnum1").focus();
+            $("#memRnum1").attr('class','form-control form-control-danger');
             return;
-        }
+        }else{
+			$("#memRnum1").attr('class','form-control form-control-success');
+		}
 
         if (!/^[1-4][0-9]{6}$/.test(memRnum2)) {
-            console.log(memRnum2);
             arrayValidResultCheck.push(false);
             alert('주민등록번호 뒷자리가 올바르지 않습니다.');
+          	$("#memRnum2").focus();
+            $("#memRnum2").attr('class','form-control form-control-danger');
             return;
-        }
+        }else{
+			$("#memRnum2").attr('class','form-control form-control-success');
+		}
 
         if (!/^01[016789]-[0-9]{4}-[0-9]{4}$/.test(memPnumValue)) {
-            console.log(memPnumValue);
             arrayValidResultCheck.push(false);
             alert('핸드폰 번호가 올바르지 않습니다.');
+            $('#memPnum1').attr('class','form-control form-control-danger');
+        	$('#memPnum2').attr('class','form-control form-control-danger');
+        	$('#memPnum3').attr('class','form-control form-control-danger');
             return;
-        }
+        }else{
+			 $('#memPnum1').attr('class','form-control form-control-success');
+        	$('#memPnum2').attr('class','form-control form-control-success');
+        	$('#memPnum3').attr('class','form-control form-control-success');
+		}
         
-        console.log(jobCd);
         if(jobCd == null){
 			alert("직무를 선택해주세요.");
 			 arrayValidResultCheck.push(false);
 			 return;
 		}
 
-        if (memSalary < 0 || memSalary > 100000) {
+        if (memSalary < 1000 || memSalary > 100000) {
             arrayValidResultCheck.push(false);
             alert('연봉은 0에서 100억 사이의 값을 입력하세요.');
+             $('#memSalary').attr('class','form-control form-control-danger');
             return;
-        }
+        }else{
+			 $('#memSalary').attr('class','form-control form-control-success');
+		}
 
         if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+$/.test(memEmailValue)) {
             arrayValidResultCheck.push(false);
             alert('전체 이메일 주소 형식이 올바르지 않습니다.');
+            $('#memEmail1').attr('class','form-control form-control-danger');
+        	$('#memEmail2').attr('class','form-control form-control-danger');
             return;
-        }
+        }else{
+			$('#memEmail1').attr('class','form-control form-control-success');
+        	$('#memEmail2').attr('class','form-control form-control-success');
+		}
         
      /*   if ($("#emailValue").val() != $("#emailValue2").val()){
 			alert("인증번호가 일치하지 않습니다.")
@@ -77,13 +99,19 @@ $(document).ready(function() {
         if (!/^\d{4}-\d{2}-\d{2}$/.test(memHdate)){
 			alert("입사일을 입력하세요.")
 			arrayValidResultCheck.push(false);
+			 $('#memHdate').attr('class','form-control form-control-danger');
 			return;
+		}else{
+			$('#memHdate').attr('class','form-control form-control-success');
 		}
 		
 		if ($("#address_kakao").val() == ""){
 			alert("주소를 입력하세요.")
 			arrayValidResultCheck.push(false);
+			 $('#address_kakao').attr('class','form-control form-control-danger');
 			return;
+		}else{
+			$('#address_kakao').attr('class','form-control form-control-success');
 		}
 		
 	

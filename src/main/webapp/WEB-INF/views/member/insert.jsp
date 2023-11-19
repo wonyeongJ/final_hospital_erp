@@ -30,19 +30,19 @@
 		</div>
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">핸드폰번호</label>
-			<div class="col-md-1 col-sm-12">
+			<div class="col-md-2 col-sm-12">
 				<input class="form-control" type="text" id="memPnum1" placeholder="010">
 			</div>
 			<div>
 				_
 			</div>
-			<div class="col-md-1 col-sm-12">
+			<div class="col-md-2 col-sm-12">
 				<input class="form-control" type="text" id="memPnum2"  placeholder="3333">
 			</div>
 			<div>
 				_
 			</div>
-			<div class="col-md-1 col-sm-12">
+			<div class="col-md-2 col-sm-12">
 				<input class="form-control" type="text" id="memPnum3"  placeholder="2222">
 				<input class="form-control" type="hidden" id="memPnum" name="memPnum">
 			</div>
