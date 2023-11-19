@@ -28,6 +28,7 @@ import com.hospital.erp.department.DepartmentVO;
 import com.hospital.erp.equipment.EquipmentHistoryVO;
 import com.hospital.erp.equipment.EquipmentService;
 import com.hospital.erp.payment.PaymentService;
+import com.hospital.erp.payment.PaymentVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -114,6 +115,8 @@ public class MemberController {
 		  CommuteVO commuteVO = commuteService.commuteData(memberVO);
 		  log.info("======= commutVO {} ==========",commuteVO);
 		  model.addAttribute("commuteVO", commuteVO);
+		  List<PaymentVO> paymentAr = paymentService.memberElectornicPaymentList(memberVO);
+		  model.addAttribute("paymentAr", paymentAr);
 		  return "member/mypage";
 	  }
 	  

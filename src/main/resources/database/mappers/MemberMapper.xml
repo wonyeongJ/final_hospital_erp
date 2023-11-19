@@ -299,4 +299,7 @@
 		WHERE
 			MEM_CD = #{epMemCd}
   	</update>
+  	
+
+  	
 </mapper>

@@ -122,5 +122,9 @@ public class PaymentService {
 		return paymentDAO.paymentUpdate(paymentVO);
 	}
 	
+	// 마이페이지 전자결재 리스트 호출 메서드
+	public List<PaymentVO> memberElectornicPaymentList(MemberVO memberVO) throws Exception {
+		return paymentDAO.memberElectornicPaymentList(memberVO);
+	}
 	
 }

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hospital.erp.common.CodeVO;
+import com.hospital.erp.payment.PaymentVO;
 import com.hospital.erp.reservation.ReservationVO;
 import com.hospital.erp.util.EmailService;
 import com.hospital.erp.util.FileManager;
@@ -283,4 +284,6 @@ public class MemberService implements UserDetailsService {
 		result = memberDAO.memberAnnualUpdate(memberVO);
 		return result;
 	}
+	
+	
 }
