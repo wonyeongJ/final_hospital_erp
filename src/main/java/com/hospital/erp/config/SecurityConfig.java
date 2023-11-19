@@ -64,7 +64,10 @@ public class SecurityConfig {
 							"/member/dataexpired",
 							"/department/list",
 							"/department/insert",
-							"/department/update"
+							"/department/update",
+							"/board/notice/inset",
+							"/board/notice/update",
+							"/payment/allList"
 							)
 							.hasRole("ADMIN")
 				.anyRequest().authenticated()

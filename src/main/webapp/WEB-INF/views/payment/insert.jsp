@@ -50,6 +50,7 @@ pageEncoding="UTF-8"%>
 		<div id="conList"></div>
 		<!-- 참조자 정보 Input -->
 		<div id="refList"></div>
+		
 		<input class="form-control" type="hidden" name="dfCd" value="${documentFormVO.dfCd}">
 		
 		<!-- 모달 -->
@@ -57,8 +58,8 @@ pageEncoding="UTF-8"%>
 			<div class="col-md-4 col-sm-12 mb-30">
 				<div class="pd-20 card-box height-100-p">
 					
-					<a href="#" class="btn-block" data-toggle="modal" data-target="#bd-example-modal-lg" type="button">
-						<h5 class="h4" alt="modal" id="confirmResult">결재선지정</h5>
+					<a href="#" class="btn-block" data-toggle="modal" data-target="#bd-example-modal-lg" type="button" >
+						<h4 class="h4" alt="modal" id="confirmResult">결재선지정</h4>
 
 					</a>
 					<div class="modal fade bs-example-modal-lg" id="bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
@@ -72,15 +73,15 @@ pageEncoding="UTF-8"%>
 									<div class="modal-body">
 										<div>
 											<input type="radio" id="pRadio1" name="pRadio">
-											<label for="pRadio1">기안->최종결재</label>
+											<label for="pRadio1">기안<i class="icon-copy fa fa-long-arrow-right" aria-hidden="true"></i>최종결재</label>
 										</div>
 										<div>
 											<input type="radio" id="pRadio2" name="pRadio">
-											<label for="pRadio2">기안->1차결재->최종결재</label>
+											<label for="pRadio2">기안<i class="icon-copy fa fa-long-arrow-right" aria-hidden="true"></i>1차결재<i class="icon-copy fa fa-long-arrow-right" aria-hidden="true"></i>최종결재</label>
 										</div>
 										<div>
 											<input type="radio" id="pRadio3" name="pRadio" checked>
-											<label for="pRadio3">기안->1차결재->2차결재->최종결재</label>
+											<label for="pRadio3">기안<i class="icon-copy fa fa-long-arrow-right" aria-hidden="true"></i>1차결재<i class="icon-copy fa fa-long-arrow-right" aria-hidden="true"></i>2차결재<i class="icon-copy fa fa-long-arrow-right" aria-hidden="true"></i>최종결재</label>
 										</div>
 								    	<div class="left card">
 								    		<c:forEach items="${departmentList}" var="vo">
@@ -89,7 +90,7 @@ pageEncoding="UTF-8"%>
 														<c:forEach items="${memberList}" var="vo2">
 															<ul>
 																<c:if test="${vo.depCd eq vo2.depCd}">
-																	<li id="${vo2.memCd}" class="members" data-vo2name="${vo2.memName}">
+																	<li id="${vo2.memCd}" class="members" data-vo2name="${vo2.memName}" data-voDepName="${vo.depName}">
 																		<i class="icon-copy fa fa-user" aria-hidden="true"></i>${vo2.memName}
 																	</li>
 																</c:if>
@@ -101,27 +102,27 @@ pageEncoding="UTF-8"%>
 								    	
 								    	<div class="center card">
 								    		<div class="1stPayment">
-								    			<input type="button" value="remove" id="1stConRemove">
-								    			<input type="button" value="1차결재">
-								    			<input type="button" value="add" id="1stConAdd">
+								    			<i class="icon-copy fa fa-arrow-left" aria-hidden="true" id="1stConRemove" style="color: red"></i>
+								    			<label style="font: bold;">1차결재</label>
+								    			<i class="icon-copy fa fa-arrow-right" aria-hidden="true" id="1stConAdd" style="color: blue"></i>
 								    		</div>
 								    			
 								    		<div class="2ndPayment">
-								    			<input type="button" value="remove" id="2ndConRemove">
-								    			<input type="button" value="2차결재">
-								    			<input type="button" value="add" id="2ndConAdd">
+								    			<i class="icon-copy fa fa-arrow-left" aria-hidden="true" id="2ndConRemove" style="color: red"></i>
+								    			<label style="font: bold;">2차결재</label>
+								    			<i class="icon-copy fa fa-arrow-right" aria-hidden="true" id="2ndConAdd" style="color: blue"></i>
 								    		</div>
 								    		
 								    		<div>
-								    			<input type="button" value="remove" id="3thConRemove">
-								    			<input type="button" value="최종결재">
-								    			<input type="button" value="add" id="3thConAdd">
+								    			<i class="icon-copy fa fa-arrow-left" aria-hidden="true" id="3thConRemove" style="color: red"></i>
+								    			<label style="font: bold;">최종결재</label>
+								    			<i class="icon-copy fa fa-arrow-right" aria-hidden="true" id="3thConAdd" style="color: blue"></i>
 								    		</div>
 								    		
 								    		<div>
-								    			<input type="button" value="remove" id="refRemove">
-								    			<input type="button" value="참조">
-								    			<input type="button" value="add" id="refAdd">
+								    			<i class="icon-copy fa fa-arrow-left" aria-hidden="true" id="refRemove" style="color: red"></i>
+								    			<label style="font: bold;">참조</label>
+								    			<i class="icon-copy fa fa-arrow-right" aria-hidden="true" id="refAdd" style="color: blue"></i>
 								    		</div>
 								    	</div>
 								    	
@@ -242,7 +243,7 @@ pageEncoding="UTF-8"%>
 			  	<tr>
 			    	<td class="tg-baqh">이름</td>
 				    <td class="tg-baqh" colspan="2">
-				    	<input class="form-control" type="text" value="${memberVO.memName}" readonly>
+				    	<input class="form-control" type="text" name="memName" value="${memberVO.memName}" readonly>
 				    </td>
 				    <td class="tg-baqh">연락처</td>
 				    <td class="tg-baqh tg-baqh-r" colspan="3">
@@ -365,88 +366,10 @@ pageEncoding="UTF-8"%>
 			  	
 			  	<tr>
 					<td class="tg-baqh" colspan="9">
-						<div class="html-editor pd-20 card-box mb-30">
-							<ul class="wysihtml5-toolbar" style="">
-								<li class="dropdown"><a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-font"></i>&nbsp;<span class="current-font">Normal text</span>&nbsp;<b class="caret"></b></a>
-									<ul class="dropdown-menu">
-										<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="div" href="javascript:;" unselectable="on">Normal text</a></li>
-										<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1" href="javascript:;" unselectable="on">Heading 1</a></li>
-										<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2" href="javascript:;" unselectable="on">Heading 2</a></li>
-										<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h3" href="javascript:;" unselectable="on">Heading 3</a></li>
-									</ul>
-								</li>
-								<li>
-									<div class="btn-group">
-										<a class="btn" data-wysihtml5-command="bold" title="CTRL+B" href="javascript:;" unselectable="on">Bold</a>
-										<a class="btn" data-wysihtml5-command="italic" title="CTRL+I" href="javascript:;" unselectable="on">Italic</a>
-										<a class="btn" data-wysihtml5-command="underline" title="CTRL+U" href="javascript:;" unselectable="on">Underline</a>
-									</div>
-								</li>
-								<li>
-									<div class="btn-group">
-										<a class="btn" data-wysihtml5-command="insertUnorderedList" title="Unordered list" href="javascript:;" unselectable="on"><i class="fa fa-list"></i></a>
-										<a class="btn" data-wysihtml5-command="insertOrderedList" title="Ordered list" href="javascript:;" unselectable="on"><i class="fa fa-th-list"></i></a>
-										<a class="btn" data-wysihtml5-command="Outdent" title="Outdent" href="javascript:;" unselectable="on"><i class="fa fa-outdent"></i></a>
-										<a class="btn" data-wysihtml5-command="Indent" title="Indent" href="javascript:;" unselectable="on"><i class="fa fa-indent"></i></a>
-									</div>
-								</li>
-								<li>
-									<div class="btn-group">
-										<a class="btn" data-wysihtml5-action="change_view" title="Edit HTML" href="javascript:;" unselectable="on"><i class="fa fa-pencil"></i></a>
-									</div>
-								</li>
-								<li>
-									<div class="bootstrap-wysihtml5-insert-link-modal modal fade bs-example-modal-lg">
-										<div class="modal-dialog modal-lg">
-											<div class="modal-content">
-												<div class="modal-header">
-													<a class="close" data-dismiss="modal"></a>
-													<h3>Insert link</h3>
-												</div>
-												<div class="modal-body">
-													<div class="form-group">
-														<input value="http://" class="bootstrap-wysihtml5-insert-link-url form-control" type="text">
-													</div>
-												</div>
-												<div class="modal-footer">
-													<a href="#" class="btn btn-inverse" data-dismiss="modal">Cancel</a>
-													<a href="#" class="btn btn-primary" data-dismiss="modal">Insert link</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<a class="btn" data-wysihtml5-command="createLink" title="Insert link" href="javascript:;" unselectable="on"><i class="fa fa-link"></i></a>
-								</li>
-								<li>
-									<div class="bootstrap-wysihtml5-insert-image-modal modal fade bs-example-modal-lg">
-										<div class="modal-dialog modal-lg">
-											<div class="modal-content">
-												<div class="modal-header">
-													<a class="close" data-dismiss="modal"></a>
-													<h3>Insert image</h3>
-												</div>
-												<div class="modal-body">
-													<div class="form-group">
-														<input value="http://" class="bootstrap-wysihtml5-insert-image-url  m-wrap large form-control" type="text">
-													</div>
-												</div>
-												<div class="modal-footer">
-													<a href="#" class="btn" data-dismiss="modal">Cancel</a>
-													<a href="#" class="btn  green btn-primary" data-dismiss="modal">Insert image</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<a class="btn" data-wysihtml5-command="insertImage" title="Insert image" href="javascript:;" unselectable="on"><i class="fa fa-image "></i></a>
-								</li>
-							</ul>
-							<textarea class="textarea_editor form-control border-radius-0" style="display: none;" placeholder="Enter text ..."></textarea>
-							<input type="hidden" name="_wysihtml5_mode" value="1">
-							<iframe class="wysihtml5-sandbox" security="restricted" allowtransparency="true" frameborder="0" width="0" height="0" marginwidth="0" marginheight="0" style="display: block; background-color: rgb(255, 255, 255); border-collapse: separate; border-color: rgb(212, 212, 212); border-style: solid; border-width: 0.8px; clear: none; float: none; margin: 0px; outline: rgb(19, 30, 34) none 0px; outline-offset: 0px; padding: 6px 12px; position: static; inset: auto; z-index: auto; vertical-align: baseline; text-align: start; box-sizing: border-box; box-shadow: none; border-radius: 0px; width: 1119.2px; height: 300px;"></iframe>
-						</div>
+						
 					</td>
 			  	</tr>
-			  	
+
 			  	<tr>
 			    	<td class="tg-baqh" colspan="9">
 			    		${documentFormVO.dfContents}
@@ -566,14 +489,16 @@ pageEncoding="UTF-8"%>
     	$('.members').on("click", function () {
     		memCd = $(this).attr("id");
       	 	memName = $(this).attr("data-vo2name");
+      	 	depName = $(this).attr("data-voDepName");
       	 	console.log(memCd);
+      	 	console.log(depName);
     	});
       	
     	//1차결재
       	$('#1stConAdd').on("click", function(){
       		console.log("1차결재add작동");
 			$('#1stCon').empty();
-			con1 = "<span class='1stConClass' data-1stConCd="+memCd+" data-1stConName="+memName+" data-step=2>"+memName+"</span>";
+			con1 = "<span class='1stConClass' data-1stConCd="+memCd+" data-1stConName="+memName+" data-step=2>"+depName+" <br> "+memName+"</span>";
 			$('#1stCon').append(con1);
 
 			conArr1 = {};
@@ -606,7 +531,7 @@ pageEncoding="UTF-8"%>
       	$('#2ndConAdd').on("click", function(){
       		console.log("2차결재add작동");
 			$('#2ndCon').empty();
-			con2 = "<span class='2ndConClass' data-2ndConCd="+memCd+" data-2ndConName="+memName+" data-step=3>"+memName+"</span>";
+			con2 = "<span class='2ndConClass' data-2ndConCd="+memCd+" data-2ndConName="+memName+" data-step=3>"+depName+" <br> "+memName+"</span>";
 			$('#2ndCon').append(con2);
 			
 			conArr2 = {};
@@ -639,7 +564,7 @@ pageEncoding="UTF-8"%>
       	$('#3thConAdd').on("click", function(){
       		console.log("3차결재add작동");
 			$('#3thCon').empty();
-			con3 = "<span class='3thConClass' data-3thConCd="+memCd+" data-3thConName="+memName+" data-step=4>"+memName+"</span>";
+			con3 = "<span class='3thConClass' data-3thConCd="+memCd+" data-3thConName="+memName+" data-step=4>"+depName+" <br> "+memName+"</span>";
 			$('#3thCon').append(con3);
 			
 			conArr3 = {};
@@ -671,7 +596,7 @@ pageEncoding="UTF-8"%>
       	//참조
       	$('#refAdd').on("click", function(){
       		console.log("참조add작동");
-			ref = "<span class='refClass' data-refCd="+memCd+" data-refName="+memName+">"+memName+"</span><br>";
+			ref = "<span class='refClass' data-refCd="+memCd+" data-refName="+memName+">"+depName+" <br> "+memName+"</span><br>";
 			$('#ref').append(ref);
 			
 			refArr1 = {
@@ -728,7 +653,13 @@ pageEncoding="UTF-8"%>
 				
 			}
 			
-      	}); 
+			
+      	});
+    	$('#conResetButton').on("click", function(){
+    		$('#conList').empty();
+			$('#refList').empty();
+    	});
+      	
   	});
   	
 

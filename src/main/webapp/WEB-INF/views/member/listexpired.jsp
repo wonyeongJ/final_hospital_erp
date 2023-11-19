@@ -21,7 +21,6 @@
 									<th>이름</th>
 									<th>사번</th>
 									<th>과</th>
-									<th>직무</th>
 									<th>퇴사일</th>
 								</tr>
 							</thead>
@@ -32,8 +31,7 @@
 									<td><a href="./dataexpired?memCd=${memberVO.memCd}">${memberVO.memName}</a></td>
 									<td><a href="./dataexpired?memCd=${memberVO.memCd}">${memberVO.memCd}</a></td>
 									<td>${memberVO.depName}</td>
-									<td>${memberVO.codeName}</td>
-									<td>${memberVO.memHdate}</td>
+									<td>${memberVO.memQdate}</td>
 								</tr>
 								</c:forEach>
 							</tbody>

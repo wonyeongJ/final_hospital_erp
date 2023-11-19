@@ -15,6 +15,7 @@
 			C.CODE_NAME AS JOB_NAME,
 			M.MEM_HDATE,
 			M.MEM_ANNUAL,
+			M.MEM_SPATH,
 			C2.CODE_NAME AS POS_NAME,
 			ifnull(COM.WORKTIME,0) AS WORKTIME
 		FROM 
@@ -265,9 +266,11 @@
   	
   	<select id="memberListExpired" parameterType="MemberVO">
   		SELECT
-  			*
+  			M.*,D.DEP_NAME AS DEP_NAME
   		FROM
-  			MEMBER
+  			MEMBER AS M
+  			JOIN DEPARTMENT AS D
+  				ON M.DEP_CD = D.DEP_CD 
   		WHERE
   			MEM_DELETE = 1
   	</select>
@@ -287,5 +290,16 @@
 					WHERE MEM_QDATE = DATE_FORMAT(NOW(), '%Y-%m-%d')
 					)
   	</update>
+  	
+  	<update id="memberAnnualUpdate" parameterType="MemberVO">
+  		UPDATE
+			MEMBER 
+		SET 
+			MEM_ANNUAL = MEM_ANNUAL - #{epDays}
+		WHERE
+			MEM_CD = #{epMemCd}
+  	</update>
+  	
+
   	
 </mapper>

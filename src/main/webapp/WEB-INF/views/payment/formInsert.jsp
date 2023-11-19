@@ -225,11 +225,11 @@ pageEncoding="UTF-8"%>
 			    	<td class="tg-baqh tg-baqh-b" colspan="9">2023년 10월 25일</td>
 			  	</tr>
 			  	<tr>
-			    	<td class="tg-text-r tg-baqh-r tg-baqh-b tg-baqh-t" colspan="7">성명 : </td>
-			    	<td class="tg-baqh-l tg-baqh-r tg-baqh tg-baqh-b tg-baqh-t" colspan="1">
+			    	<td class="tg-text-r tg-baqh-r tg-baqh-b tg-baqh-t" colspan="8">성명 : </td>
+			    	<td class="tg-baqh-l tg-baqh tg-baqh-b tg-baqh-t" colspan="1">
 			    		<input class="form-control" type="text" disabled="">
 			    	</td>
-			    	<td class="tg-baqh-l tg-baqh-b tg-baqh-t tg-baqh" colspan="1">(인)</td>
+			    	
 			  	</tr>
 			  	<tr>
 			    	<td class="tg-baqh tg-font-b tg-baqh-t" colspan="9">구디병원 병원장 귀하</td>

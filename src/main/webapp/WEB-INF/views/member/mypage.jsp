@@ -4,6 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<link rel="stylesheet" href="/vendors/styles/equipment/list.css">
 
 <body>
 	<div>
@@ -166,40 +167,36 @@
 		<div class="col-lg-6 col-md-12 col-sm-12 mb-30">
 			<div class="pd-20 card-box">
 				<h5 class="h4 text-blue mb-20" style="display: flex; float: left;">연차사용내역</h5>
-				<h5 class="h4 text-blue mb-20" style="display: flex; justify-content: flex-end;">남은연차 : 15</h5>
+				<h5 class="h4 text-blue mb-20" style="display: flex; justify-content: flex-end;">남은연차 : <sec:authentication property="principal.memAnnual" /></h5>
 				
 				<table class="table table-striped">
 					<thead>
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">사용날짜</th>
-					</tr>
+						<tr>
+							<th class="table-plus datatable-nosort">No</th>
+							<th>문서 제목</th>
+							<th>시작일</th>
+							<th>종료일</th>
+							<th>기간</th>
+						</tr>
 					</thead>
 					<tbody>
+					<c:forEach items="${paymentAr}" var="paymentVO" varStatus="i">
 					<tr>
-						<th scope="row">1</th>
-						<td scope="row">2023-08-05</td>
+						<th class="table-plus">${i.index+1}</th>
+						<td><a href="/payment/data?epCd=${paymentVO.epCd}" class="a1">${paymentVO.epTitle}</a> </td>
+						<td>${paymentVO.epSDate}</td>
+						<td>${paymentVO.epEDate}</td>
+						<td>${paymentVO.epDays}</td>
 					</tr>
+					</c:forEach>
 					</tbody>
 				</table>
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-12 col-sm-12 mb-30">
-			<div class="pd-20 card-box">
-				<h5 class="h4 text-blue mb-20" style="display: flex;">비품사용내역</h5>
+			<div id="equipment" class="pd-20 card-box">
 				
-				<table class="table table-striped">
-					<thead>
-					<tr>
-						<th scope="col">#</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<th scope="row">1</th>
-					</tr>
-					</tbody>
-				</table>
+				
 			</div>
 		</div>
 	</div>

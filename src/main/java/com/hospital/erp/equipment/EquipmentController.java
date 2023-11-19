@@ -261,4 +261,22 @@ public class EquipmentController {
 		return "redirect:list";
 		
 	}
+	
+	@GetMapping("historyDeleteMypage")  
+	public String equipmentHistoryDeleteMyPage(EquipmentHistoryVO equipmentHistoryVO, MemberVO memberVO)throws Exception{
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	    UserDetails userDetails = (UserDetails)principal;
+	    MemberVO memberVO2 = (MemberVO)userDetails;
+		
+	    int num = Integer.parseInt(memberVO2.getMemCd());
+		equipmentHistoryVO = equipmentService.equipmentHistoryData(equipmentHistoryVO);
+		if(num == equipmentHistoryVO.getMemCd()) {
+			// 비품 대여 내역 논리 삭제
+			equipmentService.historyDelete(equipmentHistoryVO);
+		}
+		
+		return "redirect:../member/mypage";
+		
+	}
 }

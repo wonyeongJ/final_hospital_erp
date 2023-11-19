@@ -66,6 +66,10 @@ public class MemberVO implements UserDetails {
 	private String worktime;
 	private String mfPath; // memberfile join 
 	
+	//연차감소에 필요한 정보
+	private String epMemCd;
+	private Integer epDays; 
+	
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub

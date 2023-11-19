@@ -25,6 +25,10 @@ import com.hospital.erp.commute.CommuteService;
 import com.hospital.erp.commute.CommuteVO;
 import com.hospital.erp.department.DepartmentService;
 import com.hospital.erp.department.DepartmentVO;
+import com.hospital.erp.equipment.EquipmentHistoryVO;
+import com.hospital.erp.equipment.EquipmentService;
+import com.hospital.erp.payment.PaymentService;
+import com.hospital.erp.payment.PaymentVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,6 +52,12 @@ public class MemberController {
 	  
 	  @Autowired
 	  private CommuteService commuteService;
+	  
+	  @Autowired
+	  private EquipmentService equipmentService;
+	  
+	  @Autowired
+	  private PaymentService paymentService;
 	    
 	  
 	  // 직원 리스트 요청 메서드
@@ -80,8 +90,6 @@ public class MemberController {
 	  @PostMapping("insert")
 	  public String memberInsert(@Valid MemberVO memberVO, BindingResult bindingResult) throws Exception {
 		  if(bindingResult.hasErrors()) {
-			  log.info("=========memberVO {}=========",memberVO);
-			  log.info("==========binding result 에러 {}=========", bindingResult);
 			  return "member/insert";
 		  }else {
 			  int result = memberService.memberInsert(memberVO);
@@ -94,7 +102,6 @@ public class MemberController {
 	  // 업데이트 요청 메서드
 	  @PostMapping("update")
 	  public String memberUpdate(MemberVO memberVO) throws Exception {
-		  log.info("=======memberVO update {}=======",memberVO);
 		  int result = memberService.memberUpdate(memberVO);
 		  return "redirect:./data?memCd="+memberVO.getMemCd();
 	  }
@@ -103,8 +110,9 @@ public class MemberController {
 	  @GetMapping("mypage")
 	  public String memberData(Model model,@AuthenticationPrincipal MemberVO memberVO) throws Exception {
 		  CommuteVO commuteVO = commuteService.commuteData(memberVO);
-		  log.info("======= commutVO {} ==========",commuteVO);
 		  model.addAttribute("commuteVO", commuteVO);
+		  List<PaymentVO> paymentAr = paymentService.memberElectornicPaymentList(memberVO);
+		  model.addAttribute("paymentAr", paymentAr);
 		  return "member/mypage";
 	  }
 	  
@@ -122,7 +130,6 @@ public class MemberController {
 				  return "member/mypage";
 			  }else{
 				  //패스워드 리셋 수행 메서드 호출
-				  log.info("===Password 변경 실행 {} ======= ", passwordVO);
 				  memberService.memberUpdatePassword(passwordVO);
 				  return "redirect:/logout";
 			  }
@@ -134,7 +141,6 @@ public class MemberController {
 	  @GetMapping("memberListChart")
 	  public List<MemberVO> memberListChart() throws Exception {
 		  List<MemberVO> memberVO = memberService.memberListChart();
-		  log.info("=============memberChart 실행");
 		  return memberVO;
 	  }
 	  
@@ -157,7 +163,6 @@ public class MemberController {
 	  // 퇴사자 등록
 	  @PostMapping("updateExpired")
 	  public String memberUpdateExpired(MemberVO memberVO) throws Exception{
-		  log.info("quitDate {}", memberVO);
 		  int result = memberService.memberUpdateExpired(memberVO);
 		  return "redirect:./listexpired";
 	  }
@@ -176,6 +181,14 @@ public class MemberController {
 		  memberVO = memberService.memberData(memberVO);
 		  model.addAttribute("memberVO", memberVO);
 		  return "member/dataexpired";
+	  }
+	  
+	  
+	  @GetMapping("equipmentlist")
+	  public String mypageEquipmentList(MemberVO memberVO, Model model) throws Exception{
+		  List<EquipmentHistoryVO> equipmentHistoryAr = equipmentService.mypageList(memberVO);
+		  model.addAttribute("equipmentHistoryAr", equipmentHistoryAr);
+		  return "ajax.member/equipmentlist";
 	  }
 	  
 	  // 회원가입때 이메일 인증 코드 발급 메서드

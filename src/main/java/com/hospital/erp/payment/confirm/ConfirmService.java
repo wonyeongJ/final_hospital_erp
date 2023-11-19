@@ -16,6 +16,18 @@ public class ConfirmService {
 	@Autowired
 	private ConfirmDAO confirmDAO;
 	
+	//기안자 추가
+	public int cofirmMemInsert(PaymentVO confirmVO)throws Exception{
+		int CMresult = 0; 
+		ConfirmVO cm = new ConfirmVO();
+		cm.setEpCd(confirmVO.getEpCd());
+		cm.setMemCd(confirmVO.getMemCd());
+		cm.setMemName(confirmVO.getMemName());
+		CMresult = confirmDAO.cofirmMemInsert(cm);
+		return CMresult;
+	}
+	
+	//결재자 추가
 	public int confirmInsert(PaymentVO confirmVO, String [] conMemCd, String [] conMemName, String [] conStep)throws Exception{
 		int result=0;
 		for(int i=0;i<conMemCd.length;i++) {
@@ -33,5 +45,10 @@ public class ConfirmService {
 	public List<ConfirmVO> confirmList(ConfirmVO confirmVO) throws Exception{
 		
 		return confirmDAO.confirmList(confirmVO);
+	}
+	
+	public int confirmUpdate(ConfirmVO confirmVO) throws Exception{
+		
+		return confirmDAO.confirmUpdate(confirmVO);
 	}
 }

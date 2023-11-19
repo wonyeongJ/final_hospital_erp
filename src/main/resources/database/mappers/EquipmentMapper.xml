@@ -327,4 +327,25 @@
 			EQU_DELETE = 0
 		GROUP BY 
 			CODE_CD
+  	</select>
+  	
+  	<select id="mypageList" parameterType="MemberVO">
+		SELECT
+			EH.EH_CD,
+			C.CODE_NAME AS MEM_NAME,
+			E.EQU_SNUM AS EH_SNUM,
+			DATE_FORMAT(EH.EH_SDATE, '%Y-%m-%d') AS PROCESSED_SDATE,
+			DATE_FORMAT(EH.EH_REDATE , '%Y-%m-%d')AS PROCESSED_REDATE, 
+			EH_RETURN 
+		FROM 
+			EQUIPMENT_HISTORY AS EH
+			JOIN EQUIPMENT AS E
+				ON EH.EQU_CD = E.EQU_CD 
+			JOIN CODE AS C
+				ON E.CODE_CD = C.CODE_CD 
+		WHERE 
+			EH.MEM_CD = #{memCd}
+		ORDER BY 
+			EH_RETURN DESC
+  	
   	</select></mapper>

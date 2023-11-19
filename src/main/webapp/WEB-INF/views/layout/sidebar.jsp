@@ -93,6 +93,12 @@
 							<span class="micon dw dw-chat3"></span><span class="mtext">메신저</span>
 						</a>
 					</li>
+
+					<li>
+                        <a href="/emergency/list" class="dropdown-toggle no-arrow">
+                            <span class="micon  fa fa-ambulance"></span><span class="mtext">실시간 응급실 현황</span>
+                        </a>
+                    </li>
 					
 					<li>
 						<a href="#" class="dropdown-toggle no-arrow">
