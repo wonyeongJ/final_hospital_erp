@@ -291,4 +291,12 @@
 					)
   	</update>
   	
+  	<update id="memberAnnualUpdate" parameterType="MemberVO">
+  		UPDATE
+			MEMBER 
+		SET 
+			MEM_ANNUAL = MEM_ANNUAL - #{epDays}
+		WHERE
+			MEM_CD = #{epMemCd}
+  	</update>
 </mapper>

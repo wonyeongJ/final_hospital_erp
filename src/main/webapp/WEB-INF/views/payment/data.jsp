@@ -311,6 +311,10 @@ pageEncoding="UTF-8"%>
 					<c:if test="${conVo.conPStatus eq '0'}">
 						<c:if test="${conVo.conStep eq '4'}">
 							<div>
+								<c:if test="${${paymentVO.documentFormVOs.dfCd eq 16}">
+									<input type="hidden" name="epMemCd" value="${paymentVO.memberVOs.memcd}">
+									<input type="hidden" name="epDays" value="${paymentVO.epDays}">
+								</c:if>
 								<input type="hidden" name="conStep" value="${conVo.conStep}">
 								<input type="hidden" name="epDStatus" value="2">
 								<button type="submit" class="btn btn-danger" name="conPStatus" value="1">반려</button>

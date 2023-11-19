@@ -180,6 +180,7 @@ public class PaymentController {
 	public String paymentData(ConfirmVO confirmVO, PaymentVO paymentVO)throws Exception{
 		
 		//결재한 사람의 결재상태 update
+		//1은 반려 2는 승인
 		if("1".equals(confirmVO.getConPStatus())) {
 			int conResult = confirmService.confirmUpdate(confirmVO);
 			
@@ -191,10 +192,15 @@ public class PaymentController {
 				
 				//문서상태 update (최종 결재 완료 시 종결처리)
 				int paymenRresult = paymentService.paymentUpdate(paymentVO);
+				
+				//휴가계일 경우 연차 감소
+				
 			}else {
 				int conResult = confirmService.confirmUpdate(confirmVO);
 			}
 		}
+		
+		
 		
 		return "redirect:./list";
 	}
