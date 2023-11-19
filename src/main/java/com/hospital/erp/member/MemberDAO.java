@@ -59,5 +59,5 @@ public interface MemberDAO {
 	 public int memberUpdateMemDeleteScheduler() throws Exception;
 	 
 	 // 멤버 연차 업데이트
-	 public int memberAnnualUpdate() throws Exception;
+	 public int memberAnnualUpdate(MemberVO memberVO) throws Exception;
 }

@@ -278,9 +278,9 @@ public class MemberService implements UserDetailsService {
 	}
 	
 	// 휴가시 연자 감소 메서드
-	public int memberAnnualUpdate()throws Exception{
+	public int memberAnnualUpdate(MemberVO memberVO)throws Exception{
 		int result = 0;
-		result = memberDAO.memberAnnualUpdate();
+		result = memberDAO.memberAnnualUpdate(memberVO);
 		return result;
 	}
 }

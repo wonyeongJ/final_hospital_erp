@@ -177,7 +177,7 @@ public class PaymentController {
 	}
 	
 	@PostMapping("data")
-	public String paymentData(ConfirmVO confirmVO, PaymentVO paymentVO)throws Exception{
+	public String paymentData(ConfirmVO confirmVO, PaymentVO paymentVO, MemberVO memberVO)throws Exception{
 		
 		//결재한 사람의 결재상태 update
 		//1은 반려 2는 승인
@@ -191,10 +191,10 @@ public class PaymentController {
 				int conResult = confirmService.confirmUpdate(confirmVO);
 				
 				//문서상태 update (최종 결재 완료 시 종결처리)
-				int paymenRresult = paymentService.paymentUpdate(paymentVO);
+				int paymenResult = paymentService.paymentUpdate(paymentVO);
 				
 				//휴가계일 경우 연차 감소
-				
+				int annualResult = memberService.memberAnnualUpdate(memberVO);
 			}else {
 				int conResult = confirmService.confirmUpdate(confirmVO);
 			}
