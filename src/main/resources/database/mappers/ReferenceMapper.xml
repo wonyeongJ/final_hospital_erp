@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.erp.payment.reference.ReferenceDAO">
+
+	<insert id="referenceInsert" parameterType="ReferenceVO">
+		INSERT 
+		INTO 
+			REFERENCE(EP_CD, MEM_CD, MEM_NAME, REF_RDATE)
+		VALUES
+			(#{epCd}, #{memCd}, #{memName}, NOW())
+	</insert>
+
+	<select id="referenceList" parameterType="ReferenceVO" resultType="ReferenceVO">
+		SELECT
+			*
+		FROM
+			REFERENCE
+		WHERE
+			MEM_CD = #{memCd}
+	</select>
+
+
+</mapper>

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hospital.erp.common.CodeVO;
+import com.hospital.erp.payment.PaymentVO;
 import com.hospital.erp.reservation.ReservationVO;
 import com.hospital.erp.util.EmailService;
 import com.hospital.erp.util.FileManager;
@@ -276,4 +277,13 @@ public class MemberService implements UserDetailsService {
 	public List<MemberVO> memberListExpired() throws Exception{
 		return memberDAO.memberListExpired();
 	}
+	
+	// 휴가시 연자 감소 메서드
+	public int memberAnnualUpdate(MemberVO memberVO)throws Exception{
+		int result = 0;
+		result = memberDAO.memberAnnualUpdate(memberVO);
+		return result;
+	}
+	
+	
 }

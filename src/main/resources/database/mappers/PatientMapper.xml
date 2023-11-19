@@ -59,4 +59,18 @@
 			PAT_CD = #{patCd}
 	</update>
   	
+  	  	<select id="memberElectornicPaymentList" parameterType="MemberVO">
+  		SELECT
+			EP_CD, 
+			EP_TITLE, 
+			EP_SDATE, 
+			EP_EDATE, 
+			EP_DAYS
+		FROM
+			ELECTRONIC_PAYMENT
+		WHERE 
+			MEM_CD = #{memCd} AND
+			DF_CD = 16 AND
+			EP_DSTATUS = 2
+  	</select>
 </mapper>

@@ -55,7 +55,11 @@ pageEncoding="UTF-8"%>
 				    		</tr>
 				    		<tr>
 				    			<td class="tg-baqh">
-									${paymentVO.memberVOs.memName}
+				    				<c:forEach items="${conList}" var="conVo">
+										<c:if test="${conVo.conStep eq 1}">
+											${conVo.memName}
+										</c:if>
+									</c:forEach>
 								</td>
 								<td class="tg-baqh 1stPayment">
 									<c:forEach items="${conList}" var="conVo">
@@ -81,16 +85,60 @@ pageEncoding="UTF-8"%>
 				    		</tr>
 				    		<tr>
 								<td class="tg-baqh tg-height">
-									<img alt="" src="">
+									<c:forEach items="${conList}" var="conVo">
+										<c:if test="${conVo.conStep eq 1}">
+											<c:if test="${conVo.conPStatus eq 2}">
+												<c:forEach items="${memberAllList}" var="memberAllVo">
+													<c:if test="${conVo.memCd eq memberAllVo.memCd}">
+														<img alt="" src="${memberAllVo.memSPath}">
+											
+													</c:if>
+												</c:forEach>												
+											</c:if>
+										</c:if>
+									</c:forEach>
 								</td>
 								<td class="tg-baqh tg-height 1stPayment">
-									<img alt="" src="">
+									<c:forEach items="${conList}" var="conVo">
+										<c:if test="${conVo.conStep eq 2}">
+											<c:if test="${conVo.conPStatus eq 2}">
+												<c:forEach items="${memberAllList}" var="memberAllVo">
+													<c:if test="${conVo.memCd eq memberAllVo.memCd}">
+														<img alt="" src="${memberAllVo.memSPath}">
+											
+													</c:if>
+												</c:forEach>												
+											</c:if>
+										</c:if>
+									</c:forEach>
 								</td>
 								<td class="tg-baqh tg-height 2ndPayment">
-									<img alt="" src="">
+									<c:forEach items="${conList}" var="conVo">
+										<c:if test="${conVo.conStep eq 3}">
+											<c:if test="${conVo.conPStatus eq 2}">
+												<c:forEach items="${memberAllList}" var="memberAllVo">
+													<c:if test="${conVo.memCd eq memberAllVo.memCd}">
+														<img alt="" src="${memberAllVo.memSPath}">
+											
+													</c:if>
+												</c:forEach>												
+											</c:if>
+										</c:if>
+									</c:forEach>
 								</td>
 								<td class="tg-baqh tg-height">
-									<img alt="" src="">
+									<c:forEach items="${conList}" var="conVo">
+										<c:if test="${conVo.conStep eq 4}">
+											<c:if test="${conVo.conPStatus eq 2}">
+												<c:forEach items="${memberAllList}" var="memberAllVo">
+													<c:if test="${conVo.memCd eq memberAllVo.memCd}">
+														<img alt="" src="${memberAllVo.memSPath}">
+											
+													</c:if>
+												</c:forEach>												
+											</c:if>
+										</c:if>
+									</c:forEach>
 								</td>
 							</tr>
 				    	</table>
@@ -220,7 +268,6 @@ pageEncoding="UTF-8"%>
 				    </td>
 			  	</tr>
 			  	
-			  	
 			  	<tr>
 					<td class="tg-baqh" colspan="9">
 						
@@ -242,7 +289,11 @@ pageEncoding="UTF-8"%>
 			  	<tr>
 			    	<td class="tg-text-r tg-baqh-r tg-baqh-b tg-baqh-t" colspan="8">성명 : </td>
 			    	<td class="tg-baqh-l tg-baqh tg-baqh-b tg-baqh-t" colspan="1">
-			    		${paymentVO.memberVOs.memName}
+			    		<c:forEach items="${conList}" var="conVo">
+										<c:if test="${conVo.conStep eq 1}">
+											${conVo.memName}
+										</c:if>
+									</c:forEach>
 			    	</td>
 			  	</tr>
 			  	
@@ -253,12 +304,31 @@ pageEncoding="UTF-8"%>
 			</tbody>
 		</table>
 		<form action="/payment/data" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="memCd" value="${memberVO.memCd}">
+			<input type="hidden" name="epCd" value="${paymentVO.epCd}">
 			<c:forEach items="${conList}" var="conVo">
 				<c:if test="${conVo.memCd eq memberVO.memCd}">
-					<div>
-						<button type="submit" class="btn btn-danger" name="conPStatus" value="1">반려</button>
-						<button type="submit" class="btn btn-success" name="conPStatus" value="2">승인</button>
-					</div>		
+					<c:if test="${conVo.conPStatus eq '0'}">
+						<c:if test="${conVo.conStep eq '4'}">
+							<div>
+								<c:if test="${paymentVO.documentFormVOs.dfCd eq 16}">
+									<input type="hidden" name="epMemCd" value="${paymentVO.memberVOs.memCd}">
+									<input type="hidden" name="epDays" value="${paymentVO.epDays}">
+								</c:if>
+								<input type="hidden" name="conStep" value="${conVo.conStep}">
+								<input type="hidden" name="epDStatus" value="2">
+								<button type="submit" class="btn btn-danger" name="conPStatus" value="1">반려</button>
+								<button type="submit" class="btn btn-success" name="conPStatus" value="2">승인</button>
+							</div>		
+						</c:if>
+						<c:if test="${conVo.conStep ne '4'}">
+							<div>
+								<input type="hidden" name="conStep" value="${conVo.conStep}">
+								<button type="submit" class="btn btn-danger" name="conPStatus" value="1">반려</button>
+								<button type="submit" class="btn btn-success" name="conPStatus" value="2">승인</button>
+							</div>		
+						</c:if>
+					</c:if>
 				</c:if>
 			</c:forEach>
 		</form>

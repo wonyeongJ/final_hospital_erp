@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.hospital.erp.common.CodeVO;
+import com.hospital.erp.payment.PaymentVO;
 import com.hospital.erp.reservation.ReservationVO;
 
 @Mapper
@@ -57,4 +58,9 @@ public interface MemberDAO {
 	 
 	 // 스케쥴러로 MEM_DELETE 1로 바꾸는 쿼리
 	 public int memberUpdateMemDeleteScheduler() throws Exception;
+	 
+	 // 멤버 연차 업데이트
+	 public int memberAnnualUpdate(MemberVO memberVO) throws Exception;
+	 
+	
 }
