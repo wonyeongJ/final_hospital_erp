@@ -37,7 +37,7 @@
 </div>
 
 <div>
-	<button type="button" class="btn btn-secondary btn-listResult" id="listResult1">전체결재문서</button>
+	<button type="button" class="btn btn-secondary btn-listResult" id="listResult1">결재완료문서</button>
 	<button type="button" class="btn btn-secondary btn-listResult" id="listResult2">승인대기문서</button>
 	<button type="button" class="btn btn-secondary btn-listResult" id="listResult3">결재수신문서</button>
 	<button type="button" class="btn btn-secondary btn-listResult" id="listResult4">참조문서</button>

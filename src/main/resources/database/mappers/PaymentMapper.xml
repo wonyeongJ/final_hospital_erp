@@ -48,7 +48,8 @@
 		;
 	</insert>
 	
-	<select id="paymentAllList" parameterType="PaymentVO">
+	<!-- 결재안된 문서 전체보기 -->
+	<select id="paymentAllList1" parameterType="PaymentVO">
 		SELECT
 			EP.EP_CD AS EP_CD,
 			EP.EP_RDATE AS EP_RDATE,
@@ -77,7 +78,8 @@
 			LEFT JOIN MEMBER AS MEM
 				ON EP.MEM_CD = MEM.MEM_CD
 
-		
+		ORDER BY
+			EP.EP_CD DESC
 
 			
 			<!--
@@ -101,6 +103,39 @@
 				) -->
 	</select>
 	
+	<!-- 결재완료된 문서 전체보기 -->
+	<select id="paymentAllList2" parameterType="PaymentVO">
+		SELECT
+			EP.EP_CD AS EP_CD,
+			EP.EP_RDATE AS EP_RDATE,
+			EP.EP_TITLE AS EP_TITLE,
+			EP.EP_DSTATUS AS EP_DSTATUS, 
+			DF.DF_KIND AS DF_KIND,
+			A.CON_STEP AS CON_STEP,
+			A.CON_PSTATUS AS CON_PSTATUS,
+			MEM.MEM_NAME AS MEM_NAME,
+			A.MEM_NAME AS CONMEM_NAME
+		FROM
+			ELECTRONIC_PAYMENT AS EP 
+			LEFT JOIN DOCUMENT_FORM AS DF
+				ON EP.DF_CD = DF.DF_CD
+			LEFT JOIN 
+				(
+				SELECT
+					*
+				FROM
+					CONFIRM AS CON
+				WHERE
+					CON.CON_PSTATUS = 4
+				) A
+				ON EP.EP_CD = A.EP_CD
+			LEFT JOIN MEMBER AS MEM
+				ON EP.MEM_CD = MEM.MEM_CD
+		ORDER BY
+			EP.EP_CD DESC
+	</select>
+	
+	<!-- 로그인한 사람 기준의 완료문서 보기 -->
 	<select id="paymentList1" parameterType="PaymentVO">
 		SELECT
 			EP.EP_CD AS EP_CD,
@@ -123,11 +158,12 @@
 			LEFT JOIN REFERENCE AS REF
 				ON EP.EP_CD = REF.EP_CD
 		WHERE
-			(CON.MEM_CD = #{memCd} OR EP.MEM_CD = #{memCd} OR REF.MEM_CD = #{memCd}) AND
-			(CON.CON_CD, CON.CON_STEP) IN
+			(CON.MEM_CD = #{memCd} OR REF.MEM_CD = #{memCd} OR EP.MEM_CD = #{memCd}) AND
+			(EP.EP_DSTATUS = 2) AND
+			(CON.CON_CD) IN
 				(
 				SELECT 
-					CON_CD, MIN(CON_STEP)
+					CON_CD
 				FROM
 					(
 					SELECT 
@@ -135,13 +171,161 @@
 					FROM 
 						CONFIRM 
 					WHERE 
-						CON_PSTATUS = 0
+						CON_PSTATUS = 2
 					ORDER BY
 						EP_CD, CON_STEP
 					) A
 				GROUP BY
 					A.EP_CD				
 				)
+	</select>
+	<!-- 승인대기문서 -->
+	<select id="paymentList2" parameterType="PaymentVO">
+		SELECT
+			EP.EP_CD AS EP_CD,
+			EP.EP_RDATE AS EP_RDATE,
+			EP.EP_TITLE AS EP_TITLE,
+			EP.EP_DSTATUS AS EP_DSTATUS, 
+			DF.DF_KIND AS DF_KIND,
+			A.CON_STEP AS CON_STEP,
+			A.CON_PSTATUS AS CON_PSTATUS,
+			MEM.MEM_NAME AS MEM_NAME,
+			A.MEM_NAME AS CONMEM_NAME
+		FROM
+			ELECTRONIC_PAYMENT AS EP 
+			LEFT JOIN DOCUMENT_FORM AS DF
+				ON EP.DF_CD = DF.DF_CD
+			LEFT JOIN 
+				(
+				SELECT
+					*
+				FROM
+					CONFIRM AS CON
+				WHERE
+					CON.CON_PSTATUS = 0 AND 
+					CON.CON_STEP = (SELECT MIN(SCON.CON_STEP) FROM CONFIRM AS SCON WHERE SCON.CON_PSTATUS =0 AND SCON.EP_CD = CON.EP_CD)
+				) A
+				ON EP.EP_CD = A.EP_CD
+			LEFT JOIN MEMBER AS MEM
+				ON EP.MEM_CD = MEM.MEM_CD 
+		WHERE
+			A.MEM_CD = #{memCd}
+	</select>
+	<!-- 결재수신문서 -->
+	<select id="paymentList3" parameterType="PaymentVO">
+		SELECT
+			EP.EP_CD AS EP_CD,
+			EP.EP_RDATE AS EP_RDATE,
+			EP.EP_TITLE AS EP_TITLE,
+			EP.EP_DSTATUS AS EP_DSTATUS, 
+			DF.DF_KIND AS DF_KIND,
+			A.CON_STEP AS CON_STEP,
+			A.CON_PSTATUS AS CON_PSTATUS,
+			MEM.MEM_NAME AS MEM_NAME,
+			A.MEM_NAME AS CONMEM_NAME
+		FROM
+			ELECTRONIC_PAYMENT AS EP 
+			LEFT JOIN DOCUMENT_FORM AS DF
+				ON EP.DF_CD = DF.DF_CD
+			LEFT JOIN 
+				(
+				SELECT
+					*
+				FROM
+					CONFIRM AS CON
+				WHERE
+					CON.CON_PSTATUS = 2
+				) A
+				ON EP.EP_CD = A.EP_CD
+			LEFT JOIN MEMBER AS MEM
+				ON EP.MEM_CD = MEM.MEM_CD 
+		WHERE
+			A.MEM_CD = #{memCd} AND
+			EP.EP_DSTATUS = 2
+	</select>
+	<!-- 참조문서 -->
+	<select id="paymentList4" parameterType="PaymentVO">
+		SELECT
+			EP.EP_CD AS EP_CD,
+			EP.EP_RDATE AS EP_RDATE,
+			EP.EP_TITLE AS EP_TITLE,
+			EP.EP_DSTATUS AS EP_DSTATUS, 
+			DF.DF_KIND AS DF_KIND,
+			A.CON_STEP AS CON_STEP,
+			A.CON_PSTATUS AS CON_PSTATUS,
+			MEM.MEM_NAME AS MEM_NAME,
+			A.MEM_NAME AS CONMEM_NAME
+		FROM
+			ELECTRONIC_PAYMENT AS EP 
+			LEFT JOIN DOCUMENT_FORM AS DF
+				ON EP.DF_CD = DF.DF_CD
+			LEFT JOIN 
+				(
+				SELECT
+					*
+				FROM
+					CONFIRM AS CON
+				WHERE
+					CON.CON_PSTATUS = 2
+				) A
+				ON EP.EP_CD = A.EP_CD
+			LEFT JOIN MEMBER AS MEM
+				ON EP.MEM_CD = MEM.MEM_CD 
+			LEFT JOIN REFERENCE AS REF
+				ON EP.EP_CD = REF.EP_CD
+		WHERE
+			REF.MEM_CD = #{memCd}
+	</select>
+	<!-- 기안문서 -->
+	<select id="paymentList5" parameterType="PaymentVO">
+		SELECT
+			EP.EP_CD AS EP_CD,
+			EP.EP_RDATE AS EP_RDATE,
+			EP.EP_TITLE AS EP_TITLE,
+			EP.EP_DSTATUS AS EP_DSTATUS, 
+			DF.DF_KIND AS DF_KIND,
+			A.CON_STEP AS CON_STEP,
+			A.CON_PSTATUS AS CON_PSTATUS,
+			MEM.MEM_NAME AS MEM_NAME,
+			A.MEM_NAME AS CONMEM_NAME
+		FROM
+			ELECTRONIC_PAYMENT AS EP 
+			LEFT JOIN DOCUMENT_FORM AS DF
+				ON EP.DF_CD = DF.DF_CD
+			LEFT JOIN 
+				(
+				SELECT
+					*
+				FROM
+					CONFIRM AS CON
+				WHERE
+					CON.CON_PSTATUS = 2 AND 
+					CON.CON_STEP = (SELECT MAX(SCON.CON_STEP) FROM CONFIRM AS SCON WHERE SCON.CON_PSTATUS =2 AND SCON.EP_CD = CON.EP_CD)
+				) A
+				ON EP.EP_CD = A.EP_CD
+			LEFT JOIN MEMBER AS MEM
+				ON EP.MEM_CD = MEM.MEM_CD 
+		WHERE
+			EP.MEM_CD = #{memCd}
+			
+	</select>
+	<!-- 임시저장 -->
+	<select id="paymentList6" parameterType="PaymentVO">
+		SELECT
+			EP.EP_CD AS EP_CD,
+			EP.EP_RDATE AS EP_RDATE,
+			EP.EP_TITLE AS EP_TITLE,
+			EP.EP_DSTATUS AS EP_DSTATUS, 
+			DF.DF_KIND AS DF_KIND,
+			MEM.MEM_NAME AS MEM_NAME
+		FROM
+			ELECTRONIC_PAYMENT AS EP 
+			LEFT JOIN DOCUMENT_FORM AS DF
+				ON EP.DF_CD = DF.DF_CD
+			LEFT JOIN MEMBER AS MEM
+				ON EP.MEM_CD = MEM.MEM_CD
+		WHERE
+			EP.MEM_CD = #{memCd} AND EP_DSTATUS = 1
 	</select>
 	
 	<update id="paymentUpdate" parameterType="PaymentVO">
@@ -270,6 +454,7 @@
 			<result column="DEP_CD" property="depCd"/>
 			<result column="MEM_NAME" property="memName"/>
 			<result column="MEM_PNUM" property="memPnum"/>
+			<result column="MEM_SPATH" property="memSPath"/>
 		</collection>
 		<collection property="departmentVOs" javaType="DepartmentVO">
 			<id column="DEP_CD" property="depCd"/>

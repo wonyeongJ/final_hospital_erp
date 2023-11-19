@@ -57,4 +57,7 @@ public interface MemberDAO {
 	 
 	 // 스케쥴러로 MEM_DELETE 1로 바꾸는 쿼리
 	 public int memberUpdateMemDeleteScheduler() throws Exception;
+	 
+	 // 멤버 연차 업데이트
+	 public int memberAnnualUpdate() throws Exception;
 }

@@ -226,7 +226,7 @@ pageEncoding="UTF-8"%>
 			  	</tr>
 			  	<tr>
 			    	<td class="tg-text-r tg-baqh-r tg-baqh-b tg-baqh-t" colspan="8">성명 : </td>
-			    	<td class="tg-baqh-l tg-baqh-r tg-baqh tg-baqh-b tg-baqh-t" colspan="1">
+			    	<td class="tg-baqh-l tg-baqh tg-baqh-b tg-baqh-t" colspan="1">
 			    		<input class="form-control" type="text" disabled="">
 			    	</td>
 			    	

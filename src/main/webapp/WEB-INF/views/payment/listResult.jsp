@@ -73,6 +73,9 @@
 									<td>미결</td>
 								</c:if>
 								<c:if test="${vo.epDStatus eq '1'}"> 
+									<td>임시저장</td>
+								</c:if>
+								<c:if test="${vo.epDStatus eq '2'}"> 
 									<td>종결</td>
 								</c:if>
 							</tr>

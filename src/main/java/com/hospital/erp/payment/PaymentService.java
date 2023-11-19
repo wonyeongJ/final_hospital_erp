@@ -25,8 +25,8 @@ public class PaymentService {
 	}
 	
 	//문서전체보기
-	public List<PaymentVO> paymentAllList() throws Exception{
-		List<PaymentVO> paymentAr = paymentDAO.paymentAllList();
+	public List<PaymentVO> paymentAllList1() throws Exception{
+		List<PaymentVO> paymentAr = paymentDAO.paymentAllList1();
 		for(PaymentVO paymentVO : paymentAr) {
 			  
 			paymentVO.setEpRDate(paymentVO.getEpRDate().substring(0,10));
@@ -48,6 +48,7 @@ public class PaymentService {
 	//로그인 한 사람의 승인대기문서
 	public List<PaymentVO> paymentList2(MemberVO memberVO) throws Exception{
 		List<PaymentVO> paymentAr = paymentDAO.paymentList2(memberVO);
+		System.out.println("========list2 service======");
 		for(PaymentVO paymentVO : paymentAr) {
 			  
 			paymentVO.setEpRDate(paymentVO.getEpRDate().substring(0,10));
@@ -115,9 +116,11 @@ public class PaymentService {
 	}
 	
 	//문서상태 update
-		public int paymentUpdate(PaymentVO paymentVO)throws Exception{
-			
-			return paymentDAO.paymentUpdate(paymentVO);
-		}
+	public int paymentUpdate(PaymentVO paymentVO)throws Exception{
+
+		
+		return paymentDAO.paymentUpdate(paymentVO);
+	}
+	
 	
 }

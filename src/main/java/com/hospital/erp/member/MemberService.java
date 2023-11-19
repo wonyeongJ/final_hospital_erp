@@ -276,4 +276,11 @@ public class MemberService implements UserDetailsService {
 	public List<MemberVO> memberListExpired() throws Exception{
 		return memberDAO.memberListExpired();
 	}
+	
+	// 휴가시 연자 감소 메서드
+	public int memberAnnualUpdate()throws Exception{
+		int result = 0;
+		result = memberDAO.memberAnnualUpdate();
+		return result;
+	}
 }

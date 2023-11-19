@@ -61,7 +61,7 @@ public class PaymentController {
 	@GetMapping("allList")
 	public String paymentAllList(Model model)throws Exception{
 		
-		List<PaymentVO> ar = paymentService.paymentAllList();
+		List<PaymentVO> ar = paymentService.paymentAllList1();
 		model.addAttribute("list", ar);
 		
 		return "payment/allList";
@@ -89,9 +89,13 @@ public class PaymentController {
 		if("listResult1".equals(dfCodeResult)) {
 			List<PaymentVO> ar = paymentService.paymentList1(memberVO);
 			model.addAttribute("list", ar);
+			log.info("==============departmentAr={} ===========", ar);
+			log.info("==============departmentAr={} ===========", memberVO);
 		}else if("listResult2".equals(dfCodeResult)){
 			List<PaymentVO> ar = paymentService.paymentList2(memberVO);
 			model.addAttribute("list", ar);
+			log.info("==============departmentAr={} ===========", ar);
+			log.info("==============departmentAr={} ===========", memberVO);
 		}else if("listResult3".equals(dfCodeResult)){
 			List<PaymentVO> ar = paymentService.paymentList3(memberVO);
 			model.addAttribute("list", ar);
@@ -160,6 +164,9 @@ public class PaymentController {
 		
 		log.info("=======paymentVO : {}========",paymentVO);
 		
+		List<MemberVO> memberAllList = memberService.memberList();
+		model.addAttribute("memberAllList", memberAllList);
+		
 		//로그인 한 사람 데이터 가져오기
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 	    UserDetails userDetails = (UserDetails)principal;
@@ -173,11 +180,21 @@ public class PaymentController {
 	public String paymentData(ConfirmVO confirmVO, PaymentVO paymentVO)throws Exception{
 		
 		//결재한 사람의 결재상태 update
-		int conResult = confirmService.confirmUpdate(confirmVO);
-		
-		//문서상태 update (최종 결재 완료 시 종결처리)
-		int paymenRresult = paymentService.paymentUpdate(paymentVO);
-
+		if("1".equals(confirmVO.getConPStatus())) {
+			int conResult = confirmService.confirmUpdate(confirmVO);
+			
+			//문서상태 update (최종 결재 완료 시 종결처리)
+			int paymenRresult = paymentService.paymentUpdate(paymentVO);
+		}else if("2".equals(confirmVO.getConPStatus())){
+			if(confirmVO.getConStep()==4) {
+				int conResult = confirmService.confirmUpdate(confirmVO);
+				
+				//문서상태 update (최종 결재 완료 시 종결처리)
+				int paymenRresult = paymentService.paymentUpdate(paymentVO);
+			}else {
+				int conResult = confirmService.confirmUpdate(confirmVO);
+			}
+		}
 		
 		return "redirect:./list";
 	}
