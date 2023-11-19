@@ -9,37 +9,26 @@ $(document).ready(function() {
 	
 	$('#resVdate').change(function() {
 		let resVdate = $('#resVdate').val().replace("T"," ")+":00";
-		console.log(resVdate);
 		let searchDepartment = $('#searchDepartment').val();
-		console.log(searchDepartment);
     	// 선택된 날짜 및 시간 값을 가져옴
-	    var selectedDateTime = $(this).val();
 		if(resVdate != null && searchDepartment !=null){
 			
 	    	searchAjax(searchDepartment,resVdate);
 		}
 	    // 선택된 날짜 및 시간 값을 출력
-	    console.log("Selected date and time: " + selectedDateTime);
 
     // 여기에 원하는 작업을 추가할 수 있습니다.
   	});    
   	
   	$("#searchDepartment").change(function() {
 		let resVdate = $('#resVdate').val().replace("T"," ")+":00";
-		console.log(resVdate);
-		let searchDepartment = $('#searchDepartment  option:selected').val();
-		console.log(searchDepartment);
    		 // 선택된 option의 값을 가져옴
-	    var selectedValue = $(this).val();
+		let searchDepartment = $('#searchDepartment  option:selected').val();
 	    if(resVdate != null && searchDepartment !=null){
 			
 	    	searchAjax(searchDepartment,resVdate);
 		}
 	
-	    // 선택된 option의 값을 출력
-	    console.log("Selected option value: " + selectedValue);
-	
-	    // 여기에 원하는 작업을 추가할 수 있습니다.
  	 });
  	 
  	 
@@ -78,7 +67,6 @@ $(document).ready(function() {
 			async : false,
 			success: function(ajaxData) {
 				// 서버에서 반환한 MemberVO 객체를 사용
-				console.log(ajaxData);
 				//ajaxData = JSON.stringify(ajaxData,null,' ');
 				//console.log(ajaxData);
 		

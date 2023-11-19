@@ -59,4 +59,5 @@
 			PAT_CD = #{patCd}
 	</update>
   	
+  
 </mapper>

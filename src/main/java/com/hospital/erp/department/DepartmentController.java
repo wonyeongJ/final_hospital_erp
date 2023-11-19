@@ -30,7 +30,6 @@ public class DepartmentController {
 		//DepartmentList 메서드를 이용해 DB 에서 department데이터들 List 타입의 departmentList 변수에 저장
 		List<DepartmentVO> departmentAr = departmentService.departmentList();
 		model.addAttribute("departmentList", departmentAr);
-		log.info("==============departmentAr={} ===========", departmentAr);
 		return "department/list";
 	}
 	
@@ -50,7 +49,6 @@ public class DepartmentController {
 	//부서 업데이트 메서드
 	@PostMapping("update")
 	public String departmentUpdate(DepartmentVO departmentVO) throws Exception {
-		log.info("=============dpeartment update 실행 =================");
 		int result = departmentService.departmentUpdate(departmentVO);
 		return "redirect:./list";
 	}

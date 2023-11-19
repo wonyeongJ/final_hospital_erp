@@ -34,7 +34,8 @@ public interface PaymentDAO {
 	//문서상태 update
 	public int paymentUpdate(PaymentVO paymentVO)throws Exception;
 
-	
+	// 멤버 전자결재문서 조회 메서드
+	public List<PaymentVO> memberElectornicPaymentList(MemberVO memberVO) throws Exception;
 	
 
 }

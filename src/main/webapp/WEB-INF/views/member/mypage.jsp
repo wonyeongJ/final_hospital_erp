@@ -171,16 +171,24 @@
 				
 				<table class="table table-striped">
 					<thead>
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">사용날짜</th>
-					</tr>
+						<tr>
+							<th class="table-plus datatable-nosort">No</th>
+							<th>문서 제목</th>
+							<th>시작일</th>
+							<th>종료일</th>
+							<th>기간</th>
+						</tr>
 					</thead>
 					<tbody>
+					<c:forEach items="${paymentAr}" var="paymentVO" varStatus="i">
 					<tr>
-						<th scope="row">1</th>
-						<td scope="row">2023-08-05</td>
+						<th class="table-plus">${i.index+1}</th>
+						<td><a href="/payment/data?epCd=${paymentVO.epCd}" class="a1">${paymentVO.epTitle}</a> </td>
+						<td>${paymentVO.epSDate}</td>
+						<td>${paymentVO.epEDate}</td>
+						<td>${paymentVO.epDays}</td>
 					</tr>
+					</c:forEach>
 					</tbody>
 				</table>
 			</div>

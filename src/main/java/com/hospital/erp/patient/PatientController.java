@@ -34,7 +34,6 @@ public class PatientController {
 	public String patientList(Model model) throws Exception {
 		List<PatientVO> patientAr = patientService.patientList();
 		model.addAttribute("patientAr", patientAr);
-		log.info("patinetAr patienVO=== {}",patientAr);
 		return "patient/list";
 	}
 	
@@ -42,7 +41,6 @@ public class PatientController {
 	@GetMapping("data")
 	public String patientData(PatientVO patientVO,Model model) throws Exception {
 		patientVO = patientService.patientData(patientVO);
-		log.info("===========patientVO {}",patientVO);
 		model.addAttribute("patientVO", patientVO);
 		List<ReservationVO> reservationAr = reservationService.reservationListPatient(patientVO);
 		model.addAttribute("reservationAr", reservationAr);
@@ -61,7 +59,6 @@ public class PatientController {
 	// 환자 수정 메서드
 	@PostMapping("update")
 	public String patientUpdate(PatientVO patientVO) throws Exception {
-		log.info("=========update patinet {} ", patientVO);
 		int result = patientService.patientUpdate(patientVO);
 		return "redirect:./list";
 	}
