@@ -169,7 +169,7 @@
 				<h5 class="h4 text-blue mb-20" style="display: flex; float: left;">연차사용내역</h5>
 				<h5 class="h4 text-blue mb-20" style="display: flex; justify-content: flex-end;">남은연차 : <sec:authentication property="principal.memAnnual" /></h5>
 				
-				<table class="table table-striped">
+				<table class="table table-striped datatable4">
 					<thead>
 						<tr>
 							<th class="table-plus datatable-nosort">No</th>
@@ -195,7 +195,6 @@
 		</div>
 		<div class="col-lg-6 col-md-12 col-sm-12 mb-30">
 			<div id="equipment" class="pd-20 card-box">
-				
 				
 			</div>
 		</div>
