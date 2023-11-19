@@ -104,9 +104,9 @@ $(document).ready(function () {
         },
         'columnDefs': [
             { 'type': 'num', 'targets': 0 },
-            // 열 인덱스 [1, 2, 3, 4]에 해당하는 열에 대해 소팅 비활성화 
+            
         ],
-        'order': [0, 'desc'] 
+        'order': [0, 'asc'] 
     });
 
   
