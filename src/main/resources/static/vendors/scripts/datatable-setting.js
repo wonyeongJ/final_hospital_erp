@@ -87,5 +87,31 @@ $(document).ready(function () {
 	    table.buttons().container().appendTo($('.dataTables_wrapper .col-md-6:eq(0)'));
 	});
 
+// 비품사용내역
+$(document).ready(function () {
+    var table = $('.datatable4').DataTable({
+        'scrollCollapse': true,
+        'autoWidth': false,
+        'responsive': true,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "language": {
+            "info": "_START_-_END_ of _TOTAL_ entries",
+            searchPlaceholder: "Search",
+            paginate: {
+                next: '<i class="ion-chevron-right"></i>',
+                previous: '<i class="ion-chevron-left"></i>'
+            }
+        },
+        'columnDefs': [
+            { 'type': 'num', 'targets': 0 },
+            
+        ],
+        'order': [0, 'asc'] 
+    });
+
+  
+	    table.buttons().container()
+	        .appendTo($('.dataTables_wrapper .col-md-6:eq(0)'));
+	});
 
 
