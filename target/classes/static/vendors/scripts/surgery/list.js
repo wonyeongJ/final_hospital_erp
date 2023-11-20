@@ -23,8 +23,9 @@ $('.surgery-update-btn').click(function(){
 			    	if(result == 1){
 						alert('수정 되었습니다.')
 						location.reload();
-					}
+					}else{
 					alert('수술실 호수는 중복될 수 없습니다.')
+					}
 				}
 		 		})
 			}

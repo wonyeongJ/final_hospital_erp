@@ -1,4 +1,4 @@
-const socket = new WebSocket("ws://http://13.209.43.9:8080//ws/chat");
+const socket = new WebSocket("ws://13.209.43.9:8080//ws/chat");
 	
 	let user = $('#my').attr("data-user");
 	let name = $('#my').attr("data-name");
