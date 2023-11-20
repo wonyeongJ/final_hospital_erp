@@ -1,7 +1,7 @@
 $(document).ready(function() {
-	let arrayValidResultCheck = [];
 
     $("#insertBtn").on('click',function(){
+		let arrayValidResultCheck = [];
         let memName = $('#memName').val();
         let memRnum1 = $('#memRnum1').val();
         let memRnum2 = $('#memRnum2').val();
