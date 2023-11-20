@@ -100,11 +100,7 @@
                         </a>
                     </li>
 					
-					<li>
-						<a href="#" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-settings2"></span><span class="mtext">SETTING</span>
-						</a>
-					</li>
+				
 					
 
 					
