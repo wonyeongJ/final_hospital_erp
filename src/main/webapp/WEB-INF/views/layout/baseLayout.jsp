@@ -41,7 +41,6 @@
 	            </div>
 	        </div>
 	        <!-- footer -->
-	        <tiles:insertAttribute name="footer"/>
 	    </div>
 	</div>
 <c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>

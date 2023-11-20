@@ -65,8 +65,8 @@ public class SecurityConfig {
 							"/department/list",
 							"/department/insert",
 							"/department/update",
-							"/board/notice/inset",
-							"/board/notice/update",
+							"/board/notice/insert",
+							"/board/notice/update/*",
 							"/payment/allList"
 							)
 							.hasRole("ADMIN")

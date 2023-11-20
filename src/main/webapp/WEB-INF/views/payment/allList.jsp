@@ -45,9 +45,9 @@
 										<c:if test="${vo.conPStatus eq '2'}"> 
 											<td>결재완료</td>
 										</c:if>
-										<c:if test="${empty vo.conPStatus}"> 
-											<td>결재라인이 추가되지 않음</td>
-										</c:if>
+										
+											<td>완료</td>
+										
 										<c:if test="${vo.epDStatus eq '0'}"> 
 											<td>미결</td>
 										</c:if>

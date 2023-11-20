@@ -233,7 +233,7 @@ pageEncoding="UTF-8"%>
 				    </td>
 				    <td class="tg-baqh">직무</td>
 				    <td class="tg-baqh" colspan="2">
-				    	<input class="form-control" type="text" value="${memberVO.jobCd}" readonly>
+				    	<input class="form-control" type="text" value="${memberVO.jobName}" readonly>
 				    </td>
 				    <td class="tg-baqh">사번</td>
 				    <td class="tg-baqh" colspan="2">

@@ -152,7 +152,16 @@ pageEncoding="UTF-8"%>
 				    </td>
 				    <td class="tg-baqh">직무</td>
 				    <td class="tg-baqh" colspan="2">
-				    	${paymentVO.memberVOs.jobCd}
+				    	<c:if test="${paymentVO.memberVOs.jobCd eq 3}">
+				    		의사
+				    	</c:if>
+				    	<c:if test="${paymentVO.memberVOs.jobCd eq 4}">
+				    		간호사
+				    	</c:if>
+				    	<c:if test="${paymentVO.memberVOs.jobCd eq 5}">
+				    		사무직
+				    	</c:if>
+				    	
 				    </td>
 				    <td class="tg-baqh">사번</td>
 				    <td class="tg-baqh" colspan="2">

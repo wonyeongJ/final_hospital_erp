@@ -9,7 +9,7 @@
 				<h3>Error: 500 Unexpected Error</h3>
 				<p>An error ocurred and your request couldn’t be completed..<br>Either check the URL</p>
 				<div class="pt-20 mx-auto max-width-200">
-					<a href="/" class="btn btn-primary btn-block btn-lg">Back To Home</a>
+					<a href="/member/mypage" class="btn btn-primary btn-block btn-lg">Back To Home</a>
 				</div>
 			</div>
 		</div>

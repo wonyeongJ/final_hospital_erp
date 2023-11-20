@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 		<h5 class="h4 text-blue mb-20" style="display: flex;">비품사용내역</h5>
-		<table class="table hover multiple-select-row datatable2 nowrap">
+		<table class="table hover multiple-select-row  nowrap datatable4">
 			<thead>
 				<tr>
 					<th class="table-plus datatable-nosort">No</th>
