@@ -1,0 +1,21 @@
+ body {
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* 100% 높이로 설정 */
+        }
+
+        .sticky-footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* 추가된 스타일: .main-container를 제외한 나머지 요소들에 대한 margin-bottom 조정 */
+        .main-container {
+            margin-bottom: 60px; /* 푸터의 높이에 맞게 조절 */
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 10px;
+        }

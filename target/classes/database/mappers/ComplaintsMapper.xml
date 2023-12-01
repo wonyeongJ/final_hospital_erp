@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.hospital.erp.board.complaints.ComplaintsDAO">
+	
+<!-- 민원게시판 리스트 -->
+<select id="complaintsList" parameterType="ComplaintsVO" resultType="ComplaintsVO">
+		SELECT 
+		    C.COMP_CD, 
+		    C.MEM_CD, 
+		    C.CODE_CD, 
+		    CO.CODE_NAME AS codeTypeName, 
+		    C.CODE_CD_ACTION, 
+		    CA.CODE_NAME AS actionTypeName, 
+		    C.COMP_TITLE, 
+		    C.COMP_CONTENTS, 
+		    C.COMP_SECRET, 
+		    C.COMP_DELETE, 
+		    C.COMP_RDATE, 
+		    M.MEM_NAME, 
+		    D.DEP_CD, 
+		    D.DEP_NAME 
+		FROM
+			COMPLAINTS C
+		INNER JOIN
+			CODE CO
+		ON
+			C.CODE_CD = CO.CODE_CD
+		INNER JOIN
+			CODE CA 
+		ON 
+			C.CODE_CD_ACTION = CA.CODE_CD
+		LEFT JOIN 
+			MEMBER M 
+		ON 
+			C.MEM_CD = M.MEM_CD
+		LEFT JOIN 
+			DEPARTMENT D 
+		ON 
+			M.DEP_CD = D.DEP_CD
+		WHERE 
+			C.COMP_DELETE = 0
+
+</select>
+
+<!-- 민원게시판 등록 -->
+<insert id="complaintsInsert" parameterType="complaintsVO" useGeneratedKeys="true" keyProperty="compCd">
+	    INSERT INTO COMPLAINTS (
+	        MEM_CD,
+	        CODE_CD,
+	        CODE_CD_ACTION,
+	        COMP_TITLE,
+	        COMP_CONTENTS,
+	        COMP_SECRET,
+	        COMP_DELETE,
+	        COMP_RDATE
+	    ) VALUES (
+	        #{memCd},     	 <!-- 사용자 회원 코드 -->
+	        #{codeCd},     	 <!-- 민원 종류 코드 -->
+	        22, <!-- 조치 종류 코드 -->
+	        #{compTitle},  	 <!-- 민원 제목 -->
+	        #{compContents}, <!-- 민원 내용 -->
+	        #{compSecret},   <!-- 비밀 여부 ('0' 또는 '1') -->
+	        0,   <!-- 삭제 여부 ('0' 또는 '1') -->
+	        NOW()            <!-- 현재 일자 및 시간 -->
+	    )
+</insert>
+
+<!-- 파일 업로드 -->
+<insert id="fileInsert" parameterType="ComplaintsFileVO">
+		INSERT
+			INTO 
+		BOARD_FILE
+			(BF_CD,
+			 CODE_CD,
+			 BF_FK,
+			 BF_ONAME,
+			 BF_FNAME,
+			 BF_PATH,
+			 BF_EXTENSION,
+			 BF_RDATE)
+		VALUES 
+	    	(NULL,
+	    	 #{codeCd},
+	    	 #{bfFk},
+	    	 #{bfOname},
+	    	 #{bfFname}, 
+	    	 #{bfPath}, 
+	    	 #{bfExtension}, 
+	    	 NOW())
+</insert>
+  	
+  	
+<!-- 민원게시판 상세조회 -->
+<select id="complaintsData" parameterType="int" resultMap="complaintsResultMap">
+		SELECT
+	        C.*,
+	        CF.*,
+	        M.MEM_NAME,
+	        D.DEP_CD,
+	        D.DEP_NAME,
+	        CO.CODE_NAME AS codeTypeName, 
+	        CA.CODE_NAME AS actionTypeName
+	    FROM
+	        COMPLAINTS C
+	    INNER JOIN
+	    	CODE CO
+	   	ON C.CODE_CD = CO.CODE_CD
+		INNER JOIN
+			CODE CA 
+		ON C.CODE_CD_ACTION = CA.CODE_CD
+	    LEFT OUTER JOIN
+	        BOARD_FILE CF
+	    ON
+	        C.COMP_CD = CF.BF_FK
+	    LEFT JOIN
+	        MEMBER M
+	    ON
+	        C.MEM_CD = M.MEM_CD
+	    LEFT JOIN
+	        DEPARTMENT D
+	    ON
+	        M.DEP_CD = D.DEP_CD
+	    WHERE
+	        C.COMP_CD = #{compCd}
+</select>
+
+<!-- 민원게시판 파일 등록 -->
+<select id="fileData" parameterType="int" resultType="ComplaintsFileVO">
+  		SELECT 
+  			*
+  		FROM
+  			BOARD_FILE
+  		WHERE 
+  			BF_FK=#{compCd}
+  		AND 
+  			CODE_CD = 10		
+</select>
+
+<!-- COMPLAINTS 테이블의 complaintsResultMap -->
+<resultMap id="complaintsResultMap" type="ComplaintsVO">
+    <id property="compCd" column="COMP_CD" />
+    <result property="memCd" column="MEM_CD" />
+    <result property="codeCd" column="CODE_CD" />
+    <result property="codeCdAction" column="CODE_CD_ACTION" />
+    <result property="compTitle" column="COMP_TITLE" />
+    <result property="compContents" column="COMP_CONTENTS" />
+    <result property="compSecret" column="COMP_SECRET" />
+    <result property="compDelete" column="COMP_DELETE" />
+    <result property="compRdate" column="COMP_RDATE" />
+    <result property="codeTypeName" column="codeTypeName" />
+    <result property="actionTypeName" column="actionTypeName" />
+    <result property="memName" column="MEM_NAME" />
+    <result property="depCd" column="DEP_CD" />
+    <result property="depName" column="DEP_NAME" />
+    <collection property="list" ofType="ComplaintsFileVO">
+        <id property="bfCd" column="BF_CD" />
+        <result property="codeCd" column="CODE_CD" />
+        <result property="bfFk" column="BF_FK" />
+        <result property="bfOname" column="BF_ONAME" />
+        <result property="bfFname" column="BF_FNAME" />
+        <result property="bfPath" column="BF_PATH" />
+        <result property="bfExtension" column="BF_EXTENSION" />
+        <result property="bfRdate" column="BF_RDATE" />
+    </collection>
+</resultMap>
+
+
+<!-- 민원게시판 Update -->
+<update id="complaintsUpdate" parameterType="ComplaintsVO">
+  		UPDATE 
+  			COMPLAINTS
+	    SET
+	       	COMP_TITLE = #{compTitle},
+	        COMP_CONTENTS = #{compContents},
+	        CODE_CD = #{codeCd},
+	        COMP_SECRET = #{compSecret}
+	    WHERE 
+	    	COMP_CD = #{compCd}
+</update>
+
+<!-- 민원게시판 조치상태 업데이트 -->
+<update id="actionUpdate" parameterType="ComplaintsVO">
+		UPDATE
+			COMPLAINTS
+		SET
+			CODE_CD_ACTION = #{codeCdAction}
+		WHERE
+			COMP_CD = #{compCd}
+			
+</update>
+
+
+<!-- 파일 다운로드 -->
+<select id="fileDown" parameterType="int" resultType="FileVO">
+
+		SELECT 
+  			*
+  		FROM
+  			BOARD_FILE
+  		WHERE 
+  			BF_CD=#{bfCd}
+</select>
+
+<!--fileDelete  -->
+<delete id="fileDelete" parameterType="ComplaintsFileVO">
+		DELETE
+		FROM 
+		BOARD_FILE
+		WHERE
+			BF_CD = #{bfCd}
+</delete>
+
+<!-- 민원게시판 삭제 (삭제여부 업데이트를통해 논리삭제) -->
+<update id="complaintsDelete" parameterType="ComplaintsVO">
+		UPDATE
+			COMPLAINTS
+		SET
+			COMP_DELETE = #{compDelete}
+		WHERE
+			COMP_CD = #{compCd}
+			
+</update>
+
+
+</mapper>

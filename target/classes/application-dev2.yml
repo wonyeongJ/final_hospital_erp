@@ -1,0 +1,13 @@
+
+# file 저장 경로 관련 설정
+app2:
+  upload:
+    nodeValue2: /Users/mook/Desktop/upload/
+    mapping2: file:///Users/mook/Desktop/upload/
+  board:
+    notice: notice
+    complaints: complaints
+    club: club
+  url:
+    path: /files/**
+    

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.hospital.erp.schedule.ScheduleDAO">
+
+	<!-- 일정 리스트 조회 -->
+	<select id="scheduleList" resultType="ScheduleVO" parameterType="ScheduleVO">
+		SELECT
+			S.*,
+			M.MEM_NAME
+		FROM
+			SCHEDULE S JOIN MEMBER M
+			ON S.MEM_CD = M.MEM_CD 
+		WHERE 
+			S.CODE_CD = #{codeCd} AND 
+			SCH_FK = #{schFk} AND 
+			SCH_SDATE BETWEEN #{schSdate} AND #{schEdate}
+  	</select>
+  	
+  	<!-- 나의 수술 리스트 조회 -->
+	<select id="myScheduleList" resultType="ScheduleVO" parameterType="ScheduleVO">
+		SELECT
+			SCH.*,
+			SUR.SUR_NUM 
+		FROM
+			SCHEDULE SCH JOIN SURGERY SUR
+			ON SCH.SCH_FK  = SUR_CD 
+		WHERE
+			MEM_CD = #{memCd} AND
+			CODE_CD = 15 AND
+			SCH_SDATE > NOW()
+		ORDER BY
+			SCH.SCH_SDATE DESC
+  	</select>
+  	
+  	<delete id="surgeryScheduleDelete" parameterType="scheduleVO">
+		  DELETE 
+			FROM SCHEDULE 
+		WHERE 
+			SCH_CD = #{schCd}
+	</delete>
+	
+	<select id="surgeryScheduleData" parameterType="ScheduleVO" resultType="ScheduleVO">
+		SELECT
+			*
+		FROM
+			SCHEDULE
+		WHERE 
+			SCH_CD = #{schCd}
+	</select>
+	
+	<select id="personalScheduleList" parameterType="MemberVO" resultType="ScheduleVO">
+		SELECT
+			*
+		FROM
+			SCHEDULE
+		WHERE 
+			MEM_CD = #{memCd} AND
+			CODE_CD != 26
+	</select>
+	
+	<select id="codeData" parameterType="int" resultType="CodeVO">
+		SELECT
+			*
+		FROM
+			CODE
+		WHERE 
+			CODE_CD = #{codeCd}
+	</select>
+	
+	<select id="scheduleData" parameterType="ScheduleVO" resultType="ScheduleVO">
+		SELECT
+			*
+		FROM
+			SCHEDULE
+		WHERE 
+			SCH_CD = #{schCd}
+	</select>
+	
+	<insert id="personalScheduleInsert" parameterType="ScheduleVO" useGeneratedKeys="true" keyProperty="schCd">
+		INSERT INTO 
+			SCHEDULE 
+				(
+				MEM_CD, 
+				CODE_CD, 
+				SCH_FK, 
+				SCH_SDATE, 
+				SCH_EDATE, 
+				SCH_DESC, 
+				SCH_RDATE
+				)
+			VALUES 
+				(
+				#{memCd}, 
+				#{codeCd}, 
+				#{schFk}, 
+				#{schSdate}, 
+				#{schEdate}, 
+				#{schDesc}, 
+				NOW()
+				)
+	</insert>
+	
+	<delete id="personalScheduleDelete" parameterType="ScheduleVO">
+		DELETE 
+			FROM SCHEDULE 
+		WHERE 
+			SCH_CD = #{schCd}
+	</delete>
+	
+	<select id="departmentList" resultType="DepartmentVO">
+		SELECT
+			*
+		FROM
+			DEPARTMENT
+		WHERE 
+			DEP_NAME NOT IN ('가발령')
+	</select>
+	
+	<select id="memberList" resultType="MemberVO" parameterType="int">
+		SELECT
+			M.*,
+			D.DEP_NAME
+		FROM
+			MEMBER M JOIN DEPARTMENT D
+			ON M.DEP_CD = D.DEP_CD
+		WHERE 
+			M.DEP_CD = #{depCd}
+		ORDER BY 
+			M.DEP_CD, 
+			M.MEM_NAME
+	</select>
+	
+	<select id="memberList2" resultType="MemberVO">
+		SELECT
+			M.*,
+			D.DEP_NAME
+		FROM
+			MEMBER M JOIN DEPARTMENT D
+			ON M.DEP_CD = D.DEP_CD 
+		WHERE
+			M.DEP_CD NOT IN (1)
+		ORDER BY 
+			M.DEP_CD, 
+			M.MEM_NAME
+	</select>
+	
+	<select id="teamScheduleList" parameterType="ScheduleVO" resultType="ScheduleVO">
+		SELECT
+			*
+		FROM
+			SCHEDULE
+		WHERE 
+			MEM_CD = #{memCd} AND
+			(
+			(SCH_SDATE BETWEEN #{schSdate} AND #{schEdate}) OR
+			(SCH_EDATE BETWEEN #{schSdate} AND #{schEdate}) OR
+			(#{schSdate} BETWEEN SCH_SDATE AND SCH_EDATE) OR
+			(#{schEdate} BETWEEN SCH_SDATE AND SCH_EDATE)
+			)
+		ORDER BY 
+			CODE_CD DESC
+	</select>
+	
+	<select id="departmentData" parameterType="int" resultType="DepartmentVO">
+		SELECT
+			*
+		FROM
+			DEPARTMENT
+		WHERE 
+			DEP_CD = ${value}
+	</select>
+	
+	<select id="personalScheduleCheck" resultType="ScheduleVO" parameterType="ScheduleVO">
+		SELECT
+			*
+		FROM 
+			SCHEDULE
+		WHERE 
+			SCH_CD NOT IN (#{schCd}) AND
+			MEM_CD = #{memCd} AND 
+			CODE_CD != 26 AND
+			(
+			(#{schSdate} <![CDATA[<=]]> SCH_SDATE AND #{schEdate} <![CDATA[>]]> SCH_SDATE) OR
+			(#{schSdate} <![CDATA[<]]> SCH_EDATE AND #{schEdate} <![CDATA[>=]]> SCH_EDATE) OR
+			(#{schSdate} <![CDATA[>=]]> SCH_SDATE AND #{schSdate} <![CDATA[<]]> SCH_EDATE) OR
+			(#{schEdate} <![CDATA[>]]> SCH_SDATE AND #{schEdate} <![CDATA[<=]]> SCH_EDATE)
+			)
+  	</select>
+  	
+  	<insert id="commuteInsert" parameterType="ScheduleVO" useGeneratedKeys="true" keyProperty="schCd">
+		INSERT INTO 
+			SCHEDULE 
+				(
+				MEM_CD, 
+				CODE_CD, 
+				SCH_FK, 
+				SCH_SDATE, 
+				SCH_EDATE, 
+				SCH_RDATE
+				)
+			VALUES 
+				(
+				#{memCd}, 
+				26, 
+				0, 
+				NOW(), 
+				DATE_ADD(NOW(), INTERVAL 9 HOUR), 
+				NOW()
+				)
+	</insert>
+  	
+</mapper>

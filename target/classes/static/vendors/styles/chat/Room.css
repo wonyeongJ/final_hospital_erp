@@ -1,0 +1,72 @@
+h3 {
+    margin-top: 40px !important;
+    text-align: center;
+}
+
+.col-xl1 {
+    flex: 0.4 0 0%;
+}
+
+.card .card-header + .card-body,
+.card .card-header + .card-content > .card-body:first-of-type {
+    padding-top: 0;
+    height: 550px;
+}
+
+#msgArea {
+    width: 100%;
+    height: 90%;
+    background-color: rgb(206, 206, 206);
+    padding: 0.8rem 0 1.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 각 메세지 사이의 간격 조절 */
+}
+
+.alert-primary {
+    background-color: #696CFF;
+    color: white;
+    text-align: right;
+}
+
+.msg-container {
+    display: flex;
+    justify-content: flex-end; /* 내 메세지는 오른쪽 정렬 */
+}
+
+.my-message {
+    background-color: #696CFF;
+    color: white;
+    padding: 10px; /* 메세지 간격 조절 */
+    border-radius: 10px; /* 모서리 둥글게 만들기 */
+    max-width: 70%; /* 최대 가로 길이 제한 */
+}
+
+.other-message {
+    background-color: white;
+    padding: 10px; /* 메세지 간격 조절 */
+    border-radius: 10px; /* 모서리 둥글게 만들기 */
+    max-width: 70%; /* 최대 가로 길이 제한 */
+}
+
+.msg {
+    margin: auto; /* 기본 마진 제거 */
+}
+
+.myMsg{
+    justify-content: flex-end;
+    margin-right: 1%;
+}
+.yourMsg{
+    justify-content: flex-end;
+    margin-left: 1%;
+}
+#chatDate {
+    font-size: 11px;
+    margin-top: 5px; /* 날짜 부분 간격 조절 */
+}
+
+#msgArea::-webkit-scrollbar {
+    width: 10
+}

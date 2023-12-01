@@ -1,0 +1,62 @@
+.scheduleList{
+	border: 2px solid #bcbcbc;
+	width: 720px;
+	height: 30px;
+	border-radius: 8px;
+	border-collapse: separate;
+}
+
+.t{
+	background-color: rgb(132, 248, 203);
+}
+
+.f{
+	background-color: rgb(255, 169, 226);
+}
+
+.time-table-1{
+	position: relative; 
+	left: 3%;
+	width: 100;
+	text-align: center;
+}
+
+.description{
+	position: relative; 
+	left: 42%;
+}
+
+#schedule-insert-btn{
+	position: relative; 
+	left: 42%;
+}
+
+#schedule-update-btn{
+	position: relative; 
+	left: 39%;
+}
+
+label{
+	font-size: large;
+}
+
+.green-dot{
+	color: rgb(132, 248, 203);
+}
+
+.red-dot{
+	color: rgb(255, 169, 226);
+}
+
+#schedule-insert-all-component{
+	position: relative; 
+	left: 23%;
+}
+
+#particiant-place{
+	width: 45%;
+	height: auto;
+	position: relative; 
+	left: 3%;
+}
+

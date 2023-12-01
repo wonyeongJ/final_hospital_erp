@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+        <definition name="baseLayout" template="/WEB-INF/views/layout/baseLayout.jsp">
+                <put-attribute name="topbar" value="/WEB-INF/views/layout/topbar.jsp" />
+                <put-attribute name="preloader" value="/WEB-INF/views/layout/preloader.jsp" />
+                <put-attribute name="rSidebar" value="/WEB-INF/views/layout/rSidebar.jsp" />
+                <put-attribute name="sidebar" value="/WEB-INF/views/layout/sidebar.jsp" />
+                <put-attribute name="body" value="" />
+        </definition>
+        
+        <definition name="ajaxLayout" template="/WEB-INF/views/layout/ajaxLayout.jsp">
+                <put-attribute name="body" value="" />
+        </definition>
+
+        <definition name="root.index" template="/WEB-INF/views/layout/loginLayout.jsp">
+         	<put-attribute name="preloader" value="/WEB-INF/views/layout/preloader.jsp" />
+            <put-attribute name="body" value="/WEB-INF/views/member/login.jsp" />
+        </definition>
+        
+        <definition name="ajax.*/*" extends="ajaxLayout">
+        	<put-attribute name="preloader" value="/WEB-INF/views/layout/preloader.jsp" />
+            <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+        </definition>
+        
+        <definition name="*/*" extends="baseLayout">
+            <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+        </definition>
+ 
+        <definition name="*/*/*" extends="baseLayout">
+            <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+        </definition>
+        
+       
+        
+        
+</tiles-definitions>

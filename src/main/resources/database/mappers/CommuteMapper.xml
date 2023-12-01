@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.hospital.erp.commute.CommuteDAO">
+	
+	<insert id="commuteInsert" parameterType="CommuteVO">
+		INSERT INTO
+			COMMUTE
+		VALUES
+			(
+			NULL,
+			#{memCd},
+			now(),
+			NULL,
+			1
+			)
+	</insert>
+	
+	<select id="commuteData" parameterType="CommuteVO" resultType="CommuteVO">
+	
+		SELECT 
+			* 
+		FROM 
+			COMMUTE 
+		WHERE 
+			MEM_CD = #{memCd} AND 
+			COM_SDATE > DATE_FORMAT(NOW(), '%Y-%m-%d')
+			
+	</select>
+	
+	<update id="commuteUpdate" parameterType="CommuteVO">
+		UPDATE
+			COMMUTE
+		SET
+			COM_EDATE = NOW(),
+			COM_WORK = 0
+		WHERE 
+			MEM_CD = #{memCd} AND
+			COM_WORK = 1
+	</update>
+	
+	<update id="commuteUpdateScheduler">
+		UPDATE
+			COMMUTE
+		SET 
+			COM_EDATE = DATE_ADD(COM_SDATE, INTERVAL 9 HOUR),
+			COM_WORK = 0
+		WHERE
+			MEM_CD IN
+					(
+					SELECT 
+						MEM_CD
+					FROM 
+						COMMUTE
+					WHERE 
+						COM_WORK = 1
+					)
+	</update>
+	
+  	
+</mapper>

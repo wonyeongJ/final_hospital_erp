@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.hospital.erp.equipment.EquipmentDAO">
+
+	<!-- 전체 비품 리스트 조회 -->
+	<select id="equipmentList" resultMap="equipmentListResult">
+		SELECT
+			T.*,
+			EH.MEM_CD,
+			EH.EH_RETURN,
+			EH.EH_SDATE,
+			EH.EH_REDATE,
+			EH.EH_RDATE,
+			M.MEM_NAME,
+			C.CODE_NAME,
+			C.CODE_USE
+		FROM 
+			(SELECT
+				E.*,
+				MAX(EH.EH_CD) AS EH_CD
+			FROM
+				EQUIPMENT E 
+				LEFT OUTER JOIN EQUIPMENT_HISTORY EH
+				ON E.EQU_CD = EH.EQU_CD
+			GROUP BY 
+				EQU_CD
+			) T LEFT OUTER JOIN EQUIPMENT_HISTORY EH
+			ON T.EH_CD = EH.EH_CD
+			LEFT OUTER JOIN MEMBER M
+			ON EH.MEM_CD = M.MEM_CD 
+			LEFT OUTER JOIN CODE C
+			ON T.CODE_CD = C.CODE_CD
+		WHERE 
+			C.CODE_USE = 1 AND 
+			T.EQU_DELETE = 0
+  	</select>
+  	
+  	<!-- 카테고리 별 비품 리스트 조회 -->
+	<select id="equipmentListCategorySelected" parameterType="CodeVO" resultMap="equipmentListResult">
+		SELECT
+			T.*,
+			EH.MEM_CD,
+			EH.EH_RETURN,
+			EH.EH_SDATE,
+			EH.EH_REDATE,
+			EH.EH_RDATE,
+			M.MEM_NAME,
+			C.CODE_NAME,
+			C.CODE_USE
+		FROM 
+			(SELECT
+				E.*,
+				MAX(EH.EH_CD) AS EH_CD
+			FROM
+				EQUIPMENT E 
+				LEFT OUTER JOIN EQUIPMENT_HISTORY EH
+				ON E.EQU_CD = EH.EQU_CD
+			GROUP BY 
+				EQU_CD
+			) T LEFT OUTER JOIN EQUIPMENT_HISTORY EH
+			ON T.EH_CD = EH.EH_CD
+			LEFT OUTER JOIN MEMBER M
+			ON EH.MEM_CD = M.MEM_CD 
+			LEFT OUTER JOIN CODE C
+			ON T.CODE_CD = C.CODE_CD
+		WHERE 
+			C.CODE_NAME = #{codeName} AND
+			C.CODE_USE = 1 AND 
+			T.EQU_DELETE = 0
+  	</select>
+  	
+<!--  	<resultMap type="EquipmentVO" id="equipmentListResult">
+		<result column="EQU_CD" property="equCd"/>
+		<result column="CODE_CD" property="codeCd"/>
+		<result column="CODE_NAME" property="codeName"/>
+		<result column="EQU_SNUM" property="equSnum"/>
+		<result column="EQU_DELETE" property="equDelete"/>
+		<result column="EQU_PDATE" property="equPdate"/>
+		<result column="EQU_RDATE" property="equRdate"/>
+		<collection property="equipmentHistoryVO" javaType="java.util.List" ofType="EquipmentHistoryVO">
+  			<id column="EH_CD" property="ehCd"/>
+  			<result column="MEM_CD" property="memCd"/>
+  			<result column="EQU_CD" property="equCd"/>
+  			<result column="EH_SDATE" property="ehSdate"/>
+  			<result column="EH_REDATE" property="ehRedate"/>
+  			<result column="EH_RDATE" property="ehRdate"/>
+  			<result column="MEM_NAME" property="memName"/>
+  		</collection>
+	</resultMap> 
+-->
+	
+	<resultMap type="EquipmentHistoryVO" id="EquipmentHistoryVO">
+  		<result column="EH_CD" property="ehCd"/>
+  		<result column="MEM_CD" property="memCd"/>
+  		<result column="EQU_CD" property="equCd"/>
+  		<result column="EH_RETURN" property="ehReturn"/>
+  		<result column="EH_SDATE" property="ehSdate"/>
+  		<result column="EH_REDATE" property="ehRedate"/>
+  		<result column="EH_RDATE" property="ehRdate"/>
+  		<result column="MEM_NAME" property="memName"/>
+	</resultMap>
+	
+	<resultMap type="EquipmentVO" id="equipmentListResult">
+		<result column="EQU_CD" property="equCd"/>
+		<result column="CODE_CD" property="codeCd"/>
+		<result column="CODE_NAME" property="codeName"/>
+		<result column="EQU_SNUM" property="equSnum"/>
+		<result column="EQU_DELETE" property="equDelete"/>
+		<result column="EQU_PDATE" property="equPdate"/>
+		<result column="EQU_RDATE" property="equRdate"/>
+		<collection property="equipmentHistoryVO" resultMap="EquipmentHistoryVO"/>
+	</resultMap>
+  	
+  	<!-- 전체 비품 카테고리 조회 -->
+  	<select id="categoriesList" resultType="CodeVO">
+		SELECT
+			*
+		FROM
+			CODE
+		WHERE 	
+			CODE_GID = 5 AND 
+			CODE_USE = 1
+  	</select>
+  	
+  	<!-- 비품 카테고리 수정 -->
+  	<update id="codeUpdate" parameterType="CodeVO">	
+  		UPDATE 
+			CODE 
+		SET 
+			CODE_NAME = #{codeName}
+		WHERE 
+			CODE_CD = #{codeCd}
+  	</update>
+  	
+  	<!-- 비품 카테고리 추가 -->
+  	<insert id="codeInsert" parameterType="CodeVO" useGeneratedKeys="true" keyProperty="codeCd">
+	  	INSERT INTO 
+			CODE(
+				CODE_NAME, 
+				CODE_GID, 
+				CODE_GNAME, 
+				CODE_USE, 
+				CODE_RDATE
+				)
+			VALUES 
+				(
+				#{codeName}, 
+				5, 
+				'CATEGORY', 
+				1, 
+				NOW()
+				)
+  	</insert>
+  	
+  	<!-- 비품 카테고리 논리삭제 -->
+  	<update id="codeDelete" parameterType="CodeVO">
+	  	UPDATE 
+			CODE 
+		SET 
+			CODE_USE = 0
+		WHERE 
+			CODE_CD = #{codeCd} AND 
+			CODE_NAME = #{codeName}
+  	</update>
+  	
+  	<!-- codeName으로 (codeCd을 얻기 위해) CODE TABLE의 해당 인스턴스 1건 조회 -->
+  	<select id="equipmentCodeData" parameterType="CodeVO" resultType="CodeVO">
+		SELECT
+			*
+		FROM
+			CODE
+		WHERE 	
+			CODE_NAME = #{codeName}
+  	</select>
+  	
+  	<!-- codeCd로 (codeName을 얻기 위해) CODE TABLE의 해당 인스턴스 1건 조회 -->
+  	<select id="equipmentCodeData2" parameterType="CodeVO" resultType="CodeVO">
+		SELECT
+			*
+		FROM
+			CODE
+		WHERE 	
+			CODE_CD = #{codeCd}
+  	</select>
+  	
+	<!-- 비품 추가 -->
+  	<insert id="equipmentInsert" parameterType="EquipmentVO" useGeneratedKeys="true" keyProperty="equCd">
+	  	INSERT INTO 
+			EQUIPMENT 
+				(
+				CODE_CD, 
+				EQU_SNUM, 
+				EQU_DELETE, 
+				EQU_PDATE, 
+				EQU_RDATE
+				)
+			VALUES 
+				(
+				#{codeCd}, 
+				#{equSnum}, 
+				0, 
+				#{equPdate}, 
+				NOW()
+				)
+  	</insert>
+  	
+  	<!-- equCd로 (codeCD를 얻기 위해) EQUIPMENT TABLE의 해당 인스턴스 1건 조회 -->
+  	<select id="equipmentData" parameterType="EquipmentVO" resultType="EquipmentVO">
+		SELECT
+			*
+		FROM
+			EQUIPMENT
+		WHERE 	
+			EQU_CD = #{equCd}
+  	</select>
+  	
+  	<!-- equCd로 해당 equipment의 history를 조회 -->
+  	<select id="historyList" parameterType="EquipmentVO" resultType="EquipmentHistoryVO">
+		SELECT
+			*
+		FROM
+			EQUIPMENT_HISTORY
+		WHERE 	
+			EQU_CD = #{equCd}
+  	</select>
+  	
+  	<!-- memCd로 해당 MEMBER의 인스턴스를 조회 -->
+  	<select id="memberData" parameterType="Integer" resultType="MemberVO">
+		SELECT
+			*
+		FROM
+			MEMBER
+		WHERE 	
+			MEM_CD = #{value}
+  	</select>
+  	
+  	<!-- 비품 논리삭제 -->
+  	<update id="equipmentDelete" parameterType="EquipmentVO">
+	  	UPDATE 
+			EQUIPMENT 
+		SET 
+			EQU_DELETE = 1
+		WHERE 
+			EQU_CD = #{equCd}
+  	</update>
+  	
+  	<!-- 비품 수정 -->
+  	<update id="equipmentUpdate" parameterType="EquipmentVO">
+		UPDATE 
+			EQUIPMENT 
+		SET 
+			CODE_CD = #{codeCd},
+			EQU_SNUM = #{equSnum},
+			EQU_PDATE = #{equPdate}
+		WHERE 
+			EQU_CD = #{equCd}
+  	</update>
+  	
+  	<!-- 비품 예약 추가 -->
+  	<insert id="equipmenthistoryInsert" parameterType="EquipmentHistoryVO" useGeneratedKeys="true" keyProperty="ehCd">
+		INSERT INTO 
+			EQUIPMENT_HISTORY 
+				(
+				MEM_CD, 
+				EQU_CD, 
+				EH_RETURN, 
+				EH_SDATE, 
+				EH_REDATE, 
+				EH_RDATE
+				)
+			VALUES 
+				(
+				#{memCd}, 
+				#{equCd}, 
+				1, 
+				NOW(), 
+				#{ehRedate}, 
+				NOW()
+				)
+  	</insert>
+  	
+  	<!-- 비품 대여 내역 논리 삭제 -->
+  	<update id="historyDelete" parameterType="EquipmentHistoryVO">	
+		UPDATE 
+			EQUIPMENT_HISTORY
+		SET 
+			EH_RETURN = 0
+		WHERE 
+			EH_CD = #{ehCd}
+  	</update>
+  	
+  	<!-- 비품 대여 1건 조회 -->
+  	<select id="equipmentHistoryData" parameterType="EquipmentHistoryVO" resultType="EquipmentHistoryVO">	
+		SELECT
+			*
+		FROM
+			EQUIPMENT_HISTORY
+		WHERE 
+			EH_CD = #{ehCd}
+  	</select>
+  	
+  	<!-- 비품 대여 1건 조회 -->
+  	<select id="equipmentHistoryCheck" parameterType="EquipmentHistoryVO" resultType="EquipmentHistoryVO">	
+		SELECT
+			EH.*
+		FROM
+			(
+			SELECT
+				MAX(EH_CD) AS EH_CD
+			FROM
+				EQUIPMENT_HISTORY
+			WHERE 
+				EQU_CD = #{equCd}
+			) T JOIN EQUIPMENT_HISTORY EH 
+			ON T.EH_CD = EH.EH_CD
+  	</select>
+  	
+  	<!-- 특정 카테고리에 해당하는 비품이 존재하는지 체크 -->
+  	<select id="codeCheck" parameterType="CodeVO" resultType="EquipmentVO">	
+		SELECT
+			*
+		FROM
+			EQUIPMENT
+		WHERE
+			CODE_CD = #{codeCd} AND
+			EQU_DELETE = 0
+		GROUP BY 
+			CODE_CD
+  	</select>
+  	
+  	<select id="mypageList" parameterType="MemberVO">
+		SELECT
+			EH.EH_CD,
+			C.CODE_NAME AS MEM_NAME,
+			E.EQU_SNUM AS EH_SNUM,
+			DATE_FORMAT(EH.EH_SDATE, '%Y-%m-%d') AS PROCESSED_SDATE,
+			DATE_FORMAT(EH.EH_REDATE , '%Y-%m-%d')AS PROCESSED_REDATE, 
+			EH_RETURN 
+		FROM 
+			EQUIPMENT_HISTORY AS EH
+			JOIN EQUIPMENT AS E
+				ON EH.EQU_CD = E.EQU_CD 
+			JOIN CODE AS C
+				ON E.CODE_CD = C.CODE_CD 
+		WHERE 
+			EH.MEM_CD = #{memCd}
+		ORDER BY 
+			EH_RETURN DESC
+  	
+  	</select></mapper>
